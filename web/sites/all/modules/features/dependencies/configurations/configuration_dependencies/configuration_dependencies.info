@@ -9,5 +9,6 @@ dependencies[] = configure_performance
 dependencies[] = configure_search
 dependencies[] = configure_spam_prevention
 dependencies[] = configure_text_editing
+dependencies[] = configure_theme
 dependencies[] = configure_user_accounts
 features[features_api][] = api:2
