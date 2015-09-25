@@ -1,0 +1,43 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function radio_autocomplete_menu() {
+  return RadioAutoComplete::buildRoutes();
+}
+
+/**
+ * Implements hook_form_alter
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function radio_autocomplete_form_alter(&$form, &$form_state, $form_id) {
+  RadioAutoComplete::attach($form);
+}
+
+
+function radio_autocomplete_field_person_profile($string) {
+  $matches = RadioAutoComplete::fuzzyMatchPersonProfileShowHosts($string);
+  drupal_json_output($matches);
+}
+
+
+function radio_autocomplete_field_program($string) {
+  $matches = RadioAutoComplete::fuzzyMatchProgramStreams($string);
+  drupal_json_output($matches);
+}
+
+
+function radio_autocomplete_field_related_show_hosts($string) {
+  $matches = RadioAutoComplete::fuzzyMatchPersonProfileShowHosts($string);
+  drupal_json_output($matches);
+}
+
+
+function radio_autocomplete_field_related_organizations($string) {
+  $matches = RadioAutoComplete::fuzzyMatchOrganizationVenues($string);
+  drupal_json_output($matches);
+}

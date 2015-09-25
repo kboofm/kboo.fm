@@ -1,0 +1,22 @@
+<?php
+
+/**
+ * Implements hook_pathauto_alias_alter().
+ *
+ * @param $alias
+ * @param array $context
+ */
+function radio_core_pathauto_alias_alter(&$alias, array &$context) {
+  $parts = explode('/', $alias);
+
+  if (!$parts || count($parts) < 2) {
+    return;
+  }
+
+  $last = array_pop($parts);
+  $second = array_pop($parts);
+
+  if ($last == $second) {
+    $alias = $last;
+  }
+}

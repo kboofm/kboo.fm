@@ -1,0 +1,16 @@
+<?php
+
+/**
+* Implements hook_node_presave()
+*
+* @param $node
+*/
+function radio_act_node_presave($node) {
+  if ($node->type != 'act') {
+    return;
+  }
+
+  if (empty($node->title)) {
+    $node->title = ActContentType::getFullName($node);
+  }
+}

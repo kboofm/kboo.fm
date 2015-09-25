@@ -1,0 +1,16 @@
+<?php
+
+/**
+ * Render admin theme for node form urls
+ *
+ * @return string
+ */
+function radio_forms_custom_theme() {
+  $is_node = (arg(0) == 'node');
+  $adding = (arg(1) == 'add');
+  $editing = (arg(2) == 'edit');
+
+  if ($is_node && ($adding || $editing)) {
+    return 'adminimal';
+  }
+}
