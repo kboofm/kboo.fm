@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Standalone Media feature.
+ */
+
+include_once 'content_type_standalone_media.features.inc';

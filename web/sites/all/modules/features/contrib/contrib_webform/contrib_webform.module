@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Webform feature.
+ */
+
+include_once 'contrib_webform.features.inc';

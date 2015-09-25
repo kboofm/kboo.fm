@@ -1,0 +1,13 @@
+name = Configurations
+description = Configurations that the site depends on
+core = 7.x
+package = Dependencies
+version = 7.x-1.0
+dependencies[] = configure_admin_ui
+dependencies[] = configure_metatags
+dependencies[] = configure_performance
+dependencies[] = configure_search
+dependencies[] = configure_spam_prevention
+dependencies[] = configure_text_editing
+dependencies[] = configure_user_accounts
+features[features_api][] = api:2

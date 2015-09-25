@@ -1,0 +1,9 @@
+name = Contrib Modules - Prod
+description = The core and contributed modules that the prod site depends on
+core = 7.x
+package = Dependencies
+version = 7.x-1.1
+project = contrib_module_dependencies
+dependencies[] = contrib_module_dependencies_base
+dependencies[] = cdn
+features[features_api][] = api:2

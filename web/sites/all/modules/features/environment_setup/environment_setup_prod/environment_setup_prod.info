@@ -1,0 +1,16 @@
+name = Environment Setup - Prod
+description = Enable this feature to spin up the prod environment
+core = 7.x
+package = Environment Setup
+version = 7.x-1.0
+project = environment_setup_prod
+
+dependencies[] = contrib_module_dependencies_prod
+dependencies[] = taxonomy_vocabularies
+dependencies[] = content_types_dependencies
+dependencies[] = entities_dependencies
+dependencies[] = taxonomy_dependencies
+dependencies[] = contrib_modifications_dependencies
+dependencies[] = configuration_dependencies
+dependencies[] = custom_module_dependencies_base
+features[features_api][] = api:2

@@ -1,0 +1,9 @@
+name = Taxonomy
+description = The extra taxonomy vocabularies that the site depends on
+core = 7.x
+package = Dependencies
+version = 7.x-1.0
+project = taxonomy_dependencies
+dependencies[] = taxonomy_vocabularies
+dependencies[] = taxonomy_vocabulary_section
+features[features_api][] = api:2

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Content Type - Person Profile feature.
+ */
+
+include_once 'content_type_person_profile.features.inc';

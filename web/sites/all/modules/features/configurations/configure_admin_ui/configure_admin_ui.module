@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Config Admin UI feature.
+ */
+
+include_once 'configure_admin_ui.features.inc';
