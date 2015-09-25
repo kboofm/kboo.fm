@@ -1,0 +1,8 @@
+
+/* for gradient support */
+ul#superfish-1 li#menu-851-1 a.sf-depth-1,
+ul#superfish-1 li#menu-780-1 a.sf-depth-1,
+ul#superfish-1 li#menu-852-1 a.sf-depth-1,
+input.form-submit, button {
+	 filter: none;
+}

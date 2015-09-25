@@ -1,0 +1,270 @@
+/* This file will hold styles that are loaded using the same media query as the narrow grid. */
+/* If you are using the default media queries provided by Omega, these styles will also
+ *  apply to the normal and widescreen layouts. You may override these styles in the normal 
+ *  and widescreen CSS files as appropriate. */
+ 
+
+
+
+br.rwd-narrow-only {
+	display:block;
+}
+
+#region-branding {
+	padding-top:30px;
+}
+
+#region-branding .logo-img img {
+	height: 85px;
+}
+
+
+
+
+/* Main Menu Styles */
+ul#superfish-1 a {
+	font-size: 14px;
+}
+ul#superfish-1 li.sf-depth-1 a.sf-depth-1 {
+  text-indent: 5px;
+}
+ul#superfish-1 li.sf-depth-1,
+ul#superfish-1 li.sf-depth-1 ul {
+	width: 105px;
+}
+ul#superfish-1 li.sf-depth-2 a {
+	font-size: 12px;
+}
+
+
+/* fields on content, general styles */
+.field-label-above .field-label {
+	width:9em;	
+}
+	
+
+/* fields on content, specific fields */
+#block-system-main .field-name-field-image, #block-system-main .field-name-field-image img {
+	width:150px;
+}
+
+#block-system-main .field-name-field-date, #block-system-main .field-name-field-location, #block-system-main .field-name-field-cost {
+	display:block;
+	margin-top:0;	
+} 
+ #block-system-main .field-name-field-date .field-label, #block-system-main .field-name-field-date .field-items, #block-system-main .field-name-field-location .field-label, #block-system-main .field-name-field-location .field-items, #block-system-main .field-name-field-cost .field-label, #block-system-main .field-name-field-cost .field-items {
+	display:block;
+	width:auto;
+	margin-left:0;
+	text-align:left;
+}
+
+
+/* view blocks and image adjustments */ 
+#region-sidebar-first .block-views {
+	width:220px;
+}
+
+.front #region-content .block-views {
+	width:100%;
+	margin-bottom:20px;
+}
+
+.feature_mini_teaser .teaser-image, .feature_mini_teaser .teaser-image img {
+	width:60px;
+}
+
+.feature_teaser .teaser-image, .feature_teaser .teaser-image img {
+	width:220px;
+}
+
+.node-teaser .teaser-image, .node-teaser .teaser-image img {
+	clear:both;
+}
+
+#region-sidebar-first .block-views .node-teaser .teaser-image {
+	margin-bottom:4px;
+}
+
+#region-sidebar-first .block-views .node-teaser h2.node-title, 
+#region-sidebar-first .block-views .node-teaser .field-type-taxonomy-term-reference:first-child {
+	clear:both;
+	width:100%;
+}
+
+
+/* relations meta-blocks on profile pages */
+.block-c4-relations-block .listCol1,
+.block-c4-relations-block .listCol2 {
+	float: none;
+	list-style: none;
+}
+
+.block-c4-relations-block .listCol2 {
+	margin-left: 0;
+}
+
+
+/* gallery fields */
+.galleryformatter-ushrn {
+	width: 482px;
+}
+
+.galleryformatter-ushrn .gallery-slides,
+.galleryformatter-ushrn .gallery-slides li,
+.galleryformatter-ushrn .gallery-thumbs {
+  width: 400px;
+}
+
+.galleryformatter-ushrn .gallery-slides,
+.galleryformatter-ushrn .gallery-slides li {
+  height: 250px;
+}
+
+/* homepage blocks */
+
+body.front .our-work-block,
+body.front .about-us-block, 
+body.front .members-block
+{
+	width:198px;
+	border-radius: 0px;
+	-webkit-border-radius: 0px;
+	-moz-border-radius: 0px;
+	height:145px;
+}
+
+body.front .mission-block h3,
+body.front .our-work-block h3,
+body.front .about-us-block h3, 
+body.front .members-block h3,
+body.front #join-banner h3
+{
+	font-size:16px;
+}
+
+body.front #join-banner h3
+{
+	margin-bottom:8px;
+}
+
+#block-block-7 h3{
+  padding: 0;
+  font-size: 18px;
+}
+
+body.front #block-block-6,
+body.front #block-block-3 {
+	display:inline-block;
+	height:230px;
+	vertical-align: top;
+}
+
+body.front #block-block-3 {
+	width:466px;
+	font-size:14px;
+	line-height:24px;
+	background-position: center -175px;
+}	
+
+body.front #block-block-6 {
+	width:234px;
+	background-position: -215px top;
+}
+
+#join-banner {
+  width: auto;
+  padding: 10px;
+}
+
+#join-banner a{
+  width: 40%;
+  height: 25px;
+  line-height: 25px;
+  margin: 10px 0;
+}
+
+/* join sidebar */
+
+#join-sidebar a {
+	width:70px;
+	font-size:14px;
+	line-height:14px;
+	padding:7px 5px;
+}
+
+.join-sidebar-text {
+	font-size:18px;
+}
+
+#join-sidebar .join-donate-inner {
+
+}
+
+#join-sidebar .join-email {
+	top:0px;
+}
+
+/* footer adjustments */
+
+#region-postscript-first {
+	width: 375px;
+}
+
+#region-postscript-first .block-menu-block-6 {
+	width:340px;
+}
+
+#region-postscript-first .menu-block-6 ul li.menu-mlid-863 {
+	margin-top:20px;
+}
+
+#block-menu-menu-home-contact-join-footer-me {
+	width: 435px;
+	margin: 50px 0px 10px 150px;
+} 
+
+#region-postscript-second {
+	width: 300px;
+} 
+
+/* pagers */
+.item-list .pager li {
+	margin:0px 3px;
+}
+
+.pager li.pager-ellipsis {
+  margin: 15px -5px 0;
+}
+
+.pager li.pager-current, 
+.pager li a {
+	padding: 8px 12px;
+}
+
+.feed-icon {
+	margin-top:40px;
+}
+
+/* Share This */
+.share-buttons {
+	margin: 0 10px;
+	width: 688px;
+}
+
+
+/* form fields - salsa donation forms */
+#zone-content .donation #right_container {
+	float:left;
+	width:40%;
+}
+#zone-content .donation #left_container {
+	float:left;
+	width:50%;
+}
+#zone-content .salsa .orderform #left_container {
+	float: left;
+	clear: none;
+	margin-right: 10px;
+	width:50%;
+}
