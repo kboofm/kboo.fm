@@ -1,0 +1,21 @@
+# Ignore configuration files that may contain sensitive information.
+web/sites/*/settings*.php
+
+# Ignore paths that contain generated content.
+web/files
+web/sites/*/files
+web/sites/*/private
+
+# Ignore default text files
+web/robots.txt
+web/CHANGELOG.txt
+web/COPYRIGHT.txt
+web/INSTALL*.txt
+web/LICENSE.txt
+web/MAINTAINERS.txt
+web/UPGRADE.txt
+web/README.txt
+web/sites/all/README.txt
+web/sites/all/modules/README.txt
+web/sites/all/themes/README.txt
+web/sites/all/modules/local/
