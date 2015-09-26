@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * Implements hook_variable_info().
+ */
+function radio_notifications_variable_info() {
+  return RadioNotifications::defineVariables();
+}
+
+
+/**
+ * Implements hook_mail().
+ *
+ * @param $key
+ * @param $message
+ * @param $params
+ */
+function radio_notifications_mail($key, &$message, $params) {
+  RadioNotifications::defineEmail($key, $message, $params);
+}
+
+
+/**
+ * Implements hook_comment_presave().
+ *
+ * @param $comment
+ */
+function radio_notifications_comment_presave($comment) {
+  RadioNotifications::commentSendEmail($comment);
+}

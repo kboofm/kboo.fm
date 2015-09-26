@@ -1,0 +1,5 @@
+name = Radio Forms
+description = Radio code for blog_post content type
+package = Radio - Utilities
+core = 7.x
+version = 7.x-1.0

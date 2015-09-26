@@ -1,0 +1,8 @@
+name = Entities
+description = The entities that the site depends on
+core = 7.x
+package = Dependencies
+version = 7.x-1.0
+project = entities
+dependencies[] = entity_file_types
+features[features_api][] = api:2

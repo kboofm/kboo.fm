@@ -1,0 +1,8 @@
+name = Radio Notifications
+description = Radio code for sending notifications
+package = Radio - Notifications
+core = 7.x
+version = 7.x-1.0
+
+dependencies[] = variable
+files[] = lib/RadioNotifications.inc

@@ -1,0 +1,17 @@
+name = Performance
+description = Performance settings 
+core = 7.x
+package = Configurations
+version = 7.x-1.0
+dependencies[] = ctools
+dependencies[] = strongarm
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = block_cache
+features[variable][] = cache
+features[variable][] = cache_class_cache_ctools_css
+features[variable][] = cache_lifetime
+features[variable][] = page_cache_maximum_age
+features[variable][] = page_compression
+features[variable][] = preprocess_css
+features[variable][] = preprocess_js

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the User Accounts feature.
+ */
+
+include_once 'configure_user_accounts.features.inc';

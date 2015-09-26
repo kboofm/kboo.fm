@@ -1,0 +1,19 @@
+{
+  "name": "KBOO",
+  "version": "0.0.1",
+  "authors": [
+    "C4 Tech & Design <web@c4tech.com>"
+  ],
+  "description": "KBOO Bootstrap Theme",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.2",
+    "html5shiv": "~3.7.2",
+    "fontawesome": "~4.3.0",
+    "bootstrap-grid-columns-clearing": "*",
+    "trunk8": "~1.3.3",
+    "yamm3": "~1.1.0"
+  }
+}

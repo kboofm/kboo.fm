@@ -1,0 +1,18 @@
+name = Custom Modules - Base
+description = The custom modules that all environments depends on
+core = 7.x
+package = Dependencies
+version = 7.x-1.0
+project = custom_module_dependencies_base
+
+; Custom modules - utilities
+dependencies[] = radio_core
+dependencies[] = radio_autocomplete
+dependencies[] = radio_forms
+dependencies[] = radio_notifications
+
+; Custom modules - content types
+dependencies[] = radio_act
+dependencies[] = radio_blog_post
+dependencies[] = radio_organization
+features[features_api][] = api:2

@@ -1,0 +1,13 @@
+name = Admin UI
+description = Admin theme and usability bits for admin users
+core = 7.x
+package = Configurations
+version = 7.x-1.0
+dependencies[] = admin_menu
+dependencies[] = adminimal_admin_menu
+features[ctools][] = strongarm:strongarm:1
+features[features_api][] = api:2
+features[variable][] = admin_theme
+features[variable][] = adminimal_admin_menu_core-toolbar-disabled
+features_exclude[dependencies][ctools] = ctools
+features_exclude[dependencies][strongarm] = strongarm

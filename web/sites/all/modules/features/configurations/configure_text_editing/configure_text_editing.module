@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Configure Text Editing feature.
+ */
+
+include_once 'configure_text_editing.features.inc';

@@ -1,0 +1,351 @@
+/* This file will hold styles that are loaded using the same media query as the wide grid. */
+
+ /* logo container, faux vertical centering */
+#region-branding {
+	padding-top:15px;
+}
+#region-branding .logo-img img {
+	width:451px;
+}
+
+/* Header background adjust */
+#zone-header-wrapper {
+  background-position: 58% bottom;
+}
+
+/* Main Menu Styles */
+div.region-menu {
+}
+ul#superfish-1 a {
+	font-size: 18px;
+}
+ul#superfish-1 li.sf-depth-1 {
+  height: 46px;
+	line-height: 46px;
+	width: 148px;
+}
+
+ul#superfish-1 li.sf-depth-1 ul {
+	top: 48px;
+	width: 148px;
+}
+
+
+
+/* fields on content, general styles */
+.field-label-above .field-label {
+	width:11em;	
+}
+
+
+/* fields on content, specific fields */
+#block-system-main .field-name-field-image, #block-system-main .field-name-field-image img {
+	width:380px;
+}
+
+#block-system-main .content-with-image .field-name-field-date, #block-system-main .content-with-image .field-name-field-location, #block-system-main .content-with-image .field-name-field-cost {
+	float:right;
+	clear:right;
+	width:370px;
+	margin-left:10px;
+} 
+
+
+
+/* view block lists */
+.front #region-content .block-views, #region-sidebar-first .block-views, #region-content .block-c4-relations-block .block-views {
+	width:380px;
+	display:inline-block;
+	vertical-align:top;	
+}
+
+#region-sidebar-first .block-views .node-teaser .teaser-image {
+	margin-bottom:0;
+}
+
+
+/* aiming for lists that are not in block columns */
+#region-content .node-teaser .teaser-image, #region-content .node-teaser .teaser-image img {
+	width:220px;
+}
+/* aiming for lists that in restricted columns for teaser + mini feature teaser */
+.front #region-content .node-teaser .teaser-image, .front #region-content .node-teaser .teaser-image img, .node-type-categorization #region-content .node-teaser .teaser-image, .node-type-categorization #region-content .node-teaser .teaser-image img, .node-type-initiative #region-content .node-teaser .teaser-image, .node-type-initiative #region-content .node-teaser .teaser-image img, .node-type-issue #region-content .node-teaser .teaser-image, .node-type-issue #region-content .node-teaser .teaser-image img, .node-type-member-organization #region-content .node-teaser .teaser-image, .node-type-member-organization #region-content .node-teaser .teaser-image img, #region-sidebar-first .node-teaser .teaser-image, #region-sidebar-first .node-teaser .teaser-image img  {
+	width:150px;
+	clear:none;
+}
+
+.feature_mini_teaser .teaser-image, .feature_mini_teaser .teaser-image img {
+	width:100px;
+}
+
+.feature_teaser .teaser-image, .feature_teaser .teaser-image img {
+	width:380px;
+}
+
+#region-content .node-teaser h2.node-title  {
+	font-size:19px;
+}
+#region-sidebar-first .block-views .node-teaser h2.node-title, 
+#region-sidebar-first .block-views .node-teaser .field-type-taxonomy-term-reference:first-child {
+	clear:none;
+	width:auto;
+}
+
+/* relations meta-blocks on profile pages */
+.block-c4-relations-block .listCol1,
+.block-c4-relations-block .listCol2 {
+	float: left;
+	list-style: none;
+}
+.block-c4-relations-block .listCol2 {
+	padding-left:18px;
+}
+
+
+/* gallery fields */
+.galleryformatter-ushrn {
+  width: 592px;
+}
+
+.galleryformatter-ushrn .gallery-slides,
+.galleryformatter-ushrn .gallery-slides li,
+.galleryformatter-ushrn .gallery-thumbs {
+  width: 500px;
+}
+
+.galleryformatter-ushrn .gallery-slides,
+.galleryformatter-ushrn .gallery-slides li {
+  height: 312px;
+}
+
+.galleryformatter-ushrn .gallery-thumbs {
+  padding: 0 46px;
+}
+
+.galleryformatter-ushrn .gallery-thumbs li {
+  width: 121px;
+  height: 101px;
+}
+
+.galleryformatter-ushrn .gallery-thumbs .arrow,
+.galleryformatter-ushrn .slide-button,
+.galleryformatter-ushrn .view-full {
+  height: 43px;
+  width: 46px;
+}
+
+.galleryformatter-ushrn .gallery-thumbs .forward,
+.galleryformatter-ushrn .next-slide {
+  background-position: center 0px;
+}
+
+.galleryformatter-ushrn .gallery-thumbs .forward:hover { 
+  background-position: center -46px; 
+}
+
+.galleryformatter-ushrn .gallery-thumbs .back,
+.galleryformatter-ushrn .prev-slide {
+  background-position: center -92px;
+}
+
+.galleryformatter-ushrn .gallery-thumbs .back:hover {
+  background-position: center -143px;
+}
+
+.galleryformatter-ushrn .view-full {
+  background-position:center -188px;
+  margin:10px;
+}
+
+.galleryformatter-ushrn a:hover .view-full {
+  background-position: center -231px;
+}
+
+
+/* homepage slideshow */
+
+.view-id-homepage_slideshow .views-slideshow-cycle-main-frame,
+.view-id-homepage_slideshow .views-slideshow-cycle-main-frame-row{
+  width: 770px !important;
+  height: 382px !important;
+}
+
+.view-id-homepage_slideshow #views_slideshow_cycle_teaser_section_homepage_slideshow-page_2, 
+.view-id-homepage_slideshow .views-slideshow-controls-bottom {
+  width: 770px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.view-id-homepage_slideshow .views-slideshow-controls-bottom {
+  width: 280px;
+}
+
+.view-id-homepage_slideshow .views-slideshow-controls-bottom .views-slideshow-pager-field-item{
+  line-height: 100%;
+  padding: 6px 8px;
+}
+
+/* homepage blocks */
+
+body.front #block-block-3 {
+	height: 382px;
+	width: 400px;
+	line-height: 24px;
+	background-position: center -90px;
+}
+
+body.front #block-block-6 {
+  margin-top: 20px;
+}
+
+body.front #block-block-6 h3{
+	font-size:29px;
+	margin: 0 50px 0 0;
+  padding: 0;
+}
+#join-banner{
+  padding: 0;
+}
+
+#join-banner a{
+  font-size: 1em;
+}
+
+body.front #block-block-5 {
+  margin-top: -5px;
+  padding-top: 5px;
+}	
+
+#homepage-mission-block-row {
+	width:1140px;
+}
+
+body.front .our-work-block,
+body.front .about-us-block, 
+body.front .members-block
+{
+	width:344px;
+	height:101px;
+}
+
+.front #region-content #block-views-home-promoted-content-block-1 {
+	margin:0 10px 0 14px
+}
+.front #region-content .block-views {
+	margin-bottom:0;
+}
+
+
+/* join sidebar */
+
+#join-sidebar a {
+	width:145px;
+	font-size:17px;
+	margin:10px 10px 10px 15px;
+}
+
+.join-sidebar-text {
+	font-size:30px;
+}
+
+#join-sidebar .join-donate-inner {
+	padding:5px 15px;
+}
+
+/* footer adjustments  */
+
+#zone-footer p{
+  display: inline;
+}
+
+#zone-footer p:first-child{
+  display: block;
+}
+
+#region-postscript-first {
+	width: 780px;
+}
+
+#region-postscript-first .block-menu-block-6 {
+	width:780px;
+}
+
+#region-postscript-first .menu-block-6 ul li.menu-mlid-863 {
+	margin-top:0px;
+}
+
+#block-menu-menu-home-contact-join-footer-me {
+	width: 780px;
+	margin: 0px;
+} 
+
+#region-postscript-second {
+	width: 380px;
+}
+
+/* pagers */
+.item-list ul.pager {
+  margin-bottom: 20px;
+}
+
+.item-list .pager li {
+	margin:0px 8px;
+}
+
+.pager li.pager-first,
+.pager li.pager-previous,
+.pager li.pager-next,
+.pager li.pager-last {
+	position: relative;
+	top: 0;
+	right: 0;
+	left: 0;
+}
+
+.pager li.pager-previous {
+  margin-right:3px;	
+}
+
+.pager li.pager-ellipsis {
+  margin: 15px -5px 0;
+}
+
+.pager li.pager-current, 
+.pager li a {
+	padding:8px 12px;
+}
+
+.pager li.pager-first a,
+.pager li.pager-previous a,
+.pager li.pager-next a, 
+.pager li.pager-last a {
+	width:50px;
+}
+
+.feed-icon {
+	margin-top:0px;
+}
+
+/* Share This */
+.share-buttons {
+	margin: 0 10px;
+	width: 1168px;
+}
+
+
+/* form fields - salsa donation forms */
+#zone-content .donation #right_container {
+	float:left;
+	width:40%;
+}
+#zone-content .donation #left_container {
+	float:left;
+	width:40%;
+}
+#zone-content .salsa .orderform #left_container {
+	float: left;
+	clear: none;
+	margin-right: 10px;
+	width:40%;
+}

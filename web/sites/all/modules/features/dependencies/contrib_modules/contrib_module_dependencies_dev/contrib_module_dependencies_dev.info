@@ -1,0 +1,10 @@
+name = Contrib Modules - Dev
+description = The core and contributed modules that the dev site depends on
+core = 7.x
+package = Dependencies
+version = 7.x-1.1
+project = contrib_module_dependencies
+dependencies[] = contrib_module_dependencies_base
+dependencies[] = diff
+dependencies[] = reroute_email
+features[features_api][] = api:2

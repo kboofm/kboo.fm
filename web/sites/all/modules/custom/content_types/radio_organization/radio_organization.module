@@ -1,0 +1,41 @@
+<?php
+
+/**
+ * Alter node form and add js file
+ *
+ * @param $form
+ * @param $form_state
+ * @param $form_id
+ */
+function radio_organization_form_node_form_alter(&$form, &$form_state, $form_id) {
+  $is_type = ($form['#node']->type == 'organization');
+  $is_form = ($form_id == 'organization_node_form');
+
+  if (!$is_type || !$is_form) {
+    return;
+  }
+
+  $module_path = drupal_get_path('module', 'radio_organization');
+  $theme_path = drupal_get_path('theme', 'kbooui');
+
+  $form['#attached']['js'] = [
+    [
+      'data' => "{$theme_path}/js/compiled/c4/boot.js",
+      'type' => 'file',
+      'weight' => 9999,
+      'group' => JS_THEME,
+    ],
+    [
+      'data' => "{$theme_path}/js/compiled/c4/components/base.js",
+      'type' => 'file',
+      'weight' => 9999,
+      'group' => JS_THEME,
+    ],
+    [
+      'data' => "{$module_path}/js/compiled/organization.js",
+      'type' => 'file',
+      'weight' => 9999,
+      'group' => JS_THEME,
+    ],
+  ];
+}

@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the File types feature.
+ */
+
+include_once 'entity_file_types.features.inc';

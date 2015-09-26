@@ -1,0 +1,5 @@
+name = Radio Organization
+description = Radio code for organization content type
+package = Radio - Content Types
+core = 7.x
+version = 7.x-1.0

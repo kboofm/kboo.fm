@@ -1,0 +1,7 @@
+name = Radio Act
+description = Radio code for act content type
+package = Radio - Content Types
+core = 7.x
+version = 7.x-1.0
+
+files[] = lib/ActContentType.inc

@@ -1,0 +1,8 @@
+name = Contrib Modifications
+description = Modifications to contrib modules
+core = 7.x
+package = Dependencies
+version = 7.x-1.0
+project = contrib_modifications
+dependencies[] = contrib_webform
+features[features_api][] = api:2
