@@ -16,7 +16,7 @@
 *
 * @see search-result.tpl.php
 */
-//function kbooui_preprocess_search_result(&$variables) {
+function kbooui_preprocess_search_result(&$variables) {
   // Do not display user name and modification date and number of comments from search results
-  //$variables['info'] = '';
-//}
+  $variables['info'] = '';
+}
