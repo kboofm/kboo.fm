@@ -16,8 +16,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'admin_menu',
   );
@@ -28,8 +26,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'system',
   );
@@ -48,7 +44,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'access all webform results',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'webform',
   );
@@ -78,7 +73,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'node',
   );
@@ -89,16 +83,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'media',
   );
@@ -161,16 +148,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'media_internet',
   );
@@ -181,16 +161,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'remote_stream_wrapper',
   );
@@ -235,7 +208,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer blocks',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'block',
   );
@@ -309,7 +281,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer files',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'file_entity',
   );
@@ -383,7 +354,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'menu',
   );
@@ -422,7 +392,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'node',
   );
@@ -450,7 +419,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer publication date',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'publication_date',
   );
@@ -469,7 +437,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer reroute email',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
-      'Admin - Station' => 'Admin - Station',
     ),
     'module' => 'reroute_email',
   );
@@ -526,7 +493,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'taxonomy',
   );
@@ -555,7 +521,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
     ),
     'module' => 'user',
   );
@@ -585,7 +550,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'file_entity',
   );
@@ -606,7 +570,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'node',
   );
@@ -630,9 +593,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'clone node'.
   $permissions['clone node'] = array(
     'name' => 'clone node',
-    'roles' => array(
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-    ),
+    'roles' => array(),
     'module' => 'clone',
   );
 
@@ -668,8 +629,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['create blog_post content'] = array(
     'name' => 'create blog_post content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -678,9 +638,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create event content'.
   $permissions['create event content'] = array(
     'name' => 'create event content',
-    'roles' => array(
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -690,15 +648,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -707,9 +659,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['create image_gallery content'] = array(
     'name' => 'create image_gallery content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -718,28 +668,21 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create organization content'.
   $permissions['create organization content'] = array(
     'name' => 'create organization content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'create person_profile content'.
   $permissions['create person_profile content'] = array(
     'name' => 'create person_profile content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'create program content'.
   $permissions['create program content'] = array(
     'name' => 'create program content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -754,8 +697,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['create standalone_media content'] = array(
     'name' => 'create standalone_media content',
     'roles' => array(
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
+      'Author - Program' => 'Author - Program',
     ),
     'module' => 'node',
   );
@@ -765,7 +707,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'create url aliases',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'path',
   );
@@ -789,7 +730,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'delete all webform submissions',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'webform',
   );
@@ -814,10 +754,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -842,10 +778,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -853,9 +785,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any event content'.
   $permissions['delete any event content'] = array(
     'name' => 'delete any event content',
-    'roles' => array(
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -865,10 +795,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -883,28 +809,21 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any organization content'.
   $permissions['delete any organization content'] = array(
     'name' => 'delete any organization content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any person_profile content'.
   $permissions['delete any person_profile content'] = array(
     'name' => 'delete any person_profile content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any program content'.
   $permissions['delete any program content'] = array(
     'name' => 'delete any program content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -918,9 +837,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any standalone_media content'.
   $permissions['delete any standalone_media content'] = array(
     'name' => 'delete any standalone_media content',
-    'roles' => array(
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -930,10 +847,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -963,12 +876,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own audio files'] = array(
     'name' => 'delete own audio files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -984,8 +894,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own blog_post content'] = array(
     'name' => 'delete own blog_post content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -995,12 +904,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own document files'] = array(
     'name' => 'delete own document files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1008,9 +914,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete own event content'.
   $permissions['delete own event content'] = array(
     'name' => 'delete own event content',
-    'roles' => array(
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1018,12 +922,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own image files'] = array(
     'name' => 'delete own image files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1032,9 +933,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own image_gallery content'] = array(
     'name' => 'delete own image_gallery content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1043,28 +942,21 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete own organization content'.
   $permissions['delete own organization content'] = array(
     'name' => 'delete own organization content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'delete own person_profile content'.
   $permissions['delete own person_profile content'] = array(
     'name' => 'delete own person_profile content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'delete own program content'.
   $permissions['delete own program content'] = array(
     'name' => 'delete own program content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1079,7 +971,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own standalone_media content'] = array(
     'name' => 'delete own standalone_media content',
     'roles' => array(
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
+      'Author - Program' => 'Author - Program',
     ),
     'module' => 'node',
   );
@@ -1088,12 +980,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete own video files'] = array(
     'name' => 'delete own video files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1118,7 +1007,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'node',
   );
@@ -1136,10 +1024,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1150,10 +1034,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1164,10 +1044,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1178,10 +1054,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1190,12 +1062,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['download own audio files'] = array(
     'name' => 'download own audio files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1204,12 +1073,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['download own document files'] = array(
     'name' => 'download own document files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1218,12 +1084,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['download own image files'] = array(
     'name' => 'download own image files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1232,12 +1095,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['download own video files'] = array(
     'name' => 'download own video files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1247,7 +1107,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'edit all webform submissions',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'webform',
   );
@@ -1272,10 +1131,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1300,10 +1155,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1311,9 +1162,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any event content'.
   $permissions['edit any event content'] = array(
     'name' => 'edit any event content',
-    'roles' => array(
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1323,10 +1172,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1341,28 +1186,21 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any organization content'.
   $permissions['edit any organization content'] = array(
     'name' => 'edit any organization content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'edit any person_profile content'.
   $permissions['edit any person_profile content'] = array(
     'name' => 'edit any person_profile content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'edit any program content'.
   $permissions['edit any program content'] = array(
     'name' => 'edit any program content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1376,9 +1214,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any standalone_media content'.
   $permissions['edit any standalone_media content'] = array(
     'name' => 'edit any standalone_media content',
-    'roles' => array(
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1388,10 +1224,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
     ),
     'module' => 'file_entity',
   );
@@ -1409,7 +1241,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'metatag',
   );
@@ -1432,12 +1263,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own audio files'] = array(
     'name' => 'edit own audio files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1453,8 +1281,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own blog_post content'] = array(
     'name' => 'edit own blog_post content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1473,12 +1300,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own document files'] = array(
     'name' => 'edit own document files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1486,9 +1310,7 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own event content'.
   $permissions['edit own event content'] = array(
     'name' => 'edit own event content',
-    'roles' => array(
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1496,12 +1318,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own image files'] = array(
     'name' => 'edit own image files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1510,9 +1329,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own image_gallery content'] = array(
     'name' => 'edit own image_gallery content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1521,28 +1338,21 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own organization content'.
   $permissions['edit own organization content'] = array(
     'name' => 'edit own organization content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-      'Manager - Calendar' => 'Manager - Calendar',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'edit own person_profile content'.
   $permissions['edit own person_profile content'] = array(
     'name' => 'edit own person_profile content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
   // Exported permission: 'edit own program content'.
   $permissions['edit own program content'] = array(
     'name' => 'edit own program content',
-    'roles' => array(
-      'Admin - Station' => 'Admin - Station',
-    ),
+    'roles' => array(),
     'module' => 'node',
   );
 
@@ -1557,8 +1367,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own standalone_media content'] = array(
     'name' => 'edit own standalone_media content',
     'roles' => array(
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
+      'Author - Program' => 'Author - Program',
     ),
     'module' => 'node',
   );
@@ -1567,12 +1376,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own video files'] = array(
     'name' => 'edit own video files',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1596,7 +1402,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'edit webform components',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'webform',
   );
@@ -1670,7 +1475,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'node',
   );
@@ -1704,7 +1508,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'set any published on date',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'publication_date',
   );
@@ -1865,7 +1668,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'use advanced search',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'search',
   );
@@ -1882,8 +1684,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'use media wysiwyg',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
-      'WYSIWYG Access - Advanced' => 'WYSIWYG Access - Advanced',
-      'WYSIWYG Access - Simple' => 'WYSIWYG Access - Simple',
     ),
     'module' => 'media_wysiwyg',
   );
@@ -1900,27 +1700,21 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'use text format full_html'.
   $permissions['use text format full_html'] = array(
     'name' => 'use text format full_html',
-    'roles' => array(
-      'WYSIWYG Access - Advanced' => 'WYSIWYG Access - Advanced',
-    ),
+    'roles' => array(),
     'module' => 'filter',
   );
 
   // Exported permission: 'use text format full_html_no_wysiwyg'.
   $permissions['use text format full_html_no_wysiwyg'] = array(
     'name' => 'use text format full_html_no_wysiwyg',
-    'roles' => array(
-      'WYSIWYG Access - Advanced' => 'WYSIWYG Access - Advanced',
-    ),
+    'roles' => array(),
     'module' => 'filter',
   );
 
   // Exported permission: 'use text format full_html_simple_wysiwyg'.
   $permissions['use text format full_html_simple_wysiwyg'] = array(
     'name' => 'use text format full_html_simple_wysiwyg',
-    'roles' => array(
-      'WYSIWYG Access - Simple' => 'WYSIWYG Access - Simple',
-    ),
+    'roles' => array(),
     'module' => 'filter',
   );
 
@@ -1959,15 +1753,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'file_entity',
   );
@@ -1983,13 +1771,9 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['view own unpublished content'] = array(
     'name' => 'view own unpublished content',
     'roles' => array(
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'node',
   );
@@ -2009,7 +1793,6 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
     ),
     'module' => 'node',
   );
@@ -2020,16 +1803,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
-      'Admin - Station' => 'Admin - Station',
-      'Admin - Web Content Producer' => 'Admin - Web Content Producer',
-      'Content Author - Blog' => 'Content Author - Blog',
-      'Content Submitter - Standalone Media' => 'Content Submitter - Standalone Media',
-      'Livewire Reader' => 'Livewire Reader',
-      'Manager - Calendar' => 'Manager - Calendar',
-      'Manager - Standalone Media' => 'Manager - Standalone Media',
-      'Show Host' => 'Show Host',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
-      'Volunteer' => 'Volunteer',
     ),
     'module' => 'system',
   );
