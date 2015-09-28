@@ -162,13 +162,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 16,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 4,
+        'weight' => 16,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -253,7 +253,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 19,
+        'weight' => 9,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -262,7 +262,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 17,
+        'weight' => 9,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -287,7 +287,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 41,
+      'weight' => 43,
     ),
   );
 
@@ -310,14 +310,14 @@ function content_type_program_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 3,
       ),
       'search_result' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 8,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -376,7 +376,7 @@ function content_type_program_field_default_field_instances() {
         'rows' => 15,
       ),
       'type' => 'text_textarea',
-      'weight' => 23,
+      'weight' => 2,
     ),
   );
 
@@ -397,13 +397,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 20,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 11,
+        'weight' => 20,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -432,6 +432,53 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-program-field_episode_record'
+  $field_instances['node-program-field_episode_record'] = array(
+    'bundle' => 'program',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 31,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_episode_record',
+    'label' => 'Episode recording',
+    'required' => FALSE,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => -1,
+    ),
+  );
+
   // Exported field_instance: 'node-program-field_files'
   $field_instances['node-program-field_files'] = array(
     'bundle' => 'program',
@@ -452,14 +499,14 @@ function content_type_program_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_url_plain',
-        'weight' => 6,
+        'weight' => 2,
       ),
       'search_result' => array(
         'label' => 'hidden',
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_url_plain',
-        'weight' => 6,
+        'weight' => 2,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -558,7 +605,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 29,
+        'weight' => 5,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -580,7 +627,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 26,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -604,7 +651,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 1,
+      'weight' => 44,
     ),
   );
 
@@ -643,7 +690,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 20,
+        'weight' => 10,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -652,7 +699,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 18,
+        'weight' => 10,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -677,63 +724,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 42,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_image_gallery'
-  $field_instances['node-program-field_image_gallery'] = array(
-    'bundle' => 'program',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'links' => 0,
-          'view_mode' => 'default',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 10,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 22,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 20,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_image_gallery',
-    'label' => 'Image Gallery',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 42,
+      'weight' => 44,
     ),
   );
 
@@ -757,13 +748,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 14,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 2,
+        'weight' => 14,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -835,13 +826,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 18,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 7,
+        'weight' => 18,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -911,13 +902,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 15,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 3,
+        'weight' => 15,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -988,13 +979,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 23,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 19,
+        'weight' => 22,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1054,7 +1045,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 17,
+        'weight' => 7,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1063,7 +1054,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 15,
+        'weight' => 7,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1088,7 +1079,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 43,
+      'weight' => 45,
     ),
   );
 
@@ -1127,7 +1118,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 16,
+        'weight' => 6,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1136,7 +1127,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 14,
+        'weight' => 6,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1161,74 +1152,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 44,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_program'
-  $field_instances['node-program-field_program'] = array(
-    'bundle' => 'program',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 5,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_program',
-    'label' => 'Stream(s)',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => -1,
+      'weight' => 46,
     ),
   );
 
@@ -1249,13 +1173,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'hidden',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 21,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 12,
+        'weight' => 21,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1296,13 +1220,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 19,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 10,
+        'weight' => 19,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1335,80 +1259,7 @@ function content_type_program_field_default_field_instances() {
         'year_range' => '-3:+3',
       ),
       'type' => 'date_text',
-      'weight' => 27,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_related_acts'
-  $field_instances['node-program-field_related_acts'] = array(
-    'bundle' => 'program',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 20,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 26,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 23,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_related_acts',
-    'label' => 'Related act(s)',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 22,
+      'weight' => 29,
     ),
   );
 
@@ -1451,7 +1302,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 23,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1476,7 +1327,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 24,
+      'weight' => 48,
     ),
   );
 
@@ -1515,7 +1366,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 27,
+        'weight' => 12,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1524,7 +1375,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 24,
+        'weight' => 12,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1549,7 +1400,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 47,
     ),
   );
 
@@ -1588,7 +1439,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 28,
+        'weight' => 13,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1597,7 +1448,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 25,
+        'weight' => 13,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1622,7 +1473,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 21,
+      'weight' => 46,
     ),
   );
 
@@ -1661,7 +1512,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 25,
+        'weight' => 11,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1670,7 +1521,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 22,
+        'weight' => 11,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1695,7 +1546,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 20,
+      'weight' => 45,
     ),
   );
 
@@ -1788,7 +1639,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 18,
+        'weight' => 8,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1797,7 +1648,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 16,
+        'weight' => 8,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1822,195 +1673,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 45,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_teaser_image'
-  $field_instances['node-program-field_teaser_image'] = array(
-    'bundle' => 'program',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 24,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 31,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 28,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_teaser_image',
-    'label' => 'Teaser image',
-    'required' => 0,
-    'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'file_directory' => 'teaser/program',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'media',
-      'settings' => array(
-        'allowed_schemes' => array(
-          'feed' => 0,
-          'http' => 0,
-          'https' => 0,
-          'oembed' => 0,
-          'public' => 'public',
-        ),
-        'allowed_types' => array(
-          'audio' => 0,
-          'document' => 0,
-          'image' => 'image',
-          'video' => 0,
-        ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'media_internet' => 0,
-          'remote_file' => 0,
-          'upload' => 0,
-        ),
-      ),
-      'type' => 'media_generic',
-      'weight' => 45,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_teaser_summary'
-  $field_instances['node-program-field_teaser_summary'] = array(
-    'bundle' => 'program',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 25,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 32,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 29,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_teaser_summary',
-    'label' => 'Teaser summary',
-    'required' => 0,
-    'settings' => array(
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 46,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_teaser_title'
-  $field_instances['node-program-field_teaser_title'] = array(
-    'bundle' => 'program',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 23,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 30,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 27,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_teaser_title',
-    'label' => 'Teaser title',
-    'required' => 0,
-    'settings' => array(
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 44,
+      'weight' => 47,
     ),
   );
 
@@ -2063,7 +1726,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 9,
+        'weight' => 4,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -2085,7 +1748,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 9,
+        'weight' => 4,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2109,7 +1772,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 19,
+      'weight' => 43,
     ),
   );
 
@@ -2132,13 +1795,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 17,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 5,
+        'weight' => 17,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2205,13 +1868,13 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 22,
       ),
       'search_result' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 24,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -2250,10 +1913,10 @@ function content_type_program_field_default_field_instances() {
   t('Body below media');
   t('Comment');
   t('D6 nid');
+  t('Episode recording');
   t('File(s)');
   t('Genre(s)');
   t('Hosted by');
-  t('Image Gallery');
   t('Lead Image');
   t('Link(s)');
   t('More Images');
@@ -2262,17 +1925,12 @@ function content_type_program_field_default_field_instances() {
   t('Produced for');
   t('Program Type');
   t('Published date');
-  t('Related act(s)');
   t('Related content');
   t('Related organization(s)');
   t('Related program(s)');
   t('Related show host(s)');
   t('Short Description');
   t('Sponsored by');
-  t('Stream(s)');
-  t('Teaser image');
-  t('Teaser summary');
-  t('Teaser title');
   t('Title');
   t('Topic tags');
   t('Video File(s)');

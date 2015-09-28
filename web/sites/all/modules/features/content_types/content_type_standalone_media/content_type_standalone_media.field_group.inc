@@ -53,10 +53,11 @@ function content_type_standalone_media_field_group_info() {
       0 => 'body',
       1 => 'field_explicit',
       2 => 'field_parent_section',
-      3 => 'field_rebroadcast',
-      4 => 'field_short_description',
-      5 => 'field_standalone_media_type',
-      6 => 'title_field',
+      3 => 'field_short_description',
+      4 => 'field_standalone_media_type',
+      5 => 'title_field',
+      6 => 'field_air_time',
+      7 => 'field_episode_record',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -81,7 +82,7 @@ function content_type_standalone_media_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Developer info',
-    'weight' => '7',
+    'weight' => '6',
     'children' => array(
       0 => 'field_d6_nid',
       1 => 'field_published_date',
@@ -111,9 +112,8 @@ function content_type_standalone_media_field_group_info() {
     'label' => 'Images',
     'weight' => '1',
     'children' => array(
-      0 => 'field_image_gallery',
-      1 => 'field_lead_image',
-      2 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -174,7 +174,6 @@ function content_type_standalone_media_field_group_info() {
       1 => 'field_hosted_by',
       2 => 'field_produced_by',
       3 => 'field_produced_for',
-      4 => 'field_sponsored_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -201,12 +200,12 @@ function content_type_standalone_media_field_group_info() {
     'label' => 'Related info & topics',
     'weight' => '5',
     'children' => array(
-      0 => 'field_related_acts',
-      1 => 'field_related_info_content',
-      2 => 'field_related_organizations',
-      3 => 'field_related_programs',
-      4 => 'field_related_show_hosts',
-      5 => 'field_topic_tags',
+      0 => 'field_related_info_content',
+      1 => 'field_related_organizations',
+      2 => 'field_related_programs',
+      3 => 'field_related_show_hosts',
+      4 => 'field_topic_tags',
+      5 => 'field_genres',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

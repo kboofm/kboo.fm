@@ -96,22 +96,6 @@ function configure_text_editing_ckeditor_profile_defaults() {
             ),
             'default' => 't',
           ),
-          'drupalentity' => array(
-            'name' => 'drupalentity',
-            'desc' => 'Plugin for embedding entities',
-            'path' => '/sites/all/modules/contrib/entity_embed/js/plugins/drupalentity/',
-            'default' => 'f',
-            'buttons' => array(
-              'image_gallery' => array(
-                'label' => 'Image Gallery',
-                'icon' => 'entity.png',
-              ),
-              'node' => array(
-                'label' => 'Content',
-                'icon' => 'entity.png',
-              ),
-            ),
-          ),
           'imce' => array(
             'name' => 'imce',
             'desc' => 'Plugin for inserting files from IMCE without image dialog',
@@ -156,7 +140,7 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
           'mediaembed' => array(
             'name' => 'mediaembed',
-            'desc' => 'Plugin for embedding HTML snippets',
+            'desc' => 'Plugin for inserting Drupal embeded media',
             'path' => '%plugin_dir%mediaembed/',
             'buttons' => array(
               'MediaEmbed' => array(
@@ -175,9 +159,7 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
         ),
       ),
-      'input_formats' => array(
-        'full_html' => 'Full HTML + Advanced',
-      ),
+      'input_formats' => array(),
     ),
     'Full_HTML_Simple' => array(
       'name' => 'Full_HTML_Simple',
@@ -242,22 +224,6 @@ function configure_text_editing_ckeditor_profile_defaults() {
             ),
             'default' => 't',
           ),
-          'drupalentity' => array(
-            'name' => 'drupalentity',
-            'desc' => 'Plugin for embedding entities',
-            'path' => '/sites/all/modules/contrib/entity_embed/js/plugins/drupalentity/',
-            'default' => 'f',
-            'buttons' => array(
-              'image_gallery' => array(
-                'label' => 'Image Gallery',
-                'icon' => 'entity.png',
-              ),
-              'node' => array(
-                'label' => 'Content',
-                'icon' => 'entity.png',
-              ),
-            ),
-          ),
           'lineutils' => array(
             'name' => 'lineutils',
             'desc' => 'Plugin file: lineutils',
@@ -297,9 +263,7 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
         ),
       ),
-      'input_formats' => array(
-        'full_html_simple_wysiwyg' => 'Full HTML + Simple WYSIWYG',
-      ),
+      'input_formats' => array(),
     ),
   );
   return $data;

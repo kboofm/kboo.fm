@@ -9,22 +9,6 @@
  */
 function taxonomy_vocabularies_taxonomy_default_vocabularies() {
   return array(
-    'act_types' => array(
-      'name' => 'Act Types',
-      'machine_name' => 'act_types',
-      'description' => '',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-    ),
-    'community_event_topics' => array(
-      'name' => 'Community Event Topics',
-      'machine_name' => 'community_event_topics',
-      'description' => 'Community Event Topics',
-      'hierarchy' => 0,
-      'module' => 'taxonomy',
-      'weight' => 0,
-    ),
     'event_types' => array(
       'name' => 'Event Types',
       'machine_name' => 'event_types',

@@ -91,7 +91,7 @@ function content_type_person_profile_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 10,
+        'weight' => 7,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -139,7 +139,7 @@ function content_type_person_profile_field_default_field_instances() {
         'summary_rows' => 5,
       ),
       'type' => 'text_textarea_with_summary',
-      'weight' => -3,
+      'weight' => -2,
     ),
   );
 
@@ -154,13 +154,13 @@ function content_type_person_profile_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 15,
+        'weight' => 12,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 19,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -251,7 +251,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 9,
+        'weight' => 5,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -301,14 +301,14 @@ function content_type_person_profile_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 19,
+        'weight' => 16,
       ),
       'search_index' => array(
         'label' => 'hidden',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 5,
+        'weight' => 2,
       ),
       'search_result' => array(
         'label' => 'hidden',
@@ -389,13 +389,13 @@ function content_type_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 25,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 33,
+        'weight' => 25,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -442,13 +442,13 @@ function content_type_person_profile_field_default_field_instances() {
         'module' => 'email',
         'settings' => array(),
         'type' => 'email_contact',
-        'weight' => 12,
+        'weight' => 8,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 30,
+        'weight' => 24,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -494,14 +494,14 @@ function content_type_person_profile_field_default_field_instances() {
           'text' => 'Download [file:name]',
         ),
         'type' => 'file_download_link',
-        'weight' => 17,
+        'weight' => 14,
       ),
       'search_index' => array(
         'label' => 'hidden',
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_url_plain',
-        'weight' => 11,
+        'weight' => 7,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -554,7 +554,7 @@ function content_type_person_profile_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 24,
+      'weight' => 25,
     ),
   );
 
@@ -585,7 +585,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 21,
+        'weight' => 18,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -607,7 +607,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 19,
+        'weight' => 9,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -653,7 +653,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'taxonomy_autocomplete',
-      'weight' => 33,
+      'weight' => 20,
     ),
   );
 
@@ -692,7 +692,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 10,
+        'weight' => 6,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -730,170 +730,6 @@ function content_type_person_profile_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-person_profile-field_image_gallery'
-  $field_instances['node-person_profile-field_image_gallery'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'links' => 0,
-          'view_mode' => 'default',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 14,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 32,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 32,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_image_gallery',
-    'label' => 'Image Gallery',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 6,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_job_description'
-  $field_instances['node-person_profile-field_job_description'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 9,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 3,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 3,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_job_description',
-    'label' => 'Job description',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 14,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_job_title'
-  $field_instances['node-person_profile-field_job_title'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 8,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 2,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_job_title',
-    'label' => 'Job title',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 12,
-    ),
-  );
-
   // Exported field_instance: 'node-person_profile-field_lead_image'
   $field_instances['node-person_profile-field_lead_image'] = array(
     'bundle' => 'person_profile',
@@ -908,13 +744,13 @@ function content_type_person_profile_field_default_field_instances() {
           'image_style' => 'default_lead_1x',
         ),
         'type' => 'image',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 17,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -986,13 +822,13 @@ function content_type_person_profile_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
-        'weight' => 18,
+        'weight' => 15,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 28,
+        'weight' => 22,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -1044,7 +880,70 @@ function content_type_person_profile_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 25,
+      'weight' => 26,
+    ),
+  );
+
+  // Exported field_instance: 'node-person_profile-field_location'
+  $field_instances['node-person_profile-field_location'] = array(
+    'bundle' => 'person_profile',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 10,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 13,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_location',
+    'label' => 'Address',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'addressfield',
+      'settings' => array(
+        'available_countries' => array(
+          'US' => 'US',
+        ),
+        'default_country' => 'site_default',
+        'format_handlers' => array(
+          'address' => 'address',
+          'address-hide-country' => 'address-hide-country',
+          'address-optional' => 'address-optional',
+          'address-hide-postal-code' => 0,
+          'address-hide-street' => 0,
+          'organisation' => 0,
+          'name-full' => 0,
+          'name-oneline' => 0,
+        ),
+      ),
+      'type' => 'addressfield_standard',
+      'weight' => 0,
     ),
   );
 
@@ -1062,13 +961,13 @@ function content_type_person_profile_field_default_field_instances() {
           'image_style' => 'default_more_1x',
         ),
         'type' => 'image',
-        'weight' => 13,
+        'weight' => 11,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 18,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -1128,6 +1027,93 @@ function content_type_person_profile_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-person_profile-field_name'
+  $field_instances['node-person_profile-field_name'] = array(
+    'bundle' => 'person_profile',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 28,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 15,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_name',
+    'label' => 'Name',
+    'required' => 0,
+    'settings' => array(
+      'component_css' => '',
+      'component_layout' => 'default',
+      'credentials_inline' => 0,
+      'field_type' => array(
+        'credentials' => 'text',
+        'family' => 'text',
+        'generational' => 'select',
+        'given' => 'text',
+        'middle' => 'text',
+        'title' => 'select',
+      ),
+      'generational_field' => 'select',
+      'inline_css' => array(
+        'credentials' => '',
+        'family' => '',
+        'generational' => '',
+        'given' => '',
+        'middle' => '',
+        'title' => '',
+      ),
+      'override_format' => 'default',
+      'show_component_required_marker' => 0,
+      'size' => array(
+        'credentials' => 35,
+        'family' => 20,
+        'generational' => 5,
+        'given' => 20,
+        'middle' => 20,
+        'title' => 6,
+      ),
+      'title_display' => array(
+        'credentials' => 'description',
+        'family' => 'description',
+        'generational' => 'description',
+        'given' => 'description',
+        'middle' => 'description',
+        'title' => 'description',
+      ),
+      'title_field' => 'select',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'name',
+      'settings' => array(),
+      'type' => 'name_widget',
+      'weight' => -4,
+    ),
+  );
+
   // Exported field_instance: 'node-person_profile-field_parent_section'
   $field_instances['node-person_profile-field_parent_section'] = array(
     'bundle' => 'person_profile',
@@ -1139,13 +1125,13 @@ function content_type_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 32,
+        'weight' => 24,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 27,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -1173,6 +1159,56 @@ function content_type_person_profile_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 0,
+    ),
+  );
+
+  // Exported field_instance: 'node-person_profile-field_phone'
+  $field_instances['node-person_profile-field_phone'] = array(
+    'bundle' => 'person_profile',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'inline',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 9,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 14,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_phone',
+    'label' => 'Phone',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'telephone',
+      'settings' => array(
+        'placeholder' => '',
+      ),
+      'type' => 'telephone_default',
+      'weight' => 1,
     ),
   );
 
@@ -1211,7 +1247,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 7,
+        'weight' => 4,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1284,7 +1320,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 6,
+        'weight' => 3,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1333,13 +1369,13 @@ function content_type_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 35,
+        'weight' => 26,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 29,
+        'weight' => 23,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -1369,74 +1405,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'options_buttons',
-      'weight' => -2,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_program'
-  $field_instances['node-person_profile-field_program'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 5,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 35,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 35,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_program',
-    'label' => 'Stream',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 19,
+      'weight' => -1,
     ),
   );
 
@@ -1450,13 +1419,13 @@ function content_type_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 31,
+        'weight' => 23,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 15,
+        'weight' => 16,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -1499,79 +1468,6 @@ function content_type_person_profile_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-person_profile-field_related_acts'
-  $field_instances['node-person_profile-field_related_acts'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 24,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 13,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 15,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_related_acts',
-    'label' => 'Related act(s)',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 22,
-    ),
-  );
-
   // Exported field_instance: 'node-person_profile-field_related_info_content'
   $field_instances['node-person_profile-field_related_info_content'] = array(
     'bundle' => 'person_profile',
@@ -1599,13 +1495,13 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'ul',
         ),
         'type' => 'textformatter_list',
-        'weight' => 26,
+        'weight' => 22,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 27,
+        'weight' => 21,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -1636,7 +1532,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 24,
+      'weight' => 25,
     ),
   );
 
@@ -1666,7 +1562,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 25,
+        'weight' => 21,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1675,7 +1571,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 16,
+        'weight' => 12,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1709,7 +1605,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 24,
     ),
   );
 
@@ -1739,7 +1635,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 23,
+        'weight' => 20,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1748,7 +1644,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 17,
+        'weight' => 11,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1782,7 +1678,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 21,
+      'weight' => 23,
     ),
   );
 
@@ -1812,7 +1708,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 22,
+        'weight' => 19,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1821,7 +1717,7 @@ function content_type_person_profile_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 12,
+        'weight' => 10,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -1855,7 +1751,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 20,
+      'weight' => 22,
     ),
   );
 
@@ -1914,428 +1810,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'text_textfield',
-      'weight' => -4,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_show_host_status'
-  $field_instances['node-person_profile-field_show_host_status'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => array(
-      0 => array(
-        'value' => 1,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 27,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 18,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 22,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_show_host_status',
-    'label' => 'Status',
-    'required' => 1,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 16,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_signature_tune'
-  $field_instances['node-person_profile-field_signature_tune'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 11,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'text',
-        'settings' => array(),
-        'type' => 'text_default',
-        'weight' => 4,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_signature_tune',
-    'label' => 'Signature tune',
-    'required' => 0,
-    'settings' => array(
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 18,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_sponsored_by'
-  $field_instances['node-person_profile-field_sponsored_by'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 6,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 8,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 7,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_sponsored_by',
-    'label' => 'Sponsored by',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 23,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_substitute'
-  $field_instances['node-person_profile-field_substitute'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 34,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 31,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 31,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_substitute',
-    'label' => 'Substitute',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 17,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_teaser_image'
-  $field_instances['node-person_profile-field_teaser_image'] = array(
-    'bundle' => 'person_profile',
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 29,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 19,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_teaser_image',
-    'label' => 'Teaser image',
-    'required' => 0,
-    'settings' => array(
-      'alt_field' => 0,
-      'default_image' => 0,
-      'file_directory' => 'teaser/person_profile',
-      'file_extensions' => 'png gif jpg jpeg',
-      'max_filesize' => '',
-      'max_resolution' => '',
-      'min_resolution' => '',
-      'title_field' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'media',
-      'settings' => array(
-        'allowed_schemes' => array(
-          'feed' => 0,
-          'http' => 0,
-          'https' => 0,
-          'oembed' => 0,
-          'public' => 'public',
-        ),
-        'allowed_types' => array(
-          'audio' => 0,
-          'document' => 0,
-          'image' => 'image',
-          'video' => 0,
-        ),
-        'browser_plugins' => array(
-          'media_default--media_browser_1' => 0,
-          'media_default--media_browser_my_files' => 0,
-          'media_internet' => 0,
-          'remote_file' => 0,
-          'upload' => 0,
-        ),
-      ),
-      'type' => 'media_generic',
-      'weight' => 36,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_teaser_summary'
-  $field_instances['node-person_profile-field_teaser_summary'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 30,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 22,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 20,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_teaser_summary',
-    'label' => 'Teaser summary',
-    'required' => 0,
-    'settings' => array(
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'rows' => 5,
-      ),
-      'type' => 'text_textarea',
-      'weight' => 37,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_teaser_title'
-  $field_instances['node-person_profile-field_teaser_title'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 28,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 20,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 18,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_teaser_title',
-    'label' => 'Teaser title',
-    'required' => 0,
-    'settings' => array(
-      'linkit' => array(
-        'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
-      ),
-      'text_processing' => 0,
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'text',
-      'settings' => array(
-        'size' => 60,
-      ),
-      'type' => 'text_textfield',
-      'weight' => 35,
+      'weight' => -3,
     ),
   );
 
@@ -2366,7 +1841,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 20,
+        'weight' => 17,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -2388,7 +1863,7 @@ function content_type_person_profile_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 14,
+        'weight' => 8,
       ),
       'search_result' => array(
         'label' => 'inline',
@@ -2449,13 +1924,13 @@ function content_type_person_profile_field_default_field_instances() {
         'module' => 'file',
         'settings' => array(),
         'type' => 'file_default',
-        'weight' => 16,
+        'weight' => 13,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 26,
+        'weight' => 20,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -2522,13 +1997,13 @@ function content_type_person_profile_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 36,
+        'weight' => 27,
       ),
       'search_index' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 34,
+        'weight' => 26,
       ),
       'search_result' => array(
         'label' => 'above',
@@ -2568,6 +2043,7 @@ function content_type_person_profile_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
+  t('Address');
   t('Audio File(s)');
   t('Authored by');
   t('Bio');
@@ -2578,31 +2054,20 @@ function content_type_person_profile_field_default_field_instances() {
   t('File(s)');
   t('Genre(s)');
   t('Hosted by');
-  t('Image Gallery');
-  t('Job description');
-  t('Job title');
   t('Lead Image');
   t('Link(s)');
   t('More Images');
   t('Name');
   t('Parent section');
+  t('Phone');
   t('Produced by');
   t('Produced for');
   t('Published date');
-  t('Related act(s)');
   t('Related content');
   t('Related organization(s)');
   t('Related program(s)');
   t('Related show host(s)');
   t('Short Description');
-  t('Signature tune');
-  t('Sponsored by');
-  t('Status');
-  t('Stream');
-  t('Substitute');
-  t('Teaser image');
-  t('Teaser summary');
-  t('Teaser title');
   t('Topic tags');
   t('Type(s)');
   t('Video File(s)');

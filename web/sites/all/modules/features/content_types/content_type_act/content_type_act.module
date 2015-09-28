@@ -1,7 +1,0 @@
-<?php
-/**
- * @file
- * Code for the Act feature.
- */
-
-include_once 'content_type_act.features.inc';

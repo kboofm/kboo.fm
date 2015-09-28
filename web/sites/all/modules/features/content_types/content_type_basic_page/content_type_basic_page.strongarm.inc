@@ -126,7 +126,6 @@ function content_type_basic_page_strongarm() {
   $strongarm->name = 'node_options_basic_page';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_basic_page'] = $strongarm;
 
@@ -141,7 +140,7 @@ function content_type_basic_page_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_basic_page';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_basic_page'] = $strongarm;
 
   $strongarm = new stdClass();

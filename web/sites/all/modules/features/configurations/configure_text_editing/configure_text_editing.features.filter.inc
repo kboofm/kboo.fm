@@ -55,24 +55,14 @@ function configure_text_editing_filter_default_formats() {
     ),
   );
 
-  // Exported format: Full HTML + Advanced.
+  // Exported format: Full HTML + Advanced WYSIWYG.
   $formats['full_html'] = array(
     'format' => 'full_html',
-    'name' => 'Full HTML + Advanced',
+    'name' => 'Full HTML + Advanced WYSIWYG',
     'cache' => 0,
     'status' => 1,
     'weight' => -10,
     'filters' => array(
-      'entity_embed' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
-      'filter_align' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
       'filter_url' => array(
         'weight' => 0,
         'status' => 1,
@@ -104,16 +94,6 @@ function configure_text_editing_filter_default_formats() {
     'status' => 1,
     'weight' => -8,
     'filters' => array(
-      'entity_embed' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
-      'filter_align' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
       'filter_url' => array(
         'weight' => 0,
         'status' => 1,
@@ -145,16 +125,6 @@ function configure_text_editing_filter_default_formats() {
     'status' => 1,
     'weight' => -9,
     'filters' => array(
-      'entity_embed' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
-      'filter_align' => array(
-        'weight' => 0,
-        'status' => 1,
-        'settings' => array(),
-      ),
       'filter_url' => array(
         'weight' => 0,
         'status' => 1,

@@ -21,7 +21,7 @@ function content_type_blog_post_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content below media',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_body_below_media',
     ),
@@ -106,11 +106,10 @@ function content_type_blog_post_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
-      0 => 'field_image_gallery',
-      1 => 'field_lead_image',
-      2 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -135,7 +134,7 @@ function content_type_blog_post_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_audio_files',
       1 => 'field_files',
@@ -165,14 +164,13 @@ function content_type_blog_post_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Profile info',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
-      0 => 'field_is_show_host',
-      1 => 'field_authored_by',
-      2 => 'field_hosted_by',
-      3 => 'field_produced_by',
-      4 => 'field_produced_for',
-      5 => 'field_sponsored_by',
+      0 => 'field_authored_by',
+      1 => 'field_hosted_by',
+      2 => 'field_produced_by',
+      3 => 'field_produced_for',
+      4 => 'field_sponsored_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -197,14 +195,14 @@ function content_type_blog_post_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related info & topics',
-    'weight' => '6',
+    'weight' => '5',
     'children' => array(
-      0 => 'field_related_acts',
-      1 => 'field_related_info_content',
-      2 => 'field_related_organizations',
-      3 => 'field_related_programs',
-      4 => 'field_related_show_hosts',
-      5 => 'field_topic_tags',
+      0 => 'field_related_info_content',
+      1 => 'field_related_organizations',
+      2 => 'field_related_programs',
+      3 => 'field_related_show_hosts',
+      4 => 'field_topic_tags',
+      5 => 'field_genres',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

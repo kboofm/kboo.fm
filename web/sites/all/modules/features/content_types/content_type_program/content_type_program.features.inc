@@ -24,7 +24,7 @@ function content_type_program_node_info() {
     'program' => array(
       'name' => t('Program'),
       'base' => 'node_content',
-      'description' => t('A KBOO Program.'),
+      'description' => t('A KBOO Program, or initiative.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',

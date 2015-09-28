@@ -153,20 +153,6 @@ function configure_metatags_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'metatag_enable_node__act';
-  $strongarm->value = 1;
-  $export['metatag_enable_node__act'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'metatag_enable_node__article';
-  $strongarm->value = 1;
-  $export['metatag_enable_node__article'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__basic_page';
   $strongarm->value = 1;
   $export['metatag_enable_node__basic_page'] = $strongarm;
@@ -184,13 +170,6 @@ function configure_metatags_strongarm() {
   $strongarm->name = 'metatag_enable_node__event';
   $strongarm->value = 1;
   $export['metatag_enable_node__event'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'metatag_enable_node__image_gallery';
-  $strongarm->value = 1;
-  $export['metatag_enable_node__image_gallery'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
@@ -240,20 +219,6 @@ function configure_metatags_strongarm() {
   $strongarm->name = 'metatag_enable_taxonomy_term';
   $strongarm->value = 0;
   $export['metatag_enable_taxonomy_term'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'metatag_enable_taxonomy_term__act_types';
-  $strongarm->value = 1;
-  $export['metatag_enable_taxonomy_term__act_types'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
-  $strongarm->name = 'metatag_enable_taxonomy_term__community_event_topics';
-  $strongarm->value = 1;
-  $export['metatag_enable_taxonomy_term__community_event_topics'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */

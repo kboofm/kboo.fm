@@ -240,15 +240,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'administer embed buttons'.
-  $permissions['administer embed buttons'] = array(
-    'name' => 'administer embed buttons',
-    'roles' => array(
-      'Admin - Developer' => 'Admin - Developer',
-    ),
-    'module' => 'entity_embed',
-  );
-
   // Exported permission: 'administer features'.
   $permissions['administer features'] = array(
     'name' => 'administer features',
@@ -604,20 +595,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'clone',
   );
 
-  // Exported permission: 'create act content'.
-  $permissions['create act content'] = array(
-    'name' => 'create act content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'create article content'.
-  $permissions['create article content'] = array(
-    'name' => 'create article content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'create basic_page content'.
   $permissions['create basic_page content'] = array(
     'name' => 'create basic_page content',
@@ -653,16 +630,6 @@ function configure_user_accounts_user_default_permissions() {
       'Staff' => 'Staff',
     ),
     'module' => 'file_entity',
-  );
-
-  // Exported permission: 'create image_gallery content'.
-  $permissions['create image_gallery content'] = array(
-    'name' => 'create image_gallery content',
-    'roles' => array(
-      'Author - Page' => 'Author - Page',
-      'Staff' => 'Staff',
-    ),
-    'module' => 'node',
   );
 
   // Exported permission: 'create organization content'.
@@ -734,20 +701,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'webform',
   );
 
-  // Exported permission: 'delete any act content'.
-  $permissions['delete any act content'] = array(
-    'name' => 'delete any act content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete any article content'.
-  $permissions['delete any article content'] = array(
-    'name' => 'delete any article content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any audio files'.
   $permissions['delete any audio files'] = array(
     'name' => 'delete any audio files',
@@ -799,13 +752,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'file_entity',
   );
 
-  // Exported permission: 'delete any image_gallery content'.
-  $permissions['delete any image_gallery content'] = array(
-    'name' => 'delete any image_gallery content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'delete any organization content'.
   $permissions['delete any organization content'] = array(
     'name' => 'delete any organization content',
@@ -854,20 +800,6 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any webform content'.
   $permissions['delete any webform content'] = array(
     'name' => 'delete any webform content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own act content'.
-  $permissions['delete own act content'] = array(
-    'name' => 'delete own act content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'delete own article content'.
-  $permissions['delete own article content'] = array(
-    'name' => 'delete own article content',
     'roles' => array(),
     'module' => 'node',
   );
@@ -927,16 +859,6 @@ function configure_user_accounts_user_default_permissions() {
       'Staff' => 'Staff',
     ),
     'module' => 'file_entity',
-  );
-
-  // Exported permission: 'delete own image_gallery content'.
-  $permissions['delete own image_gallery content'] = array(
-    'name' => 'delete own image_gallery content',
-    'roles' => array(
-      'Author - Page' => 'Author - Page',
-      'Staff' => 'Staff',
-    ),
-    'module' => 'node',
   );
 
   // Exported permission: 'delete own organization content'.
@@ -1111,20 +1033,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'webform',
   );
 
-  // Exported permission: 'edit any act content'.
-  $permissions['edit any act content'] = array(
-    'name' => 'edit any act content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit any article content'.
-  $permissions['edit any article content'] = array(
-    'name' => 'edit any article content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
   // Exported permission: 'edit any audio files'.
   $permissions['edit any audio files'] = array(
     'name' => 'edit any audio files',
@@ -1174,13 +1082,6 @@ function configure_user_accounts_user_default_permissions() {
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'file_entity',
-  );
-
-  // Exported permission: 'edit any image_gallery content'.
-  $permissions['edit any image_gallery content'] = array(
-    'name' => 'edit any image_gallery content',
-    'roles' => array(),
-    'module' => 'node',
   );
 
   // Exported permission: 'edit any organization content'.
@@ -1243,20 +1144,6 @@ function configure_user_accounts_user_default_permissions() {
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'metatag',
-  );
-
-  // Exported permission: 'edit own act content'.
-  $permissions['edit own act content'] = array(
-    'name' => 'edit own act content',
-    'roles' => array(),
-    'module' => 'node',
-  );
-
-  // Exported permission: 'edit own article content'.
-  $permissions['edit own article content'] = array(
-    'name' => 'edit own article content',
-    'roles' => array(),
-    'module' => 'node',
   );
 
   // Exported permission: 'edit own audio files'.
@@ -1323,16 +1210,6 @@ function configure_user_accounts_user_default_permissions() {
       'Staff' => 'Staff',
     ),
     'module' => 'file_entity',
-  );
-
-  // Exported permission: 'edit own image_gallery content'.
-  $permissions['edit own image_gallery content'] = array(
-    'name' => 'edit own image_gallery content',
-    'roles' => array(
-      'Author - Page' => 'Author - Page',
-      'Staff' => 'Staff',
-    ),
-    'module' => 'node',
   );
 
   // Exported permission: 'edit own organization content'.
@@ -1496,26 +1373,12 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'user',
   );
 
-  // Exported permission: 'set act published on date'.
-  $permissions['set act published on date'] = array(
-    'name' => 'set act published on date',
-    'roles' => array(),
-    'module' => 'publication_date',
-  );
-
   // Exported permission: 'set any published on date'.
   $permissions['set any published on date'] = array(
     'name' => 'set any published on date',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
     ),
-    'module' => 'publication_date',
-  );
-
-  // Exported permission: 'set article published on date'.
-  $permissions['set article published on date'] = array(
-    'name' => 'set article published on date',
-    'roles' => array(),
     'module' => 'publication_date',
   );
 
@@ -1536,13 +1399,6 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'set event published on date'.
   $permissions['set event published on date'] = array(
     'name' => 'set event published on date',
-    'roles' => array(),
-    'module' => 'publication_date',
-  );
-
-  // Exported permission: 'set image_gallery published on date'.
-  $permissions['set image_gallery published on date'] = array(
-    'name' => 'set image_gallery published on date',
     'roles' => array(),
     'module' => 'publication_date',
   );

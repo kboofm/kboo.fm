@@ -53,13 +53,11 @@ function content_type_event_field_group_info() {
       0 => 'body',
       1 => 'field_event_date',
       2 => 'field_event_description',
-      3 => 'field_event_ongoing',
-      4 => 'field_event_sponsor',
-      5 => 'field_event_type',
-      6 => 'field_event_website',
-      7 => 'field_parent_section',
-      8 => 'field_short_description',
-      9 => 'title_field',
+      3 => 'field_event_type',
+      4 => 'field_event_website',
+      5 => 'field_parent_section',
+      6 => 'field_short_description',
+      7 => 'title_field',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -84,7 +82,7 @@ function content_type_event_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Developer info',
-    'weight' => '11',
+    'weight' => '9',
     'children' => array(
       0 => 'field_d6_nid',
       1 => 'field_published_date',
@@ -114,13 +112,8 @@ function content_type_event_field_group_info() {
     'label' => 'Images',
     'weight' => '2',
     'children' => array(
-      0 => 'field_approve_event_image1',
-      1 => 'field_approve_event_image2',
-      2 => 'field_event_image1',
-      3 => 'field_event_image2',
-      4 => 'field_image_gallery',
-      5 => 'field_lead_image',
-      6 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -259,7 +252,7 @@ function content_type_event_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Profile info',
-    'weight' => '8',
+    'weight' => '5',
     'children' => array(
       0 => 'field_authored_by',
       1 => 'field_hosted_by',
@@ -290,14 +283,14 @@ function content_type_event_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related info & topics',
-    'weight' => '9',
+    'weight' => '6',
     'children' => array(
-      0 => 'field_related_acts',
-      1 => 'field_related_info_content',
-      2 => 'field_related_organizations',
-      3 => 'field_related_programs',
-      4 => 'field_related_show_hosts',
-      5 => 'field_topic_tags',
+      0 => 'field_related_info_content',
+      1 => 'field_related_organizations',
+      2 => 'field_related_programs',
+      3 => 'field_related_show_hosts',
+      4 => 'field_topic_tags',
+      5 => 'field_genres',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

@@ -85,8 +85,7 @@ function content_type_organization_field_group_info() {
       3 => 'field_organization_type',
       4 => 'field_parent_section',
       5 => 'field_short_description',
-      6 => 'field_smoke_free',
-      7 => 'title_field',
+      6 => 'title_field',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -141,9 +140,8 @@ function content_type_organization_field_group_info() {
     'label' => 'Images',
     'weight' => '3',
     'children' => array(
-      0 => 'field_image_gallery',
-      1 => 'field_lead_image',
-      2 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -204,7 +202,6 @@ function content_type_organization_field_group_info() {
       1 => 'field_hosted_by',
       2 => 'field_produced_by',
       3 => 'field_produced_for',
-      4 => 'field_sponsored_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -231,12 +228,12 @@ function content_type_organization_field_group_info() {
     'label' => 'Related info & topics',
     'weight' => '7',
     'children' => array(
-      0 => 'field_related_acts',
-      1 => 'field_related_info_content',
-      2 => 'field_related_organizations',
-      3 => 'field_related_programs',
-      4 => 'field_related_show_hosts',
-      5 => 'field_topic_tags',
+      0 => 'field_related_info_content',
+      1 => 'field_related_organizations',
+      2 => 'field_related_programs',
+      3 => 'field_related_show_hosts',
+      4 => 'field_topic_tags',
+      5 => 'field_genres',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

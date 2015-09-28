@@ -204,6 +204,7 @@ function content_type_basic_page_field_group_info() {
       3 => 'field_related_programs',
       4 => 'field_related_show_hosts',
       5 => 'field_topic_tags',
+      6 => 'field_genres',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

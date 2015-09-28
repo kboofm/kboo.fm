@@ -123,7 +123,6 @@ function content_type_promo_strongarm() {
   $strongarm->name = 'node_options_promo';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_promo'] = $strongarm;
 
@@ -138,7 +137,7 @@ function content_type_promo_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_promo';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_promo'] = $strongarm;
 
   $strongarm = new stdClass();

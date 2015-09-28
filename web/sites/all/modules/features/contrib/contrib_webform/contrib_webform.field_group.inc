@@ -80,9 +80,8 @@ function contrib_webform_field_group_info() {
     'label' => 'Images',
     'weight' => '1',
     'children' => array(
-      0 => 'field_image_gallery',
-      1 => 'field_lead_image',
-      2 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -140,6 +139,7 @@ function contrib_webform_field_group_info() {
     'weight' => '4',
     'children' => array(
       0 => 'field_topic_tags',
+      1 => 'field_genres',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

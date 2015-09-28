@@ -13,6 +13,35 @@ function content_type_person_profile_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_contact_group|node|person_profile|form';
+  $field_group->group_name = 'group_contact_group';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'person_profile';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Contact info',
+    'weight' => '2',
+    'children' => array(
+      0 => 'field_email',
+      1 => 'field_location',
+      2 => 'field_phone',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-contact-group field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_contact_group|node|person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_content_bottom|node|person_profile|form';
   $field_group->group_name = 'group_content_bottom';
   $field_group->entity_type = 'node';
@@ -21,7 +50,7 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content below media',
-    'weight' => '3',
+    'weight' => '5',
     'children' => array(
       0 => 'field_body_below_media',
     ),
@@ -51,11 +80,11 @@ function content_type_person_profile_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'body',
-      1 => 'field_email',
-      2 => 'field_parent_section',
-      3 => 'field_profile_type',
-      4 => 'field_short_description',
-      5 => 'title_field',
+      1 => 'field_parent_section',
+      2 => 'field_profile_type',
+      3 => 'field_short_description',
+      4 => 'title_field',
+      5 => 'field_name',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -80,7 +109,7 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Developer info',
-    'weight' => '9',
+    'weight' => '8',
     'children' => array(
       0 => 'field_d6_nid',
       1 => 'field_published_date',
@@ -108,11 +137,10 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Images',
-    'weight' => '1',
+    'weight' => '3',
     'children' => array(
-      0 => 'field_image_gallery',
-      1 => 'field_lead_image',
-      2 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -137,7 +165,7 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '2',
+    'weight' => '4',
     'children' => array(
       0 => 'field_audio_files',
       1 => 'field_files',
@@ -173,7 +201,6 @@ function content_type_person_profile_field_group_info() {
       1 => 'field_hosted_by',
       2 => 'field_produced_by',
       3 => 'field_produced_for',
-      4 => 'field_sponsored_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -200,7 +227,7 @@ function content_type_person_profile_field_group_info() {
     'label' => 'Related info & topics',
     'weight' => '7',
     'children' => array(
-      0 => 'field_related_acts',
+      0 => 'field_genres',
       1 => 'field_related_info_content',
       2 => 'field_related_organizations',
       3 => 'field_related_programs',

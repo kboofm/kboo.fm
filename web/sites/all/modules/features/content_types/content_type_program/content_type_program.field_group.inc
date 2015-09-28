@@ -51,12 +51,11 @@ function content_type_program_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'body',
-      1 => 'field_genres',
-      2 => 'field_parent_section',
-      3 => 'field_program',
-      4 => 'field_program_type',
-      5 => 'field_short_description',
-      6 => 'title_field',
+      1 => 'field_parent_section',
+      2 => 'field_program_type',
+      3 => 'field_short_description',
+      4 => 'title_field',
+      5 => 'field_episode_record',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -111,9 +110,8 @@ function content_type_program_field_group_info() {
     'label' => 'Images',
     'weight' => '1',
     'children' => array(
-      0 => 'field_image_gallery',
-      1 => 'field_lead_image',
-      2 => 'field_more_images',
+      0 => 'field_lead_image',
+      1 => 'field_more_images',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -201,7 +199,7 @@ function content_type_program_field_group_info() {
     'label' => 'Related info & topics',
     'weight' => '5',
     'children' => array(
-      0 => 'field_related_acts',
+      0 => 'field_genres',
       1 => 'field_related_info_content',
       2 => 'field_related_organizations',
       3 => 'field_related_programs',

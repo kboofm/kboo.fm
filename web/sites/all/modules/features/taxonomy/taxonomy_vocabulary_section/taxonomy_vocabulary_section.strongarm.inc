@@ -14,7 +14,7 @@ function taxonomy_vocabulary_section_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_taxonomy_term_sections_pattern';
-  $strongarm->value = 'section-url/[term:field-parent-section:field-landing-page:url:path]/[term:field-landing-page:url:path]';
+  $strongarm->value = '';
   $export['pathauto_taxonomy_term_sections_pattern'] = $strongarm;
 
   return $export;

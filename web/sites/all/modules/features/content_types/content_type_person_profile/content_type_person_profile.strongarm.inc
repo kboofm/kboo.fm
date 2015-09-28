@@ -93,10 +93,10 @@ function content_type_person_profile_strongarm() {
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '10',
+          'weight' => '9',
         ),
         'metatags' => array(
-          'weight' => '11',
+          'weight' => '10',
         ),
       ),
       'display' => array(),
@@ -126,7 +126,6 @@ function content_type_person_profile_strongarm() {
   $strongarm->name = 'node_options_person_profile';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_person_profile'] = $strongarm;
 
@@ -141,7 +140,7 @@ function content_type_person_profile_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_person_profile';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_person_profile'] = $strongarm;
 
   $strongarm = new stdClass();
