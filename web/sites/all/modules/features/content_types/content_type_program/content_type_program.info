@@ -80,4 +80,3 @@ features_exclude[dependencies][file] = file
 features_exclude[dependencies][image] = image
 features_exclude[dependencies][options] = options
 features_exclude[dependencies][entityreference] = entityreference
-features_exclude[dependencies][content_type_act] = content_type_act

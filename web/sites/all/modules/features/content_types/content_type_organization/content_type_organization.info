@@ -93,6 +93,5 @@ features_exclude[dependencies][email] = email
 features_exclude[dependencies][telephone] = telephone
 features_exclude[dependencies][options] = options
 features_exclude[dependencies][content_type_basic_page] = content_type_basic_page
-features_exclude[dependencies][content_type_image_gallery] = content_type_image_gallery
 features_exclude[dependencies][taxonomy_vocabularies] = taxonomy_vocabularies
 features_exclude[dependencies][content_type_blog_post] = content_type_blog_post
