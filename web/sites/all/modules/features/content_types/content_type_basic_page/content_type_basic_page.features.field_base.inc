@@ -406,7 +406,6 @@ function content_type_basic_page_field_default_field_bases() {
           'type' => 'none',
         ),
         'target_bundles' => array(
-          'article' => 'article',
           'basic_page' => 'basic_page',
           'blog_post' => 'blog_post',
           'event' => 'event',
