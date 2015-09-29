@@ -2021,11 +2021,46 @@ function content_type_person_profile_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'title_field',
     'label' => 'Name',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'full_html_no_wysiwyg' => 'full_html_no_wysiwyg',
+          'full_html_simple_wysiwyg' => 'full_html_simple_wysiwyg',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => -7,
+            ),
+            'full_html' => array(
+              'weight' => -10,
+            ),
+            'full_html_no_wysiwyg' => array(
+              'weight' => -8,
+            ),
+            'full_html_simple_wysiwyg' => array(
+              'weight' => -9,
+            ),
+            'plain_text' => array(
+              'weight' => -6,
+            ),
+          ),
+        ),
+      ),
       'hide_label' => array(
         'entity' => 0,
         'page' => 0,
+      ),
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
       ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
