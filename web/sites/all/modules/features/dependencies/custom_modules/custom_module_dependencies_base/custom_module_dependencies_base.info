@@ -13,4 +13,5 @@ dependencies[] = radio_notifications
 
 ; Custom modules - content types
 dependencies[] = radio_organization
+dependencies[] = radio_person_profile
 features[features_api][] = api:2
