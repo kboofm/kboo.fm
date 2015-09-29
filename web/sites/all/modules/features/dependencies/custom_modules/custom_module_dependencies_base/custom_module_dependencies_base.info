@@ -12,7 +12,5 @@ dependencies[] = radio_forms
 dependencies[] = radio_notifications
 
 ; Custom modules - content types
-dependencies[] = radio_act
-dependencies[] = radio_blog_post
 dependencies[] = radio_organization
 features[features_api][] = api:2
