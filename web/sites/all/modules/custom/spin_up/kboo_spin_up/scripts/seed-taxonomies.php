@@ -19,14 +19,6 @@ class SeedTaxonomies {
   private function initialize()
   {
     $this->taxonomies[] = [
-      'act_types' => [
-        'Music', /* 'Music' must always remain at this (0) index in the array
-                  * due to default value set on field_act_type.
-                 */
-      ],
-    ];
-
-    $this->taxonomies[] = [
       'event_types' => [
         'Music',
         'Community',
