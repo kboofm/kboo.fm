@@ -12,5 +12,5 @@ dependencies[] = content_type_organization
 dependencies[] = content_type_person_profile
 dependencies[] = content_type_program
 dependencies[] = content_type_promo
-dependencies[] = content_type_standalone_media
+dependencies[] = content_type_station_content
 features[features_api][] = api:2

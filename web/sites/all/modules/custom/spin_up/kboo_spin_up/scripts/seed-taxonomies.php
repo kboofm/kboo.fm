@@ -50,7 +50,7 @@ class SeedTaxonomies {
     ];
 
     $this->taxonomies[] = [
-      'standalone_media_types' => [
+      'station_content_types' => [
         'Clip',
         'Full Episode',
         'Newsletter',

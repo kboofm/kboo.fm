@@ -1,19 +1,19 @@
 <?php
 /**
  * @file
- * content_type_standalone_media.features.field_instance.inc
+ * content_type_station_content.features.field_instance.inc
  */
 
 /**
  * Implements hook_field_default_field_instances().
  */
-function content_type_standalone_media_field_default_field_instances() {
+function content_type_station_content_field_default_field_instances() {
   $field_instances = array();
 
   // Exported field_instance:
-  // 'comment-comment_node_standalone_media-comment_body'
-  $field_instances['comment-comment_node_standalone_media-comment_body'] = array(
-    'bundle' => 'comment_node_standalone_media',
+  // 'comment-comment_node_station_content-comment_body'
+  $field_instances['comment-comment_node_station_content-comment_body'] = array(
+    'bundle' => 'comment_node_station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -80,9 +80,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-body'
-  $field_instances['node-standalone_media-body'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-body'
+  $field_instances['node-station_content-body'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -144,9 +144,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_air_time'
-  $field_instances['node-standalone_media-field_air_time'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_air_time'
+  $field_instances['node-station_content-field_air_time'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -213,9 +213,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_audio_files'
-  $field_instances['node-standalone_media-field_audio_files'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_audio_files'
+  $field_instances['node-station_content-field_audio_files'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -253,7 +253,7 @@ function content_type_standalone_media_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'file_directory' => 'audio/standalone_media',
+      'file_directory' => 'audio/station_content',
       'file_extensions' => 'mp3 m4a ogg oga',
       'max_filesize' => '',
       'user_register_form' => FALSE,
@@ -288,9 +288,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_authored_by'
-  $field_instances['node-standalone_media-field_authored_by'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_authored_by'
+  $field_instances['node-station_content-field_authored_by'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -361,9 +361,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_body_below_media'
-  $field_instances['node-standalone_media-field_body_below_media'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_body_below_media'
+  $field_instances['node-station_content-field_body_below_media'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -450,9 +450,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_d6_nid'
-  $field_instances['node-standalone_media-field_d6_nid'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_d6_nid'
+  $field_instances['node-station_content-field_d6_nid'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -502,9 +502,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_episode_record'
-  $field_instances['node-standalone_media-field_episode_record'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_episode_record'
+  $field_instances['node-station_content-field_episode_record'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -550,9 +550,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_explicit'
-  $field_instances['node-standalone_media-field_explicit'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_explicit'
+  $field_instances['node-station_content-field_explicit'] = array(
+    'bundle' => 'station_content',
     'default_value' => array(
       0 => array(
         'value' => 'clean',
@@ -602,9 +602,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_files'
-  $field_instances['node-standalone_media-field_files'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_files'
+  $field_instances['node-station_content-field_files'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -644,7 +644,7 @@ function content_type_standalone_media_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'file_directory' => 'files/standalone_media',
+      'file_directory' => 'files/station_content',
       'file_extensions' => 'jpg jpeg gif png txt doc docx xls xlsx pdf ppt pptx pps ppsx odt ods odp mp3 mov mp4 m4a m4v mpeg avi ogg oga ogv weba webp webm',
       'max_filesize' => '',
       'user_register_form' => FALSE,
@@ -679,9 +679,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_genres'
-  $field_instances['node-standalone_media-field_genres'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_genres'
+  $field_instances['node-station_content-field_genres'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -765,9 +765,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_hosted_by'
-  $field_instances['node-standalone_media-field_hosted_by'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_hosted_by'
+  $field_instances['node-station_content-field_hosted_by'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -838,9 +838,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_lead_image'
-  $field_instances['node-standalone_media-field_lead_image'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_lead_image'
+  $field_instances['node-station_content-field_lead_image'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -880,7 +880,7 @@ function content_type_standalone_media_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => 'images/lead/standalone_media',
+      'file_directory' => 'images/lead/station_content',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -918,9 +918,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_links'
-  $field_instances['node-standalone_media-field_links'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_links'
+  $field_instances['node-station_content-field_links'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -992,9 +992,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_more_images'
-  $field_instances['node-standalone_media-field_more_images'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_more_images'
+  $field_instances['node-station_content-field_more_images'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1034,7 +1034,7 @@ function content_type_standalone_media_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => 'images/more/standalone_media',
+      'file_directory' => 'images/more/station_content',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -1072,9 +1072,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_parent_section'
-  $field_instances['node-standalone_media-field_parent_section'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_parent_section'
+  $field_instances['node-station_content-field_parent_section'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1120,9 +1120,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_produced_by'
-  $field_instances['node-standalone_media-field_produced_by'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_produced_by'
+  $field_instances['node-station_content-field_produced_by'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1193,9 +1193,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_produced_for'
-  $field_instances['node-standalone_media-field_produced_for'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_produced_for'
+  $field_instances['node-station_content-field_produced_for'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1266,9 +1266,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_published_date'
-  $field_instances['node-standalone_media-field_published_date'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_published_date'
+  $field_instances['node-station_content-field_published_date'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1325,9 +1325,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_related_info_content'
-  $field_instances['node-standalone_media-field_related_info_content'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_related_info_content'
+  $field_instances['node-station_content-field_related_info_content'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1394,9 +1394,9 @@ function content_type_standalone_media_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-standalone_media-field_related_organizations'
-  $field_instances['node-standalone_media-field_related_organizations'] = array(
-    'bundle' => 'standalone_media',
+  // 'node-station_content-field_related_organizations'
+  $field_instances['node-station_content-field_related_organizations'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1467,9 +1467,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_related_programs'
-  $field_instances['node-standalone_media-field_related_programs'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_related_programs'
+  $field_instances['node-station_content-field_related_programs'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1540,9 +1540,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_related_show_hosts'
-  $field_instances['node-standalone_media-field_related_show_hosts'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_related_show_hosts'
+  $field_instances['node-station_content-field_related_show_hosts'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1613,9 +1613,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_short_description'
-  $field_instances['node-standalone_media-field_short_description'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_short_description'
+  $field_instances['node-station_content-field_short_description'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1668,9 +1668,9 @@ function content_type_standalone_media_field_default_field_instances() {
   );
 
   // Exported field_instance:
-  // 'node-standalone_media-field_standalone_media_type'
-  $field_instances['node-standalone_media-field_standalone_media_type'] = array(
-    'bundle' => 'standalone_media',
+  // 'node-station_content-field_station_content_type'
+  $field_instances['node-station_content-field_station_content_type'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1701,8 +1701,8 @@ function content_type_standalone_media_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_standalone_media_type',
-    'label' => 'Standalone Media type',
+    'field_name' => 'field_station_content_type',
+    'label' => 'Station Content type',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1716,9 +1716,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_topic_tags'
-  $field_instances['node-standalone_media-field_topic_tags'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_topic_tags'
+  $field_instances['node-station_content-field_topic_tags'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1815,9 +1815,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-field_video_files'
-  $field_instances['node-standalone_media-field_video_files'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-field_video_files'
+  $field_instances['node-station_content-field_video_files'] = array(
+    'bundle' => 'station_content',
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1855,7 +1855,7 @@ function content_type_standalone_media_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'file_directory' => 'videos/standalone_media',
+      'file_directory' => 'videos/station_content',
       'file_extensions' => 'mov mp4 m4v mpeg avi ogv weba webm',
       'max_filesize' => '',
       'user_register_form' => FALSE,
@@ -1890,9 +1890,9 @@ function content_type_standalone_media_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-standalone_media-title_field'
-  $field_instances['node-standalone_media-title_field'] = array(
-    'bundle' => 'standalone_media',
+  // Exported field_instance: 'node-station_content-title_field'
+  $field_instances['node-station_content-title_field'] = array(
+    'bundle' => 'station_content',
     'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
@@ -1970,7 +1970,7 @@ function content_type_standalone_media_field_default_field_instances() {
   t('Related program(s)');
   t('Related show host(s)');
   t('Short Description');
-  t('Standalone Media type');
+  t('Station Content type');
   t('Title');
   t('Topic tags');
   t('Video File(s)');

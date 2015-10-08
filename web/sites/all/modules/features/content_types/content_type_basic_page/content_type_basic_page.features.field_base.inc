@@ -409,7 +409,7 @@ function content_type_basic_page_field_default_field_bases() {
           'basic_page' => 'basic_page',
           'blog_post' => 'blog_post',
           'event' => 'event',
-          'standalone_media' => 'standalone_media',
+          'station_content' => 'station_content',
         ),
       ),
       'target_type' => 'node',

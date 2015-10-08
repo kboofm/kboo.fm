@@ -1,68 +1,68 @@
 <?php
 /**
  * @file
- * content_type_standalone_media.strongarm.inc
+ * content_type_station_content.strongarm.inc
  */
 
 /**
  * Implements hook_strongarm().
  */
-function content_type_standalone_media_strongarm() {
+function content_type_station_content_strongarm() {
   $export = array();
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_anonymous_standalone_media';
+  $strongarm->name = 'comment_anonymous_station_content';
   $strongarm->value = 0;
-  $export['comment_anonymous_standalone_media'] = $strongarm;
+  $export['comment_anonymous_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_mode_standalone_media';
+  $strongarm->name = 'comment_default_mode_station_content';
   $strongarm->value = 1;
-  $export['comment_default_mode_standalone_media'] = $strongarm;
+  $export['comment_default_mode_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_default_per_page_standalone_media';
+  $strongarm->name = 'comment_default_per_page_station_content';
   $strongarm->value = '50';
-  $export['comment_default_per_page_standalone_media'] = $strongarm;
+  $export['comment_default_per_page_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_form_location_standalone_media';
+  $strongarm->name = 'comment_form_location_station_content';
   $strongarm->value = 1;
-  $export['comment_form_location_standalone_media'] = $strongarm;
+  $export['comment_form_location_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_preview_standalone_media';
+  $strongarm->name = 'comment_preview_station_content';
   $strongarm->value = '1';
-  $export['comment_preview_standalone_media'] = $strongarm;
+  $export['comment_preview_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_standalone_media';
+  $strongarm->name = 'comment_station_content';
   $strongarm->value = '2';
-  $export['comment_standalone_media'] = $strongarm;
+  $export['comment_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'comment_subject_field_standalone_media';
+  $strongarm->name = 'comment_subject_field_station_content';
   $strongarm->value = 1;
-  $export['comment_subject_field_standalone_media'] = $strongarm;
+  $export['comment_subject_field_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'field_bundle_settings_node__standalone_media';
+  $strongarm->name = 'field_bundle_settings_node__station_content';
   $strongarm->value = array(
     'view_modes' => array(
       'teaser' => array(
@@ -102,54 +102,54 @@ function content_type_standalone_media_strongarm() {
       'display' => array(),
     ),
   );
-  $export['field_bundle_settings_node__standalone_media'] = $strongarm;
+  $export['field_bundle_settings_node__station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_options_standalone_media';
+  $strongarm->name = 'menu_options_station_content';
   $strongarm->value = array(
     0 => 'main-menu',
   );
-  $export['menu_options_standalone_media'] = $strongarm;
+  $export['menu_options_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'menu_parent_standalone_media';
+  $strongarm->name = 'menu_parent_station_content';
   $strongarm->value = 'main-menu:0';
-  $export['menu_parent_standalone_media'] = $strongarm;
+  $export['menu_parent_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_options_standalone_media';
+  $strongarm->name = 'node_options_station_content';
   $strongarm->value = array(
     0 => 'status',
     1 => 'promote',
   );
-  $export['node_options_standalone_media'] = $strongarm;
+  $export['node_options_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_preview_standalone_media';
+  $strongarm->name = 'node_preview_station_content';
   $strongarm->value = '1';
-  $export['node_preview_standalone_media'] = $strongarm;
+  $export['node_preview_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'node_submitted_standalone_media';
+  $strongarm->name = 'node_submitted_station_content';
   $strongarm->value = 0;
-  $export['node_submitted_standalone_media'] = $strongarm;
+  $export['node_submitted_station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'pathauto_node_standalone_media_pattern';
+  $strongarm->name = 'pathauto_node_station_content_pattern';
   $strongarm->value = '[node:field-parent-section:field-parent-section:field-landing-page:url:path]/[node:field-parent-section:field-landing-page:url:path]/media/[node:nid]-[node:title]';
-  $export['pathauto_node_standalone_media_pattern'] = $strongarm;
+  $export['pathauto_node_station_content_pattern'] = $strongarm;
 
   return $export;
 }

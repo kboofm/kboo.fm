@@ -453,7 +453,7 @@ function configure_search_strongarm() {
       8 => 0,
       13 => 0,
     ),
-    'standalone_media' => array(
+    'station_content' => array(
       -1 => 0,
       3 => 0,
       4 => 0,

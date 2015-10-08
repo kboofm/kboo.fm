@@ -1,22 +1,22 @@
 <?php
 /**
  * @file
- * content_type_standalone_media.field_group.inc
+ * content_type_station_content.field_group.inc
  */
 
 /**
  * Implements hook_field_group_info().
  */
-function content_type_standalone_media_field_group_info() {
+function content_type_station_content_field_group_info() {
   $export = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_content_bottom|node|standalone_media|form';
+  $field_group->identifier = 'group_content_bottom|node|station_content|form';
   $field_group->group_name = 'group_content_bottom';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -35,15 +35,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_content_bottom|node|standalone_media|form'] = $field_group;
+  $export['group_content_bottom|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_content|node|standalone_media|form';
+  $field_group->identifier = 'group_content|node|station_content|form';
   $field_group->group_name = 'group_content';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -54,7 +54,7 @@ function content_type_standalone_media_field_group_info() {
       1 => 'field_explicit',
       2 => 'field_parent_section',
       3 => 'field_short_description',
-      4 => 'field_standalone_media_type',
+      4 => 'field_station_content_type',
       5 => 'title_field',
       6 => 'field_air_time',
       7 => 'field_episode_record',
@@ -69,15 +69,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_content|node|standalone_media|form'] = $field_group;
+  $export['group_content|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_developer_info|node|standalone_media|form';
+  $field_group->identifier = 'group_developer_info|node|station_content|form';
   $field_group->group_name = 'group_developer_info';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -97,15 +97,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_developer_info|node|standalone_media|form'] = $field_group;
+  $export['group_developer_info|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_images|node|standalone_media|form';
+  $field_group->identifier = 'group_images|node|station_content|form';
   $field_group->group_name = 'group_images';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -125,15 +125,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_images|node|standalone_media|form'] = $field_group;
+  $export['group_images|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_media|node|standalone_media|form';
+  $field_group->identifier = 'group_media|node|station_content|form';
   $field_group->group_name = 'group_media';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -155,15 +155,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_media|node|standalone_media|form'] = $field_group;
+  $export['group_media|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_profile_info|node|standalone_media|form';
+  $field_group->identifier = 'group_profile_info|node|station_content|form';
   $field_group->group_name = 'group_profile_info';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -185,15 +185,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_profile_info|node|standalone_media|form'] = $field_group;
+  $export['group_profile_info|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_related|node|standalone_media|form';
+  $field_group->identifier = 'group_related|node|station_content|form';
   $field_group->group_name = 'group_related';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -217,15 +217,15 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_related|node|standalone_media|form'] = $field_group;
+  $export['group_related|node|station_content|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
-  $field_group->identifier = 'group_teaser_info|node|standalone_media|form';
+  $field_group->identifier = 'group_teaser_info|node|station_content|form';
   $field_group->group_name = 'group_teaser_info';
   $field_group->entity_type = 'node';
-  $field_group->bundle = 'standalone_media';
+  $field_group->bundle = 'station_content';
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
@@ -246,7 +246,7 @@ function content_type_standalone_media_field_group_info() {
       ),
     ),
   );
-  $export['group_teaser_info|node|standalone_media|form'] = $field_group;
+  $export['group_teaser_info|node|station_content|form'] = $field_group;
 
   return $export;
 }

@@ -49,9 +49,9 @@ function taxonomy_vocabularies_taxonomy_default_vocabularies() {
       'module' => 'taxonomy',
       'weight' => 0,
     ),
-    'standalone_media_types' => array(
-      'name' => 'Standalone Media Types',
-      'machine_name' => 'standalone_media_types',
+    'station_content_types' => array(
+      'name' => 'Station Content Types',
+      'machine_name' => 'station_content_types',
       'description' => '',
       'hierarchy' => 0,
       'module' => 'taxonomy',

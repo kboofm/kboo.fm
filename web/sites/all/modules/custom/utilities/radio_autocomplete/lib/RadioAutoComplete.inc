@@ -18,7 +18,7 @@ class RadioAutoComplete {
       'organization',
       'person_profile',
       'program',
-      'standalone_media',
+      'station_content',
     ];
 
     $fields = [

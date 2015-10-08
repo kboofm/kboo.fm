@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Station Content feature.
+ */
+
+include_once 'content_type_station_content.features.inc';

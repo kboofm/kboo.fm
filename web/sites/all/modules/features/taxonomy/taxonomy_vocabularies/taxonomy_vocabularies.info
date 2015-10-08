@@ -10,6 +10,6 @@ features[taxonomy][] = genres
 features[taxonomy][] = organization_types
 features[taxonomy][] = profile_types
 features[taxonomy][] = program_types
-features[taxonomy][] = standalone_media_types
+features[taxonomy][] = station_content_types
 features[taxonomy][] = topics
 features_exclude[dependencies][features] = features

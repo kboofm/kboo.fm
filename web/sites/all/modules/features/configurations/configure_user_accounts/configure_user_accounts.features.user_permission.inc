@@ -660,9 +660,9 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'create standalone_media content'.
-  $permissions['create standalone_media content'] = array(
-    'name' => 'create standalone_media content',
+  // Exported permission: 'create station_content content'.
+  $permissions['create station_content content'] = array(
+    'name' => 'create station_content content',
     'roles' => array(
       'Author - Program' => 'Author - Program',
     ),
@@ -780,9 +780,9 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete any standalone_media content'.
-  $permissions['delete any standalone_media content'] = array(
-    'name' => 'delete any standalone_media content',
+  // Exported permission: 'delete any station_content content'.
+  $permissions['delete any station_content content'] = array(
+    'name' => 'delete any station_content content',
     'roles' => array(),
     'module' => 'node',
   );
@@ -889,9 +889,9 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'delete own standalone_media content'.
-  $permissions['delete own standalone_media content'] = array(
-    'name' => 'delete own standalone_media content',
+  // Exported permission: 'delete own station_content content'.
+  $permissions['delete own station_content content'] = array(
+    'name' => 'delete own station_content content',
     'roles' => array(
       'Author - Program' => 'Author - Program',
     ),
@@ -1112,9 +1112,9 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit any standalone_media content'.
-  $permissions['edit any standalone_media content'] = array(
-    'name' => 'edit any standalone_media content',
+  // Exported permission: 'edit any station_content content'.
+  $permissions['edit any station_content content'] = array(
+    'name' => 'edit any station_content content',
     'roles' => array(),
     'module' => 'node',
   );
@@ -1240,9 +1240,9 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'node',
   );
 
-  // Exported permission: 'edit own standalone_media content'.
-  $permissions['edit own standalone_media content'] = array(
-    'name' => 'edit own standalone_media content',
+  // Exported permission: 'edit own station_content content'.
+  $permissions['edit own station_content content'] = array(
+    'name' => 'edit own station_content content',
     'roles' => array(
       'Author - Program' => 'Author - Program',
     ),
@@ -1431,9 +1431,9 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'publication_date',
   );
 
-  // Exported permission: 'set standalone_media published on date'.
-  $permissions['set standalone_media published on date'] = array(
-    'name' => 'set standalone_media published on date',
+  // Exported permission: 'set station_content published on date'.
+  $permissions['set station_content published on date'] = array(
+    'name' => 'set station_content published on date',
     'roles' => array(),
     'module' => 'publication_date',
   );

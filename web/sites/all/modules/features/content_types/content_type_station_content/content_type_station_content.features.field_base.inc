@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * content_type_standalone_media.features.field_base.inc
+ * content_type_station_content.features.field_base.inc
  */
 
 /**
  * Implements hook_field_default_field_bases().
  */
-function content_type_standalone_media_field_default_field_bases() {
+function content_type_station_content_field_default_field_bases() {
   $field_bases = array();
 
   // Exported field_base: 'field_explicit'
@@ -35,13 +35,13 @@ function content_type_standalone_media_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_standalone_media_type'
-  $field_bases['field_standalone_media_type'] = array(
+  // Exported field_base: 'field_station_content_type'
+  $field_bases['field_station_content_type'] = array(
     'active' => 1,
     'cardinality' => 1,
     'deleted' => 0,
     'entity_types' => array(),
-    'field_name' => 'field_standalone_media_type',
+    'field_name' => 'field_station_content_type',
     'indexes' => array(
       'tid' => array(
         0 => 'tid',
@@ -52,7 +52,7 @@ function content_type_standalone_media_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => array(
-          'vocabulary' => 'standalone_media_types',
+          'vocabulary' => 'station_content_types',
           'parent' => 0,
         ),
       ),

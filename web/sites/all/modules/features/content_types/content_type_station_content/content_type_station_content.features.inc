@@ -1,13 +1,13 @@
 <?php
 /**
  * @file
- * content_type_standalone_media.features.inc
+ * content_type_station_content.features.inc
  */
 
 /**
  * Implements hook_ctools_plugin_api().
  */
-function content_type_standalone_media_ctools_plugin_api($module = NULL, $api = NULL) {
+function content_type_station_content_ctools_plugin_api($module = NULL, $api = NULL) {
   if ($module == "field_group" && $api == "field_group") {
     return array("version" => "1");
   }
@@ -19,10 +19,10 @@ function content_type_standalone_media_ctools_plugin_api($module = NULL, $api = 
 /**
  * Implements hook_node_info().
  */
-function content_type_standalone_media_node_info() {
+function content_type_station_content_node_info() {
   $items = array(
-    'standalone_media' => array(
-      'name' => t('Standalone Media'),
+    'station_content' => array(
+      'name' => t('Station Content'),
       'base' => 'node_content',
       'description' => t('A show, episode, release, or an edition of a program. For example, an audio episode or an edition of a newsletter.'),
       'has_title' => '1',
