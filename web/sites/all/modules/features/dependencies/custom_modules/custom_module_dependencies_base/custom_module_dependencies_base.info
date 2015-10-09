@@ -6,10 +6,11 @@ version = 7.x-1.0
 project = custom_module_dependencies_base
 
 ; Custom modules - utilities
-dependencies[] = radio_core
 dependencies[] = radio_autocomplete
 dependencies[] = radio_forms
 dependencies[] = radio_notifications
+dependencies[] = radio_template_query
+dependencies[] = radio_urls
 
 ; Custom modules - content types
 dependencies[] = radio_organization
