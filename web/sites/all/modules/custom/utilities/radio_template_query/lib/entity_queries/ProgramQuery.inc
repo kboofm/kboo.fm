@@ -1,12 +1,12 @@
 <?php
 
-class ProgramFieldQuery extends NodeFieldQuery {
+class ProgramQuery extends NodeQuery {
 
   /**
    * Initialize
    */
   public function initialize() {
-    $this->bundle = 'program';
+    $this->content_type = 'program';
   }
 
 
@@ -20,9 +20,12 @@ class ProgramFieldQuery extends NodeFieldQuery {
     $terms = taxonomy_get_term_by_name('Channel/Stream', 'program_types');
     $term = reset($terms);
 
-    $this->fieldCondition('field_program_type', 'tid', $term->tid)
-      ->fieldCondition('title_field', 'value', $string, 'CONTAINS')
-      ->range(0, 10);
+    # where
+    $this->fieldCondition('field_program_type', 'tid', $term->tid);
+    $this->fieldCondition('title_field', 'value', $string, 'CONTAINS');
+
+    # limit
+    $this->range(0, 10);
 
     return $this;
   }

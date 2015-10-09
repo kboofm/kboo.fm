@@ -6,7 +6,7 @@
  * @param $alias
  * @param array $context
  */
-function radio_core_pathauto_alias_alter(&$alias, array &$context) {
+function radio_urls_pathauto_alias_alter(&$alias, array &$context) {
   $parts = explode('/', $alias);
 
   if (!$parts || count($parts) < 2) {
@@ -17,6 +17,7 @@ function radio_core_pathauto_alias_alter(&$alias, array &$context) {
   $second = array_pop($parts);
 
   if ($last == $second) {
-    $alias = $last;
+    $parts[] = $last;
+    $alias = join('/', $parts);
   }
 }
