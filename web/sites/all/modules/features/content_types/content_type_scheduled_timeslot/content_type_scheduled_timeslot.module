@@ -1,0 +1,7 @@
+<?php
+/**
+ * @file
+ * Code for the Scheduled Timeslot feature.
+ */
+
+include_once 'content_type_scheduled_timeslot.features.inc';
