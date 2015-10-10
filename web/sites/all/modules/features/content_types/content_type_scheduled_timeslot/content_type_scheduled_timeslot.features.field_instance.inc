@@ -116,7 +116,7 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
           'show_repeat_rule' => 'show',
         ),
         'type' => 'date_default',
-        'weight' => 1,
+        'weight' => 3,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -128,7 +128,7 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
     'entity_type' => 'node',
     'field_name' => 'field_timeslot',
     'label' => 'Timeslot',
-    'required' => 1,
+    'required' => 0,
     'settings' => array(
       'default_value' => 'now',
       'default_value2' => 'same',
