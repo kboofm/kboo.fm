@@ -10,6 +10,12 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
   public function getNow() {
+    $now = now();
+
+    # where
+    $this->fieldCondition('field_timeslot', 'value', $now, '<=');
+    $this->fieldCondition('field_timeslot', 'value2', $now, '>=');
+
     return $this;
   }
 }

@@ -6,8 +6,12 @@ class TemplateQuery {
     $query->getNow();
     $result = $query->execute();
 
+    if (empty($result)) {
+      return NULL;
+    }
+
     $processor = new ScheduleProcessor();
-    return $processor->process(
+    return $processor->processFirst(
       $result['node']
     );
   }

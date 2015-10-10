@@ -1,7 +1,7 @@
 <?php
 
 class TemplateProcessor {
-  public function process($dataset, $heading = NULL) {}
+  public function process($dataset) {}
 
   public static function getEntityUrl($entity, $type = 'node') {
     $uri = entity_uri($type, $entity);
