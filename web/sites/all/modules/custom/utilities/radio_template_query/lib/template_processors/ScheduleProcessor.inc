@@ -57,25 +57,60 @@ class ScheduleProcessor extends TemplateProcessor {
     return NULL;
   }
 
-  private function getProgram($wrapped) {
-    try {
-      return $wrapped->field_program->value();
-    } catch (EntityMetadataWrapperException $e) {
+  private function getProgram($wrapped, $wrapped_episode) {
+    $program = NULL;
+
+    if ($wrapped_episode) {
+      try {
+        $programs = $wrapped_episode->field_produced_for->value();
+        $program = $programs[0];
+      } catch (EntityMetadataWrapperException $e) {
+        // swallow error
+      }
+    }
+
+    if (!$program) {
+      try {
+        $program = $wrapped->field_program->value();
+      } catch (EntityMetadataWrapperException $e) {
+        // swallow error
+      }
+    }
+
+    return $program;
+  }
+
+  private function getEpisode($timeslot) {
+    $query = new StationContentQuery();
+    $query->getEpisode(
+      $timeslot['value'],
+      $timeslot['value2']
+    );
+    $result = $query->execute();
+
+    if (empty($result)) {
       return NULL;
     }
+
+    reset($result['node']);
+    $nid = key($result['node']);
+    return entity_metadata_wrapper('node', $nid);
   }
 
   private function buildScheduleItem($wrapped, $timeslot) {
-//    $episode = $this->getEpisode($timeslot);
-//    $program = $this->getProgram($wrapped, $episode);
-    $program = $this->getProgram($wrapped);
-    $program_url = $this->getEntityUrl($program);
+    $wrapped_episode = $this->getEpisode($timeslot);
+    $program = $this->getProgram($wrapped, $wrapped_episode);
+
+    $title = $program->title;
+    $url = $this->getEntityUrl($program);
+    if ($wrapped_episode) {
+      $episode = $wrapped_episode->value();
+      $url = $this->getEntityUrl($episode);
+    }
 
     $schedule_item = [
-      'program' => [
-        'title' => $program->title,
-        'url' => $program_url,
-      ],
+      'title' => $title,
+      'url' => $url,
       'start' => date('Y-m-d H:i:s', $timeslot['value']),
       'timestamp' => $timeslot['value'],
     ];

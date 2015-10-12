@@ -1,8 +1,8 @@
 <?php
 if ($schedule_item):
 ?>
-  <a href="<?php print $schedule_item['program']['url']; ?>">
-    <?php print $schedule_item['program']['title']; ?>
+  <a href="<?php print $schedule_item['url']; ?>">
+    <?php print $schedule_item['title']; ?>
   </a>
 <?php
 else:

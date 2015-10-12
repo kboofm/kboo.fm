@@ -10,6 +10,7 @@ files[] = lib/entity_queries/OrganizationQuery.inc
 files[] = lib/entity_queries/PersonProfileQuery.inc
 files[] = lib/entity_queries/ProgramQuery.inc
 files[] = lib/entity_queries/ScheduledTimeslotQuery.inc
+files[] = lib/entity_queries/StationContentQuery.inc
 
 
 ; Template Processors
