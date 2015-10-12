@@ -24,6 +24,12 @@ function entity_file_types_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 0,
       ),
+      'link' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'preview' => array(
         'label' => 'above',
         'settings' => array(),
@@ -112,6 +118,26 @@ function entity_file_types_field_default_field_instances() {
         'type' => 'text_default',
         'weight' => 2,
       ),
+      'lead' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'link' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'more' => array(
+        'label' => 'hidden',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 0,
+      ),
       'preview' => array(
         'label' => 'above',
         'settings' => array(),
@@ -165,6 +191,24 @@ function entity_file_types_field_default_field_instances() {
         'weight' => 0,
       ),
       'full' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'lead' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'link' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'more' => array(
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
@@ -227,6 +271,24 @@ function entity_file_types_field_default_field_instances() {
         'type' => 'hidden',
         'weight' => 0,
       ),
+      'lead' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'link' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'more' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
       'preview' => array(
         'label' => 'above',
         'settings' => array(),
@@ -277,6 +339,12 @@ function entity_file_types_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
+        'weight' => 0,
+      ),
+      'link' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
         'weight' => 0,
       ),
       'preview' => array(

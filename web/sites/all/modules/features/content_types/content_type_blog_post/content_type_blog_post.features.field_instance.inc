@@ -214,7 +214,7 @@ function content_type_blog_post_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 19,
+      'weight' => 0,
     ),
   );
 
@@ -287,7 +287,7 @@ function content_type_blog_post_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 27,
+      'weight' => 1,
     ),
   );
 
@@ -505,7 +505,7 @@ function content_type_blog_post_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 21,
+      'weight' => 29,
     ),
   );
 
@@ -591,7 +591,7 @@ function content_type_blog_post_field_default_field_instances() {
       'module' => 'multiselect',
       'settings' => array(),
       'type' => 'multiselect',
-      'weight' => 15,
+      'weight' => 4,
     ),
   );
 
@@ -676,12 +676,11 @@ function content_type_blog_post_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'image',
+        'module' => 'file_entity',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => 'default_lead_1x',
+          'file_view_mode' => 'lead',
         ),
-        'type' => 'image',
+        'type' => 'file_rendered',
         'weight' => 5,
       ),
       'search_index' => array(
@@ -744,7 +743,7 @@ function content_type_blog_post_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 7,
+      'weight' => -2,
     ),
   );
 
@@ -818,7 +817,7 @@ function content_type_blog_post_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 22,
+      'weight' => 32,
     ),
   );
 
@@ -830,12 +829,11 @@ function content_type_blog_post_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'image',
+        'module' => 'file_entity',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => 'default_more_1x',
+          'file_view_mode' => 'more',
         ),
-        'type' => 'image',
+        'type' => 'file_rendered',
         'weight' => 7,
       ),
       'search_index' => array(
@@ -898,7 +896,7 @@ function content_type_blog_post_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 8,
+      'weight' => -1,
     ),
   );
 
@@ -946,7 +944,7 @@ function content_type_blog_post_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => -2,
+      'weight' => 5,
     ),
   );
 
@@ -1089,7 +1087,7 @@ function content_type_blog_post_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 31,
+      'weight' => 2,
     ),
   );
 
@@ -1582,13 +1580,13 @@ function content_type_blog_post_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'multiselect',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 14,
+      'type' => 'multiselect',
+      'weight' => 3,
     ),
   );
 
@@ -1663,7 +1661,7 @@ function content_type_blog_post_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 20,
+      'weight' => 28,
     ),
   );
 

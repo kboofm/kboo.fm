@@ -1,0 +1,40 @@
+<?php
+
+
+
+/** 
+* Implements hook_entity_info_alter().
+* 
+* Reference: http://www.zyxware.com/articles/2146/drupal-tips-how-to-create-a-custom-view-in-drupal-7
+*/
+function radio_file_types_entity_info_alter(&$entity_info) {
+  $entity_info['file']['view modes']['lead'] = array(
+    'label' => t('Lead'),
+    'custom settings' => TRUE,
+  );
+  $entity_info['file']['view modes']['more'] = array(
+    'label' => t('More'),
+    'custom settings' => TRUE,
+  );  
+  $entity_info['file']['view modes']['link'] = array(
+    'label' => t('Link'),
+    'custom settings' => TRUE,
+  );    
+}
+
+/**
+* Implements hook_preprocess_node().
+*/
+
+function radio_file_types_preprocess_node(&$vars) {
+  /*dpm(entity_get_info());*/
+  if($vars['view_mode'] == 'lead') {
+    $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__lead';
+  }
+  if($vars['view_mode'] == 'more') {
+    $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__more';
+  }  
+ if($vars['view_mode'] == 'link') {
+    $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__link';
+  }    
+}

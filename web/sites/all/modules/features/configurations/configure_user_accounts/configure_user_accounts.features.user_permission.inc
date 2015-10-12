@@ -423,15 +423,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'recaptcha',
   );
 
-  // Exported permission: 'administer reroute email'.
-  $permissions['administer reroute email'] = array(
-    'name' => 'administer reroute email',
-    'roles' => array(
-      'Admin - Developer' => 'Admin - Developer',
-    ),
-    'module' => 'reroute_email',
-  );
-
   // Exported permission: 'administer responsive favicons'.
   $permissions['administer responsive favicons'] = array(
     'name' => 'administer responsive favicons',
@@ -1582,15 +1573,6 @@ function configure_user_accounts_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'legal',
-  );
-
-  // Exported permission: 'view date repeats'.
-  $permissions['view date repeats'] = array(
-    'name' => 'view date repeats',
-    'roles' => array(
-      'anonymous user' => 'anonymous user',
-    ),
-    'module' => 'date_repeat_field',
   );
 
   // Exported permission: 'view files'.

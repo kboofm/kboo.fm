@@ -93,13 +93,13 @@ function content_type_book_strongarm() {
     'extra_fields' => array(
       'form' => array(
         'metatags' => array(
-          'weight' => '7',
+          'weight' => '8',
         ),
         'title' => array(
           'weight' => '-5',
         ),
         'path' => array(
-          'weight' => '8',
+          'weight' => '9',
         ),
       ),
       'display' => array(),
