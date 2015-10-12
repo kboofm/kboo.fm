@@ -10,12 +10,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
   public function getNow() {
-    $now = time();
-
-    # where
-    $this->fieldCondition('field_timeslot', 'value', $now, '<=');
-    $this->fieldCondition('field_timeslot', 'value2', $now, '>=');
-
+    $this->addTag('radio_ScheduledTimeslotQuery_modifyGetNow');
     return $this;
   }
 
@@ -32,5 +27,20 @@ class ScheduledTimeslotQuery extends NodeQuery {
     $this->fieldOrderBy('field_timeslot', 'value', 'ASC');
 
     return $this;
+  }
+
+  public static function modifyGetNow(QueryAlterableInterface $query) {
+    $now = time();
+
+    $query->join(
+      'field_data_field_timeslot',
+      'timeslot',
+      'node.nid = timeslot.entity_id'
+    );
+
+    $query->condition(db_and()
+      ->condition('timeslot.field_timeslot_value', $now, '<=')
+      ->condition('timeslot.field_timeslot_value2', $now, '>=')
+    );
   }
 }

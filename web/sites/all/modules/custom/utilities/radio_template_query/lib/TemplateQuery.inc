@@ -26,7 +26,7 @@ class TemplateQuery {
     }
 
     $processor = new ScheduleProcessor();
-    return $processor->processNext(
+    return $processor->processAfter(
       $result['node'],
       time(),
       $count

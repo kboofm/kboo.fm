@@ -1,7 +1,16 @@
 <?php
 
 class ScheduleProcessor extends TemplateProcessor {
-  public function processNext($dataset, $after, $count) {
+
+  /**
+   * Process programs that come after the given date/time
+   *
+   * @param $dataset
+   * @param $after
+   * @param $count
+   * @return array
+   */
+  public function processAfter($dataset, $after, $count) {
     $programs = [];
 
     foreach ($dataset as $nid => $item) {
@@ -30,6 +39,12 @@ class ScheduleProcessor extends TemplateProcessor {
     return $programs;
   }
 
+
+  /**
+   * Process first item in dataset
+   * @param $dataset
+   * @return null
+   */
   public function processFirst($dataset) {
     reset($dataset);
     $nid = key($dataset);
