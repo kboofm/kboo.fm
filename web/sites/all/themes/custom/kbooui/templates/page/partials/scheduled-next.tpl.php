@@ -2,13 +2,11 @@
   Next up:
   <ul>
     <?php
-    $programs = TemplateQuery::scheduledNext(2);
-    foreach ($programs as $program):
+    $schedule = TemplateQuery::scheduledNext(2);
+    foreach ($schedule as $schedule_item):
       ?>
       <li>
-        <?php
-        print "{$program['title']} - {$program['start']}";
-        ?>
+        <?php include 'schedule-item.tpl.php'; ?>
       </li>
     <?php endforeach; ?>
   </ul>

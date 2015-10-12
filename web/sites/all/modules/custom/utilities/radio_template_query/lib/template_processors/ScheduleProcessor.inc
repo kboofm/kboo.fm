@@ -11,32 +11,27 @@ class ScheduleProcessor extends TemplateProcessor {
    * @return array
    */
   public function processAfter($dataset, $after, $count) {
-    $programs = [];
+    $schedule = [];
 
     foreach ($dataset as $nid => $item) {
-      $entity = entity_metadata_wrapper('node', $nid);
-      $timeslots = $entity->field_timeslot->value();
+      $wrapped = entity_metadata_wrapper('node', $nid);
+      $timeslots = $wrapped->field_timeslot->value();
 
       foreach ($timeslots as $timeslot) {
         if ($timeslot['value'] <= $after) {
           continue;
         }
 
-        $program = $this->getProgram($entity);
-        $programs[] = [
-          'title' => $program->title,
-          'start' => date('Y-m-d H:i:s', $timeslot['value']),
-          'timestamp' => $timeslot['value'],
-        ];
+        $schedule[] = $this->buildScheduleItem($wrapped, $timeslot);
       }
 
-      usort($programs, function ($a, $b) {
+      usort($schedule, function ($a, $b) {
         return $a['timestamp'] - $b['timestamp'];
       });
     }
 
-    $programs = array_slice($programs, 0, $count);
-    return $programs;
+    $schedule = array_slice($schedule, 0, $count);
+    return $schedule;
   }
 
 
@@ -45,18 +40,46 @@ class ScheduleProcessor extends TemplateProcessor {
    * @param $dataset
    * @return null
    */
-  public function processFirst($dataset) {
+  public function processNow($dataset) {
+    $now = time();
     reset($dataset);
     $nid = key($dataset);
-    $entity = entity_metadata_wrapper('node', $nid);
-    return $this->getProgram($entity);
+
+    $wrapped = entity_metadata_wrapper('node', $nid);
+    $timeslots = $wrapped->field_timeslot->value();
+
+    foreach ($timeslots as $timeslot) {
+      if ($timeslot['value'] <= $now && $timeslot['value2'] >= $now) {
+        return $this->buildScheduleItem($wrapped, $timeslot);
+      }
+    }
+
+    return NULL;
   }
 
-  private function getProgram($unwrapped_entity) {
+  private function getProgram($wrapped) {
     try {
-      return $unwrapped_entity->field_program->value();
+      return $wrapped->field_program->value();
     } catch (EntityMetadataWrapperException $e) {
       return NULL;
     }
+  }
+
+  private function buildScheduleItem($wrapped, $timeslot) {
+//    $episode = $this->getEpisode($timeslot);
+//    $program = $this->getProgram($wrapped, $episode);
+    $program = $this->getProgram($wrapped);
+    $program_url = $this->getEntityUrl($program);
+
+    $schedule_item = [
+      'program' => [
+        'title' => $program->title,
+        'url' => $program_url,
+      ],
+      'start' => date('Y-m-d H:i:s', $timeslot['value']),
+      'timestamp' => $timeslot['value'],
+    ];
+
+    return $schedule_item;
   }
 }

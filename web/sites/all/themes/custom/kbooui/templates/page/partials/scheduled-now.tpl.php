@@ -1,7 +1,10 @@
 <div>
   On now:
   <?php
-  $program = TemplateQuery::scheduledNow();
-  print $program->title;
+  $schedule_item = TemplateQuery::scheduledNow();
+  ?>
+
+  <?php
+  include 'schedule-item.tpl.php';
   ?>
 </div>

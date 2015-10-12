@@ -11,7 +11,7 @@ class TemplateQuery {
     }
 
     $processor = new ScheduleProcessor();
-    return $processor->processFirst(
+    return $processor->processNow(
       $result['node']
     );
   }
