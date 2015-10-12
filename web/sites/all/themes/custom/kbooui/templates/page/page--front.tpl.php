@@ -80,10 +80,9 @@
 
 <!--      --><?php //print render($page['content']); ?>
 
-      <?php
-        $program = TemplateQuery::scheduledNow();
-        print $program;
-      ?>
+      <?php include 'partials/scheduled-now.tpl.php'; ?>
+      <?php include 'partials/scheduled-next.tpl.php'; ?>
+
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>

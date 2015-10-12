@@ -1,14 +1,32 @@
 <?php
 
 class ScheduleProcessor extends TemplateProcessor {
-  public function process($dataset) {
+  public function processNext($dataset, $after, $count) {
     $programs = [];
 
     foreach ($dataset as $nid => $item) {
       $entity = entity_metadata_wrapper('node', $nid);
-      $programs[] = $this->getProgram($entity);
+      $timeslots = $entity->field_timeslot->value();
+
+      foreach ($timeslots as $timeslot) {
+        if ($timeslot['value'] <= $after) {
+          continue;
+        }
+
+        $program = $this->getProgram($entity);
+        $programs[] = [
+          'title' => $program->title,
+          'start' => date('Y-m-d H:i:s', $timeslot['value']),
+          'timestamp' => $timeslot['value'],
+        ];
+      }
+
+      usort($programs, function ($a, $b) {
+        return $a['timestamp'] - $b['timestamp'];
+      });
     }
 
+    $programs = array_slice($programs, 0, $count);
     return $programs;
   }
 
