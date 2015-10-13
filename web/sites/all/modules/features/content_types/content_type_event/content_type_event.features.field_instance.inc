@@ -214,7 +214,7 @@ function content_type_event_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 21,
+      'weight' => 10,
     ),
   );
 
@@ -509,6 +509,7 @@ function content_type_event_field_default_field_instances() {
         'input_format' => 'm/d/Y - g:i:sa',
         'input_format_custom' => '',
         'label_position' => 'above',
+        'no_fieldset' => 0,
         'repeat_collapsed' => 1,
         'text_parts' => array(),
         'year_range' => '-3:+3',
@@ -562,7 +563,7 @@ function content_type_event_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 9,
+      'weight' => 7,
     ),
   );
 
@@ -725,7 +726,7 @@ function content_type_event_field_default_field_instances() {
       'module' => 'multiselect',
       'settings' => array(),
       'type' => 'multiselect',
-      'weight' => 25,
+      'weight' => 13,
     ),
   );
 
@@ -878,7 +879,7 @@ function content_type_event_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 20,
+      'weight' => 8,
     ),
   );
 
@@ -1113,7 +1114,7 @@ function content_type_event_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 21,
+      'weight' => 9,
     ),
   );
 
@@ -1161,7 +1162,7 @@ function content_type_event_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 10,
+      'weight' => 14,
     ),
   );
 
@@ -1307,7 +1308,7 @@ function content_type_event_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 52,
+      'weight' => 11,
     ),
   );
 
@@ -1870,13 +1871,13 @@ function content_type_event_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'multiselect',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 24,
+      'type' => 'multiselect',
+      'weight' => 12,
     ),
   );
 

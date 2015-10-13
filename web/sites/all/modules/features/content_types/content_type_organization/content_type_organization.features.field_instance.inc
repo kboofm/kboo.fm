@@ -211,7 +211,7 @@ function content_type_organization_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 16,
+      'weight' => 6,
     ),
   );
 
@@ -478,7 +478,7 @@ function content_type_organization_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'email_textfield',
-      'weight' => 18,
+      'weight' => 2,
     ),
   );
 
@@ -641,7 +641,7 @@ function content_type_organization_field_default_field_instances() {
       'module' => 'multiselect',
       'settings' => array(),
       'type' => 'multiselect',
-      'weight' => 4,
+      'weight' => 8,
     ),
   );
 
@@ -794,7 +794,7 @@ function content_type_organization_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 6,
+      'weight' => 4,
     ),
   );
 
@@ -955,7 +955,7 @@ function content_type_organization_field_default_field_instances() {
         ),
       ),
       'type' => 'addressfield_standard',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
@@ -1035,7 +1035,7 @@ function content_type_organization_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 7,
+      'weight' => 5,
     ),
   );
 
@@ -1184,7 +1184,7 @@ function content_type_organization_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 9,
     ),
   );
 
@@ -1239,7 +1239,7 @@ function content_type_organization_field_default_field_instances() {
         'placeholder' => '',
       ),
       'type' => 'telephone_default',
-      'weight' => 17,
+      'weight' => 1,
     ),
   );
 
@@ -1878,13 +1878,13 @@ function content_type_organization_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'multiselect',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 3,
+      'type' => 'multiselect',
+      'weight' => 7,
     ),
   );
 
@@ -1955,7 +1955,7 @@ function content_type_organization_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 19,
+      'weight' => 3,
     ),
   );
 

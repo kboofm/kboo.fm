@@ -175,7 +175,7 @@ function contrib_webform_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 3,
+      'weight' => 6,
     ),
   );
 
@@ -427,7 +427,7 @@ function contrib_webform_field_default_field_instances() {
       'module' => 'multiselect',
       'settings' => array(),
       'type' => 'multiselect',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -507,7 +507,7 @@ function contrib_webform_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 5,
+      'weight' => 4,
     ),
   );
 
@@ -661,7 +661,7 @@ function contrib_webform_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 6,
+      'weight' => 5,
     ),
   );
 
@@ -709,7 +709,7 @@ function contrib_webform_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 9,
     ),
   );
 
@@ -891,13 +891,13 @@ function contrib_webform_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'multiselect',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 6,
+      'type' => 'multiselect',
+      'weight' => 7,
     ),
   );
 
