@@ -1,0 +1,25 @@
+<?php
+require_once 'lib/utilities/Helpers.inc';
+
+
+/**
+ * Implements hook_query_alter().
+ *
+ * @param \QueryAlterableInterface $query
+ */
+function radio_template_query_query_alter(QueryAlterableInterface $query) {
+  if (!isset($query->alterTags)) {
+    return;
+  }
+
+  $tags = $query->alterTags;
+
+  foreach ($tags as $tag => $value) {
+    if (Helpers::startsWith($tag, 'radio_')) {
+      $callback = explode('_', $tag);
+      array_shift($callback);
+      $callback = implode('::', $callback);
+      call_user_func($callback, $query);
+    }
+  }
+}

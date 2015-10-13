@@ -1,12 +1,12 @@
 <?php
 
-class OrganizationFieldQuery extends NodeFieldQuery {
+class OrganizationQuery extends NodeQuery {
 
   /**
    * Initialize
    */
   public function initialize() {
-    $this->bundle = 'organization';
+    $this->content_type = 'organization';
   }
 
 
@@ -20,9 +20,12 @@ class OrganizationFieldQuery extends NodeFieldQuery {
     $terms = taxonomy_get_term_by_name('Venue', 'organization_types');
     $term = reset($terms);
 
-    $this->fieldCondition('field_organization_type', 'tid', $term->tid)
-      ->fieldCondition('title_field', 'value', $string, 'CONTAINS')
-      ->range(0, 10);
+    # where
+    $this->fieldCondition('field_organization_type', 'tid', $term->tid);
+    $this->fieldCondition('title_field', 'value', $string, 'CONTAINS');
+
+    # limit
+    $this->range(0, 10);
 
     return $this;
   }

@@ -5,12 +5,6 @@
  * template.php
  */
 
-//function kbooui_preprocess_html(&$vars) {
-  //if (drupal_is_front_page()) {
-    //$vars['theme_hook_suggestions'][] = 'html__home';
-  //}
-//}
-
 /**
 * Process variables for search-result.tpl.php.
 *

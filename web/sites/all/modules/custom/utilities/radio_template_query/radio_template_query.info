@@ -1,0 +1,22 @@
+name = Radio Template Query
+description = Radio template query code
+package = Radio - Utilities
+core = 7.x
+version = 7.x-1.0
+
+; Entity queries
+files[] = lib/entity_queries/NodeQuery.inc
+files[] = lib/entity_queries/OrganizationQuery.inc
+files[] = lib/entity_queries/PersonProfileQuery.inc
+files[] = lib/entity_queries/ProgramQuery.inc
+files[] = lib/entity_queries/ScheduledTimeslotQuery.inc
+files[] = lib/entity_queries/StationContentQuery.inc
+
+
+; Template Processors
+files[] = lib/template_processors/TemplateProcessor.inc
+files[] = lib/template_processors/ScheduleProcessor.inc
+
+
+;
+files[] = lib/TemplateQuery.inc

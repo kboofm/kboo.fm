@@ -4,11 +4,16 @@ core = 7.x
 package = Dependencies
 version = 7.x-1.1
 project = custom_module_dependencies_base
+
+; Custom modules - utilities
 dependencies[] = radio_autocomplete
-dependencies[] = radio_core
 dependencies[] = radio_file_types
 dependencies[] = radio_forms
 dependencies[] = radio_notifications
+dependencies[] = radio_template_query
+dependencies[] = radio_urls
+
+; Custom modules - content types
 dependencies[] = radio_organization
 dependencies[] = radio_person_profile
 features[features_api][] = api:2

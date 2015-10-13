@@ -26,9 +26,12 @@ class RadioAutoComplete {
         'program',
       ],
 
-      'field_program' => [
-        'person_profile',
-        'program',
+      'field_show' => [
+        'scheduled_timeslot',
+      ],
+
+      'field_stream' => [
+        'scheduled_timeslot',
       ],
 
       'field_related_show_hosts' => $all_types,
@@ -150,8 +153,21 @@ class RadioAutoComplete {
    * @return array
    */
   public static function fuzzyMatchProgramStreams($string) {
-    $query = new ProgramFieldQuery();
+    $query = new ProgramQuery();
     $query->getStreams($string);
+    return static::getMatchResults($query, 'title_field');
+  }
+
+
+  /**
+   * Fuzzy search for program shows
+   *
+   * @param $string
+   * @return array
+   */
+  public static function fuzzyMatchProgramShows($string) {
+    $query = new ProgramQuery();
+    $query->getShows($string);
     return static::getMatchResults($query, 'title_field');
   }
 
@@ -163,7 +179,7 @@ class RadioAutoComplete {
    * @return array
    */
   public static function fuzzyMatchPersonProfileShowHosts($string) {
-    $query = new PersonProfileFieldQuery();
+    $query = new PersonProfileQuery();
     $query->getShowHosts($string);
     return static::getMatchResults($query, 'title_field');
   }
@@ -176,7 +192,7 @@ class RadioAutoComplete {
    * @return array
    */
   public static function fuzzyMatchOrganizationVenues($string) {
-    $query = new OrganizationFieldQuery();
+    $query = new OrganizationQuery();
     $query->getVenues($string);
     return static::getMatchResults($query, 'title_field');
   }

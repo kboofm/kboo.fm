@@ -5,7 +5,7 @@
             C4.Utilities.Truncate.truncate()
             C4.Utilities.Window.resize C4.Utilities.Truncate.truncate
 
-            new C4.Components.Dropdown()
+#            new C4.Components.Dropdown()
             new C4.Components.Yamm()
 
             true
