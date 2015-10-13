@@ -139,7 +139,7 @@ function content_type_book_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 13,
+      'weight' => 6,
     ),
   );
 
@@ -212,7 +212,7 @@ function content_type_book_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 20,
+      'weight' => 7,
     ),
   );
 
@@ -516,7 +516,7 @@ function content_type_book_field_default_field_instances() {
       'module' => 'multiselect',
       'settings' => array(),
       'type' => 'multiselect',
-      'weight' => 26,
+      'weight' => 10,
     ),
   );
 
@@ -601,12 +601,11 @@ function content_type_book_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'image',
+        'module' => 'file_entity',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => 'default_lead_1x',
+          'file_view_mode' => 'lead',
         ),
-        'type' => 'image',
+        'type' => 'file_rendered',
         'weight' => 5,
       ),
       'search_index' => array(
@@ -669,7 +668,7 @@ function content_type_book_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 10,
+      'weight' => 4,
     ),
   );
 
@@ -755,12 +754,11 @@ function content_type_book_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'image',
+        'module' => 'file_entity',
         'settings' => array(
-          'image_link' => '',
-          'image_style' => 'default_more_1x',
+          'file_view_mode' => 'more',
         ),
-        'type' => 'image',
+        'type' => 'file_rendered',
         'weight' => 7,
       ),
       'search_index' => array(
@@ -823,7 +821,7 @@ function content_type_book_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 11,
+      'weight' => 5,
     ),
   );
 
@@ -871,7 +869,7 @@ function content_type_book_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 4,
+      'weight' => 11,
     ),
   );
 
@@ -1017,7 +1015,7 @@ function content_type_book_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 8,
     ),
   );
 
@@ -1534,13 +1532,13 @@ function content_type_book_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'multiselect',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 25,
+      'type' => 'multiselect',
+      'weight' => 9,
     ),
   );
 

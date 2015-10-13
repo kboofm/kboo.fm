@@ -22,12 +22,6 @@ function configure_user_accounts_user_default_roles() {
     'weight' => 6,
   );
 
-  // Exported role: Staff.
-  $roles['Staff'] = array(
-    'name' => 'Staff',
-    'weight' => 10,
-  );
-
   // Exported role: Author - Page.
   $roles['Author - Page'] = array(
     'name' => 'Author - Page',
@@ -38,6 +32,12 @@ function configure_user_accounts_user_default_roles() {
   $roles['Author - Program'] = array(
     'name' => 'Author - Program',
     'weight' => 20,
+  );
+
+  // Exported role: Staff.
+  $roles['Staff'] = array(
+    'name' => 'Staff',
+    'weight' => 10,
   );
 
   return $roles;

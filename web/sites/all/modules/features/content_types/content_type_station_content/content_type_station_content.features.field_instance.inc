@@ -284,7 +284,7 @@ function content_type_station_content_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 8,
+      'weight' => 4,
     ),
   );
 
@@ -675,7 +675,7 @@ function content_type_station_content_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 10,
+      'weight' => 8,
     ),
   );
 
@@ -761,7 +761,7 @@ function content_type_station_content_field_default_field_instances() {
       'module' => 'multiselect',
       'settings' => array(),
       'type' => 'multiselect',
-      'weight' => 6,
+      'weight' => 8,
     ),
   );
 
@@ -834,7 +834,7 @@ function content_type_station_content_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 22,
+      'weight' => 5,
     ),
   );
 
@@ -914,7 +914,7 @@ function content_type_station_content_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 6,
+      'weight' => 2,
     ),
   );
 
@@ -988,7 +988,7 @@ function content_type_station_content_field_default_field_instances() {
       'module' => 'link',
       'settings' => array(),
       'type' => 'link_field',
-      'weight' => 11,
+      'weight' => 9,
     ),
   );
 
@@ -1068,7 +1068,7 @@ function content_type_station_content_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 7,
+      'weight' => 3,
     ),
   );
 
@@ -1116,7 +1116,7 @@ function content_type_station_content_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 2,
+      'weight' => 9,
     ),
   );
 
@@ -1262,7 +1262,7 @@ function content_type_station_content_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 24,
+      'weight' => 6,
     ),
   );
 
@@ -1393,8 +1393,7 @@ function content_type_station_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'node-station_content-field_related_organizations'
+  // Exported field_instance: 'node-station_content-field_related_organizations'
   $field_instances['node-station_content-field_related_organizations'] = array(
     'bundle' => 'station_content',
     'default_value' => NULL,
@@ -1667,8 +1666,7 @@ function content_type_station_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'node-station_content-field_station_content_type'
+  // Exported field_instance: 'node-station_content-field_station_content_type'
   $field_instances['node-station_content-field_station_content_type'] = array(
     'bundle' => 'station_content',
     'default_value' => NULL,
@@ -1805,13 +1803,13 @@ function content_type_station_content_field_default_field_instances() {
     ),
     'widget' => array(
       'active' => 0,
-      'module' => 'taxonomy',
+      'module' => 'multiselect',
       'settings' => array(
         'autocomplete_path' => 'taxonomy/autocomplete',
         'size' => 60,
       ),
-      'type' => 'taxonomy_autocomplete',
-      'weight' => 5,
+      'type' => 'multiselect',
+      'weight' => 7,
     ),
   );
 
@@ -1886,7 +1884,7 @@ function content_type_station_content_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 9,
+      'weight' => 7,
     ),
   );
 
