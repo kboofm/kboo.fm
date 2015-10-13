@@ -9,10 +9,21 @@ class ScheduledTimeslotQuery extends NodeQuery {
     $this->content_type = 'scheduled_timeslot';
   }
 
-  public function getNow() {
-    $this->addTag('radio_ScheduledTimeslotQuery_modifyGetNow');
+
+  public function stream($stream) {
+    # where
+    $this->fieldCondition('field_show', 'target_id', $stream, '=');
+
     return $this;
   }
+
+
+  public function getNow() {
+    $this->addTag('radio_ScheduledTimeslotQuery_modifyGetNow');
+
+    return $this;
+  }
+
 
   public function getNext($count) {
     $now = time();
@@ -28,6 +39,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
     return $this;
   }
+
 
   public static function modifyGetNow(QueryAlterableInterface $query) {
     $now = time();
