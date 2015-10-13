@@ -6,5 +6,9 @@
 function radio_station_cron() {
   # pull the next 5 shows and create episodes if needed
 
-  # schedule recording if show starts in less 1 hour
+  # schedule ripping if show starts in less 1 hour
+
+  # after ripping, attach media to episode
+
+  # delete any older media as needed
 }
