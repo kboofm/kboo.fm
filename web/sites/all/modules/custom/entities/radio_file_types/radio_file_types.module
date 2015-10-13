@@ -10,10 +10,12 @@ function radio_file_types_entity_info_alter(&$entity_info) {
     'label' => t('Lead'),
     'custom settings' => TRUE,
   );
+
   $entity_info['file']['view modes']['more'] = array(
     'label' => t('More'),
     'custom settings' => TRUE,
   );
+
   $entity_info['file']['view modes']['link'] = array(
     'label' => t('Link'),
     'custom settings' => TRUE,
@@ -28,10 +30,12 @@ function radio_file_types_preprocess_node(&$vars) {
   if($vars['view_mode'] == 'lead') {
     $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__lead';
   }
+
   if($vars['view_mode'] == 'more') {
     $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__more';
   }
- if($vars['view_mode'] == 'link') {
+
+  if($vars['view_mode'] == 'link') {
     $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__link';
   }
 }
