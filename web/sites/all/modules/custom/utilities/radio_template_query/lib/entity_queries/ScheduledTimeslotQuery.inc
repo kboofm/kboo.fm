@@ -1,4 +1,6 @@
 <?php
+require_once dirname(__DIR__) . '/utilities/Helpers.inc';
+
 
 class ScheduledTimeslotQuery extends NodeQuery {
 
@@ -41,6 +43,13 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
+  public function getRange($start, $finish) {
+    $this->addTag('radio_ScheduledTimeslotQuery_modifyGetRange');
+    $this->addTag("parameter_ScheduledTimeslotQuery__{$start}__{$finish}");
+    return $this;
+  }
+
+
   public static function modifyGetNow(QueryAlterableInterface $query) {
     $now = time();
 
@@ -53,6 +62,32 @@ class ScheduledTimeslotQuery extends NodeQuery {
     $query->condition(db_and()
       ->condition('timeslot.field_timeslot_value', $now, '<=')
       ->condition('timeslot.field_timeslot_value2', $now, '>=')
+    );
+  }
+
+
+  public static function modifyGetRange(QueryAlterableInterface $query) {
+    $start = $end = time();
+    $tags = $query->alterTags;
+
+    foreach ($tags as $tag => $value) {
+      if (Helpers::startsWith($tag, 'parameter_ScheduledTimeslotQuery')) {
+        $parts = explode('__', $tag);
+        $start = $parts[1];
+        $finish = $parts[2];
+        break;
+      }
+    }
+
+    $query->join(
+      'field_data_field_timeslot',
+      'timeslot',
+      'node.nid = timeslot.entity_id'
+    );
+
+    $query->condition(db_and()
+      ->condition('timeslot.field_timeslot_value', $start, '>=')
+      ->condition('timeslot.field_timeslot_value2', $finish, '<=')
     );
   }
 }

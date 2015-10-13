@@ -11,21 +11,21 @@ class StationContentQuery extends NodeQuery {
     $this->content_type = 'station_content';
   }
 
-  public function getEpisode($start, $end) {
+  public function getEpisode($start, $finish) {
     $this->addTag('radio_StationContentQuery_modifyGetEpisode');
-    $this->addTag("parameter_StationContentQuery__{$start}__{$end}");
+    $this->addTag("parameter_StationContentQuery__{$start}__{$finish}");
     return $this;
   }
 
   public static function modifyGetEpisode(QueryAlterableInterface $query) {
-    $start = $end = time();
+    $start = $finish = time();
     $tags = $query->alterTags;
 
     foreach ($tags as $tag => $value) {
       if (Helpers::startsWith($tag, 'parameter_StationContentQuery')) {
         $parts = explode('__', $tag);
         $start = $parts[1];
-        $end = $parts[2];
+        $finish = $parts[2];
         break;
       }
     }
@@ -38,7 +38,7 @@ class StationContentQuery extends NodeQuery {
 
     $query->condition(db_and()
       ->condition('air_time.field_air_time_value', $start, '=')
-      ->condition('air_time.field_air_time_value2', $end, '=')
+      ->condition('air_time.field_air_time_value2', $finish, '=')
     );
   }
 }
