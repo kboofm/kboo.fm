@@ -26,7 +26,7 @@ class ScheduleProcessor extends TemplateProcessor {
       }
 
       usort($schedule, function ($a, $b) {
-        return $a['timestamp'] - $b['timestamp'];
+        return $a['start']['timestamp'] - $b['start']['timestamp'];
       });
     }
 
