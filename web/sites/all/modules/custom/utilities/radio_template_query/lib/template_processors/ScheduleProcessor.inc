@@ -24,11 +24,11 @@ class ScheduleProcessor extends TemplateProcessor {
 
         $schedule[] = $this->buildScheduleItem($wrapped, $timeslot);
       }
-
-      usort($schedule, function ($a, $b) {
-        return $a['start']['timestamp'] - $b['start']['timestamp'];
-      });
     }
+
+    usort($schedule, function ($a, $b) {
+      return $a['start']['timestamp'] - $b['start']['timestamp'];
+    });
 
     $schedule = array_slice($schedule, 0, $count);
     return $schedule;
