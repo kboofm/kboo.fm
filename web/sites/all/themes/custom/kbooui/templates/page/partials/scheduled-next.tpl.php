@@ -2,7 +2,7 @@
   Next up:
   <ul>
     <?php
-    $schedule = TemplateQuery::scheduledNext(2);
+    $schedule = TemplateQuery::scheduledNext(3);
     foreach ($schedule as $schedule_item):
       ?>
       <li>

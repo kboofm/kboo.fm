@@ -54,8 +54,8 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-scheduled_timeslot-field_program'
-  $field_instances['node-scheduled_timeslot-field_program'] = array(
+  // Exported field_instance: 'node-scheduled_timeslot-field_show'
+  $field_instances['node-scheduled_timeslot-field_show'] = array(
     'bundle' => 'scheduled_timeslot',
     'default_value' => NULL,
     'deleted' => 0,
@@ -68,7 +68,7 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 2,
+        'weight' => 5,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -78,9 +78,52 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
       ),
     ),
     'entity_type' => 'node',
-    'field_name' => 'field_program',
+    'field_name' => 'field_show',
     'label' => 'Program',
     'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => 4,
+    ),
+  );
+
+  // Exported field_instance: 'node-scheduled_timeslot-field_stream'
+  $field_instances['node-scheduled_timeslot-field_stream'] = array(
+    'bundle' => 'scheduled_timeslot',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 4,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_stream',
+    'label' => 'Channel / Stream',
+    'required' => 1,
     'settings' => array(
       'user_register_form' => FALSE,
     ),
@@ -157,6 +200,7 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
   // Translatables
   // Included for use with string extractors like potx.
   t('Body');
+  t('Channel / Stream');
   t('Program');
   t('Timeslot');
 

@@ -97,22 +97,38 @@ class ScheduleProcessor extends TemplateProcessor {
     return entity_metadata_wrapper('node', $nid);
   }
 
-  private function buildScheduleItem($wrapped, $timeslot) {
-    $wrapped_episode = $this->getEpisode($timeslot);
-    $program = $this->getProgram($wrapped, $wrapped_episode);
 
-    $title = $program->title;
-    $url = $this->getEntityUrl($program);
+  private function getUrl($program, $wrapped_episode) {
     if ($wrapped_episode) {
       $episode = $wrapped_episode->value();
-      $url = $this->getEntityUrl($episode);
+      return $this->getEntityUrl($episode);
     }
+
+    return $this->getEntityUrl($program);
+  }
+
+
+  private function buildScheduleItem($wrapped_scheduled_timeslot, $timeslot) {
+    $wrapped_episode = $this->getEpisode($timeslot);
+    $program = $this->getProgram(
+      $wrapped_scheduled_timeslot,
+      $wrapped_episode
+    );
+
+    $title = $program->title;
+    $url = $this->getUrl($program, $wrapped_episode);
 
     $schedule_item = [
       'title' => $title,
       'url' => $url,
-      'start' => date('Y-m-d H:i:s', $timeslot['value']),
-      'timestamp' => $timeslot['value'],
+      'start' => [
+        'formatted' => date('Y-m-d H:i', $timeslot['value']),
+        'timestamp' => $timeslot['value'],
+      ],
+      'finish' => [
+        'formatted' => date('H:i', $timeslot['value2']),
+        'timestamp' => $timeslot['value2'],
+      ],
     ];
 
     return $schedule_item;

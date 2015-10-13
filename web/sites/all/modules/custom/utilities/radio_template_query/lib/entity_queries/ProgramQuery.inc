@@ -17,12 +17,28 @@ class ProgramQuery extends NodeQuery {
    * @return $this
    */
   public function getStreams($string) {
-    $terms = taxonomy_get_term_by_name('Channel/Stream', 'program_types');
+    return $this->getProgramsByType('Channel/Stream', $string);
+  }
+
+
+  /**
+   * Get shows matching the $string
+   *
+   * @param $string
+   * @return $this
+   */
+  public function getShows($string) {
+    return $this->getProgramsByType('Show', $string);
+  }
+
+
+  private function getProgramsByType($term_name, $title) {
+    $terms = taxonomy_get_term_by_name($term_name, 'program_types');
     $term = reset($terms);
 
     # where
     $this->fieldCondition('field_program_type', 'tid', $term->tid);
-    $this->fieldCondition('title_field', 'value', $string, 'CONTAINS');
+    $this->fieldCondition('title_field', 'value', $title, 'CONTAINS');
 
     # limit
     $this->range(0, 10);
