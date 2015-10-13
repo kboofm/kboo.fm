@@ -25,7 +25,6 @@ function radio_file_types_entity_info_alter(&$entity_info) {
 */
 
 function radio_file_types_preprocess_node(&$vars) {
-  /*dpm(entity_get_info());*/
   if($vars['view_mode'] == 'lead') {
     $vars['theme_hook_suggestions'][] = 'file__' . $vars['type'] . '__lead';
   }
