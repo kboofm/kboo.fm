@@ -22,7 +22,7 @@ class TemplateQuery {
     $result = $query->execute();
 
     if (empty($result)) {
-      return NULL;
+      return [];
     }
 
     $processor = new ScheduleProcessor();

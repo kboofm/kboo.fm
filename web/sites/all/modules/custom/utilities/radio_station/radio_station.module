@@ -4,15 +4,11 @@
  * Implements hook_cron().
  */
 function radio_station_cron() {
-  # query the next 5 shows
   $station = new RadioStation();
   $station->createNextEpisodes(5);
 
-  # create episodes if needed
-
-  # schedule ripping if show starts in less 1 hour
-
-  # after ripping, attach media to episode
-
-  # delete any older media as needed
+  # Todo
+  # 1. schedule ripping if show starts in less 1 hour
+  # 2. after ripping, attach media to episode
+  # 3. delete any older media as needed
 }

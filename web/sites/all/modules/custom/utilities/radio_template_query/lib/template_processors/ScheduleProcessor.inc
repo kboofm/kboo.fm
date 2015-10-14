@@ -26,9 +26,12 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     }
 
-    usort($schedule, function ($a, $b) {
-      return $a['start']['timestamp'] - $b['start']['timestamp'];
-    });
+    usort(
+      $schedule,
+      function ($a, $b) {
+        return $a['start']['timestamp'] - $b['start']['timestamp'];
+      }
+    );
 
     $schedule = array_slice($schedule, 0, $count);
     return $schedule;
@@ -57,7 +60,8 @@ class ScheduleProcessor extends TemplateProcessor {
     return NULL;
   }
 
-  private function getProgram($wrapped, $wrapped_episode) {
+
+  private function getProgram($wrapped_scheduled_timeslot, $wrapped_episode) {
     $program = NULL;
 
     if ($wrapped_episode) {
@@ -71,7 +75,7 @@ class ScheduleProcessor extends TemplateProcessor {
 
     if (!$program) {
       try {
-        $program = $wrapped->field_program->value();
+        $program = $wrapped_scheduled_timeslot->field_show->value();
       } catch (EntityMetadataWrapperException $e) {
         // swallow error
       }
@@ -79,6 +83,7 @@ class ScheduleProcessor extends TemplateProcessor {
 
     return $program;
   }
+
 
   private function getEpisode($timeslot) {
     $query = new StationContentQuery();
@@ -115,7 +120,7 @@ class ScheduleProcessor extends TemplateProcessor {
       $wrapped_episode
     );
 
-    $title = $program->title;
+    $title = ($program) ? $program->title : NULL;
     $url = $this->getUrl($program, $wrapped_episode);
 
     $schedule_item = [
