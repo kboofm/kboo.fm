@@ -64,20 +64,20 @@ class RadioStation {
 
     // field_station_content
     $node->field_station_content_type[$lang][] = [
-      'tid' => (int)$this->episode_term->tid
+      'tid' => $this->episode_term->tid
     ];
 
 
     // field_air_time
     $node->field_air_time[$lang][] = [
-      'value' => (int)$schedule_item['start'],
-      'value2' => (int)$schedule_item['finish'],
+      'value' => $schedule_item['start'],
+      'value2' => $schedule_item['finish'],
     ];
 
 
     // field_produced_for
     $node->field_produced_for[$lang][] = [
-      'target_id' => (int)$program->getIdentifier(),
+      'target_id' => $program->getIdentifier(),
     ];
 
 
@@ -96,7 +96,7 @@ class RadioStation {
 
     // field_episode_record
     $value = $program->field_episode_record->value();
-    $value = is_null($value) ? 0 : (int)$value;
+    $value = is_null($value) ? 0 : $value;
 
     $node->field_episode_record[$node->language][] = [
       'value' => $value,
