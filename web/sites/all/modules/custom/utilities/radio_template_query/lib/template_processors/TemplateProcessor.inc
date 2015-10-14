@@ -4,6 +4,10 @@ class TemplateProcessor {
   public function process($dataset) {}
 
   public static function getEntityUrl($entity, $type = 'node') {
+    if (is_null($entity)) {
+      return NULL;
+    }
+
     $uri = entity_uri($type, $entity);
     return url($uri['path'], $uri['options']);
   }
