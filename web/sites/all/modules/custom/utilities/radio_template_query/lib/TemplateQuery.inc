@@ -70,8 +70,38 @@ class TemplateQuery {
     $start = $start->getTimestamp();
 
     $end = new DateTime("@{$now}");
-    $end->setTimestamp($now);
     $end->modify("next Saturday");
+    $end->setTime(23, 59, 59);
+    $end = $end->getTimestamp();
+
+    $query = new ScheduledTimeslotQuery();
+    $query->getRange($start, $end);
+    $result = $query->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $processor = new ScheduleProcessor();
+    return $processor->processRange(
+      $result['node'],
+      $start,
+      $end,
+      true
+    );
+  }
+
+
+  public static function scheduledNextWeek() {
+    $now = time();
+
+    $start = new DateTime("@{$now}");
+    $start->modify("next Sunday");
+    $start->setTime(0, 0, 0);
+    $start = $start->getTimestamp();
+
+    $end = new DateTime("@{$start}");
+    $end->modify("+1 week");
     $end->setTime(23, 59, 59);
     $end = $end->getTimestamp();
 

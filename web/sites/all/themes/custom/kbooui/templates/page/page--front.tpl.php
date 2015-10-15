@@ -84,10 +84,34 @@
       <hr />
       <?php include 'partials/scheduled-next.tpl.php'; ?>
       <hr />
-      <?php include 'partials/scheduled-today.tpl.php'; ?>
-      <hr />
-      <?php include 'partials/scheduled-this-week.tpl.php'; ?>
-      <hr />
+
+      <!-- Nav tabs -->
+      <ul class="nav nav-tabs" role="tablist">
+        <li role="presentation" class="active">
+          <a href="#today" aria-controls="home" role="tab" data-toggle="tab">Today</a>
+        </li>
+        <li role="presentation">
+          <a href="#this-week" aria-controls="profile" role="tab" data-toggle="tab">This Week</a>
+        </li>
+        <li role="presentation">
+          <a href="#next-week" aria-controls="profile" role="tab" data-toggle="tab">Next Week</a>
+        </li>
+      </ul>
+
+      <!-- Tab panes -->
+      <div class="tab-content">
+        <div role="tabpanel" class="tab-pane active" id="today">
+          <?php include 'partials/scheduled-today.tpl.php'; ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="this-week">
+          <?php include 'partials/scheduled-this-week.tpl.php'; ?>
+        </div>
+
+        <div role="tabpanel" class="tab-pane" id="next-week">
+          <?php include 'partials/scheduled-next-week.tpl.php'; ?>
+        </div>
+      </div>
 
     </section>
 

@@ -1,5 +1,5 @@
 <?php
-$schedule_group = TemplateQuery::scheduledThisWeek();
+$schedule_group = TemplateQuery::scheduledNextWeek();
 ?>
 
 <br />
