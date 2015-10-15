@@ -10,7 +10,7 @@ class ScheduleProcessor extends TemplateProcessor {
    * @param $count
    * @return array
    */
-  public function processAfter($dataset, $after, $count) {
+  public function processAfter($dataset, $after, $count = NULL) {
     $schedule = [];
 
     foreach ($dataset as $nid => $item) {
@@ -22,7 +22,10 @@ class ScheduleProcessor extends TemplateProcessor {
           continue;
         }
 
-        $schedule[] = $this->buildScheduleItem($wrapped, $timeslot);
+        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
+        if ($schedule_item) {
+          $schedule[] = $schedule_item;
+        }
       }
     }
 
@@ -33,7 +36,44 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     );
 
-    $schedule = array_slice($schedule, 0, $count);
+    if ($count) {
+      $schedule = array_slice($schedule, 0, $count);
+    }
+
+    return $schedule;
+  }
+
+
+  public function processRange($dataset, $start, $end) {
+    $schedule = [];
+
+    foreach ($dataset as $nid => $item) {
+      $wrapped = entity_metadata_wrapper('node', $nid);
+      $timeslots = $wrapped->field_timeslot->value();
+
+      foreach ($timeslots as $timeslot) {
+        if ($timeslot['value'] < $start) {
+          continue;
+        }
+
+        if ($timeslot['value'] > $end) {
+          continue;
+        }
+
+        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
+        if ($schedule_item) {
+          $schedule[] = $schedule_item;
+        }
+      }
+    }
+
+    usort(
+      $schedule,
+      function ($a, $b) {
+        return $a['start']['timestamp'] - $b['start']['timestamp'];
+      }
+    );
+
     return $schedule;
   }
 
@@ -134,6 +174,11 @@ class ScheduleProcessor extends TemplateProcessor {
     $wrapped_episode = $this->getEpisode($timeslot);
     $timeslot_program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
     $episode_program = $this->getEpisodeProgram($wrapped_episode);
+
+    if (!$timeslot_program && !$episode_program) {
+      return NULL;
+    }
+
     $title = $this->getScheduleTitle($timeslot_program, $episode_program);
     $url = $this->getScheduleUrl($timeslot_program, $wrapped_episode);
 

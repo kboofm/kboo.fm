@@ -81,7 +81,13 @@
 <!--      --><?php //print render($page['content']); ?>
 
       <?php include 'partials/scheduled-now.tpl.php'; ?>
+      <hr />
       <?php include 'partials/scheduled-next.tpl.php'; ?>
+      <hr />
+      <?php include 'partials/scheduled-today.tpl.php'; ?>
+      <hr />
+      <?php include 'partials/scheduled-this-week.tpl.php'; ?>
+      <hr />
 
     </section>
 

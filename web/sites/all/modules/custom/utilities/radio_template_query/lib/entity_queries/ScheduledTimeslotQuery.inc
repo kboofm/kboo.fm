@@ -7,14 +7,24 @@ class ScheduledTimeslotQuery extends NodeQuery {
   /**
    * Initialize
    */
-  public function initialize() {
+  protected function initialize() {
     $this->content_type = 'scheduled_timeslot';
   }
 
 
-  public function stream($stream) {
+  protected function stream($stream) {
     $this->fieldCondition('field_show', 'target_id', $stream, '=');
     return $this;
+  }
+
+
+  protected function sortByTimeslot() {
+    $this->fieldOrderBy('field_timeslot', 'value', 'ASC');
+  }
+
+
+  protected function timeslotIsAfter($timestamp) {
+    $this->dateFieldIsAfter('field_timeslot', $timestamp);
   }
 
 
@@ -26,16 +36,9 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
   public function getNext($count) {
     $now = time();
-
-    # where
-    $this->fieldCondition('field_timeslot', 'value', $now, '>');
-
-    # limit
+    $this->timeslotIsAfter($now);
     $this->setLimit($count);
-
-    # order by
-    $this->fieldOrderBy('field_timeslot', 'value', 'ASC');
-
+    $this->sortByTimeslot();
     return $this;
   }
 
@@ -43,6 +46,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
   public function getRange($start, $finish) {
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetRange');
     $this->addTag("parameter_ScheduledTimeslotQuery__{$start}__{$finish}");
+    $this->sortByTimeslot();
     return $this;
   }
 

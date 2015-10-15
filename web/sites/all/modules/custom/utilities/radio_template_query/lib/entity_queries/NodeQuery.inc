@@ -52,15 +52,23 @@ class NodeQuery extends EntityFieldQuery {
   }
 
   protected function sortByPromotedSticky() {
-    # order by
     $this->propertyOrderBy('promote', 'DESC');
     $this->propertyOrderBy('sticky', 'DESC');
   }
 
 
   protected function sortByPublished() {
-    # alter tag
     $this->addTag('radio_NodeQuery_orderByPublicationDate');
+  }
+
+
+  protected function dateFieldIsAfter($fieldname, $timestamp) {
+    $this->fieldCondition($fieldname, 'value', $timestamp, '>');
+  }
+
+
+  protected function dateFieldIsBefore($fieldname, $timestamp) {
+    $this->fieldCondition($fieldname, 'value', $timestamp, '<');
   }
 
 

@@ -7,7 +7,5 @@ if ($schedule_item):
   <?php print $schedule_item['start']['formatted']; ?> -
   <?php print $schedule_item['finish']['formatted']; ?>
 <?php
-else:
-  print "Nothing airing";
 endif;
 
