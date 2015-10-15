@@ -29,12 +29,7 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     }
 
-    usort(
-      $schedule,
-      function ($a, $b) {
-        return $a['start']['timestamp'] - $b['start']['timestamp'];
-      }
-    );
+    $this->sortByTimestamp($schedule);
 
     if ($count) {
       $schedule = array_slice($schedule, 0, $count);
@@ -44,8 +39,20 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
-  public function processRange($dataset, $start, $end) {
+  public function processRange($dataset, $start, $end, $groupByDay = false) {
     $schedule = [];
+
+    if ($groupByDay) {
+      $schedule = [
+        'Sunday' => [],
+        'Monday' => [],
+        'Tuesday' => [],
+        'Wednesday' => [],
+        'Thursday' => [],
+        'Friday' => [],
+        'Saturday' => [],
+      ];
+    }
 
     foreach ($dataset as $nid => $item) {
       $wrapped = entity_metadata_wrapper('node', $nid);
@@ -62,19 +69,38 @@ class ScheduleProcessor extends TemplateProcessor {
 
         $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
         if ($schedule_item) {
-          $schedule[] = $schedule_item;
+          if ($groupByDay) {
+            $dayOfWeek = date('l', $timeslot['value']);
+            $schedule[$dayOfWeek][] = $schedule_item;
+          } else {
+            $schedule[] = $schedule_item;
+          }
         }
       }
     }
 
+    if ($groupByDay) {
+      $this->sortByTimestamp($schedule['Sunday']);
+      $this->sortByTimestamp($schedule['Monday']);
+      $this->sortByTimestamp($schedule['Tuesday']);
+      $this->sortByTimestamp($schedule['Wednesday']);
+      $this->sortByTimestamp($schedule['Thursday']);
+      $this->sortByTimestamp($schedule['Friday']);
+      $this->sortByTimestamp($schedule['Saturday']);
+    } else {
+      $this->sortByTimestamp($schedule);
+    }
+
+    return $schedule;
+  }
+
+  private function sortByTimestamp($schedule_items) {
     usort(
-      $schedule,
+      $schedule_items,
       function ($a, $b) {
         return $a['start']['timestamp'] - $b['start']['timestamp'];
       }
     );
-
-    return $schedule;
   }
 
 

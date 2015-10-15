@@ -87,7 +87,8 @@ class TemplateQuery {
     return $processor->processRange(
       $result['node'],
       $start,
-      $end
+      $end,
+      true
     );
   }
 }
