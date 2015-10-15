@@ -167,7 +167,7 @@ class RadioStation {
    * @param $wrapped_scheduled_timeslot
    * @return null
    */
-  private function getProgram($wrapped_scheduled_timeslot) {
+  private function getTimeslotProgram($wrapped_scheduled_timeslot) {
     try {
       return $wrapped_scheduled_timeslot->field_show;
     } catch (EntityMetadataWrapperException $e) {
@@ -188,7 +188,7 @@ class RadioStation {
     $existing_episode = $this->doesEpisodeExist($timeslot);
 
     if (!$existing_episode) {
-      $program = $this->getProgram($wrapped_scheduled_timeslot);
+      $program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
     }
 
     $schedule_item = [

@@ -30,15 +30,7 @@ class StationContentQuery extends NodeQuery {
       }
     }
 
-    $query->join(
-      'field_data_field_air_time',
-      'air_time',
-      'node.nid = air_time.entity_id'
-    );
-
-    $query->condition(db_and()
-      ->condition('air_time.field_air_time_value', $start, '=')
-      ->condition('air_time.field_air_time_value2', $finish, '=')
-    );
+    NodeQuery::joinField($query, 'field_air_time');
+    NodeQuery::dateFieldEquals($query, 'field_air_time', $start, $finish);
   }
 }

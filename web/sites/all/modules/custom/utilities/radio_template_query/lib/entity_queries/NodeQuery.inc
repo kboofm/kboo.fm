@@ -64,6 +64,39 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
+  public static function joinField(QueryAlterableInterface $query, $fieldname) {
+    $query->join(
+      "field_data_{$fieldname}",
+      $fieldname,
+      "node.nid = {$fieldname}.entity_id"
+    );
+  }
+
+
+  public static function dateFieldEquals(QueryAlterableInterface $query, $fieldname, $start, $finish) {
+    $query->condition(db_and()
+      ->condition("{$fieldname}.{$fieldname}_value", $start, "=")
+      ->condition("{$fieldname}.{$fieldname}_value2", $finish, "=")
+    );
+  }
+
+
+  public static function dateFieldInRange(QueryAlterableInterface $query, $fieldname, $start, $finish) {
+    $query->condition(db_and()
+      ->condition("{$fieldname}.{$fieldname}_value", $start, ">=")
+      ->condition("{$fieldname}.{$fieldname}_value2", $finish, "<=")
+    );
+  }
+
+
+  public static function dateFieldOccurring(QueryAlterableInterface $query, $fieldname, $start, $finish) {
+    $query->condition(db_and()
+      ->condition("{$fieldname}.{$fieldname}_value", $start, "<=")
+      ->condition("{$fieldname}.{$fieldname}_value2", $finish, ">=")
+    );
+  }
+
+
   public static function orderByPublicationDate(QueryAlterableInterface $query) {
     $query->join(
       'publication_date',

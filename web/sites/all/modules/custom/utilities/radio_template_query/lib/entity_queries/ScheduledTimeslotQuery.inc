@@ -13,16 +13,13 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   public function stream($stream) {
-    # where
     $this->fieldCondition('field_show', 'target_id', $stream, '=');
-
     return $this;
   }
 
 
   public function getNow() {
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetNow');
-
     return $this;
   }
 
@@ -52,17 +49,8 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
   public static function modifyGetNow(QueryAlterableInterface $query) {
     $now = time();
-
-    $query->join(
-      'field_data_field_timeslot',
-      'timeslot',
-      'node.nid = timeslot.entity_id'
-    );
-
-    $query->condition(db_and()
-      ->condition('timeslot.field_timeslot_value', $now, '<=')
-      ->condition('timeslot.field_timeslot_value2', $now, '>=')
-    );
+    NodeQuery::joinField($query, 'field_timeslot');
+    NodeQuery::dateFieldOccurring($query, 'field_timeslot', $now, $now);
   }
 
 
@@ -79,15 +67,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
       }
     }
 
-    $query->join(
-      'field_data_field_timeslot',
-      'timeslot',
-      'node.nid = timeslot.entity_id'
-    );
-
-    $query->condition(db_and()
-      ->condition('timeslot.field_timeslot_value', $start, '>=')
-      ->condition('timeslot.field_timeslot_value2', $finish, '<=')
-    );
+    NodeQuery::joinField($query, 'field_timeslot');
+    NodeQuery::dateFieldInRange($query, 'field_timeslot', $start, $finish);
   }
 }

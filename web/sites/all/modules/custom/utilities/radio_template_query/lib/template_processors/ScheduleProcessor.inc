@@ -61,21 +61,24 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
-  private function getProgram($wrapped_scheduled_timeslot, $wrapped_episode) {
+  private function getTimeslotProgram($wrapped_scheduled_timeslot) {
+    try {
+      return $wrapped_scheduled_timeslot->field_show->value();
+    } catch (EntityMetadataWrapperException $e) {
+      return NULL;
+    }
+  }
+
+  private function getEpisodeProgram($wrapped_episode) {
     $program = NULL;
 
     if ($wrapped_episode) {
       try {
         $programs = $wrapped_episode->field_produced_for->value();
-        $program = $programs[0];
-      } catch (EntityMetadataWrapperException $e) {
-        // swallow error
-      }
-    }
 
-    if (!$program) {
-      try {
-        $program = $wrapped_scheduled_timeslot->field_show->value();
+        if ($programs) {
+          $program = $programs[0];
+        }
       } catch (EntityMetadataWrapperException $e) {
         // swallow error
       }
@@ -103,7 +106,7 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
-  private function getUrl($program, $wrapped_episode) {
+  private function getScheduleUrl($program, $wrapped_episode) {
     if ($wrapped_episode) {
       $episode = $wrapped_episode->value();
       return $this->getEntityUrl($episode);
@@ -112,26 +115,37 @@ class ScheduleProcessor extends TemplateProcessor {
     return $this->getEntityUrl($program);
   }
 
+  private function getScheduleTitle($timeslot_program, $episode_program) {
+    $title = NULL;
+
+    if ($timeslot_program) {
+      $title = $timeslot_program->title;
+    }
+
+    if ($episode_program && ($episode_program != $timeslot_program)) {
+      $title = $episode_program->title;
+    }
+
+    return $title;
+  }
+
 
   private function buildScheduleItem($wrapped_scheduled_timeslot, $timeslot) {
     $wrapped_episode = $this->getEpisode($timeslot);
-    $program = $this->getProgram(
-      $wrapped_scheduled_timeslot,
-      $wrapped_episode
-    );
-
-    $title = ($program) ? $program->title : NULL;
-    $url = $this->getUrl($program, $wrapped_episode);
+    $timeslot_program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
+    $episode_program = $this->getEpisodeProgram($wrapped_episode);
+    $title = $this->getScheduleTitle($timeslot_program, $episode_program);
+    $url = $this->getScheduleUrl($timeslot_program, $wrapped_episode);
 
     $schedule_item = [
       'title' => $title,
       'url' => $url,
       'start' => [
-        'formatted' => date('Y-m-d H:i', $timeslot['value']),
+        'formatted' => date('Y-m-d g:i a', $timeslot['value']),
         'timestamp' => $timeslot['value'],
       ],
       'finish' => [
-        'formatted' => date('H:i', $timeslot['value2']),
+        'formatted' => date('g:i a', $timeslot['value2']),
         'timestamp' => $timeslot['value2'],
       ],
     ];
