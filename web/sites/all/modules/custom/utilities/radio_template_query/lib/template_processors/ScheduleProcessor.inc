@@ -186,11 +186,12 @@ class ScheduleProcessor extends TemplateProcessor {
       'title' => $title,
       'url' => $url,
       'start' => [
-        'formatted' => date('Y-m-d g:i a', $timeslot['value']),
+        'formatted_date' => date('l M dS, Y', $timeslot['value']),
+        'formatted_time' => date('g:i a', $timeslot['value']),
         'timestamp' => $timeslot['value'],
       ],
       'finish' => [
-        'formatted' => date('g:i a', $timeslot['value2']),
+        'formatted_time' => date('g:i a', $timeslot['value2']),
         'timestamp' => $timeslot['value2'],
       ],
     ];
