@@ -82,8 +82,8 @@
 
       <?php include 'partials/scheduled-now.tpl.php'; ?>
       <hr />
-      <?php include 'partials/scheduled-next.tpl.php'; ?>
-      <hr />
+<!--      --><?php //include 'partials/scheduled-next.tpl.php'; ?>
+<!--      <hr />-->
 
       <!-- Nav tabs -->
       <ul class="nav nav-tabs" role="tablist">
