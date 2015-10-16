@@ -4,10 +4,13 @@
   </div>
 
 
-  <div class="col-md-4 schedule-carousel-content"
-       data-timestamp="<?php print $schedule[0]['start']['timestamp']; ?>">
+  <div class="col-md-4 schedule-carousel-content">
+    <div class="schedule-carousel-timestamp"
+         data-timestamp="<?php print $schedule[0]['start']['timestamp']; ?>">
 
-    <?php include 'schedule-list.tpl.php'; ?>
+      <?php include 'schedule-list.tpl.php'; ?>
+
+    </div>
   </div>
 
 

@@ -7,13 +7,20 @@ if ($schedule_item):
       <?php print $schedule_item['title']; ?>
     </a>
 
-    <div class="formatted-date">
+    <div data-bind="formatted-date">
       <?php print $schedule_item['start']['formatted_date']; ?>
     </div>
 
-    <div class="formatted-time">
-      <?php print $schedule_item['start']['formatted_time']; ?> -
-      <?php print $schedule_item['finish']['formatted_time']; ?>
+    <div data-bind="formatted-time">
+      <span data-bind="start-time">
+        <?php print $schedule_item['start']['formatted_time']; ?>
+      </span>
+
+      -
+
+      <span data-bind="finish-time">
+        <?php print $schedule_item['finish']['formatted_time']; ?>
+      </span>
     </div>
   </div>
 <?php
