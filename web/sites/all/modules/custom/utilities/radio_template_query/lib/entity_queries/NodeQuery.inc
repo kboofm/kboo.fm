@@ -81,6 +81,11 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
+  public static function sortField(QueryAlterableInterface $query, $fieldname, $direction = 'ASC') {
+    $query->orderBy("{$fieldname}.{$fieldname}_value", $direction);
+  }
+
+
   public static function dateFieldEquals(QueryAlterableInterface $query, $fieldname, $start, $finish) {
     $query->condition(db_and()
       ->condition("{$fieldname}.{$fieldname}_value", $start, "=")

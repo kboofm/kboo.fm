@@ -19,7 +19,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   protected function sortByTimeslot() {
-    $this->fieldOrderBy('field_timeslot', 'value', 'ASC');
+    $this->addTag('radio_ScheduledTimeslotQuery_orderByTimeslot');
   }
 
 
@@ -34,10 +34,14 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
-  public function getNext($count) {
+  public function getNext($count = NULL) {
     $now = time();
     $this->timeslotIsAfter($now);
-    $this->setLimit($count);
+
+    if ($count) {
+      $this->setLimit($count);
+    }
+
     $this->sortByTimeslot();
     return $this;
   }
@@ -46,7 +50,6 @@ class ScheduledTimeslotQuery extends NodeQuery {
   public function getRange($start, $finish) {
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetRange');
     $this->addTag("parameter_ScheduledTimeslotQuery__{$start}__{$finish}");
-    $this->sortByTimeslot();
     return $this;
   }
 
@@ -73,5 +76,10 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
     NodeQuery::joinField($query, 'field_timeslot');
     NodeQuery::dateFieldInRange($query, 'field_timeslot', $start, $finish);
+    NodeQuery::sortField($query, 'field_timeslot');
+  }
+
+  public static function orderByTimeslot(QueryAlterableInterface $query) {
+    $query->orderBy('field_data_field_timeslot0.field_timeslot_value', 'ASC');
   }
 }

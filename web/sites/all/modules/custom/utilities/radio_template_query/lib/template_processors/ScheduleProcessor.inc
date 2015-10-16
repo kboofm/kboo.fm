@@ -29,7 +29,7 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     }
 
-    $this->sortByTimestamp($schedule);
+    $this->sortByStartTime($schedule);
 
     if ($count) {
       $schedule = array_slice($schedule, 0, $count);
@@ -80,21 +80,21 @@ class ScheduleProcessor extends TemplateProcessor {
     }
 
     if ($groupByDay) {
-      $this->sortByTimestamp($schedule['Sunday']);
-      $this->sortByTimestamp($schedule['Monday']);
-      $this->sortByTimestamp($schedule['Tuesday']);
-      $this->sortByTimestamp($schedule['Wednesday']);
-      $this->sortByTimestamp($schedule['Thursday']);
-      $this->sortByTimestamp($schedule['Friday']);
-      $this->sortByTimestamp($schedule['Saturday']);
+      $this->sortByStartTime($schedule['Sunday']);
+      $this->sortByStartTime($schedule['Monday']);
+      $this->sortByStartTime($schedule['Tuesday']);
+      $this->sortByStartTime($schedule['Wednesday']);
+      $this->sortByStartTime($schedule['Thursday']);
+      $this->sortByStartTime($schedule['Friday']);
+      $this->sortByStartTime($schedule['Saturday']);
     } else {
-      $this->sortByTimestamp($schedule);
+      $this->sortByStartTime($schedule);
     }
 
     return $schedule;
   }
 
-  private function sortByTimestamp($schedule_items) {
+  private function sortByStartTime(&$schedule_items) {
     usort(
       $schedule_items,
       function ($a, $b) {
