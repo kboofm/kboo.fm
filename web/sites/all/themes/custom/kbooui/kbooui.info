@@ -38,7 +38,7 @@ stylesheets[all][] = bower_components/fontawesome/css/font-awesome.css
 
 
 ; YAMM
-stylesheets[all][] = bower_components/yamm3/yamm/yamm.css
+; stylesheets[all][] = bower_components/yamm3/yamm/yamm.css
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -65,6 +65,10 @@ scripts[] = 'bower_components/bootstrap/js/tab.js'
 scripts[] = 'bower_components/bootstrap-grid-columns-clearing/js/ie-row-fix.js'
 
 
+; Transparency.js
+scripts[] = 'bower_components/transparency/dist/transparency.js'
+
+
 ; Trunk8.js
 scripts[] = 'bower_components/trunk8/trunk8.js'
 
@@ -81,9 +85,10 @@ scripts[] = 'js/compiled/c4/utilities/window.js'
 
 ; namespace: C4.Components
 scripts[] = 'js/compiled/c4/components/base.js'
-; scripts[] = 'js/compiled/c4/components/dropdown.js'
-; scripts[] = 'js/compiled/c4/components/carousel/outside-indicators.js'
-scripts[] = 'js/compiled/c4/components/yamm.js'
+
+
+; namespace: App.Schedule
+scripts[] = 'js/compiled/custom/schedule/carousel.js'
 
 
 ; -- MAIN --

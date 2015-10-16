@@ -2,15 +2,7 @@
 
 class ScheduleProcessor extends TemplateProcessor {
 
-  /**
-   * Process programs that come after the given date/time
-   *
-   * @param $dataset
-   * @param $after
-   * @param $count
-   * @return array
-   */
-  public function processAfter($dataset, $after, $count = NULL) {
+  public function processBefore($dataset, $timestamp, $count = 1) {
     $schedule = [];
 
     foreach ($dataset as $nid => $item) {
@@ -18,7 +10,44 @@ class ScheduleProcessor extends TemplateProcessor {
       $timeslots = $wrapped->field_timeslot->value();
 
       foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] <= $after) {
+        if ($timeslot['value'] >= $timestamp) {
+          continue;
+        }
+
+        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
+        if ($schedule_item) {
+          $schedule[] = $schedule_item;
+        }
+      }
+    }
+
+    $this->sortByStartTime($schedule, 'DESC');
+
+    if ($count) {
+      $schedule = array_slice($schedule, 0, $count);
+    }
+
+    return $schedule;
+  }
+
+
+  /**
+   * Process programs that come after the given date/time
+   *
+   * @param $dataset
+   * @param $timestamp
+   * @param $count
+   * @return array
+   */
+  public function processAfter($dataset, $timestamp, $count = 1) {
+    $schedule = [];
+
+    foreach ($dataset as $nid => $item) {
+      $wrapped = entity_metadata_wrapper('node', $nid);
+      $timeslots = $wrapped->field_timeslot->value();
+
+      foreach ($timeslots as $timeslot) {
+        if ($timeslot['value'] <= $timestamp) {
           continue;
         }
 
@@ -94,11 +123,15 @@ class ScheduleProcessor extends TemplateProcessor {
     return $schedule;
   }
 
-  private function sortByStartTime(&$schedule_items) {
+  private function sortByStartTime(&$schedule_items, $direction = 'ASC') {
     usort(
       $schedule_items,
-      function ($a, $b) {
-        return $a['start']['timestamp'] - $b['start']['timestamp'];
+      function ($a, $b) use ($direction) {
+        if ($direction == 'ASC') {
+          return $a['start']['timestamp'] - $b['start']['timestamp'];
+        } else {
+          return $b['start']['timestamp'] - $a['start']['timestamp'];
+        }
       }
     );
   }
