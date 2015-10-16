@@ -1,6 +1,3 @@
 <?php
 $schedule = TemplateQuery::scheduledToday();
-?>
-
-<br />
-<?php include 'schedule-list.tpl.php'; ?>
+include 'schedule-carousel.tpl.php';

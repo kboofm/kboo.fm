@@ -80,9 +80,12 @@
 
 <!--      --><?php //print render($page['content']); ?>
 
-      <?php include 'partials/scheduled-now.tpl.php'; ?>
-      <hr />
-      <?php include 'partials/schedule-tabs.tpl.php'; ?>
+      <div class="col-md-12">
+        <?php include 'partials/scheduled-now.tpl.php'; ?>
+        <hr />
+        <?php include 'partials/schedule-tabs.tpl.php'; ?>
+      </div>
+
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>

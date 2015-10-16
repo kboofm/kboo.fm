@@ -38,7 +38,7 @@ stylesheets[all][] = bower_components/fontawesome/css/font-awesome.css
 
 
 ; YAMM
-stylesheets[all][] = bower_components/yamm3/yamm/yamm.css
+; stylesheets[all][] = bower_components/yamm3/yamm/yamm.css
 
 
 ;;;;;;;;;;;;;;;;;;;;;
@@ -83,7 +83,7 @@ scripts[] = 'js/compiled/c4/utilities/window.js'
 scripts[] = 'js/compiled/c4/components/base.js'
 ; scripts[] = 'js/compiled/c4/components/dropdown.js'
 ; scripts[] = 'js/compiled/c4/components/carousel/outside-indicators.js'
-scripts[] = 'js/compiled/c4/components/yamm.js'
+; scripts[] = 'js/compiled/c4/components/yamm.js'
 
 
 ; -- MAIN --

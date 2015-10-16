@@ -1,6 +1,3 @@
 <?php
-$schedule = TemplateQuery::scheduledNext(3);
-?>
-
-<br />
-<?php include 'schedule-list.tpl.php'; ?>
+$schedule = TemplateQuery::scheduledNext(1);
+include 'schedule-carousel.tpl.php';
