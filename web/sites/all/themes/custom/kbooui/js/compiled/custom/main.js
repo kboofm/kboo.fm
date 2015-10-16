@@ -15,7 +15,7 @@
         Main.__super__.init.call(this);
         C4.Utilities.Truncate.truncate();
         C4.Utilities.Window.resize(C4.Utilities.Truncate.truncate);
-        new C4.Components.Yamm();
+        new App.Schedule.Carousel();
         return true;
       };
 
