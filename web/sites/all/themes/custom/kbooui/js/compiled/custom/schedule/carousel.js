@@ -13,6 +13,8 @@
       function Carousel() {
         this.prevItem = bind(this.prevItem, this);
         this.nextItem = bind(this.nextItem, this);
+        this.getEpisode = bind(this.getEpisode, this);
+        this.renderScheduleItem = bind(this.renderScheduleItem, this);
         return Carousel.__super__.constructor.apply(this, arguments);
       }
 
@@ -22,7 +24,9 @@
 
       Carousel.prototype.schedule_item = ".schedule-item";
 
-      Carousel.prototype.title_link = ".schedule-item-title-link";
+      Carousel.prototype.title_link = ".title-link";
+
+      Carousel.prototype.$content = null;
 
       Carousel.prototype.bind = function() {
         this.bindItem("click", this.next, this.nextItem);
@@ -30,31 +34,38 @@
         return true;
       };
 
-      Carousel.prototype.renderScheduleItem = function($schedule_item, data) {
+      Carousel.prototype.renderScheduleItem = function(response) {
+        var data;
+        data = {
+          "schedule-item": {
+            "title-link": response['title'],
+            "formatted-date": response['start']['formatted_date'],
+            "formatted-time": response['start']['formatted_time']
+          }
+        };
+        this.$content.render(data);
         return true;
       };
 
-      Carousel.prototype.getEpisode = function($schedule_item, timestamp, direction) {
+      Carousel.prototype.getEpisode = function(timestamp, direction) {
         var route;
         route = "station/episode/" + direction + "/" + timestamp;
-        return $.get(route, function(response) {
-          return console.dir(response);
-        });
+        return $.get(route, this.renderScheduleItem);
       };
 
       Carousel.prototype.nextItem = function(event) {
-        var $schedule_item, timestamp;
-        $schedule_item = $(event.target).prev();
-        timestamp = $schedule_item.data("timestamp");
-        this.getEpisode($schedule_item, timestamp, 'next');
+        var timestamp;
+        this.$content = $(event.target).prev();
+        timestamp = this.$content.data("timestamp");
+        this.getEpisode(timestamp, 'next');
         return true;
       };
 
       Carousel.prototype.prevItem = function(event) {
-        var $schedule_item, timestamp;
-        $schedule_item = $(event.target).next();
-        timestamp = $schedule_item.data("timestamp");
-        this.getEpisode($schedule_item, timestamp, 'prev');
+        var timestamp;
+        this.$content = $(event.target).next();
+        timestamp = this.$content.data("timestamp");
+        this.getEpisode(timestamp, 'prev');
         return true;
       };
 

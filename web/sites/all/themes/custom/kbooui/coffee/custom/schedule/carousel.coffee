@@ -5,35 +5,37 @@ window.App.Schedule = window.App.Schedule || {}
         next: ".schedule-carousel-next"
         prev: ".schedule-carousel-prev"
         schedule_item: ".schedule-item"
-        title_link: ".schedule-item-title-link"
+        title_link: ".title-link"
+        $content: null
 
         bind: ->
             @bindItem "click", @next, @nextItem
             @bindItem "click", @prev, @prevItem
             true
 
-        renderScheduleItem: ($schedule_item, data) ->
+        renderScheduleItem: (response) =>
+            data =
+                "schedule-item":
+                    "title-link": response['title']
+                    "formatted-date": response['start']['formatted_date']
+                    "formatted-time": response['start']['formatted_time']
+
+            @$content.render data
             true
 
-        getEpisode: ($schedule_item, timestamp, direction) ->
+        getEpisode: (timestamp, direction) =>
             route = "station/episode/#{direction}/#{timestamp}"
-            $.get route, (response) ->
-                console.dir response
-
-#            data =
-#                "schedule-item-title-link": timestamp
-#
-#            $schedule_item.render data
+            $.get route, @renderScheduleItem
 
         nextItem: (event) =>
-            $schedule_item = $(event.target).prev()
-            timestamp = $schedule_item.data "timestamp"
-            @getEpisode $schedule_item, timestamp, 'next'
+            @$content = $(event.target).prev()
+            timestamp = @$content.data "timestamp"
+            @getEpisode timestamp, 'next'
             true
 
         prevItem: (event) =>
-            $schedule_item = $(event.target).next()
-            timestamp = $schedule_item.data "timestamp"
-            @getEpisode $schedule_item, timestamp, 'prev'
+            @$content = $(event.target).next()
+            timestamp = @$content.data "timestamp"
+            @getEpisode timestamp, 'prev'
             true
 ) jQuery
