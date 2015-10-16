@@ -17,8 +17,9 @@ class TemplateQuery {
   }
 
   public static function scheduledNext($count = 1) {
+    $now = time();
     $query = new ScheduledTimeslotQuery();
-    $query->getNext($count);
+    $query->getNext($now, $count);
     $result = $query->execute();
 
     if (empty($result)) {

@@ -12,21 +12,28 @@ window.App.Schedule = window.App.Schedule || {}
             @bindItem "click", @prev, @prevItem
             true
 
-        updateScheduleItem: ($schedule_item, timestamp) ->
-            data =
-                "schedule-item-title-link": timestamp
+        renderScheduleItem: ($schedule_item, data) ->
+            true
 
-            $schedule_item.render data
+        getEpisode: ($schedule_item, timestamp, direction) ->
+            route = "station/episode/#{direction}/#{timestamp}"
+            $.get route, (response) ->
+                console.dir response
+
+#            data =
+#                "schedule-item-title-link": timestamp
+#
+#            $schedule_item.render data
 
         nextItem: (event) =>
             $schedule_item = $(event.target).prev()
             timestamp = $schedule_item.data "timestamp"
-            @updateScheduleItem $schedule_item, timestamp
+            @getEpisode $schedule_item, timestamp, 'next'
             true
 
         prevItem: (event) =>
             $schedule_item = $(event.target).next()
             timestamp = $schedule_item.data "timestamp"
-            @updateScheduleItem $schedule_item, timestamp
+            @getEpisode $schedule_item, timestamp, 'prev'
             true
 ) jQuery

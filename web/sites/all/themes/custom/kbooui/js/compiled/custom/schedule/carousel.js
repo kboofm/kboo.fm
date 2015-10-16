@@ -30,19 +30,23 @@
         return true;
       };
 
-      Carousel.prototype.updateScheduleItem = function($schedule_item, timestamp) {
-        var data;
-        data = {
-          "schedule-item-title-link": timestamp
-        };
-        return $schedule_item.render(data);
+      Carousel.prototype.renderScheduleItem = function($schedule_item, data) {
+        return true;
+      };
+
+      Carousel.prototype.getEpisode = function($schedule_item, timestamp, direction) {
+        var route;
+        route = "station/episode/" + direction + "/" + timestamp;
+        return $.get(route, function(response) {
+          return console.dir(response);
+        });
       };
 
       Carousel.prototype.nextItem = function(event) {
         var $schedule_item, timestamp;
         $schedule_item = $(event.target).prev();
         timestamp = $schedule_item.data("timestamp");
-        this.updateScheduleItem($schedule_item, timestamp);
+        this.getEpisode($schedule_item, timestamp, 'next');
         return true;
       };
 
@@ -50,7 +54,7 @@
         var $schedule_item, timestamp;
         $schedule_item = $(event.target).next();
         timestamp = $schedule_item.data("timestamp");
-        this.updateScheduleItem($schedule_item, timestamp);
+        this.getEpisode($schedule_item, timestamp, 'prev');
         return true;
       };
 

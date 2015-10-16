@@ -18,13 +18,19 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
-  protected function sortByTimeslot() {
+  protected function sortByTimeslot($direction = 'ASC') {
     $this->addTag('radio_ScheduledTimeslotQuery_orderByTimeslot');
+    $this->addTag("parameter_ScheduledTimeslotQuery__{$direction}");
   }
 
 
   protected function timeslotIsAfter($timestamp) {
     $this->dateFieldIsAfter('field_timeslot', $timestamp);
+  }
+
+
+  protected function timeslotIsBefore($timestamp) {
+    $this->dateFieldIsBefore('field_timeslot', $timestamp);
   }
 
 
@@ -34,15 +40,26 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
-  public function getNext($count = NULL) {
-    $now = time();
-    $this->timeslotIsAfter($now);
+  public function getNext($timestamp, $count = 1) {
+    $this->timeslotIsAfter($timestamp);
 
     if ($count) {
       $this->setLimit($count);
     }
 
     $this->sortByTimeslot();
+    return $this;
+  }
+
+
+  public function getPrevious($timestamp, $count = 1) {
+    $this->timeslotIsBefore($timestamp);
+
+    if ($count) {
+      $this->setLimit($count);
+    }
+
+    $this->sortByTimeslot('DESC');
     return $this;
   }
 
@@ -60,18 +77,25 @@ class ScheduledTimeslotQuery extends NodeQuery {
     NodeQuery::dateFieldOccurring($query, 'field_timeslot', $now, $now);
   }
 
-
-  public static function modifyGetRange(QueryAlterableInterface $query) {
-    $start = $end = time();
+  private static function getParameters(QueryAlterableInterface $query) {
     $tags = $query->alterTags;
 
     foreach ($tags as $tag => $value) {
       if (Helpers::startsWith($tag, 'parameter_ScheduledTimeslotQuery')) {
-        $parts = explode('__', $tag);
-        $start = $parts[1];
-        $finish = $parts[2];
-        break;
+        return explode('__', $tag);
       }
+    }
+
+    return NULL;
+  }
+
+  public static function modifyGetRange(QueryAlterableInterface $query) {
+    $start = $end = time();
+    $params = ScheduledTimeslotQuery::getParameters($query);
+
+    if ($params) {
+      $start = $params[1];
+      $finish = $params[2];
     }
 
     NodeQuery::joinField($query, 'field_timeslot');
@@ -80,6 +104,13 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
   public static function orderByTimeslot(QueryAlterableInterface $query) {
-    $query->orderBy('field_data_field_timeslot0.field_timeslot_value', 'ASC');
+    $params = ScheduledTimeslotQuery::getParameters($query);
+    $direction = 'ASC';
+
+    if ($params) {
+      $direction = $params[0];
+    }
+
+    $query->orderBy('field_data_field_timeslot0.field_timeslot_value', $direction);
   }
 }
