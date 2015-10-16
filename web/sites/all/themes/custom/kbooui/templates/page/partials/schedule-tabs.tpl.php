@@ -1,6 +1,6 @@
 <ul class="nav nav-tabs" role="tablist">
   <li role="presentation" class="active">
-    <a href="#up-next" role="tab" data-toggle="tab">Up Next</a>
+    <a href="#shows" role="tab" data-toggle="tab">Shows</a>
   </li>
   <li role="presentation">
     <a href="#today" role="tab" data-toggle="tab">Today</a>
@@ -14,8 +14,8 @@
 </ul>
 
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="up-next">
-    <?php include 'scheduled-next.tpl.php'; ?>
+  <div role="tabpanel" class="tab-pane active" id="shows">
+    <?php include 'scheduled-shows.tpl.php'; ?>
   </div>
 
   <div role="tabpanel" class="tab-pane" id="today">
