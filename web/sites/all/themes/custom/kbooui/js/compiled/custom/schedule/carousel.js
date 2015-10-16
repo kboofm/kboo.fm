@@ -18,9 +18,9 @@
         return Carousel.__super__.constructor.apply(this, arguments);
       }
 
-      Carousel.prototype.next = ".schedule-carousel-next";
+      Carousel.prototype.next = ".schedule-carousel-next i";
 
-      Carousel.prototype.prev = ".schedule-carousel-prev";
+      Carousel.prototype.prev = ".schedule-carousel-prev i";
 
       Carousel.prototype.carousel_timestamp = ".schedule-carousel-timestamp";
 
@@ -40,13 +40,13 @@
           return;
         }
         data = {
-          "timestamp": response.start.timestamp,
+          "timestamp": response['start']['timestamp'],
           "schedule-item": {
-            "title-link": response.title,
-            "formatted-date": response.start.formatted_date,
+            "title-link": response['title'],
+            "formatted-date": response['start']['formatted_date'],
             "formatted-time": {
-              "start-time": response.start.formatted_time,
-              "finish-time": response.finish.formatted_time
+              "start-time": response['start']['formatted_time'],
+              "finish-time": response['finish']['formatted_time']
             }
           }
         };
@@ -69,16 +69,16 @@
 
       Carousel.prototype.nextItem = function(event) {
         var timestamp;
-        this.$content = $(event.target).parent().find(this.carousel_content);
-        timestamp = this.$content.find(this.carousel_timestamp).data("timestamp");
+        this.$content = $(event.target).parent().parent().find(this.carousel_content);
+        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
         this.getEpisode(timestamp, 'next');
         return true;
       };
 
       Carousel.prototype.prevItem = function(event) {
         var timestamp;
-        this.$content = $(event.target).parent().find(this.carousel_content);
-        timestamp = this.$content.find(this.carousel_timestamp).data("timestamp");
+        this.$content = $(event.target).parent().parent().find(this.carousel_content);
+        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
         this.getEpisode(timestamp, 'prev');
         return true;
       };

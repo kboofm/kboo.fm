@@ -1,6 +1,6 @@
 <div class="row margin-top">
   <div class="col-md-1 padding-vertical-lg schedule-carousel-prev">
-    Previous
+    <i class="fa fa-arrow-left cursor-pointer"></i>
   </div>
 
 
@@ -15,6 +15,6 @@
 
 
   <div class="col-md-1 padding-vertical-lg schedule-carousel-next">
-    Next
+    <i class="fa fa-arrow-right cursor-pointer"></i>
   </div>
 </div>

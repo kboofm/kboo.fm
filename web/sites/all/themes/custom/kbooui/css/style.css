@@ -7049,4 +7049,6 @@ button.close {
   padding-top: 2.5px;
   padding-bottom: 2.5px;
 }
-/*@import 'custom/global';*/
+.cursor-pointer {
+  cursor: pointer;
+}

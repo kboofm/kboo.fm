@@ -82,7 +82,9 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
     foreach ($tags as $tag => $value) {
       if (Helpers::startsWith($tag, 'parameter_ScheduledTimeslotQuery')) {
-        return explode('__', $tag);
+        $parts = explode('__', $tag);
+        array_shift($parts);
+        return $parts;
       }
     }
 
@@ -94,8 +96,8 @@ class ScheduledTimeslotQuery extends NodeQuery {
     $params = ScheduledTimeslotQuery::getParameters($query);
 
     if ($params) {
-      $start = $params[1];
-      $finish = $params[2];
+      $start = $params[0];
+      $finish = $params[1];
     }
 
     NodeQuery::joinField($query, 'field_timeslot');

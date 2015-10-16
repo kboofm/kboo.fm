@@ -21,7 +21,7 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     }
 
-    $this->sortByStartTime($schedule);
+    $this->sortByStartTime($schedule, 'DESC');
 
     if ($count) {
       $schedule = array_slice($schedule, 0, $count);
@@ -123,11 +123,15 @@ class ScheduleProcessor extends TemplateProcessor {
     return $schedule;
   }
 
-  private function sortByStartTime(&$schedule_items) {
+  private function sortByStartTime(&$schedule_items, $direction = 'ASC') {
     usort(
       $schedule_items,
-      function ($a, $b) {
-        return $a['start']['timestamp'] - $b['start']['timestamp'];
+      function ($a, $b) use ($direction) {
+        if ($direction == 'ASC') {
+          return $a['start']['timestamp'] - $b['start']['timestamp'];
+        } else {
+          return $b['start']['timestamp'] - $a['start']['timestamp'];
+        }
       }
     );
   }
