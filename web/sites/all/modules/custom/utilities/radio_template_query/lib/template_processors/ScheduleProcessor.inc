@@ -127,10 +127,13 @@ class ScheduleProcessor extends TemplateProcessor {
     usort(
       $schedule_items,
       function ($a, $b) use ($direction) {
+        $left = $a['start']['timestamp'];
+        $right = $b['start']['timestamp'];
+
         if ($direction == 'ASC') {
-          return $a['start']['timestamp'] - $b['start']['timestamp'];
+          return ($left < $right) ? -1 : 1;
         } else {
-          return $b['start']['timestamp'] - $a['start']['timestamp'];
+          return ($left > $right) ? -1 : 1;
         }
       }
     );
