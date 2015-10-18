@@ -2,18 +2,50 @@ window.App.Schedule = window.App.Schedule || {}
 
 (($) ->
     class App.Schedule.Carousel extends C4.Components.Base
-        next: ".schedule-carousel-next i"
-        prev: ".schedule-carousel-prev i"
+        nextButton: ".schedule-carousel-next i"
+        prevButton: ".schedule-carousel-prev i"
         carousel_timestamp: ".schedule-carousel-timestamp"
-        carousel_content: ".schedule-carousel-content"
         $content: null
 
         bind: ->
-            @bindItem "click", @next, @nextItem
-            @bindItem "click", @prev, @prevItem
+            @bindItem "click", @nextButton, @next
+            @bindItem "click", @prevButton, @prev
             true
 
-        renderScheduleItem: (response) =>
+        nextItem: (event) =>
+            @change event, "next"
+            true
+
+        prevItem: (event) =>
+            @change event, "prev"
+            true
+
+        change: (event, direction) =>
+            $button = $(event.target).parent()
+            carousel_id = $button.data "carousel"
+            @$content = $ "##{carousel_id}"
+
+            timestamp = @$content.find(@carousel_timestamp).attr "data-timestamp"
+            type = @$content.attr "data-type"
+
+            @getEpisode timestamp, direction if type = 'episode'
+            @getDay timestamp, direction if type = 'day'
+            @getWeek timestamp, direction if type = 'week'
+            true
+
+        getEpisode: (timestamp, direction) =>
+            route = "station/episode/#{direction}/#{timestamp}"
+            $.get route, @renderEpisode
+
+        getDay: (timestamp, direction) =>
+            route = "station/day/#{direction}/#{timestamp}"
+            $.get route, @renderDay
+
+        getWeek: (timestamp, direction) =>
+            route = "station/week/#{direction}/#{timestamp}"
+            $.get route, @renderWeek
+
+        renderEpisode: (response) =>
             return if response.length == 0
 
             data =
@@ -32,19 +64,10 @@ window.App.Schedule = window.App.Schedule || {}
             @$content.render data, directives
             true
 
-        getEpisode: (timestamp, direction) =>
-            route = "station/episode/#{direction}/#{timestamp}"
-            $.get route, @renderScheduleItem
-
-        nextItem: (event) =>
-            @$content = $(event.target).parent().parent().find(@carousel_content)
-            timestamp = @$content.find(@carousel_timestamp).attr "data-timestamp"
-            @getEpisode timestamp, 'next'
+        renderDay: (response) =>
             true
 
-        prevItem: (event) =>
-            @$content = $(event.target).parent().parent().find(@carousel_content)
-            timestamp = @$content.find(@carousel_timestamp).attr "data-timestamp"
-            @getEpisode timestamp, 'prev'
+        renderWeek: (response) =>
             true
+
 ) jQuery

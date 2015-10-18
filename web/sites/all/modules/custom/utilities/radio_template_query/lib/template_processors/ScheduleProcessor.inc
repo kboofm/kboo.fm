@@ -2,7 +2,7 @@
 
 class ScheduleProcessor extends TemplateProcessor {
 
-  public function processBefore($dataset, $timestamp, $count = 1) {
+  public function process($dataset, $timestamp, $when, $count = 1) {
     $schedule = [];
 
     foreach ($dataset as $nid => $item) {
@@ -10,7 +10,9 @@ class ScheduleProcessor extends TemplateProcessor {
       $timeslots = $wrapped->field_timeslot->value();
 
       foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] >= $timestamp) {
+        if ($when == 'after' && $timeslot['value'] <= $timestamp) {
+          continue;
+        } else if ($when == 'before' && $timeslot['value'] >= $timestamp) {
           continue;
         }
 
@@ -21,44 +23,8 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     }
 
-    $this->sortByStartTime($schedule, 'DESC');
-
-    if ($count) {
-      $schedule = array_slice($schedule, 0, $count);
-    }
-
-    return $schedule;
-  }
-
-
-  /**
-   * Process programs that come after the given date/time
-   *
-   * @param $dataset
-   * @param $timestamp
-   * @param $count
-   * @return array
-   */
-  public function processAfter($dataset, $timestamp, $count = 1) {
-    $schedule = [];
-
-    foreach ($dataset as $nid => $item) {
-      $wrapped = entity_metadata_wrapper('node', $nid);
-      $timeslots = $wrapped->field_timeslot->value();
-
-      foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] <= $timestamp) {
-          continue;
-        }
-
-        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
-        if ($schedule_item) {
-          $schedule[] = $schedule_item;
-        }
-      }
-    }
-
-    $this->sortByStartTime($schedule);
+    $direction = ($when == 'after') ? 'ASC' : 'DESC';
+    $this->sortByStartTime($schedule, $direction);
 
     if ($count) {
       $schedule = array_slice($schedule, 0, $count);

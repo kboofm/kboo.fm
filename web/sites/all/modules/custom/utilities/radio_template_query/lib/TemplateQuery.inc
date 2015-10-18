@@ -1,4 +1,6 @@
 <?php
+require_once 'utilities/Helpers.inc';
+
 
 class TemplateQuery {
   public static function scheduledNow() {
@@ -27,24 +29,18 @@ class TemplateQuery {
     }
 
     $processor = new ScheduleProcessor();
-    return $processor->processAfter(
+    return $processor->process(
       $result['node'],
       time(),
+      'after',
       $count
     );
   }
 
 
   public static function scheduledToday() {
-    $now = time();
-
-    $start = new DateTime("@{$now}");
-    $start->setTime(0, 0, 0);
-    $start = $start->getTimestamp();
-
-    $end = new DateTime("@{$now}");
-    $end->setTime(23, 59, 59);
-    $end = $end->getTimestamp();
+    $start = Helpers::todayBegin();
+    $end = Helpers::todayEnd();
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($start, $end);
@@ -65,16 +61,8 @@ class TemplateQuery {
 
   public static function scheduledThisWeek() {
     $now = time();
-
-    $start = new DateTime("@{$now}");
-    $start->modify("last Sunday");
-    $start->setTime(0, 0, 0);
-    $start = $start->getTimestamp();
-
-    $end = new DateTime("@{$now}");
-    $end->modify("next Saturday");
-    $end->setTime(23, 59, 59);
-    $end = $end->getTimestamp();
+    $start = Helpers::weekBegin($now);
+    $end = Helpers::weekEnd($now);
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($start, $end);
@@ -96,16 +84,8 @@ class TemplateQuery {
 
   public static function scheduledNextWeek() {
     $now = time();
-
-    $start = new DateTime("@{$now}");
-    $start->modify("next Sunday");
-    $start->setTime(0, 0, 0);
-    $start = $start->getTimestamp();
-
-    $end = new DateTime("@{$start}");
-    $end->modify("+1 week");
-    $end->setTime(23, 59, 59);
-    $end = $end->getTimestamp();
+    $start = Helpers::weekAfterBegin($now);
+    $end = Helpers::weekAfterEnd($now);
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($start, $end);

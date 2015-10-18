@@ -11,30 +11,80 @@
       extend(Carousel, superClass);
 
       function Carousel() {
+        this.renderWeek = bind(this.renderWeek, this);
+        this.renderDay = bind(this.renderDay, this);
+        this.renderEpisode = bind(this.renderEpisode, this);
+        this.getWeek = bind(this.getWeek, this);
+        this.getDay = bind(this.getDay, this);
+        this.getEpisode = bind(this.getEpisode, this);
+        this.change = bind(this.change, this);
         this.prevItem = bind(this.prevItem, this);
         this.nextItem = bind(this.nextItem, this);
-        this.getEpisode = bind(this.getEpisode, this);
-        this.renderScheduleItem = bind(this.renderScheduleItem, this);
         return Carousel.__super__.constructor.apply(this, arguments);
       }
 
-      Carousel.prototype.next = ".schedule-carousel-next i";
+      Carousel.prototype.nextButton = ".schedule-carousel-next i";
 
-      Carousel.prototype.prev = ".schedule-carousel-prev i";
+      Carousel.prototype.prevButton = ".schedule-carousel-prev i";
 
       Carousel.prototype.carousel_timestamp = ".schedule-carousel-timestamp";
-
-      Carousel.prototype.carousel_content = ".schedule-carousel-content";
 
       Carousel.prototype.$content = null;
 
       Carousel.prototype.bind = function() {
-        this.bindItem("click", this.next, this.nextItem);
-        this.bindItem("click", this.prev, this.prevItem);
+        this.bindItem("click", this.nextButton, this.next);
+        this.bindItem("click", this.prevButton, this.prev);
         return true;
       };
 
-      Carousel.prototype.renderScheduleItem = function(response) {
+      Carousel.prototype.nextItem = function(event) {
+        this.change(event, "next");
+        return true;
+      };
+
+      Carousel.prototype.prevItem = function(event) {
+        this.change(event, "prev");
+        return true;
+      };
+
+      Carousel.prototype.change = function(event, direction) {
+        var $button, carousel_id, timestamp, type;
+        $button = $(event.target).parent();
+        carousel_id = $button.data("carousel");
+        this.$content = $("#" + carousel_id);
+        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
+        type = this.$content.attr("data-type");
+        if (type = 'episode') {
+          this.getEpisode(timestamp, direction);
+        }
+        if (type = 'day') {
+          this.getDay(timestamp, direction);
+        }
+        if (type = 'week') {
+          this.getWeek(timestamp, direction);
+        }
+        return true;
+      };
+
+      Carousel.prototype.getEpisode = function(timestamp, direction) {
+        var route;
+        route = "station/episode/" + direction + "/" + timestamp;
+        return $.get(route, this.renderEpisode);
+      };
+
+      Carousel.prototype.getDay = function(timestamp, direction) {
+        var route;
+        route = "station/day/" + direction + "/" + timestamp;
+        return $.get(route, this.renderDay);
+      };
+
+      Carousel.prototype.getWeek = function(timestamp, direction) {
+        var route;
+        route = "station/week/" + direction + "/" + timestamp;
+        return $.get(route, this.renderWeek);
+      };
+
+      Carousel.prototype.renderEpisode = function(response) {
         var data, directives;
         if (response.length === 0) {
           return;
@@ -61,25 +111,11 @@
         return true;
       };
 
-      Carousel.prototype.getEpisode = function(timestamp, direction) {
-        var route;
-        route = "station/episode/" + direction + "/" + timestamp;
-        return $.get(route, this.renderScheduleItem);
-      };
-
-      Carousel.prototype.nextItem = function(event) {
-        var timestamp;
-        this.$content = $(event.target).parent().parent().find(this.carousel_content);
-        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
-        this.getEpisode(timestamp, 'next');
+      Carousel.prototype.renderDay = function(response) {
         return true;
       };
 
-      Carousel.prototype.prevItem = function(event) {
-        var timestamp;
-        this.$content = $(event.target).parent().parent().find(this.carousel_content);
-        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
-        this.getEpisode(timestamp, 'prev');
+      Carousel.prototype.renderWeek = function(response) {
         return true;
       };
 
