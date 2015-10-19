@@ -57,4 +57,10 @@ class Helpers {
   public static function weekAfterBegin($timestamp) {
     return Helpers::weekEnd($timestamp) + 1;
   }
+
+  public static function printif($array, $key) {
+    if (isset($array[$key])) {
+      print $array[$key];
+    }
+  }
 }

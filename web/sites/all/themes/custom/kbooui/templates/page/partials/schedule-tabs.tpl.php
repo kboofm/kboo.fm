@@ -3,13 +3,10 @@
     <a href="#shows" role="tab" data-toggle="tab">Shows</a>
   </li>
   <li role="presentation">
-    <a href="#today" role="tab" data-toggle="tab">Today</a>
+    <a href="#day" role="tab" data-toggle="tab">Day</a>
   </li>
   <li role="presentation">
-    <a href="#this-week" role="tab" data-toggle="tab">This Week</a>
-  </li>
-  <li role="presentation">
-    <a href="#next-week" role="tab" data-toggle="tab">Next Week</a>
+    <a href="#week" role="tab" data-toggle="tab">Week</a>
   </li>
 </ul>
 
@@ -18,15 +15,11 @@
     <?php include 'scheduled-shows.tpl.php'; ?>
   </div>
 
-  <div role="tabpanel" class="tab-pane" id="today">
-    <?php include 'scheduled-today.tpl.php'; ?>
+  <div role="tabpanel" class="tab-pane" id="day">
+    <?php include 'scheduled-day.tpl.php'; ?>
   </div>
 
-  <div role="tabpanel" class="tab-pane" id="this-week">
-    <?php include 'scheduled-this-week.tpl.php'; ?>
-  </div>
-
-  <div role="tabpanel" class="tab-pane" id="next-week">
-    <?php include 'scheduled-next-week.tpl.php'; ?>
+  <div role="tabpanel" class="tab-pane" id="week">
+    <?php include 'scheduled-week.tpl.php'; ?>
   </div>
 </div>

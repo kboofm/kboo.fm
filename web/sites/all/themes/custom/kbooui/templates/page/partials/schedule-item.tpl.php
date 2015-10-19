@@ -3,7 +3,7 @@ if ($schedule_item):
 ?>
   <div data-bind="schedule-item">
     <a data-bind="title-link"
-       href="<?php print $schedule_item['url']; ?>">
+       href="<?php Helpers::printif($schedule_item, 'url'); ?>">
       <?php print $schedule_item['title']; ?>
     </a>
 

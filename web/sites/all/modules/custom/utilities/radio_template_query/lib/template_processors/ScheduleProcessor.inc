@@ -37,18 +37,6 @@ class ScheduleProcessor extends TemplateProcessor {
   public function processRange($dataset, $start, $end, $groupByDay = false) {
     $schedule = [];
 
-    if ($groupByDay) {
-      $schedule = [
-        'Sunday' => [],
-        'Monday' => [],
-        'Tuesday' => [],
-        'Wednesday' => [],
-        'Thursday' => [],
-        'Friday' => [],
-        'Saturday' => [],
-      ];
-    }
-
     foreach ($dataset as $nid => $item) {
       $wrapped = entity_metadata_wrapper('node', $nid);
       $timeslots = $wrapped->field_timeslot->value();
@@ -66,6 +54,11 @@ class ScheduleProcessor extends TemplateProcessor {
         if ($schedule_item) {
           if ($groupByDay) {
             $dayOfWeek = date('l', $timeslot['value']);
+
+            if (!isset($schedule[$dayOfWeek])) {
+              $schedule[$dayOfWeek] = [];
+            }
+
             $schedule[$dayOfWeek][] = $schedule_item;
           } else {
             $schedule[] = $schedule_item;
@@ -75,13 +68,9 @@ class ScheduleProcessor extends TemplateProcessor {
     }
 
     if ($groupByDay) {
-      $this->sortByStartTime($schedule['Sunday']);
-      $this->sortByStartTime($schedule['Monday']);
-      $this->sortByStartTime($schedule['Tuesday']);
-      $this->sortByStartTime($schedule['Wednesday']);
-      $this->sortByStartTime($schedule['Thursday']);
-      $this->sortByStartTime($schedule['Friday']);
-      $this->sortByStartTime($schedule['Saturday']);
+      foreach ($schedule as &$dayOfWeek) {
+        $this->sortByStartTime($dayOfWeek);
+      }
     } else {
       $this->sortByStartTime($schedule);
     }

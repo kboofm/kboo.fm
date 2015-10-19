@@ -1,11 +1,10 @@
 <?php
-$data = TemplateQuery::scheduledNext();
+$data = TemplateQuery::scheduledToday();
 
 $schedule = [
-  'id' => 'schedule-episode',
-  'type' => 'episode',
+  'id' => 'schedule-day',
+  'type' => 'day',
   'data' => $data,
   'timestamp' => $data[0]['start']['timestamp'],
 ];
-
 include 'schedule-carousel.tpl.php';

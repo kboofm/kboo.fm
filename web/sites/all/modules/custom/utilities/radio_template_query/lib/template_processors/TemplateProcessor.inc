@@ -1,8 +1,6 @@
 <?php
 
 class TemplateProcessor {
-  public function process($dataset) {}
-
   public static function getEntityUrl($entity, $type = 'node') {
     if (is_null($entity)) {
       return NULL;
