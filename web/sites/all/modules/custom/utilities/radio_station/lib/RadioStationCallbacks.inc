@@ -97,7 +97,7 @@ class RadioStationCallbacks {
   }
 
 
-  public static function processRangeResponse($result, $start, $end, $groupByDay) {
+  public static function processRangeResponse($result, $start, $end, $groupByDay = false) {
     if (empty($result)) {
       return NULL;
     }
