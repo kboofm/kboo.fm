@@ -2,13 +2,16 @@
   <li role="presentation" class="active">
     <a href="#shows" role="tab" data-toggle="tab">Shows</a>
   </li>
+
   <li role="presentation">
     <a href="#day" role="tab" data-toggle="tab">Day</a>
   </li>
+
   <li role="presentation">
     <a href="#week" role="tab" data-toggle="tab">Week</a>
   </li>
 </ul>
+
 
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane active" id="shows">
