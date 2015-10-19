@@ -6,8 +6,8 @@ class ScheduleProcessor extends TemplateProcessor {
     $schedule = [];
 
     foreach ($dataset as $nid => $item) {
-      $wrapped = entity_metadata_wrapper('node', $nid);
-      $timeslots = $wrapped->field_timeslot->value();
+      $wrapped_node = entity_metadata_wrapper('node', $nid);
+      $timeslots = $wrapped_node->field_timeslot->value();
 
       foreach ($timeslots as $timeslot) {
         if ($when == 'after' && $timeslot['value'] <= $timestamp) {
@@ -16,7 +16,7 @@ class ScheduleProcessor extends TemplateProcessor {
           continue;
         }
 
-        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
+        $schedule_item = $this->buildScheduleItem($wrapped_node, $timeslot);
         if ($schedule_item) {
           $schedule[] = $schedule_item;
         }
