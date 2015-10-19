@@ -8,4 +8,4 @@ $schedule = [
   'data' => $data,
   'timestamp' => $firstDayOfWeek[0]['start']['timestamp'],
 ];
-include 'schedule-carousel-week.tpl.php.tpl.php';
+include 'schedule-carousel-week.tpl.php';

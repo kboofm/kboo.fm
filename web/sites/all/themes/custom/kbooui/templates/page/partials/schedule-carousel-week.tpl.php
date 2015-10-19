@@ -28,11 +28,10 @@
         </h4>
 
         <ul class="list-group"
-            data-bind="schedule-items">
+            data-bind="schedule-item">
 
-          <?php foreach ($schedule['data'] as $schedule_item): ?>
-            <li class="list-group-item"
-                data-bind="schedule-item">
+          <?php foreach ($data_items as $index => $schedule_item): ?>
+            <li class="list-group-item <?php if ($index > 0): ?>static<?php endif; ?>">
 
               <?php
               $schedule_url = NULL;

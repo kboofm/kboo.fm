@@ -80,27 +80,4 @@ class TemplateQuery {
       true
     );
   }
-
-
-  public static function scheduledNextWeek() {
-    $now = time();
-    $start = Helpers::weekAfterBegin($now);
-    $end = Helpers::weekEnd($start);
-
-    $query = new ScheduledTimeslotQuery();
-    $query->getRange($start, $end);
-    $result = $query->execute();
-
-    if (empty($result)) {
-      return [];
-    }
-
-    $processor = new ScheduleProcessor();
-    return $processor->processRange(
-      $result['node'],
-      $start,
-      $end,
-      true
-    );
-  }
 }

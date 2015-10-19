@@ -7,9 +7,9 @@
     <a href="#day" role="tab" data-toggle="tab">Day</a>
   </li>
 
-<!--  <li role="presentation">-->
-<!--    <a href="#week" role="tab" data-toggle="tab">Week</a>-->
-<!--  </li>-->
+  <li role="presentation">
+    <a href="#week" role="tab" data-toggle="tab">Week</a>
+  </li>
 </ul>
 
 
@@ -22,7 +22,7 @@
     <?php include 'scheduled-day.tpl.php'; ?>
   </div>
 
-<!--  <div role="tabpanel" class="tab-pane" id="week">-->
-<!--    --><?php //include 'scheduled-week.tpl.php'; ?>
-<!--  </div>-->
+  <div role="tabpanel" class="tab-pane" id="week">
+    <?php include 'scheduled-week.tpl.php'; ?>
+  </div>
 </div>
