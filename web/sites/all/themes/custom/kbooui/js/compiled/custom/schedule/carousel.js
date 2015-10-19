@@ -84,22 +84,28 @@
         return $.get(route, this.renderWeek);
       };
 
+      Carousel.prototype.dataItem = function(item) {
+        var data_item;
+        data_item = {
+          "timestamp": item['start']['timestamp'],
+          "schedule-item": {
+            "title-link": item['title'],
+            "formatted-date": item['start']['formatted_date'],
+            "formatted-time": {
+              "start-time": item['start']['formatted_time'],
+              "finish-time": item['finish']['formatted_time']
+            }
+          }
+        };
+        return data_item;
+      };
+
       Carousel.prototype.renderEpisode = function(response) {
         var data, directives;
         if (response.length === 0) {
           return;
         }
-        data = {
-          "timestamp": response['start']['timestamp'],
-          "schedule-item": {
-            "title-link": response['title'],
-            "formatted-date": response['start']['formatted_date'],
-            "formatted-time": {
-              "start-time": response['start']['formatted_time'],
-              "finish-time": response['finish']['formatted_time']
-            }
-          }
-        };
+        data = this.dataItem(response);
         directives = {
           "schedule-carousel-timestamp": {
             "data-timestamp": function() {
@@ -112,11 +118,54 @@
       };
 
       Carousel.prototype.renderDay = function(response) {
+        var data, data_item, directives, i, item, len;
+        if (response.length === 0) {
+          return;
+        }
+        data = {
+          timestamp: response[0]['start']['timestamp'],
+          items: []
+        };
+        for (i = 0, len = response.length; i < len; i++) {
+          item = response[i];
+          data_item = this.dataItem(item);
+          data.items.push(data_item);
+        }
+        directives = {
+          "schedule-carousel-timestamp": {
+            "data-timestamp": function() {
+              return "" + this.timestamp;
+            }
+          }
+        };
+        this.$content.render(data, directives);
         return true;
       };
 
       Carousel.prototype.renderWeek = function(response) {
-        return true;
+        var data, data_item, i, item, len, ref, results, weekdata, weekday, weekdays;
+        if (response.length === 0) {
+          return;
+        }
+        weekdays = [];
+        results = [];
+        for (weekday in response) {
+          data = {
+            items: []
+          };
+          ref = response[weekday];
+          for (i = 0, len = ref.length; i < len; i++) {
+            item = ref[i];
+            data_item = this.dataItem(item);
+            data.items.push(data_item);
+          }
+          weekdata = {
+            timestamp: response[weekday][0]['start']['timestamp'],
+            data: data
+          };
+          results.push(weekdays.push(weekdata));
+        }
+        return results;
       };
 
       return Carousel;

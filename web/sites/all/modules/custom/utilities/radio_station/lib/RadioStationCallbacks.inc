@@ -1,5 +1,5 @@
 <?php
-require_once (dirname(__DIR__)) . '../radio_template_query/lib/utilities/Helpers.inc';
+require_once (dirname(__DIR__)) . '/../radio_template_query/lib/utilities/Helpers.inc';
 
 
 class RadioStationCallbacks {

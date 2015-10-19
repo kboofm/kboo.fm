@@ -40,7 +40,7 @@ class TemplateQuery {
 
   public static function scheduledToday() {
     $start = Helpers::todayBegin();
-    $end = Helpers::todayEnd();
+    $end = Helpers::dayEnd($start);
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($start, $end);
@@ -85,7 +85,7 @@ class TemplateQuery {
   public static function scheduledNextWeek() {
     $now = time();
     $start = Helpers::weekAfterBegin($now);
-    $end = Helpers::weekAfterEnd($now);
+    $end = Helpers::weekEnd($start);
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($start, $end);
