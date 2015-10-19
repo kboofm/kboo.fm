@@ -90,14 +90,11 @@
       Carousel.prototype.dataItem = function(item) {
         var data_item;
         data_item = {
-          "timestamp": item['start']['timestamp'],
-          "schedule-item": {
-            "title-link": item['title'],
-            "formatted-date": item['start']['formatted_date'],
-            "formatted-time": {
-              "start-time": item['start']['formatted_time'],
-              "finish-time": item['finish']['formatted_time']
-            }
+          "title-link": item['title'],
+          "formatted-date": item['start']['formatted_date'],
+          "formatted-time": {
+            "start-time": item['start']['formatted_time'],
+            "finish-time": item['finish']['formatted_time']
           }
         };
         return data_item;
@@ -108,7 +105,10 @@
         if (response.length === 0) {
           return;
         }
-        data = this.dataItem(response[0]);
+        data = {
+          timestamp: response[0]['start']['timestamp'],
+          "schedule-item": [this.dataItem(response[0])]
+        };
         directives = {
           "schedule-carousel-timestamp": {
             "data-timestamp": function() {
@@ -121,19 +121,22 @@
       };
 
       Carousel.prototype.renderDay = function(response) {
-        var data, data_item, directives, i, item, len;
+        var data, directives, item;
         if (response.length === 0) {
           return;
         }
         data = {
           timestamp: response[0]['start']['timestamp'],
-          "schedule-items": []
+          "schedule-item": (function() {
+            var i, len, results;
+            results = [];
+            for (i = 0, len = response.length; i < len; i++) {
+              item = response[i];
+              results.push(this.dataItem(item));
+            }
+            return results;
+          }).call(this)
         };
-        for (i = 0, len = response.length; i < len; i++) {
-          item = response[i];
-          data_item = this.dataItem(item);
-          data['schedule-items'].push(data_item);
-        }
         directives = {
           "schedule-carousel-timestamp": {
             "data-timestamp": function() {
@@ -141,50 +144,15 @@
             }
           }
         };
+        this.$carousel.find('.static').remove();
         this.$carousel.render(data, directives);
         return true;
       };
 
       Carousel.prototype.renderWeek = function(response) {
-        var container, data, data_item, directives, i, item, len, ref, timestamp, week_start, weekdata, weekday, weekdays;
         if (response.length === 0) {
           return;
         }
-        week_start = null;
-        weekdays = [];
-        for (weekday in response) {
-          data = {
-            items: []
-          };
-          ref = response[weekday];
-          for (i = 0, len = ref.length; i < len; i++) {
-            item = ref[i];
-            data_item = this.dataItem(item);
-            data.items.push(data_item);
-          }
-          timestamp = response[weekday][0]['start']['timestamp'];
-          if (!week_start) {
-            week_start = timestamp;
-          }
-          weekdata = {
-            timestamp: timestamp,
-            "schedule-dayofweek": weekday,
-            data: data
-          };
-          weekdays.push(weekdata);
-        }
-        container = {
-          weekdays: weekdays,
-          timestamp: timestamp
-        };
-        directives = {
-          "schedule-carousel-timestamp": {
-            "data-timestamp": function() {
-              return "" + this.timestamp;
-            }
-          }
-        };
-        this.$carousel.render(container, directives);
         return true;
       };
 

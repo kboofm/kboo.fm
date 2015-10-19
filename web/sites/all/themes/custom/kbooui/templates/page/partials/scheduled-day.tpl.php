@@ -7,4 +7,4 @@ $schedule = [
   'data' => $data,
   'timestamp' => $data[0]['start']['timestamp'],
 ];
-include 'schedule-carousel.tpl.php';
+include 'schedule-carousel-day.tpl.php';

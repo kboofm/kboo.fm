@@ -50,20 +50,21 @@ window.App.Schedule = window.App.Schedule || {}
 
         dataItem: (item) ->
             data_item =
-                "timestamp": item['start']['timestamp']
-                "schedule-item":
-                    "title-link": item['title']
-                    "formatted-date": item['start']['formatted_date']
-                    "formatted-time":
-                        "start-time": item['start']['formatted_time']
-                        "finish-time": item['finish']['formatted_time']
+                "title-link": item['title']
+                "formatted-date": item['start']['formatted_date']
+                "formatted-time":
+                    "start-time": item['start']['formatted_time']
+                    "finish-time": item['finish']['formatted_time']
 
             return data_item
 
         renderEpisode: (response) =>
             return if response.length == 0
 
-            data = @dataItem response[0]
+            data =
+                timestamp: response[0]['start']['timestamp']
+                "schedule-item": [@dataItem response[0]]
+
             directives =
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
@@ -76,53 +77,50 @@ window.App.Schedule = window.App.Schedule || {}
 
             data =
                 timestamp: response[0]['start']['timestamp']
-                "schedule-items": []
-
-            for item in response
-                data_item = @dataItem item
-                data['schedule-items'].push data_item
+                "schedule-item": @dataItem item for item in response
 
             directives =
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
 
+            @$carousel.find('.static').remove()
             @$carousel.render data, directives
             true
 
         renderWeek: (response) =>
             return if response.length == 0
 
-            week_start = null
-            weekdays = []
-            for weekday of response
-                data =
-                    items: []
-
-                for item in response[weekday]
-                    data_item = @dataItem item
-                    data.items.push data_item
-
-                timestamp = response[weekday][0]['start']['timestamp']
-
-                if not week_start
-                    week_start = timestamp
-
-                weekdata =
-                    timestamp: timestamp
-                    "schedule-dayofweek": weekday
-                    data: data
-
-                weekdays.push weekdata
-
-            container =
-                weekdays: weekdays
-                timestamp: timestamp
-
-            directives =
-                "schedule-carousel-timestamp":
-                    "data-timestamp": -> "#{@timestamp}"
-
-            @$carousel.render container, directives
+#            week_start = null
+#            weekdays = []
+#            for weekday of response
+#                data =
+#                    items: []
+#
+#                for item in response[weekday]
+#                    data_item = @dataItem item
+#                    data.items.push data_item
+#
+#                timestamp = response[weekday][0]['start']['timestamp']
+#
+#                if not week_start
+#                    week_start = timestamp
+#
+#                weekdata =
+#                    timestamp: timestamp
+#                    "schedule-dayofweek": weekday
+#                    data: data
+#
+#                weekdays.push weekdata
+#
+#            container =
+#                weekdays: weekdays
+#                timestamp: timestamp
+#
+#            directives =
+#                "schedule-carousel-timestamp":
+#                    "data-timestamp": -> "#{@timestamp}"
+#
+#            @$carousel.render container, directives
             return true
 
 ) jQuery
