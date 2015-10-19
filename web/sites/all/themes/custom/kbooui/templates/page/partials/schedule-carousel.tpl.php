@@ -1,13 +1,13 @@
 <div class="row margin-top">
   <div class="col-md-1 schedule-carousel-prev"
        data-carousel="<?php print $schedule['id']; ?>">
-    <i class="fa fa-arrow-left cursor-pointer"></i>
+    <i class="fa fa-arrow-left cursor-pointer schedule-trigger"></i>
   </div>
 
 
   <div class="col-md-1 schedule-carousel-next"
        data-carousel="<?php print $schedule['id']; ?>">
-    <i class="fa fa-arrow-right cursor-pointer"></i>
+    <i class="fa fa-arrow-right cursor-pointer schedule-trigger"></i>
   </div>
 </div>
 
@@ -22,8 +22,12 @@
 
       <?php if ($schedule['type'] == 'week'): ?>
         <?php foreach ($schedule['data'] as $dayOfWeek => $data_items): ?>
-          <h4><?php print $dayOfWeek; ?></h4>
-          <?php include 'schedule-list.tpl.php'; ?>
+          <div class="weekdays">
+            <h4 data-bind="schedule-dayofweek">
+              <?php print $dayOfWeek; ?>
+            </h4>
+            <?php include 'schedule-list.tpl.php'; ?>
+          </div>
         <?php endforeach; ?>
       <?php else:
         $data_items = $schedule['data'];

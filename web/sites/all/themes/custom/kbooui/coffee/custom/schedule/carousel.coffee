@@ -2,10 +2,10 @@ window.App.Schedule = window.App.Schedule || {}
 
 (($) ->
     class App.Schedule.Carousel extends C4.Components.Base
-        nextButton: ".schedule-carousel-next i"
-        prevButton: ".schedule-carousel-prev i"
+        nextButton: ".schedule-carousel-next .schedule-trigger"
+        prevButton: ".schedule-carousel-prev .schedule-trigger"
         carousel_timestamp: ".schedule-carousel-timestamp"
-        $content: null
+        $carousel: null
 
         bind: ->
             @bindItem "click", @nextButton, @next
@@ -23,10 +23,10 @@ window.App.Schedule = window.App.Schedule || {}
         change: (event, direction) =>
             $button = $(event.target).parent()
             carousel_id = $button.data "carousel"
-            @$content = $ "##{carousel_id}"
+            @$carousel = $ "##{carousel_id}"
 
-            timestamp = @$content.find(@carousel_timestamp).attr "data-timestamp"
-            type = @$content.attr "data-type"
+            timestamp = @$carousel.find(@carousel_timestamp).attr "data-timestamp"
+            type = @$carousel.attr "data-type"
 
             @getEpisode timestamp, direction if type == 'episode'
             @getDay timestamp, direction if type == 'day'
@@ -44,8 +44,8 @@ window.App.Schedule = window.App.Schedule || {}
             true
 
         getWeek: (timestamp, direction) =>
-#            route = "station/week/#{direction}/#{timestamp}"
-#            $.get route, @renderWeek
+            route = "station/week/#{direction}/#{timestamp}"
+            $.get route, @renderWeek
             true
 
         dataItem: (item) ->
@@ -57,6 +57,7 @@ window.App.Schedule = window.App.Schedule || {}
                     "formatted-time":
                         "start-time": item['start']['formatted_time']
                         "finish-time": item['finish']['formatted_time']
+
             return data_item
 
         renderEpisode: (response) =>
@@ -67,7 +68,7 @@ window.App.Schedule = window.App.Schedule || {}
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
 
-            @$content.render data, directives
+            @$carousel.render data, directives
             true
 
         renderDay: (response) =>
@@ -85,32 +86,43 @@ window.App.Schedule = window.App.Schedule || {}
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
 
-            @$content.render data, directives
+            @$carousel.render data, directives
             true
 
         renderWeek: (response) =>
-#            return if response.length == 0
-#
-#            weekdays = []
-#            for weekday of response
-#                data =
-#                    items: []
-#
-#                for item in response[weekday]
-#                    data_item = @dataItem item
-#                    data.items.push data_item
-#
-#                weekdata =
-#                    timestamp: response[weekday][0]['start']['timestamp']
-#                    data: data
-#
-#                weekdays.push weekdata
-#
-#            directives =
-#                "schedule-carousel-timestamp":
-#                    "data-timestamp": -> "#{@timestamp}"
-#
-#            @$content.render weekdays, directives
+            return if response.length == 0
+
+            week_start = null
+            weekdays = []
+            for weekday of response
+                data =
+                    items: []
+
+                for item in response[weekday]
+                    data_item = @dataItem item
+                    data.items.push data_item
+
+                timestamp = response[weekday][0]['start']['timestamp']
+
+                if not week_start
+                    week_start = timestamp
+
+                weekdata =
+                    timestamp: timestamp
+                    "schedule-dayofweek": weekday
+                    data: data
+
+                weekdays.push weekdata
+
+            container =
+                weekdays: weekdays
+                timestamp: timestamp
+
+            directives =
+                "schedule-carousel-timestamp":
+                    "data-timestamp": -> "#{@timestamp}"
+
+            @$carousel.render container, directives
             return true
 
 ) jQuery
