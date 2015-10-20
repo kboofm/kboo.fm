@@ -59,31 +59,6 @@
         </li>
       <?php endforeach; ?>
     </ul>
-<!--    <ul class="list-group"-->
-<!--        data-bind="schedule-item">-->
-<!---->
-<!--      <li class="list-group-item">-->
-<!--        <div>-->
-<!--          <a data-bind="title-link"-->
-<!--             href="">-->
-<!--          </a>-->
-<!---->
-<!--          <div data-bind="formatted-date">-->
-<!--          </div>-->
-<!---->
-<!--          <div data-bind="formatted-time">-->
-<!--        <span data-bind="start-time">-->
-<!--        </span>-->
-<!---->
-<!--            --->
-<!---->
-<!--        <span data-bind="finish-time">-->
-<!--        </span>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--      </li>-->
-<!--    </ul>-->
-
 
   </div>
 </div>
