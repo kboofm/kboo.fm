@@ -83,7 +83,7 @@ window.App.Schedule = window.App.Schedule || {}
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
 
-            @$carousel.find('.static').remove()
+            @$carousel.find('.cull').remove()
             @$carousel.render data, directives
             true
 
@@ -111,7 +111,7 @@ window.App.Schedule = window.App.Schedule || {}
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
 
-            @$carousel.find('.static').remove()
+            @$carousel.find('.cull').remove()
             @$carousel.render container, directives
             return true
 

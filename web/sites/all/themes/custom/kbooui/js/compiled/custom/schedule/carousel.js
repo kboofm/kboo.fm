@@ -144,7 +144,7 @@
             }
           }
         };
-        this.$carousel.find('.static').remove();
+        this.$carousel.find('.cull').remove();
         this.$carousel.render(data, directives);
         return true;
       };
@@ -187,7 +187,7 @@
             }
           }
         };
-        this.$carousel.find('.static').remove();
+        this.$carousel.find('.cull').remove();
         this.$carousel.render(container, directives);
         return true;
       };
