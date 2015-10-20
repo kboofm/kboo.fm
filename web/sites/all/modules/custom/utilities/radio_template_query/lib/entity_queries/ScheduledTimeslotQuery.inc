@@ -113,6 +113,14 @@ class ScheduledTimeslotQuery extends NodeQuery {
       $direction = $params[0];
     }
 
-    $query->orderBy('field_data_field_timeslot0.field_timeslot_value', $direction);
+    $timeslot_table = 'field_data_field_timeslot0';
+    $timeslot_field = 'field_timeslot_value';
+
+    $query->addField(
+      $timeslot_table,
+      $timeslot_field,
+      $timeslot_field
+    );
+    $query->orderBy("{$timeslot_table}.{$timeslot_field}", $direction);
   }
 }

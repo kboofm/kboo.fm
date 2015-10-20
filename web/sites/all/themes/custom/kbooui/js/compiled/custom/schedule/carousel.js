@@ -11,44 +11,103 @@
       extend(Carousel, superClass);
 
       function Carousel() {
-        this.prevItem = bind(this.prevItem, this);
-        this.nextItem = bind(this.nextItem, this);
+        this.renderWeek = bind(this.renderWeek, this);
+        this.renderDay = bind(this.renderDay, this);
+        this.renderEpisode = bind(this.renderEpisode, this);
+        this.getWeek = bind(this.getWeek, this);
+        this.getDay = bind(this.getDay, this);
         this.getEpisode = bind(this.getEpisode, this);
-        this.renderScheduleItem = bind(this.renderScheduleItem, this);
+        this.change = bind(this.change, this);
+        this.prev = bind(this.prev, this);
+        this.next = bind(this.next, this);
         return Carousel.__super__.constructor.apply(this, arguments);
       }
 
-      Carousel.prototype.next = ".schedule-carousel-next i";
+      Carousel.prototype.nextButton = ".schedule-carousel-next .schedule-trigger";
 
-      Carousel.prototype.prev = ".schedule-carousel-prev i";
+      Carousel.prototype.prevButton = ".schedule-carousel-prev .schedule-trigger";
 
       Carousel.prototype.carousel_timestamp = ".schedule-carousel-timestamp";
 
-      Carousel.prototype.carousel_content = ".schedule-carousel-content";
-
-      Carousel.prototype.$content = null;
+      Carousel.prototype.$carousel = null;
 
       Carousel.prototype.bind = function() {
-        this.bindItem("click", this.next, this.nextItem);
-        this.bindItem("click", this.prev, this.prevItem);
+        this.bindItem("click", this.nextButton, this.next);
+        this.bindItem("click", this.prevButton, this.prev);
         return true;
       };
 
-      Carousel.prototype.renderScheduleItem = function(response) {
+      Carousel.prototype.next = function(event) {
+        this.change(event, "next");
+        return true;
+      };
+
+      Carousel.prototype.prev = function(event) {
+        this.change(event, "prev");
+        return true;
+      };
+
+      Carousel.prototype.change = function(event, direction) {
+        var $button, carousel_id, timestamp, type;
+        $button = $(event.target).parent();
+        carousel_id = $button.data("carousel");
+        this.$carousel = $("#" + carousel_id);
+        timestamp = this.$carousel.find(this.carousel_timestamp).attr("data-timestamp");
+        type = this.$carousel.attr("data-type");
+        if (type === 'episode') {
+          this.getEpisode(timestamp, direction);
+        }
+        if (type === 'day') {
+          this.getDay(timestamp, direction);
+        }
+        if (type === 'week') {
+          this.getWeek(timestamp, direction);
+        }
+        return true;
+      };
+
+      Carousel.prototype.getEpisode = function(timestamp, direction) {
+        var route;
+        route = "station/episode/" + direction + "/" + timestamp;
+        $.get(route, this.renderEpisode);
+        return true;
+      };
+
+      Carousel.prototype.getDay = function(timestamp, direction) {
+        var route;
+        route = "station/day/" + direction + "/" + timestamp;
+        $.get(route, this.renderDay);
+        return true;
+      };
+
+      Carousel.prototype.getWeek = function(timestamp, direction) {
+        var route;
+        route = "station/week/" + direction + "/" + timestamp;
+        $.get(route, this.renderWeek);
+        return true;
+      };
+
+      Carousel.prototype.dataItem = function(item) {
+        var data_item;
+        data_item = {
+          "title-link": item['title'],
+          "formatted-date": item['start']['formatted_date'],
+          "formatted-time": {
+            "start-time": item['start']['formatted_time'],
+            "finish-time": item['finish']['formatted_time']
+          }
+        };
+        return data_item;
+      };
+
+      Carousel.prototype.renderEpisode = function(response) {
         var data, directives;
         if (response.length === 0) {
           return;
         }
         data = {
-          "timestamp": response['start']['timestamp'],
-          "schedule-item": {
-            "title-link": response['title'],
-            "formatted-date": response['start']['formatted_date'],
-            "formatted-time": {
-              "start-time": response['start']['formatted_time'],
-              "finish-time": response['finish']['formatted_time']
-            }
-          }
+          timestamp: response[0]['start']['timestamp'],
+          "schedule-item": [this.dataItem(response[0])]
         };
         directives = {
           "schedule-carousel-timestamp": {
@@ -57,29 +116,78 @@
             }
           }
         };
-        this.$content.render(data, directives);
+        this.$carousel.render(data, directives);
         return true;
       };
 
-      Carousel.prototype.getEpisode = function(timestamp, direction) {
-        var route;
-        route = "station/episode/" + direction + "/" + timestamp;
-        return $.get(route, this.renderScheduleItem);
-      };
-
-      Carousel.prototype.nextItem = function(event) {
-        var timestamp;
-        this.$content = $(event.target).parent().parent().find(this.carousel_content);
-        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
-        this.getEpisode(timestamp, 'next');
+      Carousel.prototype.renderDay = function(response) {
+        var data, directives, item;
+        if (response.length === 0) {
+          return;
+        }
+        data = {
+          timestamp: response[0]['start']['timestamp'],
+          "schedule-item": (function() {
+            var i, len, results;
+            results = [];
+            for (i = 0, len = response.length; i < len; i++) {
+              item = response[i];
+              results.push(this.dataItem(item));
+            }
+            return results;
+          }).call(this)
+        };
+        directives = {
+          "schedule-carousel-timestamp": {
+            "data-timestamp": function() {
+              return "" + this.timestamp;
+            }
+          }
+        };
+        this.$carousel.find('.static').remove();
+        this.$carousel.render(data, directives);
         return true;
       };
 
-      Carousel.prototype.prevItem = function(event) {
-        var timestamp;
-        this.$content = $(event.target).parent().parent().find(this.carousel_content);
-        timestamp = this.$content.find(this.carousel_timestamp).attr("data-timestamp");
-        this.getEpisode(timestamp, 'prev');
+      Carousel.prototype.renderWeek = function(response) {
+        var container, directives, item, timestamp, week_start, weekdata, weekday, weekdays;
+        if (response.length === 0) {
+          return;
+        }
+        week_start = null;
+        weekdays = [];
+        for (weekday in response) {
+          timestamp = response[weekday][0]['start']['timestamp'];
+          if (!week_start) {
+            week_start = timestamp;
+          }
+          weekdata = {
+            "schedule-dayofweek": weekday,
+            "schedule-item": (function() {
+              var i, len, ref, results;
+              ref = response[weekday];
+              results = [];
+              for (i = 0, len = ref.length; i < len; i++) {
+                item = ref[i];
+                results.push(this.dataItem(item));
+              }
+              return results;
+            }).call(this)
+          };
+          weekdays.push(weekdata);
+        }
+        container = {
+          weekdays: weekdays,
+          timestamp: timestamp
+        };
+        directives = {
+          "schedule-carousel-timestamp": {
+            "data-timestamp": function() {
+              return "" + this.timestamp;
+            }
+          }
+        };
+        this.$carousel.render(container, directives);
         return true;
       };
 

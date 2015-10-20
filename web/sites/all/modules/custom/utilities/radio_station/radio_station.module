@@ -27,3 +27,15 @@ function radio_station_get_episode($direction, $timestamp) {
   $episode = RadioStationCallbacks::getEpisode($direction, $timestamp);
   drupal_json_output($episode);
 }
+
+
+function radio_station_get_day($direction, $timestamp) {
+  $episode = RadioStationCallbacks::getDay($direction, $timestamp);
+  drupal_json_output($episode);
+}
+
+
+function radio_station_get_week($direction, $timestamp) {
+  $episode = RadioStationCallbacks::getWeek($direction, $timestamp);
+  drupal_json_output($episode);
+}

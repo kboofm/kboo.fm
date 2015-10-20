@@ -1,4 +1,6 @@
 <?php
+require_once (dirname(__DIR__)) . '/../radio_template_query/lib/utilities/Helpers.inc';
+
 
 class RadioStationCallbacks {
   /**
@@ -17,41 +19,114 @@ class RadioStationCallbacks {
       'type' => MENU_CALLBACK,
     );
 
+
+    $items['station/day/%/%'] = array(
+      'title' => 'Get Day',
+      'page callback' => 'radio_station_get_day',
+      'page arguments' => array(2, 3),
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK,
+    );
+
+    $items['station/week/%/%'] = array(
+      'title' => 'Get Week',
+      'page callback' => 'radio_station_get_week',
+      'page arguments' => array(2, 3),
+      'access arguments' => array('access content'),
+      'type' => MENU_CALLBACK,
+    );
+
     return $items;
   }
 
   public static function getEpisode($direction, $timestamp) {
     $query = new ScheduledTimeslotQuery();
 
-    if ($direction == 'prev') {
-      $method = 'getPrevious';
-    } else {
-      $method = 'getNext';
-    }
-
+    $method = ($direction == 'prev') ? 'getPrevious' : 'getNext';
     $query->$method($timestamp);
     $result = $query->execute();
 
+    return RadioStationCallbacks::processResponse(
+      $result,
+      $direction,
+      $timestamp
+    );
+  }
+
+
+  public static function getDay($direction, $timestamp) {
+    $query = new ScheduledTimeslotQuery();
+
+    if ($direction == 'prev') {
+      $start = Helpers::dayBeforeBegin($timestamp);
+    } else {
+      $start = Helpers::dayAfterBegin($timestamp);
+    }
+
+    $end = Helpers::dayEnd($start);
+    $query->getRange($start, $end);
+    $result = $query->execute();
+
+    return RadioStationCallbacks::processRangeResponse(
+      $result,
+      $start,
+      $end
+    );
+  }
+
+
+  public static function getWeek($direction, $timestamp) {
+    $query = new ScheduledTimeslotQuery();
+
+    if ($direction == 'prev') {
+      $start = Helpers::weekBeforeBegin($timestamp);
+    } else {
+      $start = Helpers::weekAfterBegin($timestamp);
+    }
+
+    $end = Helpers::weekEnd($start);
+    $query->getRange($start, $end);
+    $result = $query->execute();
+
+    return RadioStationCallbacks::processRangeResponse(
+      $result,
+      $start,
+      $end,
+      true
+    );
+  }
+
+
+  public static function processRangeResponse($result, $start, $end, $groupByDay = false) {
     if (empty($result)) {
       return NULL;
     }
 
     $processor = new ScheduleProcessor();
 
-    if ($direction == 'prev') {
-      $method = 'processBefore';
-    } else {
-      $method = 'processAfter';
-    }
-
-    $data = $processor->$method(
+    $data = $processor->processRange(
       $result['node'],
-      $timestamp
+      $start,
+      $end,
+      $groupByDay
     );
 
-    if ($data) {
-      $data = $data[0];
+    return $data;
+  }
+
+  public static function processResponse($result, $direction, $timestamp) {
+    if (empty($result)) {
+      return NULL;
     }
+
+    $processor = new ScheduleProcessor();
+
+    $when = ($direction == 'prev') ? 'before' : 'after';
+    $data = $processor->process(
+      $result['node'],
+      $timestamp,
+      $when
+    );
 
     return $data;
   }

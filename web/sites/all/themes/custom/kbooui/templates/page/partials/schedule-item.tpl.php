@@ -1,9 +1,14 @@
 <?php
 if ($schedule_item):
+
+  $schedule_url = NULL;
+  if (isset($schedule_item['url'])) {
+    $schedule_url = $schedule_item['url'];
+  }
 ?>
-  <div data-bind="schedule-item">
+  <div>
     <a data-bind="title-link"
-       href="<?php print $schedule_item['url']; ?>">
+       href="<?php print $schedule_url; ?>">
       <?php print $schedule_item['title']; ?>
     </a>
 
