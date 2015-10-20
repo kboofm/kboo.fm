@@ -90,37 +90,29 @@ window.App.Schedule = window.App.Schedule || {}
         renderWeek: (response) =>
             return if response.length == 0
 
-#            week_start = null
-#            weekdays = []
-#            for weekday of response
-#                data =
-#                    items: []
-#
-#                for item in response[weekday]
-#                    data_item = @dataItem item
-#                    data.items.push data_item
-#
-#                timestamp = response[weekday][0]['start']['timestamp']
-#
-#                if not week_start
-#                    week_start = timestamp
-#
-#                weekdata =
-#                    timestamp: timestamp
-#                    "schedule-dayofweek": weekday
-#                    data: data
-#
-#                weekdays.push weekdata
-#
-#            container =
-#                weekdays: weekdays
-#                timestamp: timestamp
-#
-#            directives =
-#                "schedule-carousel-timestamp":
-#                    "data-timestamp": -> "#{@timestamp}"
-#
-#            @$carousel.render container, directives
+            week_start = null
+            weekdays = []
+            for weekday of response
+                timestamp = response[weekday][0]['start']['timestamp']
+
+                if not week_start
+                    week_start = timestamp
+
+                weekdata =
+                    "schedule-dayofweek": weekday
+                    "schedule-item": @dataItem item for item in response[weekday]
+                weekdays.push weekdata
+
+            container =
+                weekdays: weekdays
+                timestamp: timestamp
+
+
+            directives =
+                "schedule-carousel-timestamp":
+                    "data-timestamp": -> "#{@timestamp}"
+
+            @$carousel.render container, directives
             return true
 
 ) jQuery

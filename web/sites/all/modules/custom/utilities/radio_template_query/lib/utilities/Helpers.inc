@@ -31,11 +31,11 @@ class Helpers {
   }
 
   public static function dayEnd($timestamp) {
-    return strtotime("tomorrow", $timestamp) - 1;
+    return strtotime("tomorrow", $timestamp);
   }
 
   public static function dayAfterBegin($timestamp) {
-    return Helpers::dayEnd($timestamp) + 1;
+    return Helpers::dayEnd($timestamp);
   }
 
   public static function todayBegin() {
@@ -51,11 +51,11 @@ class Helpers {
   }
 
   public static function weekEnd($timestamp) {
-    return strtotime("next Sunday midnight", $timestamp) - 1;
+    return strtotime("next Sunday midnight", $timestamp);
   }
 
   public static function weekAfterBegin($timestamp) {
-    return Helpers::weekEnd($timestamp) + 1;
+    return Helpers::weekEnd($timestamp);
   }
 
   public static function printif($array, $key) {

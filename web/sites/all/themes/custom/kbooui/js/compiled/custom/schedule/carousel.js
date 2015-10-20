@@ -150,9 +150,44 @@
       };
 
       Carousel.prototype.renderWeek = function(response) {
+        var container, directives, item, timestamp, week_start, weekdata, weekday, weekdays;
         if (response.length === 0) {
           return;
         }
+        week_start = null;
+        weekdays = [];
+        for (weekday in response) {
+          timestamp = response[weekday][0]['start']['timestamp'];
+          if (!week_start) {
+            week_start = timestamp;
+          }
+          weekdata = {
+            "schedule-dayofweek": weekday,
+            "schedule-item": (function() {
+              var i, len, ref, results;
+              ref = response[weekday];
+              results = [];
+              for (i = 0, len = ref.length; i < len; i++) {
+                item = ref[i];
+                results.push(this.dataItem(item));
+              }
+              return results;
+            }).call(this)
+          };
+          weekdays.push(weekdata);
+        }
+        container = {
+          weekdays: weekdays,
+          timestamp: timestamp
+        };
+        directives = {
+          "schedule-carousel-timestamp": {
+            "data-timestamp": function() {
+              return "" + this.timestamp;
+            }
+          }
+        };
+        this.$carousel.render(container, directives);
         return true;
       };
 
