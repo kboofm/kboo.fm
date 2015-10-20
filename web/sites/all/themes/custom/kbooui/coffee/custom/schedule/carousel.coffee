@@ -105,13 +105,13 @@ window.App.Schedule = window.App.Schedule || {}
 
             container =
                 weekdays: weekdays
-                timestamp: timestamp
-
+                timestamp: week_start
 
             directives =
                 "schedule-carousel-timestamp":
                     "data-timestamp": -> "#{@timestamp}"
 
+            @$carousel.find('.static').remove()
             @$carousel.render container, directives
             return true
 

@@ -178,7 +178,7 @@
         }
         container = {
           weekdays: weekdays,
-          timestamp: timestamp
+          timestamp: week_start
         };
         directives = {
           "schedule-carousel-timestamp": {
@@ -187,6 +187,7 @@
             }
           }
         };
+        this.$carousel.find('.static').remove();
         this.$carousel.render(container, directives);
         return true;
       };
