@@ -9,7 +9,7 @@ class RadioStation {
    */
   public function __construct() {
     $terms = taxonomy_get_term_by_name(
-      'Full Episode',
+      'Episode',
       'station_content_types'
     );
 
