@@ -11,9 +11,11 @@
   </div>
 
 
-  <div class="col-md-10"
-    data-bind="datetime">
-    <?php print $schedule['datetime']; ?>
+  <div class="col-md-10">
+    Week Beginning
+    <span data-bind="datetime">
+      <?php print $schedule['datetime']; ?>
+    </span>
   </div>
 </div>
 
