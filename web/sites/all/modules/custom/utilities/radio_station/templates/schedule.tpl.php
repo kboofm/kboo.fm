@@ -1,5 +1,5 @@
 <?php
-$theme_path = drupal_get_path('theme', 'wwozui');
+$theme_path = drupal_get_path('theme', 'kbooui');
 $partials = "{$theme_path}/templates/block/partials";
 ?>
 
