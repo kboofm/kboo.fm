@@ -6,6 +6,7 @@ window.App.Schedule = window.App.Schedule || {}
         prevButton: ".schedule-carousel-prev .schedule-trigger"
         carousel_timestamp: ".schedule-carousel-timestamp"
         $carousel: null
+        $toolbar: null
         stream: null
         type: null
         timestamp: null
@@ -25,6 +26,7 @@ window.App.Schedule = window.App.Schedule || {}
 
         getCarousel: (event) =>
             $button = $(event.target).parent()
+            @$toolbar = $button.parent()
             carousel_id = $button.data "carousel"
             @$carousel = $ "##{carousel_id}"
             @timestamp = @$carousel.find(@carousel_timestamp).attr "data-timestamp"
@@ -64,11 +66,22 @@ window.App.Schedule = window.App.Schedule || {}
 
             data_item
 
+        renderToolbar: (start, showTime = false) =>
+            datetime = start['formatted_date']
+
+            if showTime
+                datetime = "#{datetime} #{start['formatted_time']}"
+
+            data =
+                datetime: datetime
+            @$toolbar.render data
+
         renderEpisode: (response) =>
             return if response.length == 0
 
+            start = response[0]['start']
             data =
-                timestamp: response[0]['start']['timestamp']
+                timestamp: start['timestamp']
                 "schedule-item": [@dataItem response[0]]
 
             directives =
@@ -76,13 +89,16 @@ window.App.Schedule = window.App.Schedule || {}
                     "data-timestamp": -> "#{@timestamp}"
 
             @$carousel.render data, directives
+
+            @renderToolbar start, true
             true
 
         renderDay: (response) =>
             return if response.length == 0
 
+            start = response[0]['start']
             data =
-                timestamp: response[0]['start']['timestamp']
+                timestamp: start['timestamp']
                 "schedule-item": @dataItem item for item in response
 
             directives =
@@ -91,6 +107,8 @@ window.App.Schedule = window.App.Schedule || {}
 
             @$carousel.find('.cull').remove()
             @$carousel.render data, directives
+
+            @renderToolbar start
             true
 
         renderWeek: (response) =>
@@ -102,7 +120,7 @@ window.App.Schedule = window.App.Schedule || {}
                 timestamp = response[weekday][0]['start']['timestamp']
 
                 if not week_start
-                    week_start = timestamp
+                    week_start = response[weekday][0]['start']
 
                 weekdata =
                     "schedule-dayofweek": weekday
@@ -111,7 +129,7 @@ window.App.Schedule = window.App.Schedule || {}
 
             container =
                 weekdays: weekdays
-                timestamp: week_start
+                timestamp: week_start['timestamp']
 
             directives =
                 "schedule-carousel-timestamp":
@@ -119,6 +137,7 @@ window.App.Schedule = window.App.Schedule || {}
 
             @$carousel.find('.cull').remove()
             @$carousel.render container, directives
+            @renderToolbar week_start
             true
 
 ) jQuery

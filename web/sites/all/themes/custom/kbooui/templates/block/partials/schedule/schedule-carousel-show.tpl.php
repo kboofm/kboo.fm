@@ -9,6 +9,11 @@
        data-carousel="<?php print $schedule['id']; ?>">
     <i class="fa fa-arrow-right cursor-pointer schedule-trigger"></i>
   </div>
+
+  <div class="col-md-10"
+       data-bind="datetime">
+    <?php print $schedule['datetime']; ?>
+  </div>
 </div>
 
 
