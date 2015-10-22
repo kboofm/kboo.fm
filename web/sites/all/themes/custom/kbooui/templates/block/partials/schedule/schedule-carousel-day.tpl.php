@@ -1,4 +1,4 @@
-<div class="row margin-top">
+<div class="row margin-top schedule-toolbar">
   <div class="col-md-1 schedule-carousel-prev"
        data-carousel="<?php print $schedule['id']; ?>">
     <i class="fa fa-arrow-left cursor-pointer schedule-trigger"></i>
