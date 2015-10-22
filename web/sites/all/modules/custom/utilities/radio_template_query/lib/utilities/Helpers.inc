@@ -1,4 +1,8 @@
 <?php
+abstract class Streams {
+  const One = 'Stream 1';
+  const Two = 'Stream 2';
+}
 
 class Helpers {
   /**
@@ -62,5 +66,18 @@ class Helpers {
     if (isset($array[$key])) {
       print $array[$key];
     }
+  }
+
+  public static function streamName($stream) {
+    $match = in_array(
+      strtolower($stream),
+      ['stream1', 'stream 1']
+    );
+
+    if ($match || $stream == 1) {
+      return Streams::One;
+    }
+
+    return Streams::Two;
   }
 }
