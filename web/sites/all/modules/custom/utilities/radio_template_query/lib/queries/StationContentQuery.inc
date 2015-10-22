@@ -11,11 +11,13 @@ class StationContentQuery extends NodeQuery {
     $this->content_type = 'station_content';
   }
 
+
   public function getEpisode($start, $finish) {
     $this->addTag('radio_StationContentQuery_modifyGetEpisode');
     $this->addTag("parameter_StationContentQuery__{$start}__{$finish}");
     return $this;
   }
+
 
   public static function modifyGetEpisode(QueryAlterableInterface $query) {
     $start = $finish = time();

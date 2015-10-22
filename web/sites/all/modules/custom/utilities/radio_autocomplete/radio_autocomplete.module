@@ -26,6 +26,11 @@ function radio_autocomplete_field_person_profile($string) {
 
 
 function radio_autocomplete_field_stream($string) {
+  radio_autocomplete_field_streams($string);
+}
+
+
+function radio_autocomplete_field_streams($string) {
   $matches = RadioAutoComplete::fuzzyMatchProgramStreams($string);
   drupal_json_output($matches);
 }

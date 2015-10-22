@@ -34,6 +34,10 @@ class RadioAutoComplete {
         'scheduled_timeslot',
       ],
 
+      'field_streams' => [
+        'program',
+      ],
+
       'field_related_show_hosts' => $all_types,
       'field_related_organizations' => $all_types,
     ];

@@ -214,7 +214,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -376,7 +376,7 @@ function content_type_program_field_default_field_instances() {
         'rows' => 15,
       ),
       'type' => 'text_textarea',
-      'weight' => 2,
+      'weight' => 47,
     ),
   );
 
@@ -475,7 +475,7 @@ function content_type_program_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => -1,
+      'weight' => 0,
     ),
   );
 
@@ -651,7 +651,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'multiselect',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -724,7 +724,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -804,7 +804,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 0,
+      'weight' => 1,
     ),
   );
 
@@ -958,7 +958,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -1006,7 +1006,7 @@ function content_type_program_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -1152,7 +1152,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -1327,7 +1327,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 48,
+      'weight' => 49,
     ),
   );
 
@@ -1400,7 +1400,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 47,
+      'weight' => 48,
     ),
   );
 
@@ -1473,7 +1473,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 46,
+      'weight' => 47,
     ),
   );
 
@@ -1677,6 +1677,61 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-program-field_streams'
+  $field_instances['node-program-field_streams'] = array(
+    'bundle' => 'program',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'entityreference',
+        'settings' => array(
+          'link' => FALSE,
+        ),
+        'type' => 'entityreference_label',
+        'weight' => 32,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_streams',
+    'label' => 'Streams',
+    'required' => 0,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'entityreference',
+      'settings' => array(
+        'match_operator' => 'CONTAINS',
+        'path' => '',
+        'size' => 60,
+      ),
+      'type' => 'entityreference_autocomplete',
+      'weight' => -1,
+    ),
+  );
+
   // Exported field_instance: 'node-program-field_topic_tags'
   $field_instances['node-program-field_topic_tags'] = array(
     'bundle' => 'program',
@@ -1772,7 +1827,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'multiselect',
-      'weight' => 5,
+      'weight' => 6,
     ),
   );
 
@@ -1931,6 +1986,7 @@ function content_type_program_field_default_field_instances() {
   t('Related show host(s)');
   t('Short Description');
   t('Sponsored by');
+  t('Streams');
   t('Title');
   t('Topic tags');
   t('Video File(s)');

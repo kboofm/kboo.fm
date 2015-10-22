@@ -126,6 +126,7 @@ class ScheduleProcessor extends TemplateProcessor {
     }
   }
 
+
   private function getEpisodeProgram($wrapped_episode) {
     $program = NULL;
 
@@ -172,6 +173,7 @@ class ScheduleProcessor extends TemplateProcessor {
     return $this->getEntityUrl($program);
   }
 
+
   private function getScheduleTitle($timeslot_program, $episode_program) {
     $title = NULL;
 
@@ -187,6 +189,28 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
+  private function getShowHost($timeslot_program, $episode_program) {
+    $showhost_id = NULL;
+
+    if ($timeslot_program && isset($timeslot_program->field_hosted_by['und'][0]['target_id'])) {
+      $showhost_id = $timeslot_program->field_hosted_by['und'][0]['target_id'];
+    }
+
+    if ($episode_program && ($episode_program != $timeslot_program)) {
+      if (isset($episode_program->field_hosted_by['und'][0]['target_id'])) {
+        $showhost_id = $episode_program->field_hosted_by['und'][0]['target_id'];
+      }
+    }
+
+    if (!$showhost_id) {
+      return NULL;
+    }
+
+    $showhost = entity_metadata_wrapper('node', $showhost_id);
+    return $showhost->value();
+  }
+
+
   private function buildScheduleItem($wrapped_scheduled_timeslot, $timeslot) {
     $wrapped_episode = $this->getEpisode($timeslot);
     $timeslot_program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
@@ -197,11 +221,23 @@ class ScheduleProcessor extends TemplateProcessor {
     }
 
     $title = $this->getScheduleTitle($timeslot_program, $episode_program);
+    $showhost = $this->getShowHost($timeslot_program, $episode_program);
     $url = $this->getScheduleUrl($timeslot_program, $wrapped_episode);
+
+    $showhost_title = NULL;
+    $showhost_url = NULL;
+    if ($showhost) {
+      $showhost_title = $showhost->title;
+      $showhost_url = $this->getEntityUrl($showhost);
+    }
 
     $schedule_item = [
       'title' => $title,
       'url' => $url,
+      'showhost' => [
+        'name' => $showhost_title,
+        'url' => $showhost_url,
+      ],
       'start' => [
         'formatted_date' => date('l M dS, Y', $timeslot['value']),
         'formatted_time' => date('g:i a', $timeslot['value']),

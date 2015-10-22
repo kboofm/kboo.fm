@@ -15,6 +15,7 @@
         Main.__super__.init.call(this);
         C4.Utilities.Truncate.truncate();
         C4.Utilities.Window.resize(C4.Utilities.Truncate.truncate);
+        App.Schedule.OnAir.watch();
         new App.Schedule.Carousel();
         return true;
       };

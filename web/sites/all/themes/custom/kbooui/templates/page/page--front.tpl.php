@@ -79,13 +79,9 @@
       <?php endif; ?>
 
 <!--      --><?php //print render($page['content']); ?>
-
-      <div class="col-md-12">
-        <?php include 'partials/scheduled-now.tpl.php'; ?>
-        <hr />
-        <?php include 'partials/schedule-tabs.tpl.php'; ?>
-      </div>
-
+      <?php
+      include dirname(__DIR__) . "/block/partials/schedule/on-air.tpl.php";
+      ?>
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>

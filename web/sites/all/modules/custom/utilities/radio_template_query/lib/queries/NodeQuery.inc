@@ -41,15 +41,18 @@ class NodeQuery extends EntityFieldQuery {
     }
   }
 
+
   protected function setLimit($count) {
     if ($count) {
       $this->range(0, $count);
     }
   }
 
+
   protected function hasLeadImage() {
     $this->fieldCondition('field_lead_image', 'fid', 'NULL', '!=');
   }
+
 
   protected function sortByPromotedSticky() {
     $this->propertyOrderBy('promote', 'DESC');

@@ -23,19 +23,29 @@ function radio_station_menu() {
 }
 
 
-function radio_station_get_episode($direction, $timestamp) {
-  $episode = RadioStationCallbacks::getEpisode($direction, $timestamp);
-  drupal_json_output($episode);
+function radio_station_get_episode($stream, $direction, $timestamp) {
+  $data = RadioStationCallbacks::getEpisode($stream, $direction, $timestamp);
+  drupal_json_output($data);
 }
 
 
-function radio_station_get_day($direction, $timestamp) {
-  $episode = RadioStationCallbacks::getDay($direction, $timestamp);
-  drupal_json_output($episode);
+function radio_station_get_day($stream, $direction, $timestamp) {
+  $data = RadioStationCallbacks::getDay($stream, $direction, $timestamp);
+  drupal_json_output($data);
 }
 
 
-function radio_station_get_week($direction, $timestamp) {
-  $episode = RadioStationCallbacks::getWeek($direction, $timestamp);
-  drupal_json_output($episode);
+function radio_station_get_week($stream, $direction, $timestamp) {
+  $data = RadioStationCallbacks::getWeek($stream, $direction, $timestamp);
+  drupal_json_output($data);
+}
+
+
+function radio_station_get_schedule($stream) {
+  return RadioStationCallbacks::getSchedule($stream);
+}
+
+
+function radio_station_theme() {
+  return RadioStationCallbacks::getTemplates();
 }

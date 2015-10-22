@@ -11,39 +11,58 @@ class RadioStationCallbacks {
   public static function buildRoutes() {
     $items = [];
 
-    $items['station/episode/%/%'] = array(
+    $items['station/episode/%/%/%'] = [
       'title' => 'Get Episode',
       'page callback' => 'radio_station_get_episode',
-      'page arguments' => array(2, 3),
-      'access arguments' => array('access content'),
+      'page arguments' => [2, 3, 4],
+      'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
-    );
+    ];
 
 
-    $items['station/day/%/%'] = array(
+    $items['station/day/%/%/%'] = [
       'title' => 'Get Day',
       'page callback' => 'radio_station_get_day',
-      'page arguments' => array(2, 3),
-      'access arguments' => array('access content'),
+      'page arguments' => [2, 3, 4],
+      'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
-    );
+    ];
 
-    $items['station/week/%/%'] = array(
+    $items['station/week/%/%/%'] = [
       'title' => 'Get Week',
       'page callback' => 'radio_station_get_week',
-      'page arguments' => array(2, 3),
-      'access arguments' => array('access content'),
+      'page arguments' => [2, 3, 4],
+      'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
-    );
+    ];
+
+    $items['station/schedule/%'] = [
+      'title' => 'Station Schedule',
+      'page callback' => 'radio_station_get_schedule',
+      'page arguments' => [2],
+      'access arguments' => ['administer nodes'],
+      'type' => MENU_CALLBACK,
+    ];
 
     return $items;
   }
 
-  public static function getEpisode($direction, $timestamp) {
+  public static function getEpisode($stream, $direction, $timestamp) {
     $query = new ScheduledTimeslotQuery();
 
-    $method = ($direction == 'prev') ? 'getPrevious' : 'getNext';
-    $query->$method($timestamp);
+    switch ($direction) {
+      case 'at':
+        $query->getAt($stream, $timestamp);
+        break;
+      case 'prev':
+        $query->getPrevious($stream, $timestamp);
+        break;
+      case 'next':
+        $query->getNext($stream, $timestamp);
+        break;
+      default:
+        return NULL;
+    }
     $result = $query->execute();
 
     return RadioStationCallbacks::processResponse(
@@ -54,17 +73,25 @@ class RadioStationCallbacks {
   }
 
 
-  public static function getDay($direction, $timestamp) {
+  public static function getDay($stream, $direction, $timestamp) {
     $query = new ScheduledTimeslotQuery();
 
-    if ($direction == 'prev') {
+    switch ($direction) {
+      case 'at':
+        $start = Helpers::dayBegin($timestamp);
+        break;
+      case 'prev':
       $start = Helpers::dayBeforeBegin($timestamp);
-    } else {
+        break;
+      case 'next':
       $start = Helpers::dayAfterBegin($timestamp);
+        break;
+      default:
+        return NULL;
     }
 
     $end = Helpers::dayEnd($start);
-    $query->getRange($start, $end);
+    $query->getRange($stream, $start, $end);
     $result = $query->execute();
 
     return RadioStationCallbacks::processRangeResponse(
@@ -75,17 +102,25 @@ class RadioStationCallbacks {
   }
 
 
-  public static function getWeek($direction, $timestamp) {
+  public static function getWeek($stream, $direction, $timestamp) {
     $query = new ScheduledTimeslotQuery();
 
-    if ($direction == 'prev') {
+    switch ($direction) {
+      case 'at':
+        $start = Helpers::weekBegin($timestamp);
+        break;
+      case 'prev':
       $start = Helpers::weekBeforeBegin($timestamp);
-    } else {
+        break;
+      case 'next':
       $start = Helpers::weekAfterBegin($timestamp);
+        break;
+      default:
+        return NULL;
     }
 
     $end = Helpers::weekEnd($start);
-    $query->getRange($start, $end);
+    $query->getRange($stream, $start, $end);
     $result = $query->execute();
 
     return RadioStationCallbacks::processRangeResponse(
@@ -97,7 +132,28 @@ class RadioStationCallbacks {
   }
 
 
-  public static function processRangeResponse($result, $start, $end, $groupByDay = false) {
+  public static function getSchedule($stream) {
+    return theme(
+      'radio_station_schedule_template',
+      ['stream' => $stream]
+    );
+  }
+
+
+  public static function getTemplates() {
+    return [
+      'radio_station_schedule_template' => [
+        'template' => 'schedule',
+        'path' => drupal_get_path('module', 'radio_station') . '/templates',
+        'variables' => [
+          'results' => NULL,
+        ],
+      ],
+    ];
+  }
+
+
+  private static function processRangeResponse($result, $start, $end, $groupByDay = false) {
     if (empty($result)) {
       return NULL;
     }
@@ -114,7 +170,7 @@ class RadioStationCallbacks {
     return $data;
   }
 
-  public static function processResponse($result, $direction, $timestamp) {
+  private static function processResponse($result, $direction, $timestamp) {
     if (empty($result)) {
       return NULL;
     }

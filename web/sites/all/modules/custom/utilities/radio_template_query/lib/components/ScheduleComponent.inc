@@ -1,11 +1,9 @@
 <?php
-require_once 'utilities/Helpers.inc';
 
-
-class TemplateQuery {
-  public static function scheduledNow() {
+class ScheduleComponent extends BaseComponent {
+  public function now($stream) {
     $query = new ScheduledTimeslotQuery();
-    $query->getNow();
+    $query->getNow($stream);
     $result = $query->execute();
 
     if (empty($result)) {
@@ -14,14 +12,15 @@ class TemplateQuery {
 
     $processor = new ScheduleProcessor();
     return $processor->processNow(
-      $result['node']
+      $this->getNodes($result)
     );
   }
 
-  public static function scheduledNext($count = 1) {
+
+  public function next($stream, $count = 1) {
     $now = time();
     $query = new ScheduledTimeslotQuery();
-    $query->getNext($now, $count);
+    $query->getNext($stream, $now, $count);
     $result = $query->execute();
 
     if (empty($result)) {
@@ -30,7 +29,7 @@ class TemplateQuery {
 
     $processor = new ScheduleProcessor();
     return $processor->process(
-      $result['node'],
+      $this->getNodes($result),
       time(),
       'after',
       $count
@@ -38,12 +37,12 @@ class TemplateQuery {
   }
 
 
-  public static function scheduledToday() {
+  public function today($stream) {
     $start = Helpers::todayBegin();
     $end = Helpers::dayEnd($start);
 
     $query = new ScheduledTimeslotQuery();
-    $query->getRange($start, $end);
+    $query->getRange($stream, $start, $end);
     $result = $query->execute();
 
     if (empty($result)) {
@@ -52,20 +51,20 @@ class TemplateQuery {
 
     $processor = new ScheduleProcessor();
     return $processor->processRange(
-      $result['node'],
+      $this->getNodes($result),
       $start,
       $end
     );
   }
 
 
-  public static function scheduledThisWeek() {
+  public function thisWeek($stream) {
     $now = time();
     $start = Helpers::weekBegin($now);
     $end = Helpers::weekEnd($now);
 
     $query = new ScheduledTimeslotQuery();
-    $query->getRange($start, $end);
+    $query->getRange($stream, $start, $end);
     $result = $query->execute();
 
     if (empty($result)) {
@@ -74,10 +73,11 @@ class TemplateQuery {
 
     $processor = new ScheduleProcessor();
     return $processor->processRange(
-      $result['node'],
+      $this->getNodes($result),
       $start,
       $end,
       true
     );
   }
 }
+

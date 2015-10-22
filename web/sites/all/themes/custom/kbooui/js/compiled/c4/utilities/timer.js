@@ -8,13 +8,24 @@
     Timer.timers = {};
 
     Timer.delay = function(callback, ms, unique_id) {
+      Timer.clearTimer(unique_id);
+      Timer.timers[unique_id] = setTimeout(callback, ms);
+      return true;
+    };
+
+    Timer.repeat = function(callback, ms, unique_id) {
+      Timer.clearTimer(unique_id);
+      Timer.timers[unique_id] = setInterval(callback, ms);
+      return true;
+    };
+
+    Timer.clearTimer = function(unique_id) {
       if (unique_id == null) {
         throw "Unique id required but not provided";
       }
       if (indexOf.call(Timer.timers, unique_id) >= 0) {
-        clearTimeout(Timer.timers[unique_id]);
+        return clearTimeout(Timer.timers[unique_id]);
       }
-      return Timer.timers[unique_id] = setTimeout(callback, ms);
     };
 
     return Timer;
