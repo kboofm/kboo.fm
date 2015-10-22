@@ -14,51 +14,54 @@
 
 <div class="row margin-top">
   <div id="<?php print $schedule['id']; ?>"
-       class="col-md-4 schedule-carousel"
+       class="col-md-12 schedule-carousel"
+       data-stream="<?php print $schedule['stream']; ?>"
        data-type="<?php print $schedule['type']; ?>">
 
     <div class="schedule-carousel-timestamp"
          data-timestamp="<?php print $schedule['timestamp']; ?>">
     </div>
 
-    <ul class="list-group">
+    <ul class="list-group"
+        data-bind="schedule-item">
 
-      <?php foreach ($schedule['data'] as $schedule_item): ?>
-        <li class="list-group-item"
-            data-bind="schedule-item">
+      <?php foreach ($schedule['data'] as $index => $schedule_item): ?>
+        <li class="list-group-item <?php if ($index > 0): ?>cull<?php endif; ?>">
 
-            <?php
-            $schedule_url = NULL;
-            if (isset($schedule_item['url'])):
-              $schedule_url = $schedule_item['url'];
-            endif;
-            ?>
+          <?php
+          $schedule_url = NULL;
+          if (isset($schedule_item['url'])):
+            $schedule_url = $schedule_item['url'];
+          endif;
+          ?>
 
-            <div>
-              <a data-bind="title-link"
-                 href="<?php print $schedule_url; ?>">
-                <?php print $schedule_item['title']; ?>
-              </a>
+          <div>
+            <a data-bind="title-link"
+               href="<?php print $schedule_url; ?>">
+              <?php print $schedule_item['title']; ?>
+            </a>
 
-              <div data-bind="formatted-date">
-                <?php print $schedule_item['start']['formatted_date']; ?>
-              </div>
+            <div data-bind="formatted-date">
+              <?php print $schedule_item['start']['formatted_date']; ?>
+            </div>
 
-              <div data-bind="formatted-time">
+            <div data-bind="formatted-time">
                 <span data-bind="start-time">
                   <?php print $schedule_item['start']['formatted_time']; ?>
                 </span>
 
-                            -
+              -
 
                 <span data-bind="finish-time">
                   <?php print $schedule_item['finish']['formatted_time']; ?>
                 </span>
-              </div>
             </div>
+          </div>
         </li>
       <?php endforeach; ?>
     </ul>
 
   </div>
 </div>
+
+

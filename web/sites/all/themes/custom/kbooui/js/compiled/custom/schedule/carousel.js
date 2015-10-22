@@ -18,6 +18,7 @@
         this.getDay = bind(this.getDay, this);
         this.getEpisode = bind(this.getEpisode, this);
         this.change = bind(this.change, this);
+        this.getCarousel = bind(this.getCarousel, this);
         this.prev = bind(this.prev, this);
         this.next = bind(this.next, this);
         return Carousel.__super__.constructor.apply(this, arguments);
@@ -30,6 +31,12 @@
       Carousel.prototype.carousel_timestamp = ".schedule-carousel-timestamp";
 
       Carousel.prototype.$carousel = null;
+
+      Carousel.prototype.stream = null;
+
+      Carousel.prototype.type = null;
+
+      Carousel.prototype.timestamp = null;
 
       Carousel.prototype.bind = function() {
         this.bindItem("click", this.nextButton, this.next);
@@ -47,42 +54,45 @@
         return true;
       };
 
-      Carousel.prototype.change = function(event, direction) {
-        var $button, carousel_id, timestamp, type;
+      Carousel.prototype.getCarousel = function(event) {
+        var $button, carousel_id;
         $button = $(event.target).parent();
         carousel_id = $button.data("carousel");
         this.$carousel = $("#" + carousel_id);
-        timestamp = this.$carousel.find(this.carousel_timestamp).attr("data-timestamp");
-        type = this.$carousel.attr("data-type");
-        if (type === 'episode') {
-          this.getEpisode(timestamp, direction);
+        this.timestamp = this.$carousel.find(this.carousel_timestamp).attr("data-timestamp");
+        this.type = this.$carousel.attr("data-type");
+        this.stream = this.$carousel.attr("data-stream");
+        this.stream = encodeURIComponent(this.stream);
+        return true;
+      };
+
+      Carousel.prototype.change = function(event, direction) {
+        var route;
+        this.getCarousel(event);
+        route = "/station/" + this.type + "/" + this.stream + "/" + direction + "/" + this.timestamp;
+        if (this.type === 'episode') {
+          this.getEpisode(route);
         }
-        if (type === 'day') {
-          this.getDay(timestamp, direction);
+        if (this.type === 'day') {
+          this.getDay(route);
         }
-        if (type === 'week') {
-          this.getWeek(timestamp, direction);
+        if (this.type === 'week') {
+          this.getWeek(route);
         }
         return true;
       };
 
-      Carousel.prototype.getEpisode = function(timestamp, direction) {
-        var route;
-        route = "station/episode/" + direction + "/" + timestamp;
+      Carousel.prototype.getEpisode = function(route) {
         $.get(route, this.renderEpisode);
         return true;
       };
 
-      Carousel.prototype.getDay = function(timestamp, direction) {
-        var route;
-        route = "station/day/" + direction + "/" + timestamp;
+      Carousel.prototype.getDay = function(route) {
         $.get(route, this.renderDay);
         return true;
       };
 
-      Carousel.prototype.getWeek = function(timestamp, direction) {
-        var route;
-        route = "station/week/" + direction + "/" + timestamp;
+      Carousel.prototype.getWeek = function(route) {
         $.get(route, this.renderWeek);
         return true;
       };

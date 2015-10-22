@@ -1,9 +1,12 @@
 <?php
-$schedule_item = TemplateQuery::scheduledNow();
+$component = new ScheduleComponent();
+$schedule_item = $component->now($stream);
+
 $schedule = [
   'data' => [$schedule_item],
   'timestamp' => $schedule_item['start']['timestamp'],
   'type' => 'episode-now',
+  'stream' => $stream,
 ];
 ?>
 
@@ -11,7 +14,8 @@ $schedule = [
 
 <?php if ($schedule_item): ?>
   <div class="row margin-top">
-    <div class="col-md-4"
+    <div class="col-md-12"
+         data-stream="<?php print $schedule['stream']; ?>"
          data-type="<?php print $schedule['type']; ?>">
 
       <div class="schedule-carousel-timestamp"
@@ -59,5 +63,7 @@ $schedule = [
     </div>
   </div>
 <?php else: ?>
-  Nothing airing
+  <p class="margin-bottom-lg">
+    Nothing airing
+  </p>
 <?php endif; ?>

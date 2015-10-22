@@ -14,7 +14,8 @@
 
 <div class="row margin-top">
   <div id="<?php print $schedule['id']; ?>"
-       class="col-md-4 schedule-carousel"
+       class="col-md-12 schedule-carousel"
+       data-stream="<?php print $schedule['stream']; ?>"
        data-type="<?php print $schedule['type']; ?>">
 
     <div class="schedule-carousel-timestamp"

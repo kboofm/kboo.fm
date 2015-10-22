@@ -6,6 +6,9 @@ window.App.Schedule = window.App.Schedule || {}
         prevButton: ".schedule-carousel-prev .schedule-trigger"
         carousel_timestamp: ".schedule-carousel-timestamp"
         $carousel: null
+        stream: null
+        type: null
+        timestamp: null
 
         bind: ->
             @bindItem "click", @nextButton, @next
@@ -20,31 +23,34 @@ window.App.Schedule = window.App.Schedule || {}
             @change event, "prev"
             true
 
-        change: (event, direction) =>
+        getCarousel: (event) =>
             $button = $(event.target).parent()
             carousel_id = $button.data "carousel"
             @$carousel = $ "##{carousel_id}"
-
-            timestamp = @$carousel.find(@carousel_timestamp).attr "data-timestamp"
-            type = @$carousel.attr "data-type"
-
-            @getEpisode timestamp, direction if type == 'episode'
-            @getDay timestamp, direction if type == 'day'
-            @getWeek timestamp, direction if type == 'week'
+            @timestamp = @$carousel.find(@carousel_timestamp).attr "data-timestamp"
+            @type = @$carousel.attr "data-type"
+            @stream = @$carousel.attr "data-stream"
+            @stream = encodeURIComponent @stream
             true
 
-        getEpisode: (timestamp, direction) =>
-            route = "station/episode/#{direction}/#{timestamp}"
+        change: (event, direction) =>
+            @getCarousel event
+            route = "/station/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
+
+            @getEpisode route if @type == 'episode'
+            @getDay route if @type == 'day'
+            @getWeek route if @type == 'week'
+            true
+
+        getEpisode: (route) =>
             $.get route, @renderEpisode
             true
 
-        getDay: (timestamp, direction) =>
-            route = "station/day/#{direction}/#{timestamp}"
+        getDay: (route) =>
             $.get route, @renderDay
             true
 
-        getWeek: (timestamp, direction) =>
-            route = "station/week/#{direction}/#{timestamp}"
+        getWeek: (route) =>
             $.get route, @renderWeek
             true
 
@@ -56,7 +62,7 @@ window.App.Schedule = window.App.Schedule || {}
                     "start-time": item['start']['formatted_time']
                     "finish-time": item['finish']['formatted_time']
 
-            return data_item
+            data_item
 
         renderEpisode: (response) =>
             return if response.length == 0
@@ -113,6 +119,6 @@ window.App.Schedule = window.App.Schedule || {}
 
             @$carousel.find('.cull').remove()
             @$carousel.render container, directives
-            return true
+            true
 
 ) jQuery
