@@ -78,7 +78,10 @@
         <ul class="action-links"><?php print render($action_links); ?></ul>
       <?php endif; ?>
 
-      <?php print render($page['content']); ?>
+<!--      --><?php //print render($page['content']); ?>
+      <?php
+      include dirname(__DIR__) . "/block/partials/schedule/on-air.tpl.php";
+      ?>
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>

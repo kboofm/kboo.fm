@@ -89,6 +89,7 @@ scripts[] = 'js/compiled/c4/components/base.js'
 
 ; namespace: App.Schedule
 scripts[] = 'js/compiled/custom/schedule/carousel.js'
+scripts[] = 'js/compiled/custom/schedule/on-air.js'
 
 
 ; -- MAIN --
