@@ -78,14 +78,7 @@
         <ul class="action-links"><?php print render($action_links); ?></ul>
       <?php endif; ?>
 
-<!--      --><?php //print render($page['content']); ?>
-
-      <div class="col-md-12">
-        <?php include 'partials/scheduled-now.tpl.php'; ?>
-        <hr />
-        <?php include 'partials/schedule-tabs.tpl.php'; ?>
-      </div>
-
+      <?php print render($page['content']); ?>
     </section>
 
     <?php if (!empty($page['sidebar_second'])): ?>

@@ -50,9 +50,6 @@ class RadioStationCallbacks {
   public static function getEpisode($stream, $direction, $timestamp) {
     $query = new ScheduledTimeslotQuery();
 
-    $method = ($direction == 'prev') ? 'getPrevious' : 'getNext';
-    $query->$method($stream, $timestamp);
-
     switch ($direction) {
       case 'at':
         $query->getAt($stream, $timestamp);
