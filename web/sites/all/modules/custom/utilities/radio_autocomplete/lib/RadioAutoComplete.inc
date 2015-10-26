@@ -8,22 +8,20 @@ class RadioAutoComplete {
    * @return null|string
    */
   public static function getAutocompleteInfo() {
-    $all_types = [
-      'act',
-      'article',
-      'basic_page',
-      'blog_post',
-      'event',
-      'image_gallery',
-      'organization',
-      'person_profile',
-      'program',
-      'station_content',
-    ];
-
     $fields = [
       'field_person_profile' => [
         'program',
+      ],
+
+      'field_related_show_host' => [
+        'basic_page',
+        'blog_post',
+        'book',
+        'event',
+        'organization',
+        'person_profile',
+        'program',
+        'station_content',
       ],
 
       'field_show' => [
@@ -38,8 +36,9 @@ class RadioAutoComplete {
         'program',
       ],
 
-      'field_related_show_hosts' => $all_types,
-      'field_related_organizations' => $all_types,
+      'field_venue' => [
+        'event',
+      ],
     ];
 
     $definitions = [];

@@ -11,7 +11,6 @@ class BlogPostQuery extends NodeQuery {
   public function getLatest() {
     # where
     $this->hasLeadImage();
-    $this->fieldCondition('field_is_show_host', 'value', 1);
 
     # order by
     $this->sortByPromotedSticky();
