@@ -429,9 +429,9 @@ function configure_search_strongarm() {
       4 => 0,
       1 => 0,
       2 => 0,
+      6 => 0,
       7 => 0,
-      8 => 0,
-      13 => 0,
+      5 => 0,
     ),
     'event' => array(
       -1 => 0,
@@ -459,9 +459,19 @@ function configure_search_strongarm() {
       4 => 0,
       1 => 0,
       2 => 0,
+      6 => 0,
       7 => 0,
-      8 => 0,
-      13 => 0,
+      5 => 0,
+    ),
+    'scheduled_timeslot' => array(
+      3 => '3',
+      4 => '4',
+      -1 => 0,
+      1 => 0,
+      2 => 0,
+      6 => 0,
+      7 => 0,
+      5 => 0,
     ),
   );
   $export['search_restrict_content_type'] = $strongarm;

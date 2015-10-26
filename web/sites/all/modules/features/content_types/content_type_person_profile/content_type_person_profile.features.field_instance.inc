@@ -884,69 +884,6 @@ function content_type_person_profile_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-person_profile-field_location'
-  $field_instances['node-person_profile-field_location'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 10,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 13,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_location',
-    'label' => 'Address',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'addressfield',
-      'settings' => array(
-        'available_countries' => array(
-          'US' => 'US',
-        ),
-        'default_country' => 'site_default',
-        'format_handlers' => array(
-          'address' => 'address',
-          'address-hide-country' => 'address-hide-country',
-          'address-optional' => 'address-optional',
-          'address-hide-postal-code' => 0,
-          'address-hide-street' => 0,
-          'organisation' => 0,
-          'name-full' => 0,
-          'name-oneline' => 0,
-        ),
-      ),
-      'type' => 'addressfield_standard',
-      'weight' => 1,
-    ),
-  );
-
   // Exported field_instance: 'node-person_profile-field_more_images'
   $field_instances['node-person_profile-field_more_images'] = array(
     'bundle' => 'person_profile',
@@ -1159,56 +1096,6 @@ function content_type_person_profile_field_default_field_instances() {
       'settings' => array(),
       'type' => 'options_select',
       'weight' => 8,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_phone'
-  $field_instances['node-person_profile-field_phone'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 9,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 14,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_phone',
-    'label' => 'Phone',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'telephone',
-      'settings' => array(
-        'placeholder' => '',
-      ),
-      'type' => 'telephone_default',
-      'weight' => 2,
     ),
   );
 
@@ -2078,7 +1965,6 @@ function content_type_person_profile_field_default_field_instances() {
 
   // Translatables
   // Included for use with string extractors like potx.
-  t('Address');
   t('Audio File(s)');
   t('Authored by');
   t('Bio');
@@ -2094,7 +1980,6 @@ function content_type_person_profile_field_default_field_instances() {
   t('More Images');
   t('Name');
   t('Parent section');
-  t('Phone');
   t('Produced by');
   t('Produced for');
   t('Published date');
