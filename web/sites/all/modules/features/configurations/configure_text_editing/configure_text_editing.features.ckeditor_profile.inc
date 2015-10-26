@@ -129,18 +129,18 @@ function configure_text_editing_ckeditor_profile_defaults() {
           'media' => array(
             'name' => 'media',
             'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%base_path%sites/all/modules/contrib/media/modules/media_wysiwyg/wysiwyg_plugins/media_ckeditor/',
+            'path' => '%plugin_dir%media/',
             'buttons' => array(
               'Media' => array(
+                'label' => 'Media',
                 'icon' => 'images/icon.gif',
-                'label' => 'Add media',
               ),
             ),
             'default' => 'f',
           ),
           'mediaembed' => array(
             'name' => 'mediaembed',
-            'desc' => 'Plugin for embedding HTML snippets',
+            'desc' => 'Plugin for inserting Drupal embeded media',
             'path' => '%plugin_dir%mediaembed/',
             'buttons' => array(
               'MediaEmbed' => array(
@@ -159,9 +159,7 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
         ),
       ),
-      'input_formats' => array(
-        'full_html' => 'Full HTML + Advanced WYSIWYG',
-      ),
+      'input_formats' => array(),
     ),
     'Full_HTML_Simple' => array(
       'name' => 'Full_HTML_Simple',
@@ -247,11 +245,11 @@ function configure_text_editing_ckeditor_profile_defaults() {
           'media' => array(
             'name' => 'media',
             'desc' => 'Plugin for inserting images from Drupal media module',
-            'path' => '%base_path%sites/all/modules/contrib/media/modules/media_wysiwyg/wysiwyg_plugins/media_ckeditor/',
+            'path' => '%plugin_dir%media/',
             'buttons' => array(
               'Media' => array(
+                'label' => 'Media',
                 'icon' => 'images/icon.gif',
-                'label' => 'Add media',
               ),
             ),
             'default' => 'f',
@@ -265,9 +263,7 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
         ),
       ),
-      'input_formats' => array(
-        'full_html_simple_wysiwyg' => 'Full HTML + Simple WYSIWYG',
-      ),
+      'input_formats' => array(),
     ),
   );
   return $data;
