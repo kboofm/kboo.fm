@@ -61,9 +61,8 @@ function content_type_program_field_group_info() {
       8 => 'field_produced_for',
       9 => 'field_program_type',
       10 => 'field_short_description',
-      11 => 'field_streams',
-      12 => 'field_topic_tags',
-      13 => 'title_field',
+      11 => 'field_topic_tags',
+      12 => 'title_field',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
