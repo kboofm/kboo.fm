@@ -1,4 +1,4 @@
-<div class="row margin-top">
+<div class="row margin-top schedule-toolbar">
   <div class="col-md-1 schedule-carousel-prev"
        data-carousel="<?php print $schedule['id']; ?>">
     <i class="fa fa-arrow-left cursor-pointer schedule-trigger"></i>
@@ -8,6 +8,14 @@
   <div class="col-md-1 schedule-carousel-next"
        data-carousel="<?php print $schedule['id']; ?>">
     <i class="fa fa-arrow-right cursor-pointer schedule-trigger"></i>
+  </div>
+
+
+  <div class="col-md-10">
+    Week Beginning
+    <span data-bind="datetime">
+      <?php print $schedule['datetime']; ?>
+    </span>
   </div>
 </div>
 
