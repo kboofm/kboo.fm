@@ -5,6 +5,7 @@ package = Configurations
 version = 7.x-1.12
 project = configure_text_editing
 dependencies[] = ckeditor
+dependencies[] = configure_user_accounts
 dependencies[] = ctools
 dependencies[] = features
 dependencies[] = filter
