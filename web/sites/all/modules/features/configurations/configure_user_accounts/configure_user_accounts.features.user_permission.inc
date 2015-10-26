@@ -1547,21 +1547,36 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'use text format full_html'.
   $permissions['use text format full_html'] = array(
     'name' => 'use text format full_html',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
+    ),
     'module' => 'filter',
   );
 
   // Exported permission: 'use text format full_html_no_wysiwyg'.
   $permissions['use text format full_html_no_wysiwyg'] = array(
     'name' => 'use text format full_html_no_wysiwyg',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'filter',
   );
 
   // Exported permission: 'use text format full_html_simple_wysiwyg'.
   $permissions['use text format full_html_simple_wysiwyg'] = array(
     'name' => 'use text format full_html_simple_wysiwyg',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
+    ),
     'module' => 'filter',
   );
 
