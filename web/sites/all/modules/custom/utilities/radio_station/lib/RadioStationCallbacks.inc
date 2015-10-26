@@ -44,6 +44,13 @@ class RadioStationCallbacks {
       'type' => MENU_CALLBACK,
     ];
 
+    $items['station/playlist'] = [
+      'title' => 'Station Playlist',
+      'page callback' => 'radio_station_get_playlist',
+      'access arguments' => ['administer nodes'],
+      'type' => MENU_CALLBACK,
+    ];
+
     return $items;
   }
 
@@ -140,10 +147,26 @@ class RadioStationCallbacks {
   }
 
 
+  public static function getPlaylist() {
+    return theme(
+      'radio_station_playlist_template',
+      []
+    );
+  }
+
+
   public static function getTemplates() {
     return [
       'radio_station_schedule_template' => [
         'template' => 'schedule',
+        'path' => drupal_get_path('module', 'radio_station') . '/templates',
+        'variables' => [
+          'results' => NULL,
+        ],
+      ],
+
+      'radio_station_playlist_template' => [
+        'template' => 'playlist',
         'path' => drupal_get_path('module', 'radio_station') . '/templates',
         'variables' => [
           'results' => NULL,

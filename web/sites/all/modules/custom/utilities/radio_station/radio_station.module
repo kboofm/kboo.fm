@@ -45,6 +45,10 @@ function radio_station_get_schedule($stream) {
   return RadioStationCallbacks::getSchedule($stream);
 }
 
+function radio_station_get_playlist() {
+  return RadioStationCallbacks::getPlaylist();
+}
+
 
 function radio_station_theme() {
   return RadioStationCallbacks::getTemplates();
