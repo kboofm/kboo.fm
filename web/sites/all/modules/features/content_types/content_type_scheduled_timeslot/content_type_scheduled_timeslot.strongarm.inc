@@ -107,9 +107,7 @@ function content_type_scheduled_timeslot_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_scheduled_timeslot';
-  $strongarm->value = array(
-    0 => 'main-menu',
-  );
+  $strongarm->value = array();
   $export['menu_options_scheduled_timeslot'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -125,7 +123,6 @@ function content_type_scheduled_timeslot_strongarm() {
   $strongarm->name = 'node_options_scheduled_timeslot';
   $strongarm->value = array(
     0 => 'status',
-    1 => 'promote',
   );
   $export['node_options_scheduled_timeslot'] = $strongarm;
 
@@ -140,7 +137,7 @@ function content_type_scheduled_timeslot_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'node_submitted_scheduled_timeslot';
-  $strongarm->value = 1;
+  $strongarm->value = 0;
   $export['node_submitted_scheduled_timeslot'] = $strongarm;
 
   return $export;
