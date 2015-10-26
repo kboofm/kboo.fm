@@ -29,6 +29,7 @@ class SeedTaxonomies {
       'organization_types' => [
         'Non-Profit',
         'Restaurant',
+        'Sponsor',
         'Venue',
       ],
     ];
@@ -52,7 +53,7 @@ class SeedTaxonomies {
     $this->taxonomies[] = [
       'station_content_types' => [
         'Clip',
-        'Full Episode',
+        'Episode',
         'Newsletter',
         'Release',
       ],
