@@ -1,0 +1,12 @@
+<?php
+
+/**
+* Implements hook_node_presave()
+*
+* @param $node
+*/
+function radio_scheduled_timeslot_node_presave($node) {
+  if ($node->type != 'scheduled_timeslot') {
+    return;
+  }
+}
