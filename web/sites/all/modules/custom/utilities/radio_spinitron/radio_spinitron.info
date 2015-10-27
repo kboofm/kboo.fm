@@ -1,0 +1,11 @@
+name = Radio Spinitron
+description = Radio spinitron code
+package = Radio - Utilities
+core = 7.x
+version = 7.x-1.0
+
+dependencies[] = radio_template_query
+files[] = lib/RadioSpinitron.inc
+files[] = lib/Spinitron.inc
+files[] = lib/SpinitronClient.inc
+

@@ -48,7 +48,7 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content',
-    'weight' => '0',
+    'weight' => '1',
     'children' => array(
       0 => 'body',
       1 => 'field_audio_files',
@@ -61,8 +61,9 @@ function content_type_program_field_group_info() {
       8 => 'field_produced_for',
       9 => 'field_program_type',
       10 => 'field_short_description',
-      11 => 'field_topic_tags',
-      12 => 'title_field',
+      11 => 'field_streams',
+      12 => 'field_topic_tags',
+      13 => 'title_field',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -192,6 +193,33 @@ function content_type_program_field_group_info() {
     ),
   );
   $export['group_related|node|program|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_spinitron|node|program|form';
+  $field_group->group_name = 'group_spinitron';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'program';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Spinitron',
+    'weight' => '6',
+    'children' => array(
+      0 => 'field_spinitron_showid',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-spinitron field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $export['group_spinitron|node|program|form'] = $field_group;
 
   return $export;
 }

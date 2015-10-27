@@ -1,0 +1,31 @@
+<?php
+
+/**
+ * Implements hook_menu().
+ */
+function radio_spinitron_menu() {
+  $routes = RadioSpinitron::buildRoutes();
+  return $routes;
+}
+
+
+function radio_spinitron_get_current_playlist() {
+  $data = RadioSpinitron::getCurrentPlaylist();
+  drupal_json_output($data);
+}
+
+
+function radio_spinitron_get_program_playlist($program_nid, $timestamp) {
+  $data = RadioSpinitron::getProgramPlaylist(
+    $program_nid,
+    $timestamp
+  );
+
+  drupal_json_output($data);
+}
+
+
+function radio_spinitron_get_program_recent_playlists($program_nid) {
+  $data = RadioSpinitron::getProgramRecentPlaylists($program_nid);
+  drupal_json_output($data);
+}
