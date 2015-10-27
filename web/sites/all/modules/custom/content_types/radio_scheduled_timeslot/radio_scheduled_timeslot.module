@@ -1,12 +1,26 @@
 <?php
 
 /**
-* Implements hook_node_presave()
-*
-* @param $node
-*/
-function radio_scheduled_timeslot_node_presave($node) {
+ * Implements hook_node_validate().
+ */
+function radio_scheduled_timeslot_node_validate($node, $form, &$form_state) {
   if ($node->type != 'scheduled_timeslot') {
     return;
   }
+
+  $stream_id = $node->field_stream['und'][0]['target_id'];
+  $timeslots = $node->field_timeslot['und'];
+  $initial_start_time = strtotime("+1 minute", $timeslots[0]['value']);
+
+  $query = new ScheduledTimeslotQuery();
+  $query->getAt(
+    $stream_id,
+    $initial_start_time
+  );
+  $result = $query->execute();
+
+  if (!empty($result)) {
+    form_set_error('field_timeslot', 'A timeslot is already scheduled at this time');
+  }
 }
+
