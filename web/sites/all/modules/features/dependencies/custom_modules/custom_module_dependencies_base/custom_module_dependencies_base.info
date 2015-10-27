@@ -10,6 +10,7 @@ dependencies[] = radio_autocomplete
 dependencies[] = radio_file_types
 dependencies[] = radio_forms
 dependencies[] = radio_notifications
+dependencies[] = radio_spinitron
 dependencies[] = radio_station
 dependencies[] = radio_template_query
 dependencies[] = radio_urls
