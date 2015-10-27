@@ -75,6 +75,24 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
+  public function amongNodes($nids) {
+    if (!is_array($nids)) {
+      $nids = [$nids];
+    }
+
+    $this->entityCondition('entity_id', $nids, 'IN');
+  }
+
+
+  public function excludeNodes($nids) {
+    if (!is_array($nids)) {
+      $nids = [$nids];
+    }
+
+    $this->entityCondition('entity_id', $nids, 'NOT IN');
+  }
+
+
   public static function joinField(QueryAlterableInterface $query, $fieldname) {
     $query->join(
       "field_data_{$fieldname}",
