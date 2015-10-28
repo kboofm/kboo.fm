@@ -17,7 +17,7 @@ endif;
 ?>
 
 
-<p class="on-air"
+<p class="on-air margin-bottom-lg"
    data-stream="<?php print $schedule['stream']; ?>"
    data-type="<?php print $schedule['type']; ?>">
 

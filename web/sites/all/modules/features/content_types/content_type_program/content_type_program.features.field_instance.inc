@@ -214,7 +214,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 3,
+      'weight' => 2,
     ),
   );
 
@@ -475,7 +475,7 @@ function content_type_program_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 0,
+      'weight' => -1,
     ),
   );
 
@@ -724,7 +724,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 4,
+      'weight' => 3,
     ),
   );
 
@@ -804,7 +804,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 1,
+      'weight' => 0,
     ),
   );
 
@@ -958,7 +958,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 2,
+      'weight' => 1,
     ),
   );
 
@@ -1604,6 +1604,64 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-program-field_spinitron_showid'
+  $field_instances['node-program-field_spinitron_showid'] = array(
+    'bundle' => 'program',
+    'default_value' => NULL,
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'number',
+        'settings' => array(
+          'decimal_separator' => '.',
+          'prefix_suffix' => TRUE,
+          'scale' => 0,
+          'thousand_separator' => ' ',
+        ),
+        'type' => 'number_integer',
+        'weight' => 33,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_spinitron_showid',
+    'label' => 'Show ID',
+    'required' => 0,
+    'settings' => array(
+      'max' => '',
+      'min' => '',
+      'prefix' => '',
+      'suffix' => '',
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 0,
+      'module' => 'number',
+      'settings' => array(),
+      'type' => 'number',
+      'weight' => 50,
+    ),
+  );
+
   // Exported field_instance: 'node-program-field_sponsored_by'
   $field_instances['node-program-field_sponsored_by'] = array(
     'bundle' => 'program',
@@ -1728,7 +1786,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => -1,
+      'weight' => 4,
     ),
   );
 
@@ -1985,6 +2043,7 @@ function content_type_program_field_default_field_instances() {
   t('Related program(s)');
   t('Related show host(s)');
   t('Short Description');
+  t('Show ID');
   t('Sponsored by');
   t('Streams');
   t('Title');
