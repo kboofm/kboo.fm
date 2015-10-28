@@ -19,6 +19,14 @@ class RadioSpinitron {
       'type' => MENU_CALLBACK,
     ];
 
+    $items['spinitron/playlists/day/%'] = [
+      'title' => 'Spinitron Playlist - Day',
+      'page callback' => 'radio_spinitron_get_playlist_day',
+      'page arguments' => [3],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $items['spinitron/playlists/program/%'] = [
       'title' => 'Spinitron Playlist - Program',
       'page callback' => 'radio_spinitron_get_program_recent_playlists',
@@ -28,8 +36,8 @@ class RadioSpinitron {
     ];
 
     $items['spinitron/playlists/program/%/%'] = [
-      'title' => 'Spinitron Playlist - Program',
-      'page callback' => 'radio_spinitron_get_program_playlist',
+      'title' => 'Spinitron Playlist - Program (day)',
+      'page callback' => 'radio_spinitron_get_program_playlist_day',
       'page arguments' => [3, 4],
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
@@ -47,6 +55,14 @@ class RadioSpinitron {
   public static function getCurrentPlaylist() {
     $spin = Spinitron::instance();
     return $spin->getCurrentPlaylist();
+  }
+
+
+  public static function getPlaylistDay($timestamp) {
+    $enddate = date('Y-m-d', Helpers::dayEnd($timestamp));
+    $spin = Spinitron::instance();
+    $response = $spin->getPlaylistsByDate($enddate);
+    return $response;
   }
 
 
@@ -81,7 +97,7 @@ class RadioSpinitron {
    * @param $timestamp
    * @return null|string
    */
-  public static function getProgramPlaylist($program_nid, $timestamp) {
+  public static function getProgramPlaylistDay($program_nid, $timestamp) {
     $wrapped_node = entity_metadata_wrapper('node', $program_nid);
 
     if (!$wrapped_node) {
@@ -97,26 +113,21 @@ class RadioSpinitron {
     $enddate = date('Y-m-d', Helpers::dayEnd($timestamp));
 
     $spin = Spinitron::instance();
-    $response = $spin->getPlaylistsByDate($enddate, 10);
+    $response = $spin->getPlaylistsByDate($enddate);
 
     $response = array_filter(
       $response,
       function ($item) use ($showId, $timestamp) {
         $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
-        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
         $onair = strtotime($onair);
-        $offair = strtotime($offair);
-
-        // OffairTime can be next day, add 1 day if so
-        $offair = ($offair < $onair) ? strtotime("+1 day", $offair) : $offair;
+        $dayBegin = Helpers::dayBegin($timestamp);
 
         $isShow = ($item['ShowID'] == $showId);
-        $inRange = ($onair <= $timestamp && $timestamp <= $offair);
-
+        $inRange = ($dayBegin <= $onair);
         return ($isShow && $inRange);
       }
     );
 
-    return json_encode($response);
+    return $response;
   }
 }
