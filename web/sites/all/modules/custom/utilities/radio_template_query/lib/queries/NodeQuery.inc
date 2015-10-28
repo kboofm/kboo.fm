@@ -1,6 +1,7 @@
 <?php
 
 class NodeQuery extends EntityFieldQuery {
+  private static $params;
   protected $content_type;
   protected $content_types;
 
@@ -75,6 +76,20 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
+  protected static function addParam($name, $value) {
+    NodeQuery::$params[$name] = $value;
+  }
+
+
+  protected static function getParam($name, $default = NULL) {
+    if (isset(NodeQuery::$params[$name])) {
+      return NodeQuery::$params[$name];
+    }
+
+    return $default;
+  }
+
+
   public function amongNodes($nids) {
     if (!is_array($nids)) {
       $nids = [$nids];
@@ -116,6 +131,10 @@ class NodeQuery extends EntityFieldQuery {
 
 
   public static function dateFieldInRange(QueryAlterableInterface $query, $fieldname, $start, $finish) {
+    /*
+     * $start <= fieldname.value
+     * fieldname.value2 <= $finish
+     */
     $query->condition(db_and()
       ->condition("{$fieldname}.{$fieldname}_value", $start, ">=")
       ->condition("{$fieldname}.{$fieldname}_value2", $finish, "<=")
@@ -124,10 +143,40 @@ class NodeQuery extends EntityFieldQuery {
 
 
   public static function dateFieldOccurring(QueryAlterableInterface $query, $fieldname, $start, $finish) {
+    /*
+     * fieldname.value <= $start
+     * $finish <= fieldname.value2
+     */
     $query->condition(db_and()
       ->condition("{$fieldname}.{$fieldname}_value", $start, "<=")
       ->condition("{$fieldname}.{$fieldname}_value2", $finish, ">=")
     );
+  }
+
+
+  public static function dateFieldAnyOccurring(QueryAlterableInterface $query, $fieldname, array $timestamps) {
+    /*
+     * fieldname.value <= $start
+     * $finish <= fieldname.value2
+     */
+
+    $db_or = db_or();
+
+    foreach ($timestamps as $key => $timestamp) {
+      if (!is_numeric($key)) {
+        continue;
+      }
+
+      $start = $timestamp['value'];
+      $finish = $timestamp['value2'];
+
+      $db_or->condition(db_and()
+        ->condition("{$fieldname}.{$fieldname}_value", $start, "<=")
+        ->condition("{$fieldname}.{$fieldname}_value2", $finish, ">=")
+      );
+    }
+
+    $query->condition($db_or);
   }
 
 
