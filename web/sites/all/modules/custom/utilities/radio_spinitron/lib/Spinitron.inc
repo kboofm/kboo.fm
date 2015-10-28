@@ -180,7 +180,7 @@ class Spinitron {
 
 
   /**
-   * Wrapper for SpinPapi getCurrentPlaylist method.
+   * Get current playlist id, then get that playlist's data
    *
    * @see SpinPapi API Specification https://bitbucket.org/spinitron/documentation
    *
@@ -188,11 +188,13 @@ class Spinitron {
    * @throws \SpinPapiException
    */
   public function getCurrentPlaylist() {
-    return $this->runQuery(
+    $current_id = $this->runQuery(
       [
         'method' => 'getCurrentPlaylist',
       ]
     );
+
+    return $this->getPlaylistInfo($current_id);
   }
 
 
@@ -314,11 +316,12 @@ class Spinitron {
     $public_files = $wrapper->realpath();
     $cache_path = "{$public_files}/spinitron/cache";
 
+    // "userId" and "secret" are provided by Spinitron.com
     return new Spinitron(
       [
         'station' => 'kboo',
-        'userId' => '',
-        'secret' => '',
+        'userId' => 'd28044dcae561cb5',
+        'secret' => '7418d412f6bdc80c',
 
         // For a memcache, set to an array of one or more memcache servers,
         // see http://au1.php.net/manual/en/memcached.addservers.php

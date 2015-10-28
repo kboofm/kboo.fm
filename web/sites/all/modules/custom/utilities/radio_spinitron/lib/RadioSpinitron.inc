@@ -12,14 +12,14 @@ class RadioSpinitron {
   public static function buildRoutes() {
     $items = [];
 
-    $items['spinitron/playlist/current'] = [
+    $items['spinitron/playlists/current'] = [
       'title' => 'Spinitron Playlist - Current',
       'page callback' => 'radio_spinitron_get_current_playlist',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];
 
-    $items['spinitron/playlist/program/%'] = [
+    $items['spinitron/playlists/program/%'] = [
       'title' => 'Spinitron Playlist - Program',
       'page callback' => 'radio_spinitron_get_program_recent_playlists',
       'page arguments' => [3],
@@ -27,7 +27,7 @@ class RadioSpinitron {
       'type' => MENU_CALLBACK,
     ];
 
-    $items['spinitron/playlist/program/%/%'] = [
+    $items['spinitron/playlists/program/%/%'] = [
       'title' => 'Spinitron Playlist - Program',
       'page callback' => 'radio_spinitron_get_program_playlist',
       'page arguments' => [3, 4],
@@ -97,19 +97,20 @@ class RadioSpinitron {
     $enddate = date('Y-m-d', Helpers::dayEnd($timestamp));
 
     $spin = Spinitron::instance();
-    $response = $spin->getPlaylistsByDate($enddate);
-    $response = json_decode($response);
+    $response = $spin->getPlaylistsByDate($enddate, 10);
 
     $response = array_filter(
       $response,
       function ($item) use ($showId, $timestamp) {
-        $onair = strtotime("{$item->PlaylistDate} {$item->OnairTime}");
-        $offair = strtotime("{$item->PlaylistDate} {$item->OffairTime}");
+        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $onair = strtotime($onair);
+        $offair = strtotime($offair);
 
         // OffairTime can be next day, add 1 day if so
         $offair = ($offair < $onair) ? strtotime("+1 day", $offair) : $offair;
 
-        $isShow = ($item->ShowID == $showId);
+        $isShow = ($item['ShowID'] == $showId);
         $inRange = ($onair <= $timestamp && $timestamp <= $offair);
 
         return ($isShow && $inRange);
