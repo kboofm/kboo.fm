@@ -14,7 +14,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
   protected function sortByTimeslot($direction = 'ASC') {
     $this->addTag('radio_ScheduledTimeslotQuery_orderByTimeslot');
-    $this->addTag("parameter_ScheduledTimeslotQuery_direction__{$direction}");
+    NodeQuery::addParam('direction', $direction);
   }
 
 
@@ -28,22 +28,22 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
-  protected function addStreamParameter($stream) {
+  protected function whereStream($stream) {
     $stream_nid = ScheduledTimeslotQuery::getStreamNid($stream);
     $this->addTag('radio_ScheduledTimeslotQuery_addStream');
-    $this->addTag("parameter_ScheduledTimeslotQuery_stream__{$stream_nid}");
+    NodeQuery::addParam('stream', $stream_nid);
   }
 
 
   public function getNow($stream) {
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetNow');
-    $this->addStreamParameter($stream);
+    $this->whereStream($stream);
     return $this;
   }
 
 
   public function getNext($stream, $timestamp, $count = 1) {
-    $this->addStreamParameter($stream);
+    $this->whereStream($stream);
     $this->timeslotIsAfter($timestamp);
 
     if ($count) {
@@ -56,7 +56,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   public function getPrevious($stream, $timestamp, $count = 1) {
-    $this->addStreamParameter($stream);
+    $this->whereStream($stream);
     $this->timeslotIsBefore($timestamp);
 
     if ($count) {
@@ -70,42 +70,33 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
   public function getAt($stream, $timestamp) {
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetAt');
-    $this->addTag("parameter_ScheduledTimeslotQuery_timestamp__{$timestamp}");
-    $this->addStreamParameter($stream);
+    NodeQuery::addParam('timestamp', $timestamp);
+    $this->whereStream($stream);
     return $this;
   }
 
+
+  public function getAnyAt($stream, array $timestamps) {
+    $this->addTag('radio_ScheduledTimeslotQuery_modifyGetAnyAt');
+    NodeQuery::addParam('timestamps', $timestamps);
+    $this->whereStream($stream);
+    return $this;
+  }
 
 
   public function getRange($stream, $start, $end) {
+    $daterange = [
+      $start,
+      $end
+    ];
+
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetRange');
-    $this->addTag("parameter_ScheduledTimeslotQuery_daterange__{$start}__{$end}");
-    $this->addStreamParameter($stream);
+    NodeQuery::addParam('daterange', $daterange);
+    $this->whereStream($stream);
     return $this;
   }
 
 
-  private static function getParameters(QueryAlterableInterface $query, $name) {
-    $tags = $query->alterTags;
-
-    foreach ($tags as $tag => $value) {
-      if (Helpers::startsWith($tag, "parameter_ScheduledTimeslotQuery_{$name}")) {
-        $parts = explode('__', $tag);
-        array_shift($parts);
-
-        $parts = array_map(
-          function ($item) {
-            return str_replace('___', ' ', $item);
-          },
-          $parts
-        );
-
-        return $parts;
-      }
-    }
-
-    return NULL;
-  }
 
 
   public static function getStreamNid($stream) {
@@ -127,13 +118,8 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   public static function addStream(QueryAlterableInterface $query) {
-    $params = ScheduledTimeslotQuery::getParameters($query, 'stream');
-
-    if ($params) {
-      $stream = $params[0];
-    } else {
-      $stream = ScheduledTimeslotQuery::getStreamNid(Streams::One);
-    }
+    $default = ScheduledTimeslotQuery::getStreamNid(Streams::One);
+    $stream = NodeQuery::getParam('stream', $default);
 
     NodeQuery::joinField($query, 'field_stream');
     $query->condition("field_stream.field_stream_target_id", $stream, "=");
@@ -148,26 +134,28 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   public static function modifyGetAt(QueryAlterableInterface $query) {
-    $timestamp = time();
-    $params = ScheduledTimeslotQuery::getParameters($query, 'timestamp');
-
-    if ($params) {
-      $timestamp = $params[0];
-    }
-
+    $timestamp = NodeQuery::getParam('timestamp', time());
     NodeQuery::joinField($query, 'field_timeslot');
     NodeQuery::dateFieldOccurring($query, 'field_timeslot', $timestamp, $timestamp);
   }
 
 
-  public static function modifyGetRange(QueryAlterableInterface $query) {
-    $start = $end = time();
-    $params = ScheduledTimeslotQuery::getParameters($query, 'daterange');
+  public static function modifyGetAnyAt(QueryAlterableInterface $query) {
+    $timestamps = NodeQuery::getParam('timestamps');
 
-    if ($params) {
-      $start = $params[0];
-      $end = $params[1];
+    if (!$timestamps) {
+      return;
     }
+
+    NodeQuery::joinField($query, 'field_timeslot');
+    NodeQuery::dateFieldAnyOccurring($query, 'field_timeslot', $timestamps);
+  }
+
+
+  public static function modifyGetRange(QueryAlterableInterface $query) {
+    $now = time();
+    $default = [$now, $now];
+    list($start, $end) = NodeQuery::getParam('daterange', $default);
 
     NodeQuery::joinField($query, 'field_timeslot');
     NodeQuery::dateFieldInRange($query, 'field_timeslot', $start, $end);
@@ -176,13 +164,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   public static function orderByTimeslot(QueryAlterableInterface $query) {
-    $params = ScheduledTimeslotQuery::getParameters($query, 'direction');
-    $direction = 'ASC';
-
-    if ($params) {
-      $direction = $params[0];
-    }
-
+    $direction = NodeQuery::getParam('direction', 'ASC');
     $timeslot_table = 'field_data_field_timeslot0';
     $timeslot_field = 'field_timeslot_value';
 

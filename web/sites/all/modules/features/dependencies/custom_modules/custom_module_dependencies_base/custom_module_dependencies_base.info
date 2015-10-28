@@ -18,4 +18,6 @@ dependencies[] = radio_urls
 ; Custom modules - content types
 dependencies[] = radio_organization
 dependencies[] = radio_person_profile
+dependencies[] = radio_scheduled_timeslot
+
 features[features_api][] = api:2

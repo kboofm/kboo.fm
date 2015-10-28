@@ -1,0 +1,8 @@
+name = Radio Scheduled Timeslot
+description = Radio code for scheduled_timeslot content type
+package = Radio - Content Types
+core = 7.x
+version = 7.x-1.0
+
+dependencies[] = radio_template_query
+files[] = lib/ScheduledTimeslot.inc
