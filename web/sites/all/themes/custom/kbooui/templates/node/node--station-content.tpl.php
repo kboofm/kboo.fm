@@ -2,9 +2,12 @@
      class="<?php print $classes; ?> clearfix"<?php print $attributes; ?>>
 
 
+  <div class="margin-vertical-lg">
+    <?php include 'partials/playlist.tpl.php'; ?>
+  </div>
+
+
   <?php print $user_picture; ?>
-
-
   <?php print render($title_prefix); ?>
   <?php if (!$page): ?>
     <h2<?php print $title_attributes; ?>>
@@ -31,6 +34,6 @@
   </div>
 
 
-  <?php print render($content['links']); ?>
-  <?php print render($content['comments']); ?>
+<!--  --><?php //print render($content['links']); ?>
+<!--  --><?php //print render($content['comments']); ?>
 </div>
