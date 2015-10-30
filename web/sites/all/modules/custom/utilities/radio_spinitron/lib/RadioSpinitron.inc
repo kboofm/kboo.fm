@@ -3,6 +3,8 @@ require_once (dirname(__DIR__)) . '/../radio_template_query/lib/utilities/Helper
 
 
 class RadioSpinitron {
+  private static $connect;
+
 
   /**
    * Build callback routes array for hook_menu
@@ -47,10 +49,19 @@ class RadioSpinitron {
   }
 
 
+  private static function getConnection() {
+    if (!RadioSpinitron::$connect) {
+      RadioSpinitron::$connect = Spinitron::instance();
+    }
+
+    return RadioSpinitron::$connect;
+  }
+
+
   private static function includeSongs(&$playlist) {
     $playlistID = $playlist['PlaylistID'];
-    $spin = Spinitron::instance();
-    $playlist['Songs'] = $spin->getSongs($playlistID);
+    $connection = RadioSpinitron::getConnection();
+    $playlist['Songs'] = $connection->getSongs($playlistID);
   }
 
 
@@ -60,8 +71,8 @@ class RadioSpinitron {
    * @return array|bool
    */
   public static function getCurrentPlaylist() {
-    $spin = Spinitron::instance();
-    $playlist =  $spin->getCurrentPlaylist();
+    $connection = RadioSpinitron::getConnection();
+    $playlist =  $connection->getCurrentPlaylist();
     RadioSpinitron::includeSongs($playlist);
     return $playlist;
   }
@@ -69,8 +80,8 @@ class RadioSpinitron {
 
   public static function getPlaylistDay($timestamp) {
     $date = date('Y-m-d', $timestamp);
-    $spin = Spinitron::instance();
-    $playlists = $spin->getPlaylistsByDate($date);
+    $connection = RadioSpinitron::getConnection();
+    $playlists = $connection->getPlaylistsByDate($date);
 
     foreach ($playlists as &$playlist) {
       RadioSpinitron::includeSongs($playlist);
@@ -84,10 +95,11 @@ class RadioSpinitron {
     $wrapped_node = entity_metadata_wrapper('node', $node);
     $field_air_time = $wrapped_node->field_air_time->value();
 
-    $spin = Spinitron::instance();
+    $connection = RadioSpinitron::getConnection();
     $date = date('Y-m-d', $field_air_time['value']);
-    $playlists = $spin->getPlaylistsByDate($date);
+    $playlists = $connection->getPlaylistsByDate($date);
 
+    // Filter out any playlists that occur outside of $field_air_time
     $playlists = array_filter(
       $playlists,
       function ($item) use ($field_air_time) {
@@ -136,8 +148,8 @@ class RadioSpinitron {
       return NULL;
     }
 
-    $spin = Spinitron::instance();
-    $playlists = $spin->getPlaylistsByShow($showId);
+    $connection = RadioSpinitron::getConnection();
+    $playlists = $connection->getPlaylistsByShow($showId);
 
     foreach ($playlists as &$playlist) {
       RadioSpinitron::includeSongs($playlist);
@@ -167,9 +179,9 @@ class RadioSpinitron {
       return NULL;
     }
 
-    $spin = Spinitron::instance();
+    $connection = RadioSpinitron::getConnection();
     $date = date('Y-m-d', $timestamp);
-    $playlists = $spin->getPlaylistsByDate($date);
+    $playlists = $connection->getPlaylistsByDate($date);
 
     $playlists = array_filter(
       $playlists,
