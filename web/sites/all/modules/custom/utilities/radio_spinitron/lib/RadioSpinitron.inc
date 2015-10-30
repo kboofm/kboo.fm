@@ -59,9 +59,42 @@ class RadioSpinitron {
 
 
   public static function getPlaylistDay($timestamp) {
-    $enddate = date('Y-m-d', Helpers::dayEnd($timestamp));
+    $date = date('Y-m-d', $timestamp);
     $spin = Spinitron::instance();
-    $response = $spin->getPlaylistsByDate($enddate);
+    $response = $spin->getPlaylistsByDate($date);
+    return $response;
+  }
+
+
+  public static function getEpisodePlaylist($node) {
+    $wrapped_node = entity_metadata_wrapper('node', $node);
+    $field_air_time = $wrapped_node->field_air_time->value();
+
+    $spin = Spinitron::instance();
+    $date = date('Y-m-d', $field_air_time['value']);
+    $response = $spin->getPlaylistsByDate($date);
+
+    $response = array_filter(
+      $response,
+      function ($item) use ($field_air_time) {
+        $start = $field_air_time['value'];
+        $end = $field_air_time['value2'];
+
+        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $onair = strtotime($onair);
+
+        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $offair = strtotime($offair);
+
+        if ($offair < $onair) {
+          // If offair is the next day, then playlist date will be one day off
+          $offair = strtotime("+1 day", $offair);
+        }
+
+        return ($start >= $onair && $end <= $offair);
+      }
+    );
+
     return $response;
   }
 
@@ -110,10 +143,9 @@ class RadioSpinitron {
       return NULL;
     }
 
-    $enddate = date('Y-m-d', Helpers::dayEnd($timestamp));
-
     $spin = Spinitron::instance();
-    $response = $spin->getPlaylistsByDate($enddate);
+    $date = date('Y-m-d', $timestamp);
+    $response = $spin->getPlaylistsByDate($date);
 
     $response = array_filter(
       $response,
