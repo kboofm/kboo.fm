@@ -3,7 +3,7 @@
 
 
   <div class="margin-vertical-lg">
-    <?php print theme('radio_spinitron'); ?>
+    <?php print theme('spinitron_playlist'); ?>
   </div>
 
 
