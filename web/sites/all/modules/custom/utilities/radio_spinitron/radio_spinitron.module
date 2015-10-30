@@ -49,4 +49,5 @@ function radio_spinitron_theme($existing, $type) {
 function radio_spinitron_preprocess_spinitron_playlist(&$vars) {
   $node = menu_get_object();
   $vars['spinitron_playlists'] = RadioSpinitron::getEpisodePlaylist($node);
+
 }

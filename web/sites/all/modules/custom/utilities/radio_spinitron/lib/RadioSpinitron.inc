@@ -47,6 +47,13 @@ class RadioSpinitron {
   }
 
 
+  private static function includeSongs(&$playlist) {
+    $playlistID = $playlist['PlaylistID'];
+    $spin = Spinitron::instance();
+    $playlist['Songs'] = $spin->getSongs($playlistID);
+  }
+
+
   /**
    * Get current playlist
    *
@@ -54,15 +61,22 @@ class RadioSpinitron {
    */
   public static function getCurrentPlaylist() {
     $spin = Spinitron::instance();
-    return $spin->getCurrentPlaylist();
+    $playlist =  $spin->getCurrentPlaylist();
+    RadioSpinitron::includeSongs($playlist);
+    return $playlist;
   }
 
 
   public static function getPlaylistDay($timestamp) {
     $date = date('Y-m-d', $timestamp);
     $spin = Spinitron::instance();
-    $response = $spin->getPlaylistsByDate($date);
-    return $response;
+    $playlists = $spin->getPlaylistsByDate($date);
+
+    foreach ($playlists as &$playlist) {
+      RadioSpinitron::includeSongs($playlist);
+    }
+
+    return $playlists;
   }
 
 
@@ -72,10 +86,10 @@ class RadioSpinitron {
 
     $spin = Spinitron::instance();
     $date = date('Y-m-d', $field_air_time['value']);
-    $response = $spin->getPlaylistsByDate($date);
+    $playlists = $spin->getPlaylistsByDate($date);
 
-    $response = array_filter(
-      $response,
+    $playlists = array_filter(
+      $playlists,
       function ($item) use ($field_air_time) {
         $start = $field_air_time['value'];
         $end = $field_air_time['value2'];
@@ -95,7 +109,11 @@ class RadioSpinitron {
       }
     );
 
-    return $response;
+    foreach ($playlists as &$playlist) {
+      RadioSpinitron::includeSongs($playlist);
+    }
+
+    return $playlists;
   }
 
 
@@ -119,7 +137,13 @@ class RadioSpinitron {
     }
 
     $spin = Spinitron::instance();
-    return $spin->getPlaylistsByShow($showId);
+    $playlists = $spin->getPlaylistsByShow($showId);
+
+    foreach ($playlists as &$playlist) {
+      RadioSpinitron::includeSongs($playlist);
+    }
+
+    return $playlists;
   }
 
 
@@ -145,10 +169,10 @@ class RadioSpinitron {
 
     $spin = Spinitron::instance();
     $date = date('Y-m-d', $timestamp);
-    $response = $spin->getPlaylistsByDate($date);
+    $playlists = $spin->getPlaylistsByDate($date);
 
-    $response = array_filter(
-      $response,
+    $playlists = array_filter(
+      $playlists,
       function ($item) use ($showId, $timestamp) {
         $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
         $onair = strtotime($onair);
@@ -160,6 +184,10 @@ class RadioSpinitron {
       }
     );
 
-    return $response;
+    foreach ($playlists as &$playlist) {
+      RadioSpinitron::includeSongs($playlist);
+    }
+
+    return $playlists;
   }
 }
