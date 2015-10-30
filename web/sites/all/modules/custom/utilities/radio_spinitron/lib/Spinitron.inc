@@ -222,14 +222,14 @@ class Spinitron {
    *
    * @see SpinPapi API Specification https://bitbucket.org/spinitron/documentation
    */
-  public function getPlaylistsByDate($endDate, $ndays = 1) {
+  public function getPlaylistsByDate($date, $ndays = 1) {
     return $this->runQuery(
       [
         'method' => 'getPlaylistsInfo',
         'UserID' => NULL,
         'ShowID' => NULL,
         'NDays' => $ndays,
-        'EndDate' => $endDate,
+        'EndDate' => $date,
         'Num' => NULL,
       ]
     );
