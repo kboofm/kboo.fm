@@ -202,4 +202,18 @@ class RadioSpinitron {
 
     return $playlists;
   }
+
+
+  public static function eligible($node) {
+    $wrapped_node = entity_metadata_wrapper('node', $node);
+    $type = $wrapped_node->field_station_content_type->value();
+
+    $terms = taxonomy_get_term_by_name(
+      'Episode',
+      'station_content_types'
+    );
+    $episode_term = reset($terms);
+
+    return ($type->tid == $episode_term->tid);
+  }
 }
