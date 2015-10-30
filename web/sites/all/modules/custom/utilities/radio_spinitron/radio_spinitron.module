@@ -35,3 +35,18 @@ function radio_spinitron_get_program_recent_playlists($program_nid) {
   $data = RadioSpinitron::getProgramRecentPlaylists($program_nid);
   drupal_json_output($data);
 }
+
+
+function radio_spinitron_theme($existing, $type) {
+  return [
+    'spinitron_playlist' => [
+      'template' => 'templates/playlist',
+    ],
+  ];
+}
+
+
+function radio_spinitron_preprocess_spinitron_playlist(&$vars) {
+  $data = RadioSpinitron::getCurrentPlaylist();
+  $vars['spinitron_playlist'] = $data;
+}

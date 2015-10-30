@@ -3,7 +3,7 @@
 
 
   <div class="margin-vertical-lg">
-    <?php include 'partials/playlist.tpl.php'; ?>
+    <?php print theme('radio_spinitron'); ?>
   </div>
 
 
