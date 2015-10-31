@@ -205,6 +205,10 @@ class RadioSpinitron {
 
 
   public static function eligible($node) {
+    if (!$node) {
+      return false;
+    }
+
     $wrapped_node = entity_metadata_wrapper('node', $node);
     $type = $wrapped_node->field_station_content_type->value();
 
@@ -214,6 +218,16 @@ class RadioSpinitron {
     );
     $episode_term = reset($terms);
 
-    return ($type->tid == $episode_term->tid);
+    $type_tid = null;
+    if (isset($type->tid)) {
+      $type_tid = $type->tid;
+    }
+
+    $episode_tid = null;
+    if (isset($episode_term->tid)) {
+      $episode_tid = $episode_term->tid;
+    }
+
+    return ($type_tid == $episode_tid);
   }
 }

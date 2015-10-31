@@ -168,11 +168,11 @@ class Spinitron {
    * @return array
    * @throws \SpinPapiException
    */
-  public function getSongs($playlistId = NULL, $num = 1) {
+  public function getSongs($playlistId = NULL, $num = NULL) {
     return $this->runQuery(
       [
         'method' => 'getSongs',
-        'PlaylistId' => $playlistId,
+        'PlaylistID' => $playlistId,
         'Num' => $num,
       ]
     );
