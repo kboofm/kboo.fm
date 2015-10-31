@@ -11,19 +11,7 @@ $count = count($spinitron_playlists) - 1;
 ?>
 
 <?php foreach ($spinitron_playlists as $index => $playlist): ?>
-  <div class="well">
-    Playlist Date: <?php print $playlist['PlaylistDate']; ?>
-    <br />
-    Show Name: <?php print $playlist['ShowName']; ?>
-    <br />
-    On Air Time: <?php print $playlist['OnairTime']; ?>
-    <br />
-    Off Air Time: <?php print $playlist['OffairTime']; ?>
-    <br />
-    DJ Name : <?php print $playlist['DJName']; ?>
-    <br />
-  </div>
-
+  <h4>Episode Playlist</h4>
 
   <table class="table table-striped table-condensed hidden-xs">
     <thead>
