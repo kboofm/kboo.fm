@@ -37,13 +37,8 @@ $count = count($spinitron_playlists) - 1;
     </tbody>
   </table>
 
-  <?php if ($index < $count): ?>
-    <hr class="hidden-xs" />
-  <?php endif; ?>
-
-
   <ul class="list-group visible-xs">
-    <?php foreach ($playlist['Songs'] as $songs): ?>
+    <?php foreach ($playlist['Songs'] as $song): ?>
       <li class="list-group-item">
 
         <?php foreach($song_column_map as $human => $machine): ?>
@@ -65,4 +60,9 @@ $count = count($spinitron_playlists) - 1;
       </li>
     <?php endforeach; ?>
   </ul>
+
+
+  <?php if ($index < $count): ?>
+    <hr class="hidden-xs" />
+  <?php endif; ?>
 <?php endforeach; ?>
