@@ -5,7 +5,9 @@
  */
 function radio_station_cron() {
   $station = new RadioStation();
-  $station->createNextEpisodes(5);
+  $episodes = $station->createNextEpisodes(Streams::One, 5);
+
+
 
   # Todo
   # 1. schedule ripping if show starts in less 1 hour

@@ -20,13 +20,15 @@ class RadioStation {
   /**
    * Create upcoming upisode nodes
    *
+   * @param $stream
    * @param $count
+   * @return array
    */
-  public function createNextEpisodes($count) {
-    $schedule = $this->getUpcomingSchedule($count);
+  public function createNextEpisodes($stream, $count) {
+    $schedule = $this->getUpcomingSchedule($stream, $count);
 
-    foreach ($schedule as $schedule_item) {
-      if ($schedule_item['existing_episode']) {
+    foreach ($schedule as &$schedule_item) {
+      if ($schedule_item['episode']) {
         continue;
       }
 
@@ -36,6 +38,17 @@ class RadioStation {
 
       $this->createEpisode($schedule_item);
     }
+
+    $episodes = array_map(
+      function ($item) {
+        return $item['episode'];
+      },
+      $schedule
+    );
+
+    $episodes = array_filter($episodes);
+
+    return $episodes;
   }
 
 
@@ -45,7 +58,7 @@ class RadioStation {
    * @param $schedule_item
    * @throws \Exception
    */
-  private function createEpisode($schedule_item) {
+  private function createEpisode(&$schedule_item) {
     $program = $schedule_item['program'];
     $date = date('m/d/y', $schedule_item['start']);
 
@@ -103,22 +116,28 @@ class RadioStation {
     ];
 
     node_save($node);
+    $schedule_item['episode'] = entity_metadata_wrapper('node', $node);
   }
 
 
   /**
    * Get the upcoming schedule
    *
+   * @param $stream
    * @param $count
    * @return array
    */
-  private function getUpcomingSchedule($count) {
+  private function getUpcomingSchedule($stream, $count) {
     $now = time();
     $schedule = [];
 
     $query = new ScheduledTimeslotQuery();
-    $query->getNext($count);
+    $query->getNext($stream, $count);
     $result = $query->execute();
+
+    if (empty($result)) {
+      return [];
+    }
 
     foreach ($result['node'] as $nid => $item) {
       $wrapped = entity_metadata_wrapper('node', $nid);
@@ -150,14 +169,21 @@ class RadioStation {
    * @param $timeslot
    * @return bool
    */
-  private function doesEpisodeExist($timeslot) {
+  private function getEpisode($timeslot) {
     $query = new StationContentQuery();
     $query->getEpisode(
       $timeslot['value'],
       $timeslot['value2']
     );
     $result = $query->execute();
-    return !empty($result);
+
+    if (empty($result)) {
+      return null;
+    }
+
+    $item = reset($result['node']);
+    $wrapped = entity_metadata_wrapper('node', $item->nid);
+    return $wrapped;
   }
 
 
@@ -185,14 +211,14 @@ class RadioStation {
    */
   private function buildScheduleItem($wrapped_scheduled_timeslot, $timeslot) {
     $program = NULL;
-    $existing_episode = $this->doesEpisodeExist($timeslot);
+    $episode = $this->getEpisode($timeslot);
 
-    if (!$existing_episode) {
+    if (!$episode) {
       $program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
     }
 
     $schedule_item = [
-      'existing_episode' => $existing_episode,
+      'episode' => $episode,
       'start' => $timeslot['value'],
       'finish' => $timeslot['value2'],
       'program' => $program,
