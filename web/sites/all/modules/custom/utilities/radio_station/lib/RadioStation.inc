@@ -1,4 +1,10 @@
 <?php
+abstract class ArchiveTypes {
+  const NEVER = 0;
+  const TEMPORARY = 1;
+  const PERMANENT = 2;
+}
+
 
 class RadioStation {
   private $episode_term;
@@ -49,6 +55,35 @@ class RadioStation {
     $episodes = array_filter($episodes);
 
     return $episodes;
+  }
+
+
+  public function scheduleRippingEpisodes($episodes) {
+    foreach ($episodes as $episode) {
+      $start = $episode->field_air_time->value();
+
+      if (!$this->withinAnHour($start)) {
+        continue;
+      }
+
+      $recording_type = $episode->field_episode_record->value();
+      if ($recording_type == ArchiveTypes::NEVER) {
+        continue;
+      }
+
+      $this->queueEpisodeRip($episode);
+    }
+  }
+
+
+  private function queueEpisodeRip($episode) {
+  }
+
+
+  private function withinAnHour($timestamp) {
+    $now = time();
+    $an_hour_from_now = strtotime('+1 hour', $now);
+    return ($now < $timestamp && $timestamp <= $an_hour_from_now);
   }
 
 
