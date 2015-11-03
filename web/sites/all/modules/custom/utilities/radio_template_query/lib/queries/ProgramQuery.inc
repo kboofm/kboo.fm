@@ -36,8 +36,13 @@ class ProgramQuery extends NodeQuery {
     $terms = taxonomy_get_term_by_name($term_name, 'program_types');
     $term = reset($terms);
 
+    $tid = NULL;
+    if (isset($term->tid)) {
+      $tid = $term->tid;
+    }
+
     # where
-    $this->fieldCondition('field_program_type', 'tid', $term->tid);
+    $this->fieldCondition('field_program_type', 'tid', $tid);
     $this->fieldCondition('title_field', 'value', $title, 'CONTAINS');
 
     # limit
