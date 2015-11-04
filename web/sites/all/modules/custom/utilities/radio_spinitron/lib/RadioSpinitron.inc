@@ -99,6 +99,10 @@ class RadioSpinitron {
     $date = date('Y-m-d', $field_air_time['value']);
     $playlists = $connection->getPlaylistsByDate($date);
 
+    if (!$playlists) {
+      return [];
+    }
+
     // Filter out any playlists that occur outside of $field_air_time
     $playlists = array_filter(
       $playlists,

@@ -12,27 +12,30 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getEpisode($start, $finish) {
-    $this->addTag('radio_StationContentQuery_modifyGetEpisode');
-    $this->addTag("parameter_StationContentQuery__{$start}__{$finish}");
+  public function getEpisode($start, $end) {
+    $this->type('Episode');
+    $this->fieldCondition('field_air_time', 'value', $start, '=', 0);
+    $this->fieldCondition('field_air_time', 'value2', $end, '=', 0);
     return $this;
   }
 
 
-  public static function modifyGetEpisode(QueryAlterableInterface $query) {
-    $start = $finish = time();
-    $tags = $query->alterTags;
+  public function olderThan($timestamp) {
+    $this->fieldCondition('field_air_time', 'value', $timestamp, '<=');
+    return $this;
+  }
 
-    foreach ($tags as $tag => $value) {
-      if (Helpers::startsWith($tag, 'parameter_StationContentQuery')) {
-        $parts = explode('__', $tag);
-        $start = $parts[1];
-        $finish = $parts[2];
-        break;
-      }
+
+  public function type($term_name) {
+    $terms = taxonomy_get_term_by_name($term_name, 'station_content_types');
+    $term = reset($terms);
+
+    $tid = NULL;
+    if (isset($term->tid)) {
+      $tid = $term->tid;
     }
 
-    NodeQuery::joinField($query, 'field_air_time');
-    NodeQuery::dateFieldEquals($query, 'field_air_time', $start, $finish);
+    $this->fieldCondition('field_station_content_type', 'tid', $tid);
+    return $this;
   }
 }

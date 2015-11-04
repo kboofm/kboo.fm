@@ -99,8 +99,8 @@ class RadioStationCallbacks {
     }
 
     $end = Helpers::dayEnd($start);
-    $query->getRange($stream, $start, $end);
-    $result = $query->execute();
+  $query->getRange($stream, $start, $end);
+  $result = $query->execute();
 
     return RadioStationCallbacks::processRangeResponse(
       $result,

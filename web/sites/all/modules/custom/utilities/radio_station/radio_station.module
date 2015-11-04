@@ -5,12 +5,10 @@
  */
 function radio_station_cron() {
   $station = new RadioStation();
-  $station->createNextEpisodes(5);
-
-  # Todo
-  # 1. schedule ripping if show starts in less 1 hour
-  # 2. after ripping, attach media to episode
-  # 3. delete any older media as needed
+  $episodes = $station->getRippingEpisodes(Streams::One, 5);
+  $station->scheduleRippingEpisodes($episodes);
+  $station->attachNewRips();
+  $station->cullArchive();
 }
 
 
