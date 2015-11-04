@@ -13,7 +13,7 @@ class StationContentQuery extends NodeQuery {
 
 
   public function getEpisode($start, $end) {
-    $this->getByType('Episode');
+    $this->type('Episode');
     $this->fieldCondition('field_air_time', 'value', $start, '=', 0);
     $this->fieldCondition('field_air_time', 'value2', $end, '=', 0);
     return $this;

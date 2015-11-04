@@ -38,7 +38,7 @@ class RadioStation {
         continue;
       }
 
-      if (!$schedule_item['program']) {
+      if (!$schedule_item['timeslot_program']) {
         continue;
       }
 
@@ -181,9 +181,9 @@ class RadioStation {
     );
 
     try {
-      $program = $episode->field_produced_for->value();
-      $program_nid = $program->nid;
-    } catch (EntityMetadataWrapperException $e) {
+      $program = $episode->field_produced_for;
+      $program_nid = $program->getIdentifier();
+    } catch (Exception $e) {
       $program_nid = 'none';
     }
 
@@ -192,7 +192,8 @@ class RadioStation {
     $start = $air_time['value'] - $padding;
     $length = $air_time['value2'] + $padding - $start;
     $atd_time = date('H:i', $start);
-    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode->nid}.mp3";
+    $episode_nid = $episode->getIdentifier();
+    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}.mp3";
 
     $ripdir = variable_get('radio_station_rip_filepath', '/tmp');
     $stream = variable_get(
@@ -407,7 +408,7 @@ class RadioStation {
       'episode' => $episode,
       'start' => $timeslot['value'],
       'finish' => $timeslot['value2'],
-      'program' => $program,
+      'timeslot_program' => $program,
     ];
 
     return $schedule_item;
