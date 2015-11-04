@@ -111,16 +111,35 @@ class RadioStation {
   }
 
 
+  private function getEpisodesToCull() {
+    $now_minus_twoweeks = strtotime('-2 weeks', time());
+    $query = new StationContentQuery();
+    $query->type('Episode');
+    $query->olderThan($now_minus_twoweeks);
+    $result = $query->execute();
+
+    $episodes = [];
+    if (empty($result)) {
+      return $episodes;
+    }
+
+    foreach ($result['node'] as $item) {
+      $episodes[] = entity_metadata_wrapper('node', $item->nid);
+    }
+
+    return $episodes;
+  }
+
+
   public function cullArchive() {
-    // http://drupal.stackexchange.com/questions/52619/programmatically-deleting-a-filefield-content-and-the-associated-file
-//    $now_minus_twoweeks = strtotime('-2 weeks', time());
-//    $episodes = get_all_episodes_with_recording_type_temporary($now_minus_twoweeks);
-//    foreach ($episodes as $episode) {
-//      $file = $episode->field_audio_files->value();
-//      $episode->field_audio_files->remove();
-//      file_delete($file);
-//      node_save($episode);
-//    }
+    $episodes = $this->getEpisodesToCull();
+    foreach ($episodes as $episode) {
+      foreach ($episode->field_audio_files as $audio_file) {
+        file_delete($audio_file->value());
+      }
+      $episode->field_audio_files->set();
+      $episode->save();
+    }
   }
 
 
