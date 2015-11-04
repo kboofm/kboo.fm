@@ -76,7 +76,12 @@ class RadioStation {
       '/tmp'
     );
 
-    return glob("{$ripdir}/*.mp3");
+    if (!Helpers::endsWith($ripdir, '/')) {
+      $ripdir .= '/';
+    }
+
+    $filenames = glob("{$ripdir}*.mp3");
+    return $filenames;
   }
 
 
@@ -91,6 +96,7 @@ class RadioStation {
         'uri' => $rip_filepath,
         'filemime' => file_get_mimetype($rip_filepath),
         'status' => 1,
+        'display' => 1,
       ];
 
       $destination = variable_get(
@@ -98,9 +104,14 @@ class RadioStation {
         'episode_audio'
       );
 
+      if (!Helpers::endsWith($destination, '/')) {
+        $destination .= '/';
+      }
+
+      $basename = basename($rip_filepath);
       $file = file_move(
         $ripped_file,
-        "public://{$destination}"
+        "public://{$destination}{$basename}"
       );
 
       // http://drupal.stackexchange.com/a/69545
