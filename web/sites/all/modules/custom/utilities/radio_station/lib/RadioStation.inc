@@ -180,11 +180,10 @@ class RadioStation {
       '/usr/bin/streamripper'
     );
 
-    try {
-      $program = $episode->field_produced_for;
-      $program_nid = $program->getIdentifier();
-    } catch (Exception $e) {
-      $program_nid = 'none';
+    $program_nid = 'none';
+    $programs = $episode->field_produced_for;
+    if ($programs && isset($programs[0])) {
+      $program_nid = $programs[0]->getIdentifier();
     }
 
     // start one minute early, end one minute late
@@ -246,7 +245,7 @@ class RadioStation {
    * @throws \Exception
    */
   private function createEpisode(&$schedule_item) {
-    $program = $schedule_item['program'];
+    $program = $schedule_item['timeslot_program'];
     $date = date('m/d/y', $schedule_item['start']);
 
     $node = new stdClass();
