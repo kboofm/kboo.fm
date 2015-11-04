@@ -5,8 +5,8 @@
  */
 function radio_station_cron() {
   $station = new RadioStation();
-//  $episodes = $station->getRippingEpisodes(Streams::One, 5);
-//  $station->scheduleRippingEpisodes($episodes);
+  $episodes = $station->getRippingEpisodes(Streams::One, 5);
+  $station->scheduleRippingEpisodes($episodes);
   $station->attachNewRips();
   $station->cullArchive();
 }
