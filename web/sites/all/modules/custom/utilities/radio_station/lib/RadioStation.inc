@@ -134,8 +134,8 @@ class RadioStation {
       return $episodes;
     }
 
-    foreach ($result['node'] as $item) {
-      $episodes[] = entity_metadata_wrapper('node', $item->nid);
+    foreach ($result['node'] as $nid => $item) {
+      $episodes[] = entity_metadata_wrapper('node', $nid);
     }
 
     return $episodes;
@@ -146,9 +146,10 @@ class RadioStation {
     $episodes = $this->getEpisodesToCull();
     foreach ($episodes as $episode) {
       foreach ($episode->field_audio_files as $audio_file) {
-        file_delete($audio_file->value());
+        $file_object = (object) $audio_file->value();
+        file_delete($file_object);
       }
-      $episode->field_audio_files->set();
+      $episode->field_audio_files->set([]);
       $episode->save();
     }
   }
