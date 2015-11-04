@@ -24,14 +24,14 @@ class RadioStation {
 
 
   /**
-   * Create upcoming upisode nodes
+   * Get upcoming episode nodes, create as needed
    *
    * @param $stream
    * @param $count
    * @return array
    */
-  public function createNextEpisodes($stream, $count) {
-    $schedule = $this->getUpcomingCronSchedule($stream, $count);
+  public function getRippingEpisodes($stream, $count) {
+    $schedule = $this->getRippingSchedule($stream, $count);
 
     foreach ($schedule as &$schedule_item) {
       if ($schedule_item['episode']) {
@@ -45,6 +45,7 @@ class RadioStation {
       $this->createEpisode($schedule_item);
     }
 
+    // get an array of episode nodes
     $episodes = array_map(
       function ($item) {
         return $item['episode'];
@@ -52,6 +53,7 @@ class RadioStation {
       $schedule
     );
 
+    // filter out any null entries
     $episodes = array_filter($episodes);
 
     return $episodes;
@@ -89,17 +91,25 @@ class RadioStation {
 
     $recording_type = $episode->field_episode_record->value();
     $air_time = $episode->field_air_time->value();
-    $ripper = variable_get('radio_station_streamripper', '/usr/bin/streamripper');
     $date = date('ymd.Hi', $air_time['value']);
-//    $program = $episode->field_related_program->value();
-//    $filename = "kboo_episode.{$recording_type}.{$date}.{$program}.mp3";
-    $filename = "kboo_episode.{$recording_type}.{$date}.mp3";
+    $ripper = variable_get(
+      'radio_station_streamripper',
+      '/usr/bin/streamripper'
+    );
+
+    try {
+      $program = $episode->field_produced_for->value();
+      $program_nid = $program->nid;
+    } catch (EntityMetadataWrapperException $e) {
+      $program_nid = 'none';
+    }
 
     // start one minute early, end one minute late
     $padding = 60;
     $start = $air_time['value'] - $padding;
     $length = $air_time['value2'] + $padding - $start;
     $atd_time = date('H:i', $start);
+    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.mp3";
 
     $record_dir = variable_get('radio_station_rip_filepath', '/tmp');
     $stream = variable_get(
@@ -220,7 +230,7 @@ class RadioStation {
    * @param $count
    * @return array
    */
-  private function getUpcomingCronSchedule($stream, $count) {
+  private function getRippingSchedule($stream, $count) {
     $now = time();
     $end = strtotime("+25 hours", $now);
     $schedule = [];
