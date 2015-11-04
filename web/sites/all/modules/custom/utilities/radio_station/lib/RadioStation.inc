@@ -60,30 +60,54 @@ class RadioStation {
   }
 
 
+  private function getEpisodeNidFromRipFilename($ripfile) {
+    // $ripfile format: /path/kboo_episode.2.140320.1130.3501.1.mp3
+    // The last number before .mp3 is the episode nid
+
+    $parts = explode('.', $ripfile);
+    end($parts);
+    return prev($parts);
+  }
+
+
+  private function getRippedFilenames() {
+    $ripdir = variable_get(
+      'radio_station_rip_filepath',
+      '/tmp'
+    );
+
+    return glob("{$ripdir}/*.mp3");
+  }
+
+
   public function attachNewRips() {
-    // http://stackoverflow.com/a/7516912/2407209
-//    $files = get_all_files_in_rip_filepath();
-//    foreach ($files as $filename) {
-//      $episode_nid = get_episode_nid_from_filename($filename);
-//      $episode = load_episode($episode_nid);
-//
-//      // Create managed File object
-//      $ripped_file = (object) array(
-//        'uid' => 1,
-//        'uri' => $filename,
-//        'filemime' => file_get_mimetype($filename),
-//        'status' => 1,
-//      );
-//
-//      $destination = variable_get('rip_destination', '');
-//      $file = file_move(
-//        $ripped_file,
-//        "public://{$destination}"
-//      );
-//
-//      $episode->field_audio_files = add_file($file);
-//      node_save($episode);
-//    }
+    foreach ($this->getRippedFilenames() as $rip_filepath) {
+      $episode_nid = $this->getEpisodeNidFromRipFilename($rip_filepath);
+      $wrapped_episode = entity_metadata_wrapper('node', $episode_nid);
+
+      // http://stackoverflow.com/a/5141484/2407209
+      $ripped_file = (object) [
+        'uid' => 1,
+        'uri' => $rip_filepath,
+        'filemime' => file_get_mimetype($rip_filepath),
+        'status' => 1,
+      ];
+
+      $destination = variable_get(
+        'radio_station_rip_destination',
+        'episode_audio'
+      );
+
+      $file = file_move(
+        $ripped_file,
+        "public://{$destination}"
+      );
+
+      // http://drupal.stackexchange.com/a/69545
+      $file_wrapper = [(array)$file];
+      $wrapped_episode->field_audio_files->set($file_wrapper);
+      $wrapped_episode->save();
+    }
   }
 
 
@@ -151,14 +175,14 @@ class RadioStation {
     $atd_time = date('H:i', $start);
     $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode->nid}.mp3";
 
-    $record_dir = variable_get('radio_station_rip_filepath', '/tmp');
+    $ripdir = variable_get('radio_station_rip_filepath', '/tmp');
     $stream = variable_get(
       'radio_station_rip_stream',
       'http://listen.kboo.fm:8000/high.m3u'
     );
 
     $directory_accessible = file_prepare_directory(
-      $record_dir,
+      $ripdir,
       $mode = FILE_CREATE_DIRECTORY
     );
 
@@ -175,8 +199,8 @@ class RadioStation {
     }
 
     $command = "$ripper {$stream}";
-    $command .= "-l {$length} -A -a {$filename} -q -s -d {$record_dir} --quiet";
-    $command .= "; rm {$record_dir}/{$filename}.cue";
+    $command .= "-l {$length} -A -a {$filename} -q -s -d {$ripdir} --quiet";
+    $command .= "; rm {$ripdir}/{$filename}.cue";
     $command = "echo \"{$command}\" | at {$atd_time}";
     shell_exec($command);
 
