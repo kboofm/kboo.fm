@@ -60,6 +60,46 @@ class RadioStation {
   }
 
 
+  public function attachNewRips() {
+    // http://stackoverflow.com/a/7516912/2407209
+//    $files = get_all_files_in_rip_filepath();
+//    foreach ($files as $filename) {
+//      $episode_nid = get_episode_nid_from_filename($filename);
+//      $episode = load_episode($episode_nid);
+//
+//      // Create managed File object
+//      $ripped_file = (object) array(
+//        'uid' => 1,
+//        'uri' => $filename,
+//        'filemime' => file_get_mimetype($filename),
+//        'status' => 1,
+//      );
+//
+//      $destination = variable_get('rip_destination', '');
+//      $file = file_move(
+//        $ripped_file,
+//        "public://{$destination}"
+//      );
+//
+//      $episode->field_audio_files = add_file($file);
+//      node_save($episode);
+//    }
+  }
+
+
+  public function cullArchive() {
+    // http://drupal.stackexchange.com/questions/52619/programmatically-deleting-a-filefield-content-and-the-associated-file
+//    $now_minus_twoweeks = strtotime('-2 weeks', time());
+//    $episodes = get_all_episodes_with_recording_type_temporary($now_minus_twoweeks);
+//    foreach ($episodes as $episode) {
+//      $file = $episode->field_audio_files->value();
+//      $episode->field_audio_files->remove();
+//      file_delete($file);
+//      node_save($episode);
+//    }
+  }
+
+
   public function scheduleRippingEpisodes($episodes) {
     foreach ($episodes as $episode) {
       $air_time = $episode->field_air_time->value();
@@ -109,7 +149,7 @@ class RadioStation {
     $start = $air_time['value'] - $padding;
     $length = $air_time['value2'] + $padding - $start;
     $atd_time = date('H:i', $start);
-    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.mp3";
+    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode->nid}.mp3";
 
     $record_dir = variable_get('radio_station_rip_filepath', '/tmp');
     $stream = variable_get(
