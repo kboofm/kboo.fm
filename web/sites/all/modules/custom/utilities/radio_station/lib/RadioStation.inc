@@ -31,7 +31,7 @@ class RadioStation {
    * @return array
    */
   public function createNextEpisodes($stream, $count) {
-    $schedule = $this->getUpcomingSchedule($stream, $count);
+    $schedule = $this->getUpcomingCronSchedule($stream, $count);
 
     foreach ($schedule as &$schedule_item) {
       if ($schedule_item['episode']) {
@@ -60,9 +60,9 @@ class RadioStation {
 
   public function scheduleRippingEpisodes($episodes) {
     foreach ($episodes as $episode) {
-      $start = $episode->field_air_time->value();
+      $air_time = $episode->field_air_time->value();
 
-      if (!$this->withinAnHour($start)) {
+      if (!$this->withinAnHour($air_time['value'])) {
         continue;
       }
 
@@ -77,6 +77,64 @@ class RadioStation {
 
 
   private function queueEpisodeRip($episode) {
+    /* StreamRipper options
+      -l : length in seconds
+      -a filename : rip to single file; timestamp if no filename
+      -A don't write individual tracks
+      -q : add sequence number
+      -s : don't create stream dir
+      -d directory : destination dir
+      --quiet : no output
+    */
+
+    $recording_type = $episode->field_episode_record->value();
+    $air_time = $episode->field_air_time->value();
+    $ripper = variable_get('radio_station_streamripper', '/usr/bin/streamripper');
+    $date = date('ymd.Hi', $air_time['value']);
+//    $program = $episode->field_related_program->value();
+//    $filename = "kboo_episode.{$recording_type}.{$date}.{$program}.mp3";
+    $filename = "kboo_episode.{$recording_type}.{$date}.mp3";
+
+    // start one minute early, end one minute late
+    $padding = 60;
+    $start = $air_time['value'] - $padding;
+    $length = $air_time['value2'] + $padding - $start;
+    $atd_time = date('H:i', $start);
+
+    $record_dir = variable_get('radio_station_rip_filepath', '/tmp');
+    $stream = variable_get(
+      'radio_station_rip_stream',
+      'http://listen.kboo.fm:8000/high.m3u'
+    );
+
+    $directory_accessible = file_prepare_directory(
+      $record_dir,
+      $mode = FILE_CREATE_DIRECTORY
+    );
+
+    if (!$directory_accessible) {
+      return;
+    }
+
+    $temporary = ($recording_type == ArchiveTypes::TEMPORARY);
+    $rip_length = (5 * 3600) + ($padding * 2);
+    $length_check = ($length < $rip_length);
+
+    if ($temporary && $length_check) {
+      $length = $rip_length;
+    }
+
+    $command = "$ripper {$stream}";
+    $command .= "-l {$length} -A -a {$filename} -q -s -d {$record_dir} --quiet";
+    $command .= "; rm {$record_dir}/{$filename}.cue";
+    $command = "echo \"{$command}\" | at {$atd_time}";
+    shell_exec($command);
+
+    watchdog(
+      "radio_station",
+      "Executed: {$command}",
+      WATCHDOG_INFO
+    );
   }
 
 
@@ -162,16 +220,17 @@ class RadioStation {
    * @param $count
    * @return array
    */
-  private function getUpcomingSchedule($stream, $count) {
+  private function getUpcomingCronSchedule($stream, $count) {
     $now = time();
+    $end = strtotime("+25 hours", $now);
     $schedule = [];
 
     $query = new ScheduledTimeslotQuery();
-    $query->getNext($stream, $count);
+    $query->getRange($stream, $now, $end);
     $result = $query->execute();
 
     if (empty($result)) {
-      return [];
+      return $schedule;
     }
 
     foreach ($result['node'] as $nid => $item) {
@@ -217,8 +276,7 @@ class RadioStation {
     }
 
     $item = reset($result['node']);
-    $wrapped = entity_metadata_wrapper('node', $item->nid);
-    return $wrapped;
+    return entity_metadata_wrapper('node', $item->nid);
   }
 
 
