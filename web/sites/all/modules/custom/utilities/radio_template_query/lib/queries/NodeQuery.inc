@@ -55,6 +55,17 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
+  public function hasAudio() {
+    $subquery = db_select('field_data_field_audio_files', 'f');
+    $subquery->distinct();
+    $subquery->addField('f', 'entity_id');
+    $subquery->condition('f.deleted', '0', '=');
+    $subquery->condition('f.field_audio_files_fid', 'NULL', 'IS NOT');
+
+    $this->entityCondition('entity_id', $subquery, 'IN');
+  }
+
+
   protected function sortByPromotedSticky() {
     $this->propertyOrderBy('promote', 'DESC');
     $this->propertyOrderBy('sticky', 'DESC');

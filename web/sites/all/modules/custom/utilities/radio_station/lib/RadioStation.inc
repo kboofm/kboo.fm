@@ -127,6 +127,7 @@ class RadioStation {
     $query = new StationContentQuery();
     $query->type('Episode');
     $query->olderThan($now_minus_twoweeks);
+    $query->hasAudio();
     $result = $query->execute();
 
     $episodes = [];
