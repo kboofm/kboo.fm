@@ -1,0 +1,14 @@
+name = Migration
+description = KBOO migration dependencies
+core = 7.x
+package = Dependencies
+version = 7.x-1.0
+project = migration_dependencies
+
+dependencies[] = migrate
+dependencies[] = migrate_d2d
+dependencies[] = migrate_d2d_ui
+dependencies[] = migrate_ui
+dependencies[] = kboo_d6_migration
+
+features[features_api][] = api:2
