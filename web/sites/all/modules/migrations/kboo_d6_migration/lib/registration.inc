@@ -12,5 +12,6 @@ class KBOOMigrationRegistration {
     UserPictureRegistration::register();
     RoleRegistration::register();
     UserRegistration::register();
+    FileRegistration::register();
   }
 }
