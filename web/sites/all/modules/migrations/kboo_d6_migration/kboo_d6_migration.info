@@ -14,3 +14,5 @@ files[] = lib/registrations/role.inc
 files[] = lib/registrations/user.inc
 files[] = lib/registrations/user-picture.inc
 files[] = lib/registration.inc
+
+files[] = lib/core/UserMigration.inc

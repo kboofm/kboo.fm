@@ -14,7 +14,7 @@ class UserRegistration extends BaseRegistration {
     $this->custom_args = [
       'group_name' => 'Core',
       'description' => t('Migration of users from Drupal 6'),
-      'class_name' => 'DrupalUser6Migration',
+      'class_name' => 'UserMigration',
       'machine_name' => 'User',
       'picture_migration' => 'UserPicture',
       'role_migration' => 'Role',
