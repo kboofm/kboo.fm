@@ -18,7 +18,7 @@ class FileRegistration extends BaseRegistration {
       'description' => t('Import Drupal 6 files'),
       'user_migration' => 'User',
       'default_uid' => 1,
-      'source_dir' => 'http://www.kboo.fm',
+      'source_dir' => 'http://backup.kboo.fm',
       'destination_dir' => 'public://',
       'dependencies' => [
         'User',

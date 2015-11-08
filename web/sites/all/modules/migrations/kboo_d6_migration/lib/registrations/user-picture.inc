@@ -17,7 +17,7 @@ class UserPictureRegistration extends BaseRegistration {
       'class_name' => 'DrupalPicture6Migration',
       'machine_name' => 'UserPicture',
       'default_uid' => 1,
-      'source_dir' => 'http://www.kboo.fm',
+      'source_dir' => 'http://backup.kboo.fm',
       'destination_dir' => 'public://',
     ];
   }
