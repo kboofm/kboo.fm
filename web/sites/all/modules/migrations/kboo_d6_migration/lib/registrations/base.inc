@@ -10,8 +10,10 @@ abstract class BaseRegistration {
 
   /**
    * Constructor
+   *
+   * @param $info
    */
-  public function __construct() {
+  public function __construct($info) {
     $this->defineCommonArguments();
   }
 
@@ -49,10 +51,11 @@ abstract class BaseRegistration {
    *
    * Instantiate object and execute registration
    *
+   * @param $info
    */
-  public static function register() {
+  public static function register($info) {
     $class = get_called_class();
-    $object = new $class();
+    $object = new $class($info);
     $object->execute();
   }
 }
