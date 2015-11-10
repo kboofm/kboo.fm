@@ -1,0 +1,30 @@
+<?php
+
+/**
+ * @file kboo_d6_migration.module
+ */
+
+/**
+ * Implements hook_migrate_api().
+ * Sets the API to the most up-to-date version
+ */
+function kboo_d6_migration_migrate_api() {
+  $api = array(
+    'api' => 2,
+    'groups' => array(
+      'Core' => array(
+        'title' => t('Core migrations'),
+      ),
+    ),
+
+  );
+  return $api;
+}
+
+/**
+ * Implements hook_flush_caches().
+ * Register migrations on cache clear
+ */
+function kboo_d6_migration_flush_caches() {
+  KBOOMigrationRegistration::register();
+}
