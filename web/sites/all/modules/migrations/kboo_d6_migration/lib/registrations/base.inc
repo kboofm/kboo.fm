@@ -13,7 +13,7 @@ abstract class BaseRegistration {
    *
    * @param $info
    */
-  public function __construct($info) {
+  public function __construct($info = NULL) {
     $this->defineCommonArguments();
   }
 

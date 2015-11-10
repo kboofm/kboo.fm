@@ -13,5 +13,17 @@ class KBOOMigrationRegistration {
     RoleRegistration::register();
     UserRegistration::register();
     FileRegistration::register();
+
+//    foreach (TaxonomyRegistration::getMap() as $info) {
+//      TaxonomyRegistration::register($info);
+//    }
+
+    foreach (NodeRegistration::getMap() as $info) {
+      NodeRegistration::register($info);
+    }
+
+//    foreach (CommentRegistration::getMap() as $info) {
+//      CommentRegistration::register($info);
+//    }
   }
 }

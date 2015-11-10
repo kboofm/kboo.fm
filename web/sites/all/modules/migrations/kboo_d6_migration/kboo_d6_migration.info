@@ -15,4 +15,7 @@ files[] = lib/registrations/user.inc
 files[] = lib/registrations/user-picture.inc
 files[] = lib/registration.inc
 
+files[] = lib/core/NodeMigration.inc
 files[] = lib/core/UserMigration.inc
+
+files[] = lib/content_types/station_content__audio.inc
