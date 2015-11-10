@@ -18,5 +18,6 @@ files[] = lib/registration.inc
 files[] = lib/core/NodeMigration.inc
 files[] = lib/core/UserMigration.inc
 
+files[] = lib/content_types/program__kboo_program.inc
 files[] = lib/content_types/station_content__audio.inc
 files[] = lib/content_types/station_content__schedule_episode.inc
