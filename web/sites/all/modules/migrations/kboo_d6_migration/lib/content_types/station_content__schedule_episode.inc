@@ -22,9 +22,10 @@ class StationContentFromScheduleEpisode extends NodeMigration {
       'Program_from_KbooProgram'
     );
 
-    $this->addRepeatingDateMapping(
+    $this->addDateMapping(
       'field_air_time',
-      'field_schedule_date'
+      'field_schedule_date',
+      TRUE
     );
 
     $this->addFieldMapping(
