@@ -22,6 +22,11 @@ class NodeMigration extends DrupalNode6Migration {
     $this->addDependency('File');
 
     $this->addFieldMapping(
+      'field_d6_nid',
+      'nid'
+    );
+
+    $this->addFieldMapping(
       'title_field',
       NULL
     );
