@@ -2,9 +2,9 @@
 
 
 /**
- * Migrates D7 basic_page from D6 page.
+ * Migrates D7 blog_post from D6 blog.
  */
-class BasicPageFromPage extends NodeImageMigration {
+class BlogPostFromBlog extends NodeImageMigration {
 
   /**
    * Constructor
@@ -12,6 +12,11 @@ class BasicPageFromPage extends NodeImageMigration {
    * @param array $arguments
    */
   public function __construct(array $arguments) {
+    $this->addFieldMapping(
+      'field_short_description',
+      'field_short_description'
+    );
+
     $this->addTaxonomyMapping(
       'field_genres',
       2, // D6: Music genres
@@ -21,6 +26,12 @@ class BasicPageFromPage extends NodeImageMigration {
     $this->addTaxonomyMapping(
       'field_topic_tags',
       5, // D6: Public affairs topics
+      'Taxonomy__topics_from_5'
+    );
+
+    $this->addTaxonomyMapping(
+      'field_topic_tags',
+      12, // D6: Blogs
       'Taxonomy__topics_from_5'
     );
 
