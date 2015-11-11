@@ -42,6 +42,11 @@ class StationContentFromScheduleEpisode extends NodeMigration {
       'field_node_image'
     );
 
+    $this->addFieldMapping(
+      'field_station_content_type',
+      'station_content_type'
+    );
+
     parent::__construct($arguments);
   }
 
@@ -57,6 +62,16 @@ class StationContentFromScheduleEpisode extends NodeMigration {
       return FALSE;
     }
 
+    static $term;
+    if (!$term) {
+      $terms = taxonomy_get_term_by_name(
+        $this->profile_type_taxonomy_name,
+        'profile_types'
+      );
+      $term = reset($terms);
+    }
+
+    $row->station_content_type = $term->tid;
     $row->lead_image = array_shift($row->field_node_image);
     return TRUE;
   }
