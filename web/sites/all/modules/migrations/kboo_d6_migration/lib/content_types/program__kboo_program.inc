@@ -4,7 +4,7 @@
 /**
  * Migrates D7 program from D6 kboo_program.
  */
-class ProgramFromKbooProgram extends NodeMigration {
+class ProgramFromKbooProgram extends NodeImageMigration {
 
   /**
    * Constructor
@@ -32,37 +32,11 @@ class ProgramFromKbooProgram extends NodeMigration {
       'field_kboo_program_link'
     );
 
-    $this->addImageMapping(
-      'field_lead_image',
-      'lead_image'
-    );
-
-    $this->addImageMapping(
-      'field_more_images',
-      'field_node_image'
-    );
-
     $this->addFieldMapping(
       'field_episode_record',
       'field_episode_record'
     );
 
     parent::__construct($arguments);
-  }
-
-
-  /**
-   * Prepare the source row
-   *
-   * @param $row
-   * @return bool
-   */
-  public function prepareRow($row) {
-    if (parent::prepareRow($row) === FALSE) {
-      return FALSE;
-    }
-
-    $row->lead_image = array_shift($row->field_node_image);
-    return TRUE;
   }
 }

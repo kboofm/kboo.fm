@@ -4,7 +4,7 @@
 /**
  * Migrates D7 station_content from D6 schedule_episode.
  */
-class StationContentFromScheduleEpisode extends NodeMigration {
+class StationContentFromScheduleEpisode extends NodeImageMigration {
 
   /**
    * Constructor
@@ -31,16 +31,6 @@ class StationContentFromScheduleEpisode extends NodeMigration {
     $this->addFieldMapping(
       'field_short_description',
       'field_short_description'
-    );
-
-    $this->addImageMapping(
-      'field_lead_image',
-      'lead_image'
-    );
-
-    $this->addImageMapping(
-      'field_more_images',
-      'field_node_image'
     );
 
     $this->addFieldMapping(
@@ -73,7 +63,6 @@ class StationContentFromScheduleEpisode extends NodeMigration {
     }
 
     $row->station_content_type = $term->tid;
-    $row->lead_image = array_shift($row->field_node_image);
     return TRUE;
   }
 }
