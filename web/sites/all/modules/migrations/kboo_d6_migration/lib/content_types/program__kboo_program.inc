@@ -13,13 +13,13 @@ class ProgramFromKbooProgram extends NodeMigration {
    */
   public function __construct(array $arguments) {
     $this->addDependencies([
-      'PersonProfile_from_UserProfile',
+      'UserProfileMigration',
     ]);
 
     $this->addReferenceMapping(
       'field_hosted_by',
       'field_program_host',
-      'PersonProfile_from_UserProfile'
+      'UserProfileMigration'
     );
 
     $this->addFieldMapping(
