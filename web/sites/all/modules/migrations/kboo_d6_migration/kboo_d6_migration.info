@@ -24,6 +24,7 @@ files[] = lib/core/UserProfileMigration.inc
 
 files[] = lib/content_types/basic_page__page.inc
 files[] = lib/content_types/blog_post__blog.inc
+files[] = lib/content_types/book__book.inc
 files[] = lib/content_types/organization__sponsor.inc
 files[] = lib/content_types/program__kboo_program.inc
 files[] = lib/content_types/station_content__audio.inc
