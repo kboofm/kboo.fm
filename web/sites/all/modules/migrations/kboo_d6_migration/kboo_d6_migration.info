@@ -10,6 +10,7 @@ dependencies[] = migrate_d2d
 files[] = lib/settings/source.inc
 files[] = lib/registrations/base.inc
 files[] = lib/registrations/file.inc
+files[] = lib/registrations/node.inc
 files[] = lib/registrations/role.inc
 files[] = lib/registrations/taxonomy.inc
 files[] = lib/registrations/user.inc

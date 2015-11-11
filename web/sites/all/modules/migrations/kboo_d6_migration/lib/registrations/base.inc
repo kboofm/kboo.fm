@@ -53,7 +53,7 @@ abstract class BaseRegistration {
    *
    * @param $info
    */
-  public static function register($info) {
+  public static function register($info = NULL) {
     $class = get_called_class();
     $object = new $class($info);
     $object->execute();
