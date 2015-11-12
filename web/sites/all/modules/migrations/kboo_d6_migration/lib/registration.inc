@@ -23,8 +23,8 @@ class KBOOMigrationRegistration {
       NodeRegistration::register($info);
     }
 
-//    foreach (CommentRegistration::getMap() as $info) {
-//      CommentRegistration::register($info);
-//    }
+    foreach (CommentRegistration::getMap() as $info) {
+      CommentRegistration::register($info);
+    }
   }
 }
