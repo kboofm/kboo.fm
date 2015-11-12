@@ -14,7 +14,7 @@ class UserProfileRegistration extends BaseRegistration {
     $this->custom_args = [
       'group_name' => 'Core',
       'description' => t('Migration of user profiles from Drupal 6'),
-      'class_name' => 'UserProfileMIgration',
+      'class_name' => 'UserProfileMigration',
       'machine_name' => 'UserProfile',
       'dependencies' => [
         'User',
