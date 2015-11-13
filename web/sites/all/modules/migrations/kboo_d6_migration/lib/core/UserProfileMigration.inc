@@ -29,8 +29,8 @@ class UserProfileMigration extends Migration {
       'value',
     ];
 
-    $query = Database::getConnection('default', 'legacy');
-    $query->select('profile_values', 'pv');
+    $connection = Database::getConnection('default', 'legacy');
+    $query = $connection->select('profile_values', 'pv');
     $query->join('users', 'u', 'u.uid = pv.uid');
     $query->condition('u.status', 1, '=');
     $query->fields('pv', $fields);
