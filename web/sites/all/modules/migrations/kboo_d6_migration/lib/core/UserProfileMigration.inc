@@ -1,8 +1,8 @@
 <?php
 
 class UserProfileMigration extends Migration {
-  public function __construct() {
-    parent::__construct();
+  public function __construct(array $arguments) {
+    parent::__construct($arguments);
     $query = $this->buildQuery();
     $this->source = new MigrateSourceSQL($query);
     $this->source->setMapJoinable(false);
