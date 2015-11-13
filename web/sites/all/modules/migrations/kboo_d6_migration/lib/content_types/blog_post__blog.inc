@@ -29,11 +29,11 @@ class BlogPostFromBlog extends NodeImageMigration {
       'Taxonomy__topics_from_5'
     );
 
-    $this->addTaxonomyMapping(
-      'field_topic_tags',
-      12, // D6: Blogs
-      'Taxonomy__topics_from_5'
-    );
+//    $this->addTaxonomyMapping(
+//      'field_topic_tags',
+//      12, // D6: Blogs
+//      'Taxonomy__topics_from_5'
+//    );
 
     parent::__construct($arguments);
   }
