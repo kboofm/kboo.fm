@@ -36,6 +36,25 @@ class RoleRegistration extends BaseRegistration {
 
       'authenticated user' =>
         'authenticated user',
+
+      'administrator' =>
+        'Admin - Site Administrator',
+
+      'author - page' =>
+        'Author - Page',
+
+      'author - program' =>
+        'Author - Program',
+
+      'staff member' =>
+        'Staff',
+
+      # The following D6 roles are not to be migrated
+      'author - Community Events' => NULL,
+      'block editor' => NULL,
+      'committee member' => NULL,
+      'Menu Editor' => NULL,
+      'webform editor' => NULL,
     ];
   }
 }
