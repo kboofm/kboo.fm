@@ -28,7 +28,7 @@ class TaxonomyRegistration extends BaseRegistration {
       'class_name' => 'DrupalTerm6Migration',
       'source_vocabulary' => $src,
       'destination_vocabulary' => $dest,
-      'machine_name' => "Taxonomy__{$dest}_from_{$src}",
+      'machine_name' => "Vocabulary__{$dest}_from_{$src}",
       'description' => t("Migration of {$dest} vocabulary from D6 vid {$src}"),
     ];
   }
