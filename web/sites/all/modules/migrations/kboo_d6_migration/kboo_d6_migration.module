@@ -21,6 +21,9 @@ function kboo_d6_migration_migrate_api() {
       'Core' => array(
         'title' => t('Core migrations'),
       ),
+      'Taxonomy' => array(
+        'title' => t('Taxonomy migrations'),
+      ),
     ),
 
   );
