@@ -9,21 +9,24 @@
  * Sets the API to the most up-to-date version
  */
 function kboo_d6_migration_migrate_api() {
-  $api = array(
+  $api = [
     'api' => 2,
-    'groups' => array(
-      'Comments' => array(
-        'title' => t('Comment migrations'),
-      ),
-      'Content Types' => array(
-        'title' => t('Content type migrations')
-      ),
-      'Core' => array(
-        'title' => t('Core migrations'),
-      ),
-    ),
+    'groups' => [
+      'Comments' => [
+        'title' => 'Comments',
+      ],
+      'Content Types' => [
+        'title' => 'Content types',
+      ],
+      'Core' => [
+        'title' => 'Core',
+      ],
+      'Taxonomy' => [
+        'title' => 'Taxonomy',
+      ],
+    ],
 
-  );
+  ];
   return $api;
 }
 
