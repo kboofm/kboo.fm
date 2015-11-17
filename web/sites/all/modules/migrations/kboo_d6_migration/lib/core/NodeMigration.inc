@@ -85,6 +85,8 @@ class NodeMigration extends DrupalNode6Migration {
       return FALSE;
     }
 
+    // Set all rows to 'undefined' language
+    $row->language = "";
     $row->title_field = $row->title;
     return TRUE;
   }
