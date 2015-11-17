@@ -29,12 +29,34 @@ class BlogPostFromBlog extends NodeImageMigration {
       'Vocabulary__topics_from_5'
     );
 
-//    $this->addTaxonomyMapping(
-//      'field_topic_tags',
-//      12, // D6: Blogs
-//      'Vocabulary__topics_from_5'
-//    );
+    $this->addTaxonomyMapping(
+      'blog_tags',
+      12, // D6: Blogs
+      'Vocabulary__topics_from_12'
+    );
+
+    $this->source_nids = [
+      20771,
+    ];
 
     parent::__construct($arguments);
+  }
+
+
+  /**
+   * Prepare the destination node
+   *
+   * @param $node
+   * @param $row
+   */
+  public function prepare($node, $row) {
+    if (isset($node->blog_tags)) {
+      foreach ($node->blog_tags as $tid) {
+        if (!is_numeric($tid)) {
+          continue;
+        }
+        $node->field_topic_tags['und'][]['tid'] = $tid;
+      }
+    }
   }
 }
