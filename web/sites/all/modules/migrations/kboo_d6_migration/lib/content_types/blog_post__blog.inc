@@ -35,10 +35,6 @@ class BlogPostFromBlog extends NodeImageMigration {
       'Vocabulary__topics_from_12'
     );
 
-    $this->source_nids = [
-      20771,
-    ];
-
     parent::__construct($arguments);
   }
 
