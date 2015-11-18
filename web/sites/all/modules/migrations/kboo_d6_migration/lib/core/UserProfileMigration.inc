@@ -45,10 +45,16 @@ class UserProfileMigration extends Migration {
 
 
   protected function buildQuery() {
+    $role_fields = [
+        'fid',
+        'uid',
+    ];
+
     $connection = Database::getConnection('default', 'legacy');
     $query = $connection->select('profile_values', 'pv');
     $query->distinct();
     $query->addField('u', 'name');
+    $query->fields('pv', $role_fields);
     $query->join('users', 'u', 'u.uid = pv.uid');
     $query->condition('u.status', 1, '=');
     $query->condition('u.uid', 0, '>');
