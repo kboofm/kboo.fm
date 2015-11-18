@@ -12,15 +12,15 @@ class ProgramFromKbooProgram extends NodeImageMigration {
    * @param array $arguments
    */
   public function __construct(array $arguments) {
-//    $this->addDependencies([
-//      'UserProfileMigration',
-//    ]);
+    $this->addDependencies([
+      'UserProfileMigration',
+    ]);
 
-//    $this->addReferenceMapping(
-//      'field_hosted_by',
-//      'field_program_host',
-//      'UserProfileMigration'
-//    );
+    $this->addReferenceMapping(
+      'field_hosted_by',
+      'field_program_host',
+      'UserProfileMigration'
+    );
 
     $this->addFieldMapping(
       'field_short_description',

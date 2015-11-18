@@ -27,7 +27,20 @@ class UserProfileMigration extends Migration {
 
 
   protected function mapFields() {
-    $this->addFieldMapping('title', 'title');
+    $this->addFieldMapping(
+      'title',
+      'title'
+    );
+
+    $this->addFieldMapping(
+      'title_field',
+      NULL
+    );
+
+    $this->addFieldMapping(
+      'field_profile_type',
+      'profile_type'
+    );
   }
 
 
@@ -44,7 +57,10 @@ class UserProfileMigration extends Migration {
     $query->condition('u.status', 1, '=');
     $query->condition('u.uid', 0, '>');
 
-    // Query if show host
+    // Ensure user is a show host
+    $role_id = 12; // "author - program"
+    $query->join('users_roles', 'ur', 'u.uid = ur.uid');
+    $query->condition('ur.rid', $role_id, '=');
 
     $query->fields('pv', $fields);
     return $query;
@@ -64,5 +80,31 @@ class UserProfileMigration extends Migration {
         'not null' => TRUE,
       ],
     ];
+  }
+
+
+  /**
+   * Prepare the source row
+   *
+   * @param $row
+   * @return bool
+   */
+  public function prepareRow($row) {
+    if (parent::prepareRow($row) === FALSE) {
+      return FALSE;
+    }
+
+    static $term;
+    if (!$term) {
+      $terms = taxonomy_get_term_by_name(
+        'Show Host',
+        'profile_types'
+      );
+      $term = reset($terms);
+    }
+
+    $row->profile_type = $term->tid;
+    $row->title_field = $row->title;
+    return TRUE;
   }
 }
