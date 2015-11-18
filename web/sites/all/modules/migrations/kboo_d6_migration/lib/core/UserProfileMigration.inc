@@ -29,7 +29,7 @@ class UserProfileMigration extends Migration {
   protected function mapFields() {
     $this->addFieldMapping(
       'title',
-      'title'
+      'name'
     );
 
     $this->addFieldMapping(
@@ -45,14 +45,10 @@ class UserProfileMigration extends Migration {
 
 
   protected function buildQuery() {
-    $fields = [
-      'fid',
-      'uid',
-      'value',
-    ];
-
     $connection = Database::getConnection('default', 'legacy');
     $query = $connection->select('profile_values', 'pv');
+    $query->distinct();
+    $query->addField('u', 'name');
     $query->join('users', 'u', 'u.uid = pv.uid');
     $query->condition('u.status', 1, '=');
     $query->condition('u.uid', 0, '>');
@@ -61,8 +57,6 @@ class UserProfileMigration extends Migration {
     $role_id = 12; // "author - program"
     $query->join('users_roles', 'ur', 'u.uid = ur.uid');
     $query->condition('ur.rid', $role_id, '=');
-
-    $query->fields('pv', $fields);
     return $query;
   }
 
@@ -104,7 +98,7 @@ class UserProfileMigration extends Migration {
     }
 
     $row->profile_type = $term->tid;
-    $row->title_field = $row->title;
+    $row->title_field = $row->name;
     return TRUE;
   }
 }

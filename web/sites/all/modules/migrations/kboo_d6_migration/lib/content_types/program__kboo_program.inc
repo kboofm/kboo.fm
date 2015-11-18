@@ -13,7 +13,7 @@ class ProgramFromKbooProgram extends NodeImageMigration {
    */
   public function __construct(array $arguments) {
     $this->addDependencies([
-      'UserProfileMigration',
+      'UserProfile',
     ]);
 
     $this->addReferenceMapping(
