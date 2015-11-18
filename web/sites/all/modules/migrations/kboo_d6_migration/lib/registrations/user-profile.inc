@@ -12,7 +12,7 @@ class UserProfileRegistration extends BaseRegistration {
     parent::__construct();
 
     $this->custom_args = [
-      'group_name' => 'Core',
+      'group_name' => 'Profiles',
       'description' => t('Migration of user profiles from Drupal 6'),
       'class_name' => 'UserProfileMigration',
       'machine_name' => 'UserProfile',

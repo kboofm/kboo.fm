@@ -15,12 +15,19 @@ function kboo_d6_migration_migrate_api() {
       'Comments' => [
         'title' => 'Comments',
       ],
+
       'Content Types' => [
         'title' => 'Content types',
       ],
+
       'Core' => [
         'title' => 'Core',
       ],
+
+      'Profiles' => [
+        'title' => 'Profiles',
+      ],
+
       'Taxonomy' => [
         'title' => 'Taxonomy',
       ],

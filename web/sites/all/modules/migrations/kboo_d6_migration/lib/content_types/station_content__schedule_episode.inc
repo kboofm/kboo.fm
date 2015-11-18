@@ -56,8 +56,8 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
     static $term;
     if (!$term) {
       $terms = taxonomy_get_term_by_name(
-        $this->profile_type_taxonomy_name,
-        'profile_types'
+        'Episode',
+        'station_content_types'
       );
       $term = reset($terms);
     }
