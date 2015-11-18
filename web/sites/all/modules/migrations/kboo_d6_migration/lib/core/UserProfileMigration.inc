@@ -3,6 +3,12 @@
 class UserProfileMigration extends Migration {
   public function __construct(array $arguments) {
     parent::__construct($arguments);
+    $this->defineMigration();
+    $this->mapFields();
+  }
+
+
+  protected function defineMigration() {
     $query = $this->buildQuery();
     $this->source = new MigrateSourceSQL($query);
     $this->source->setMapJoinable(false);
@@ -17,7 +23,10 @@ class UserProfileMigration extends Migration {
       $this->getSourceKey(),
       MigrateDestinationNode::getKeySchema()
     );
+  }
 
+
+  protected function mapFields() {
     $this->addFieldMapping('title', 'title');
   }
 
@@ -33,6 +42,10 @@ class UserProfileMigration extends Migration {
     $query = $connection->select('profile_values', 'pv');
     $query->join('users', 'u', 'u.uid = pv.uid');
     $query->condition('u.status', 1, '=');
+    $query->condition('u.uid', 0, '>');
+
+    // Query if show host
+
     $query->fields('pv', $fields);
     return $query;
   }
