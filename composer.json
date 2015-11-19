@@ -28,7 +28,7 @@
     "drupal/captcha": "7.1.*",
     "drupal/cdn": "7.2.*",
     "drupal/content_access": "7.1.*",
-    "drupal/ckeditor": "7.1.x-dev",
+    "drupal/ckeditor": "7.1.*",
     "drupal/ctools": "7.1.*",
     "drupal/date": "7.2.*",
     "drupal/diff": "7.3.*",
