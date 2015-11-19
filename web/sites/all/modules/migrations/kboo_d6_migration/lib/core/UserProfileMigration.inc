@@ -42,6 +42,11 @@ class UserProfileMigration extends Migration {
     );
 
     $this->addFieldMapping(
+      'body',
+      'body'
+    );
+
+    $this->addFieldMapping(
       'field_profile_type',
       'profile_type'
     );
@@ -49,19 +54,26 @@ class UserProfileMigration extends Migration {
 
 
   protected function buildQuery() {
-   $profile_values_fields = [
-        'fid',
-        'uid',
+   $user_fields = [
+     'uid',
+     'name',
     ];
 
     $connection = Database::getConnection('default', 'legacy');
-    $query = $connection->select('profile_values', 'pv');
-    $query->addField('u', 'name');
-    $query->fields('pv', $profile_values_fields);
-    $query->join('users', 'u', 'u.uid = pv.uid');
+
+    // Active users, excluding anonymous
+    $query = $connection->select('users', 'u');
+    $query->fields('u', $user_fields);
     $query->condition('u.status', 1, '=');
     $query->condition('u.uid', 0, '>');
-    $query->condition('pv.fid', 1, '=');
+
+    // Get profile body value
+    $query->leftJoin(
+      'profile_values',
+      'pv',
+      'pv.uid = u.uid AND pv.fid = 14'
+    );
+    $query->addField('pv', 'value', 'body');
 
     // Ensure user is a show host
     $role_id = 12; // "author - program"
@@ -73,11 +85,6 @@ class UserProfileMigration extends Migration {
 
   protected function getSourceKey() {
     return [
-      'fid' => [
-        'type' => 'int',
-        'unsigned' => TRUE,
-        'not null' => TRUE,
-      ],
       'uid' => [
         'type' => 'int',
         'unsigned' => TRUE,
