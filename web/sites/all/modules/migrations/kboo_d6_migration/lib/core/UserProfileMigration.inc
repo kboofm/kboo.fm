@@ -17,7 +17,11 @@ class UserProfileMigration extends Migration {
       'text_format' => 'filtered_html',
     ];
 
-    $this->destination = new MigrateDestinationNode('person_profile', $options);
+    $this->destination = new MigrateDestinationNode(
+      'person_profile',
+      $options
+    );
+
     $this->map = new MigrateSQLMap(
       $this->machineName,
       $this->getSourceKey(),
@@ -34,7 +38,7 @@ class UserProfileMigration extends Migration {
 
     $this->addFieldMapping(
       'title_field',
-      NULL
+      'name'
     );
 
     $this->addFieldMapping(
@@ -45,19 +49,19 @@ class UserProfileMigration extends Migration {
 
 
   protected function buildQuery() {
-    $role_fields = [
+   $profile_values_fields = [
         'fid',
         'uid',
     ];
 
     $connection = Database::getConnection('default', 'legacy');
     $query = $connection->select('profile_values', 'pv');
-    $query->distinct();
     $query->addField('u', 'name');
-    $query->fields('pv', $role_fields);
+    $query->fields('pv', $profile_values_fields);
     $query->join('users', 'u', 'u.uid = pv.uid');
     $query->condition('u.status', 1, '=');
     $query->condition('u.uid', 0, '>');
+    $query->condition('pv.fid', 1, '=');
 
     // Ensure user is a show host
     $role_id = 12; // "author - program"
@@ -84,17 +88,14 @@ class UserProfileMigration extends Migration {
 
 
   /**
-   * Prepare the source row
+   * Prepare the destination node
    *
+   * @param $node
    * @param $row
-   * @return bool
    */
-  public function prepareRow($row) {
-    if (parent::prepareRow($row) === FALSE) {
-      return FALSE;
-    }
-
+  public function prepare($node, $row) {
     static $term;
+
     if (!$term) {
       $terms = taxonomy_get_term_by_name(
         'Show Host',
@@ -103,8 +104,6 @@ class UserProfileMigration extends Migration {
       $term = reset($terms);
     }
 
-    $row->profile_type = $term->tid;
-    $row->title_field = $row->name;
-    return TRUE;
+    $node->field_profile_type['und'][]['tid'] = $term->tid;
   }
 }
