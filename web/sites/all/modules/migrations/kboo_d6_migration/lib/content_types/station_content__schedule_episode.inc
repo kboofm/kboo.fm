@@ -43,17 +43,14 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
 
 
   /**
-   * Prepare the source row
+   * Prepare the destination node
    *
+   * @param $node
    * @param $row
-   * @return bool
    */
-  public function prepareRow($row) {
-    if (parent::prepareRow($row) === FALSE) {
-      return FALSE;
-    }
-
+  public function prepare($node, $row) {
     static $term;
+
     if (!$term) {
       $terms = taxonomy_get_term_by_name(
         'Episode',
@@ -62,7 +59,6 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
       $term = reset($terms);
     }
 
-    $row->station_content_type = $term->tid;
-    return TRUE;
+    $node->field_station_content_type['und'][]['tid'] = $term->tid;
   }
 }
