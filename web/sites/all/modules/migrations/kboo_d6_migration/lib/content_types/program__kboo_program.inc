@@ -19,7 +19,7 @@ class ProgramFromKbooProgram extends NodeImageMigration {
     $this->addReferenceMapping(
       'field_hosted_by',
       'field_program_host',
-      'UserProfileMigration'
+      'UserProfile'
     );
 
     $this->addFieldMapping(
