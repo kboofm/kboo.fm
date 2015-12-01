@@ -222,16 +222,16 @@ class RadioSpinitron {
     );
     $episode_term = reset($terms);
 
-    $type_tid = null;
-    if (isset($type->tid)) {
-      $type_tid = $type->tid;
+    if (!isset($type->tid)) {
+      return false;
     }
 
-    $episode_tid = null;
-    if (isset($episode_term->tid)) {
-      $episode_tid = $episode_term->tid;
+    if (!isset($episode_term->tid)) {
+      return false;
     }
 
+    $type_tid = $type->tid;
+    $episode_tid = $episode_term->tid;
     return ($type_tid == $episode_tid);
   }
 }
