@@ -96,3 +96,11 @@ scripts[] = 'js/compiled/custom/schedule/on-air.js'
 ; namespace: App
 scripts[] = 'js/compiled/custom/main.js'
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Fonts
+;;;;;;;;;;;;;;;;;;;;;
+
+fonts[google_fonts_api][] = "Montserrat&subset=latin#700"
+fonts[google_fonts_api][] = "Montserrat&subset=latin#regular"
+fonts[google_fonts_api][] = "Oswald&subset=latin#700"
+fonts[google_fonts_api][] = "Oswald&subset=latin#regular"
