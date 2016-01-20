@@ -1,0 +1,17 @@
+html {
+  background: @brand-primary url(../images/kboo-bg.jpg) repeat-x center top fixed;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  background: none;
+
+  &.cke_editable,
+  &.cke_ltr {
+    background: @white;
+  }
+}

@@ -6764,8 +6764,21 @@ button.close {
     display: none !important;
   }
 }
-/*@import 'overrides/components/base';*/
-/*@import 'custom/components/base';*/
+html {
+  background: #003b4c url(../images/kboo-bg.jpg) repeat-x center top fixed;
+  height: 100%;
+  overflow: hidden;
+}
+body {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  background: none;
+}
+body.cke_editable,
+body.cke_ltr {
+  background: #ffffff;
+}
 .margin-top-none {
   margin-top: 0px;
 }
