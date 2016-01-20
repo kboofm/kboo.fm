@@ -6779,6 +6779,31 @@ body.cke_editable,
 body.cke_ltr {
   background: #ffffff;
 }
+.bold {
+  font-weight: bold;
+}
+.relative {
+  position: relative;
+}
+.clear {
+  clear: both;
+}
+:focus,
+:active,
+:active:focus,
+.btn:focus,
+.btn:active:focus {
+  outline: none;
+}
+::-moz-focus-inner {
+  border: 0;
+}
+#admin-menu {
+  z-index: 1080;
+}
+a {
+  color: #003b4c;
+}
 .margin-top-none {
   margin-top: 0px;
 }
