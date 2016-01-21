@@ -6787,6 +6787,29 @@ body.cke_ltr {
     width: 970px;
   }
 }
+.footer {
+  background: #003b4c url(../images/kboo-footer-logo.png) no-repeat center top;
+  border-top: 3px solid #ffffff;
+  height: 348px;
+  padding-top: 50px;
+}
+.footer .footer-menu {
+  float: left;
+  width: 15%;
+  margin-left: 10px;
+}
+.footer .footer-menu.footer-first {
+  color: #ffffff;
+  width: 25%;
+  margin-right: 20px;
+}
+.footer .footer-menu.footer-second {
+  font-size: 16px;
+  font-weight: bold;
+}
+.footer .footer-menu li.first {
+  margin-top: -10px;
+}
 .navbar {
   border: none;
   height: 85px;
