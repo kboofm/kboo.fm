@@ -146,6 +146,12 @@ function entity_embed_schema() {
       'primary key' => 'cid',
       'identifier' => 'configuration', // Exports will be defined as $configuration.
       'default hook' => 'default_entity_embed_configuration', // Function hook name.
+      'create callback' => 'entity_embed_embed_button_new',
+      'load callback' => 'entity_embed_embed_button_load',
+      'load multiple callback' => 'entity_embed_embed_button_load_multiple',
+      'load all callback' => 'entity_embed_embed_button_load_all',
+      'save callback' => 'entity_embed_embed_button_save',
+      'delete callback' => 'entity_embed_embed_button_delete',
       'cache defaults' => TRUE,
       'default cache bin' => 'cache_entity_embed',
       'api' => array(
