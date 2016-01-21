@@ -24,7 +24,7 @@
     "drupal/apachesolr": "7.1.*",
     "drupal/auto_nodetitle": "7.1.*",
     "drupal/better_formats": "7.1.*",
-    "drupal/bootstrap": "7.3.*",
+    "drupal/bootstrap": "7.3.0",
     "drupal/captcha": "7.1.*",
     "drupal/cdn": "7.2.*",
     "drupal/content_access": "7.1.*",
