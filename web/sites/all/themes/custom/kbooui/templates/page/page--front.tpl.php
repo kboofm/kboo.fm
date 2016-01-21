@@ -95,4 +95,5 @@
 </div>
 <footer class="footer container">
   <?php print render($page['footer']); ?>
+  <span>Cupcake ipsum dolor sit amet brownie candy canes. Cookie lollipop chocolate cake. Macaroon candy canes fruitcake bear claw. Biscuit brownie candy canes biscuit croissant chocolate brownie jelly-o. Donut chocolate cake cake liquorice bear claw oat cake lollipop biscuit. Cake powder gummi bears donut. Carrot cake pudding fruitcake. Powder pastry pie sugar plum. Jelly-o gummies tart bear claw oat cake carrot cake chupa chups bonbon chupa chups. Marzipan lollipop wafer candy canes. Tart candy canes tiramisu. Gummies chocolate cake carrot cake toffee cookie ice cream sweet ice cream bear claw.</span>
 </footer>

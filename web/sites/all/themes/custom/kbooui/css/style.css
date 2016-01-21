@@ -6779,6 +6779,14 @@ body.cke_editable,
 body.cke_ltr {
   background: #ffffff;
 }
+#admin-menu {
+  z-index: 1080;
+}
+.footer {
+  background-color: #003b4c;
+  border-top: 3px solid #ffffff;
+  height: 348px;
+}
 .bold {
   font-weight: bold;
 }
@@ -6797,12 +6805,6 @@ body.cke_ltr {
 }
 ::-moz-focus-inner {
   border: 0;
-}
-#admin-menu {
-  z-index: 1080;
-}
-a {
-  color: #003b4c;
 }
 .margin-top-none {
   margin-top: 0px;
