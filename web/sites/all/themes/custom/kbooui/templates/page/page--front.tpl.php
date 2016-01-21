@@ -99,7 +99,7 @@
   </div>
   <div class="footer-menu footer-fourth">
     <?php print render($page['footer_fourth']); ?>
-  </div>  
+  </div>
   <div class="footer-menu footer-fifth">
     <?php print render($page['footer_fifth']); ?>
   </div>
