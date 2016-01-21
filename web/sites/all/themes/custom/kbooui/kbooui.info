@@ -12,6 +12,9 @@ settings[bootstrap_cdn] = ''
 ;; Regions
 ;;;;;;;;;;;;;;;;;;;;;
 
+regions[sidebar] = 'Sidebar'
+regions[footer] = 'Footer'
+
 ; Drupal required regions
 regions[help] = 'Help'
 regions[content] = 'Content'

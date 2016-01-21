@@ -31,9 +31,6 @@
           <?php if (!empty($primary_nav)): ?>
             <?php print render($primary_nav); ?>
           <?php endif; ?>
-          <?php if (!empty($page['navigation'])): ?>
-            <?php print render($page['navigation']); ?>
-          <?php endif; ?>
         </nav>
       </div>
     <?php endif; ?>

@@ -6782,6 +6782,11 @@ body.cke_ltr {
 #admin-menu {
   z-index: 1080;
 }
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}
 .navbar {
   border: none;
   height: 85px;
@@ -6805,23 +6810,23 @@ body.cke_ltr {
 }
 .navbar .on-air {
   position: absolute;
-  left: 330px;
+  left: 340px;
   top: 10px;
   margin: 0px;
 }
 .navbar .listen-now-btn {
   position: absolute;
-  left: 210px;
+  left: 220px;
 }
 .navbar .donate-btn {
   position: absolute;
   right: 20px;
-  top: 20px;
+  top: 0px;
 }
 ul.navbar-nav {
   margin-top: 45px;
   border-top: 2px solid #003b4c;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 ul.navbar-nav > li > a {
   font-weight: bold;
