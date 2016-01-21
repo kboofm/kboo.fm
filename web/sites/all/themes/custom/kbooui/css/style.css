@@ -6792,6 +6792,7 @@ body.cke_ltr {
   border-top: 3px solid #ffffff;
   height: 348px;
   padding-top: 50px;
+  margin-top: 20px;
 }
 .footer .footer-menu {
   float: left;
@@ -6846,6 +6847,10 @@ body.cke_ltr {
   right: 20px;
   top: 0px;
 }
+#main-body {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 10px 15px;
+}
 ul.navbar-nav {
   margin-top: 45px;
   border-top: 2px solid #003b4c;
@@ -6855,6 +6860,10 @@ ul.navbar-nav > li > a {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 16px;
+}
+#sidebar {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 10px 15px;
 }
 .bold {
   font-weight: bold;
@@ -6874,6 +6883,9 @@ ul.navbar-nav > li > a {
 }
 ::-moz-focus-inner {
   border: 0;
+}
+h1 .page-header {
+  margin-top: 10px;
 }
 .margin-top-none {
   margin-top: 0px;
