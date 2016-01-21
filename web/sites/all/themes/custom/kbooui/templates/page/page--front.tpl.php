@@ -87,6 +87,21 @@
   </div>
 </div>
 <footer class="footer container">
-  <?php print render($page['footer']); ?>
-  <span>Cupcake ipsum dolor sit amet brownie candy canes. Cookie lollipop chocolate cake. Macaroon candy canes fruitcake bear claw. Biscuit brownie candy canes biscuit croissant chocolate brownie jelly-o. Donut chocolate cake cake liquorice bear claw oat cake lollipop biscuit. Cake powder gummi bears donut. Carrot cake pudding fruitcake. Powder pastry pie sugar plum. Jelly-o gummies tart bear claw oat cake carrot cake chupa chups bonbon chupa chups. Marzipan lollipop wafer candy canes. Tart candy canes tiramisu. Gummies chocolate cake carrot cake toffee cookie ice cream sweet ice cream bear claw.</span>
+  <?php print render($page['footer_top']); ?>
+  <div class="footer-menu footer-first">
+    <?php print render($page['footer_first']); ?>
+  </div>
+  <div class="footer-menu footer-second">
+    <?php print render($page['footer_second']); ?>
+  </div>
+  <div class="footer-menu footer-third">
+    <?php print render($page['footer_third']); ?>
+  </div>
+  <div class="footer-menu footer-fourth">
+    <?php print render($page['footer_fourth']); ?>
+  </div>  
+  <div class="footer-menu footer-fifth">
+    <?php print render($page['footer_fifth']); ?>
+  </div>
+  <?php print render($page['copyright']); ?>
 </footer>

@@ -1,5 +1,29 @@
 .footer {
-  background-color: @brand-primary;
+  background: @brand-primary url(../images/kboo-footer-logo.png) no-repeat center top;
   border-top: 3px solid @white;
   height: 348px;
+  padding-top: 50px;
+
+  .footer-menu {
+    float: left;
+    width: 15%;
+    margin-left: @margin-sm;
+
+    &.footer-first {
+      color: @white;
+      width: 25%;
+      margin-right: @margin;
+    }
+
+    &.footer-second {
+      font-size: 16px;
+      font-weight: bold;
+    }
+
+    li {
+      &.first {
+        margin-top: -@margin-sm;
+      }
+    }
+  }
 }
