@@ -53,7 +53,7 @@
 
   <div class="row">
 
-    <section<?php print $content_column_class; ?>>
+    <section class="col-sm-8" id="main-body">
       <?php if (!empty($page['highlighted'])): ?>
         <div class="highlighted jumbotron"><?php print render($page['highlighted']); ?></div>
       <?php endif; ?>
@@ -78,11 +78,11 @@
       <?php print render($page['content']); ?>
     </section>
 
-    <?php if (!empty($page['sidebar'])): ?>
-      <aside class="col-sm-3" role="complementary">
+    <aside id="sidebar" class="col-sm-3 col-sm-offset-1" role="complementary">
+      <?php if (!empty($page['sidebar'])): ?>
         <?php print render($page['sidebar']); ?>
-      </aside>  <!-- /#sidebar-second -->
-    <?php endif; ?>
+      <?php endif; ?>
+    </aside>  <!-- /#sidebar -->
 
   </div>
 </div>

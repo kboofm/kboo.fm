@@ -6792,6 +6792,7 @@ body.cke_ltr {
   border-top: 3px solid #ffffff;
   height: 348px;
   padding-top: 50px;
+  margin-top: 20px;
 }
 .footer .footer-menu {
   float: left;
@@ -6845,6 +6846,10 @@ body.cke_ltr {
   position: absolute;
   right: 20px;
   top: 0px;
+}
+#main-body {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 10px 15px;
 }
 ul.navbar-nav {
   margin-top: 45px;
@@ -6917,6 +6922,9 @@ a:hover {
 }
 .bg-tiffany {
   background-color: #65cbc9;
+}
+h1.page-header {
+  margin-top: 10px;
 }
 .margin-top-none {
   margin-top: 0px;
