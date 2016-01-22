@@ -87,7 +87,9 @@
   </div>
 </div>
 <footer class="footer container">
-  <?php print render($page['footer_top']); ?>
+  <div class="footer-menu footer-left">
+    <?php print render($page['footer_left']); ?>
+  </div>
   <div class="footer-menu footer-first">
     <?php print render($page['footer_first']); ?>
   </div>
@@ -99,9 +101,6 @@
   </div>
   <div class="footer-menu footer-fourth">
     <?php print render($page['footer_fourth']); ?>
-  </div>
-  <div class="footer-menu footer-fifth">
-    <?php print render($page['footer_fifth']); ?>
   </div>
   <?php print render($page['copyright']); ?>
 </footer>

@@ -10,20 +10,29 @@
     width: 15%;
     margin-left: @margin-sm;
 
-    &.footer-first {
+    &.footer-left {
       color: @white;
       width: 25%;
       margin-right: @margin;
     }
 
-    &.footer-second {
+    &.footer-first {
       font-size: 16px;
       font-weight: bold;
     }
 
-    li {
-      &.first {
-        margin-top: -@margin-sm;
+    .nav {
+      > li {
+        &.first {
+          margin-top: -@margin-sm;
+        }
+
+        > a {
+          &:hover {
+            background-color: @brand-info;
+            color: fade(@white, 90%);
+          }
+        }
       }
     }
   }

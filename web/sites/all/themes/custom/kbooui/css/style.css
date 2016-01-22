@@ -6799,17 +6799,21 @@ body.cke_ltr {
   width: 15%;
   margin-left: 10px;
 }
-.footer .footer-menu.footer-first {
+.footer .footer-menu.footer-left {
   color: #ffffff;
   width: 25%;
   margin-right: 20px;
 }
-.footer .footer-menu.footer-second {
+.footer .footer-menu.footer-first {
   font-size: 16px;
   font-weight: bold;
 }
-.footer .footer-menu li.first {
+.footer .footer-menu .nav > li.first {
   margin-top: -10px;
+}
+.footer .footer-menu .nav > li > a:hover {
+  background-color: #00a887;
+  color: rgba(255, 255, 255, 0.9);
 }
 .navbar {
   border: none;
@@ -6882,6 +6886,9 @@ ul.navbar-nav > li > a {
   margin-bottom: 20px;
   padding: 0px 5px;
   width: 100%;
+}
+#sidebar a.more-link:hover {
+  color: rgba(255, 255, 255, 0.65);
 }
 #sidebar a.more-link.bg-primary:hover {
   background-color: #002f3d;
