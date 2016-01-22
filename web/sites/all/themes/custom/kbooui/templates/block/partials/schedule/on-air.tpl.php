@@ -24,6 +24,11 @@ endif;
   <span class="text-uppercase bold">
     On Air:
   </span>
+  
+  <?php /* placeholder on air */?>
+  <a style="color:#FFB600;" href="">
+    The show name
+  </a>  
 
   <span class="song-artist">
     <a href="<?php print $schedule_url; ?>"

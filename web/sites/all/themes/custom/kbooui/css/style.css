@@ -6851,6 +6851,11 @@ body.cke_ltr {
   right: 20px;
   top: 0px;
 }
+@media (max-width: 1199px) {
+  .navbar .donate-btn {
+    display: none;
+  }
+}
 #main-body {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
