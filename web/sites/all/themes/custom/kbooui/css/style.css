@@ -6884,7 +6884,7 @@ ul.navbar-nav > li > a {
 ::-moz-focus-inner {
   border: 0;
 }
-h1 .page-header {
+h1.page-header {
   margin-top: 10px;
 }
 .margin-top-none {
