@@ -6861,6 +6861,37 @@ ul.navbar-nav > li > a {
   text-transform: uppercase;
   font-size: 16px;
 }
+#sidebar {
+  background-color: rgba(255, 255, 255, 0.85);
+  padding: 0px 15px 10px;
+}
+#sidebar h2 {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 24px;
+  font-weight: normal;
+  margin-top: 20px;
+  text-align: center;
+  padding: 5px 0px;
+  text-transform: uppercase;
+}
+#sidebar a.more-link {
+  text-align: right;
+  display: block;
+  clear: both;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 20px;
+  padding: 0px 5px;
+  width: 100%;
+}
+#sidebar a.more-link.bg-primary:hover {
+  background-color: #002f3d;
+}
+#sidebar a.more-link.bg-info:hover {
+  background-color: #008f73;
+}
+#sidebar a.more-link.bg-tiffany:hover {
+  background-color: #52c5c2;
+}
 .bold {
   font-weight: bold;
 }
@@ -6877,11 +6908,22 @@ ul.navbar-nav > li > a {
 .btn:active:focus {
   outline: none;
 }
+a:hover {
+  text-decoration: none;
+}
 ::-moz-focus-inner {
   border: 0;
 }
 h1.page-header {
   margin-top: 10px;
+.bg-primary {
+  background-color: #003b4c;
+}
+.bg-info {
+  background-color: #00a887;
+}
+.bg-tiffany {
+  background-color: #65cbc9;
 }
 .margin-top-none {
   margin-top: 0px;
