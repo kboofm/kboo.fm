@@ -391,6 +391,12 @@ function metatag_uninstall() {
   // Optionally enable the automatic watchdog logging of i18n strings.
   variable_del('metatag_i18n_enable_watchdog');
 
+  // Optionally disable the i18n integration.
+  variable_del('metatag_i18n_disabled');
+
+  // Optionally output core's meta tags.
+  variable_del('metatag_leave_core_tags');
+
   // Remove all possible 'enable' variables.
   foreach (entity_get_info() as $entity_type => $entity_info) {
     variable_del('metatag_enable_' . $entity_type);
@@ -1869,44 +1875,167 @@ function metatag_update_7100() {
  * Update i18n strings for all meta tags to use the new format.
  */
 function metatag_update_7101() {
-  if (module_exists('i18n')) {
-    // Loop through each entity type. Not going to bother filtering this list,
-    // it'll only be a difference of a few entities anyway and the queries
-    // should be fairly quick.
-    foreach (entity_get_info() as $entity_type => $entity_info) {
-      // Entities must have bundles.
-      if (empty($entity_info['bundles'])) {
-        $entity_info['bundles'] = array(
-          $entity_type => $entity_type,
-        );
-      }
-      foreach ($entity_info['bundles'] as $bundle_name => $bundle_info) {
-        // Update {locales_source}, replace 'metatag:ENTITYTYPE:BUNDLE:tag' with
-        // 'metatag:metatag_config:ENTITYTYPE:BUNDLE:tag'.
-        db_query("UPDATE {locales_source}
-          SET location = REPLACE(location, 'metatag:{$entity_name}:{$bundle_name}:', 'metatag:metatag_config:{$entity_name}:{$bundle_name}:'),
-            context = REPLACE(context, '{$entity_name}:{$bundle_name}:', '{$entity_name}:{$bundle_name}:')
-          WHERE textgroup = 'metatag'
-            AND location LIKE 'metatag:{$entity_name}:{$bundle_name}:%'");
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
 
-        // Update {locales_source}, replace 'metatag:ENTITYTYPE:tag' with
-        // 'metatag:metatag_config:ENTITYTYPE:tag'.
-        db_query("UPDATE {locales_source}
-          SET location = REPLACE(location, 'metatag:{$entity_name}:', 'metatag:metatag_config:{$entity_name}:'),
-            context = REPLACE(context, '{$entity_name}:', '{$entity_name}:')
-          WHERE textgroup = 'metatag'
-            AND location LIKE 'metatag:{$entity_name}:%'");
-      }
+  // Loop through each entity type. Not going to bother filtering this list,
+  // it'll only be a difference of a few entities anyway and the queries
+  // should be fairly quick.
+  foreach (entity_get_info() as $entity_type => $entity_info) {
+    // Entities must have bundles.
+    if (empty($entity_info['bundles'])) {
+      $entity_info['bundles'] = array(
+        $entity_type => $entity_type,
+      );
     }
-    // Update {locales_source}, replace 'metatag:metatag:' with
-    // 'metatag:metatag_output:'.
-    db_query("UPDATE {locales_source}
-      SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
-        context = REPLACE(context, 'metatag:', 'metatag_output:')
+    foreach ($entity_info['bundles'] as $bundle_type => $bundle_info) {
+      // Update {locales_source}, replace 'metatag:ENTITYTYPE:BUNDLE:tag' with
+      // 'metatag:metatag_config:ENTITYTYPE:BUNDLE:tag'.
+      db_query("UPDATE {locales_source}
+        SET location = REPLACE(location, 'metatag:{$entity_type}:{$bundle_type}:', 'metatag:metatag_config:{$entity_type}:{$bundle_type}:'),
+          context = REPLACE(context, '{$entity_type}:{$bundle_type}:', 'metatag_config:{$entity_type}:{$bundle_type}:')
+        WHERE textgroup = 'metatag'
+          AND location LIKE 'metatag:{$entity_type}:{$bundle_type}:%'");
+
+      // Update {locales_source}, replace 'metatag:ENTITYTYPE:tag' with
+      // 'metatag:metatag_config:ENTITYTYPE:tag'.
+      db_query("UPDATE {locales_source}
+        SET location = REPLACE(location, 'metatag:{$entity_type}:', 'metatag:metatag_config:{$entity_type}:'),
+          context = REPLACE(context, '{$entity_type}:', 'metatag_config:{$entity_type}:')
+        WHERE textgroup = 'metatag'
+          AND location LIKE 'metatag:{$entity_type}:%'");
+    }
+  }
+  // Update {locales_source}, replace 'metatag:metatag:' with
+  // 'metatag:metatag_output:'.
+  db_query("UPDATE {locales_source}
+    SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
+      context = REPLACE(context, 'metatag:', 'metatag_output:')
+    WHERE textgroup = 'metatag'
+      AND location LIKE 'metatag:metatag:%'");
+}
+
+/**
+ * Re-run update 7101.
+ */
+function metatag_update_7102() {
+  metatag_update_7101();
+}
+
+/**
+ * Clear all metatag caches so the new entity caching structure takes over.
+ */
+function metatag_update_7103() {
+  cache_clear_all('*', 'cache_metatag', TRUE);
+}
+
+/**
+ * Remove the entity revision ID from the translation strings.
+ */
+function metatag_update_7104(&$sandbox) {
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
+
+  // Process records by groups of 10 (arbitrary value).
+  // When a group is processed, the batch update engine determines whether it
+  // should continue processing in the same request or provide progress
+  // feedback to the user and wait for the next request.
+  $limit = 10;
+  // When ran through Drush it's Ok to process a larger number of objects at a
+  // time.
+  if (drupal_is_cli()) {
+    $limit = 100;
+  }
+
+  // Use the sandbox at your convenience to store the information needed
+  // to track progression between successive calls to the function.
+  if (!isset($sandbox['progress'])) {
+    // The count of records visited so far.
+    $sandbox['progress'] = 0;
+
+    // Total records that must be visited.
+    $sandbox['max'] = db_query("SELECT COUNT(lid)
+      FROM {locales_source}
       WHERE textgroup = 'metatag'
-        AND location LIKE 'metatag:metatag:%'");
+      AND context LIKE 'metatag_output:%:%:%:%'")->fetchField();
+
+    // If there's no data, don't bother with the extra work.
+    if (empty($sandbox['max'])) {
+      watchdog('metatag', 'Update 7102: No nodes need the translation entity string fixed.', array(), WATCHDOG_INFO);
+      if (drupal_is_cli()) {
+        drupal_set_message(t('Update 7102: No nodes need the translation entity string fixed.'));
+      }
+      return t('No nodes need the Metatag language values fixed.');
+    }
+
+    // A place to store messages during the run.
+    $sandbox['messages'] = array();
+
+    // An initial record of the number of records to be updated.
+    watchdog('metatag', 'Update 7102: !count records to update.', array('!count' => $sandbox['max']), WATCHDOG_INFO);
+    if (drupal_is_cli()) {
+      drupal_set_message(t('Update 7102: !count records to update.', array('!count' => $sandbox['max'])));
+    }
   }
-  else {
-    return t('The Internationalization (i18n) module is not enabled, so there is no need to generate the missing translation strings.');
+
+  // Get a batch of records that need to be fixed.
+  $records = db_query_range("SELECT lid, location, context
+    FROM {locales_source}
+    WHERE textgroup = 'metatag'
+    AND context LIKE 'metatag_output:%:%:%:%'", 0, $limit);
+
+  // Update each of the records.
+  foreach ($records as $record) {
+    $old_location = '/metatag:metatag_output:([^:]*):([^:]*):([^:]*):([^:]*)/';
+    $new_location = 'metatag:metatag_output:$1:$2:$4';
+    $location = preg_replace($old_location, $new_location, $record->location);
+    $old_context = '/metatag_output:([^:]*):([^:]*):([^:]*):([^:]*)/';
+    $new_context = 'metatag_output:$1:$2:$4';
+    $context = preg_replace($old_context, $new_context, $record->context);
+    drupal_set_message($location);
+    drupal_set_message($context);
+    db_update('locales_source')
+      ->fields(array(
+        'location' => $location,
+        'context' => $context,
+      ))
+      ->condition('lid', $record->lid)
+      ->execute();
+
+    // Update our progress information.
+    $sandbox['progress']++;
   }
+
+  // Set the "finished" status, to tell batch engine whether this function
+  // needs to run again. If you set a float, this will indicate the progress of
+  // the batch so the progress bar will update.
+  $sandbox['#finished'] = ($sandbox['progress'] >= $sandbox['max']) ? TRUE : ($sandbox['progress'] / $sandbox['max']);
+
+  if ($sandbox['#finished']) {
+    // Clear all caches so the fixed data will be reloaded.
+    cache_clear_all('*', 'cache_metatag', TRUE);
+
+    // hook_update_N() may optionally return a string which will be displayed
+    // to the user.
+    return t('Fixed the Metatag language values for @count nodes.', array('@count' => $sandbox['progress']));
+  }
+}
+
+/**
+ * Fix the output translation strings.
+ */
+function metatag_update_7105() {
+  if (!module_exists('locale') || !db_table_exists('locales_source')) {
+    return t('No translations to fix as the locale system is not enabled.');
+  }
+
+  db_query("UPDATE {locales_source}
+    SET location = REPLACE(location, 'metatag:metatag:', 'metatag:metatag_output:'),
+      context = REPLACE(context, 'metatag:', 'metatag_output:')
+    WHERE textgroup = 'metatag'
+    AND location LIKE 'metatag:metatag:%'");
+
+  return t('Fixed the Metatag output strings.');
 }

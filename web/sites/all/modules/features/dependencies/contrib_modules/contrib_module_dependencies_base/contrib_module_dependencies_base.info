@@ -30,6 +30,7 @@ dependencies[] = file
 dependencies[] = file_entity
 dependencies[] = fontyourface
 dependencies[] = globalredirect
+dependencies[] = google_fonts_api
 dependencies[] = image
 dependencies[] = imce
 dependencies[] = jquery_update
