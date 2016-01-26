@@ -34,7 +34,7 @@ function radio_station_menu() {
  */
 function radio_station_cron() {
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes(Streams::One, 5);
+  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
   $component->scheduleRippingEpisodes($episodes);
   $component->attachNewRips();
   $component->cullArchive();
