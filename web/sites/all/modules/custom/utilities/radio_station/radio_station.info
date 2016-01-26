@@ -32,7 +32,6 @@ files[] = lib/queries/TitleQuery.inc
 ; Template Processors
 files[] = lib/processors/TemplateProcessor.inc
 files[] = lib/processors/EventsProcessor.inc
-files[] = lib/processors/CarouselProcessor.inc
 files[] = lib/processors/ListProcessor.inc
 files[] = lib/processors/NodeTeaserProcessor.inc
 files[] = lib/processors/ScheduleProcessor.inc
