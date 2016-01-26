@@ -1,8 +1,0 @@
-name = Radio Flickr
-description = Radio Flickr code
-package = Radio - Utilities
-core = 7.x
-version = 7.x-1.0
-
-
-files[] = lib/RadioFlickr.inc
