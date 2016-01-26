@@ -1,0 +1,32 @@
+<?php
+
+/**
+ * Removes repeating date ability from field_event_date
+ */
+function radio_station_update_7100() {
+  db_drop_field(
+    "field_data_field_event_date",
+    "field_event_date_rrule"
+  );
+
+  db_drop_field(
+    "field_revision_field_event_date",
+    "field_event_date_rrule"
+  );
+
+  $data = db_select("field_config", "fc")
+    ->condition("fc.field_name", "field_event_date", "=")
+    ->fields("fc", ["data"])
+    ->execute()
+    ->fetchField();
+
+  $data = unserialize($data);
+  $data['settings']['repeat'] = 0;
+  $data = serialize($data);
+
+  db_update("field_config")
+    ->fields(["data" => $data,])
+    ->condition("field_name", "field_event_date", "=")
+    ->execute();
+}
+
