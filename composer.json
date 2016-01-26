@@ -19,6 +19,7 @@
     "drupal/ad": "7.1.*",
     "drupal/addressfield": "7.1.*",
     "drupal/admin_menu": "7.3.*",
+    "drupal/admin_views": "7.1.*",
     "drupal/adminimal_admin_menu": "7.1.*",
     "drupal/adminimal_theme": "7.1.*",
     "drupal/apachesolr": "7.1.*",
@@ -28,7 +29,7 @@
     "drupal/captcha": "7.1.*",
     "drupal/cdn": "7.2.*",
     "drupal/content_access": "7.1.*",
-    "drupal/ckeditor": "7.1.*",
+    "drupal/ckeditor": "7.1.x-dev",
     "drupal/ctools": "7.1.*",
     "drupal/date": "7.2.*",
     "drupal/diff": "7.3.*",
@@ -60,14 +61,17 @@
     "drupal/name": "7.1.*",
     "drupal/node_breadcrumb": "7.1.*",
     "drupal/node_clone": "7.1.*",
+    "drupal/node_export": "7.3.*",
     "drupal/pathauto": "7.1.*",
     "drupal/pathologic": "7.2.*",
     "drupal/publication_date": "7.2.*",
     "drupal/recaptcha": "7.2.*",
+    "drupal/redirect": "7.1.*",
     "drupal/remote_stream_wrapper": "7.1.*",
     "drupal/responsive_favicons": "7.1.*",
     "drupal/reroute_email": "7.1.*",
     "drupal/search_restrict": "7.1.*",
+    "drupal/sharethis": "7.2.*",
     "drupal/station": "7.2.*",
     "drupal/strongarm": "7.2.*",
     "drupal/telephone": "7.1.*",
@@ -77,6 +81,7 @@
     "drupal/transliteration": "7.3.*",
     "drupal/variable": "7.2.*",
     "drupal/views": "7.3.*",
+    "drupal/views_bulk_operations": "7.3.*",
     "drupal/webform": "7.4.*",
     "drupal/webform_bt_layout": "7.3.*",
     "drupal/wysiwyg": "7.2.*"
@@ -118,6 +123,9 @@
     "patches": {
       "drupal/auto_nodetitle": {
         "Unresponsive jquery": "https://www.drupal.org/files/auto_nodetitle_with_token_tree_link-1694720-7.patch"
+      },
+      "drupal/pathauto": {
+       "Add drush support": "https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch"
       }
     }
   }
