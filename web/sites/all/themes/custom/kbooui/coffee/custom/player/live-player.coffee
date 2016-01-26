@@ -9,7 +9,7 @@
 
     streams:
       one:
-        route: ""
+        route: "http://live.kboo.fm:8000/high"
         title: "KBOO"
         nodeTitle: "stream 1"
         programLabel: ""

@@ -16,7 +16,7 @@ class RadioTemplates {
     $this->addTemplate('blog');
     $this->addTemplate('community_events');
     $this->addTemplate('episode_playlists');
-    $this->addTemplate('listen');
+    $this->addTemplate('listen_now');
     $this->addTemplate('news');
     $this->addTemplate('programs_content');
     $this->addTemplate('programs_playlists');

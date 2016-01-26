@@ -34,7 +34,7 @@
 
       Live.prototype.streams = {
         one: {
-          route: "http://wwoz-sc.streamguys.com:80/wwoz-hi.mp3",
+          route: "http://live.kboo.fm:8000/high",
           title: "KBOO",
           nodeTitle: "stream 1",
           programLabel: "",
