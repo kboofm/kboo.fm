@@ -322,9 +322,9 @@ class Spinitron {
     // "userId" and "secret" are provided by Spinitron.com
     return new Spinitron(
       [
-        'station' => 'wwoz',
-        'userId' => '1eebc26910646339',
-        'secret' => 'bb5965984d1720f7',
+        'station' => 'kboo',
+        'userId' => 'd28044dcae561cb5',
+        'secret' => '7418d412f6bdc80c',
 
         // For a memcache, set to an array of one or more memcache servers,
         // see http://au1.php.net/manual/en/memcached.addservers.php
