@@ -95,9 +95,9 @@ scripts[] = 'js/compiled/c4/utilities/window.js'
 scripts[] = 'js/compiled/c4/components/base.js'
 
 
-; namespace: App.Schedule
-scripts[] = 'js/compiled/custom/schedule/carousel.js'
-scripts[] = 'js/compiled/custom/schedule/on-air.js'
+; namespace: App.Station
+scripts[] = 'js/compiled/custom/station/listen-now.js'
+scripts[] = 'js/compiled/custom/station/on-air.js'
 
 
 ; -- MAIN --

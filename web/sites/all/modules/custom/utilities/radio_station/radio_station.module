@@ -130,6 +130,12 @@ function radio_station_get_news() {
 }
 
 
+function radio_station_get_listen() {
+  $response = new PlayerResponse();
+  return $response->get();
+}
+
+
 function radio_station_get_blog() {
   $response = new BlogResponse();
   return $response->get();

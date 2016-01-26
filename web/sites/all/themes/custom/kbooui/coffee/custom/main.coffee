@@ -4,9 +4,8 @@
             super()
             C4.Utilities.Truncate.truncate()
             C4.Utilities.Window.resize C4.Utilities.Truncate.truncate
-            App.Schedule.OnAir.watch()
-
-            new App.Schedule.Carousel()
+            App.Station.OnAir.watch()
+            new App.Station.ListenNow()
             true
 
     $ ->
