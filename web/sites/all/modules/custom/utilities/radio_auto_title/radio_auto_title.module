@@ -1,0 +1,21 @@
+<?php
+
+/**
+* Implements hook_node_presave()
+*
+* @param $node
+*/
+function radio_auto_title_node_presave($node) {
+  $content_types = [
+    'act',
+    'person_profile',
+  ];
+
+  if (!in_array($node->type, $content_types)) {
+    return;
+  }
+
+  if (empty($node->title)) {
+    $node->title = RadioAutoTitle::getFullName($node);
+  }
+}

@@ -1969,37 +1969,6 @@
         "homepage": "https://www.drupal.org/project/node_clone"
     },
     {
-        "name": "drupal/pathauto",
-        "version": "7.1.3",
-        "version_normalized": "7.1.3.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/pathauto",
-            "reference": "88db3ee74ddf62eab54e12347955dd2f6dd66737"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "http://ftp.drupal.org/files/projects/pathauto-7.x-1.3.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/drupal": "7.*",
-            "drupal/path": "7.*",
-            "drupal/token": "7.*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-1.x": "7.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Provides a mechanism for modules to automatically generate aliases for the content they manage.",
-        "homepage": "https://www.drupal.org/project/pathauto"
-    },
-    {
         "name": "drupal/views",
         "version": "7.3.13",
         "version_normalized": "7.3.13.0",
@@ -2225,35 +2194,6 @@
         "notification-url": "http://packagist.drupal-composer.org/downloads/",
         "description": "Framework for searching with Solr",
         "homepage": "https://www.drupal.org/project/apachesolr"
-    },
-    {
-        "name": "drupal/ckeditor",
-        "version": "7.1.17",
-        "version_normalized": "7.1.17.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/ckeditor",
-            "reference": "2c5caca8a0188f93eae437faa70c57a735820482"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "http://ftp.drupal.org/files/projects/ckeditor-7.x-1.17.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/drupal": "7.*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-1.x": "7.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.",
-        "homepage": "https://www.drupal.org/project/ckeditor"
     },
     {
         "name": "drupal/entity_embed",
@@ -2498,5 +2438,274 @@
         "notification-url": "http://packagist.drupal-composer.org/downloads/",
         "description": "Adds support and an API to implement meta tags.",
         "homepage": "https://www.drupal.org/project/metatag"
+    },
+    {
+        "name": "drupal/ckeditor",
+        "version": "dev-7.x-1.x",
+        "version_normalized": "dev-7.x-1.x",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/ckeditor",
+            "reference": "2c5caca8a0188f93eae437faa70c57a735820482"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/ckeditor-7.x-1.17.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "source",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.",
+        "homepage": "https://www.drupal.org/project/ckeditor"
+    },
+    {
+        "name": "drupal/views_bulk_operations",
+        "version": "7.3.3",
+        "version_normalized": "7.3.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/views_bulk_operations",
+            "reference": "57eea91d94c33e4991484a19cd0ccfafde85b405"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/views_bulk_operations-7.x-3.3.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*",
+            "drupal/entity": "7.*",
+            "drupal/views": "7.*"
+        },
+        "replace": {
+            "drupal/actions_permissions": "self.version"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-3.x": "7.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Provides a way of selecting multiple rows and applying operations to them.",
+        "homepage": "https://www.drupal.org/project/views_bulk_operations"
+    },
+    {
+        "name": "drupal/admin_views",
+        "version": "7.1.5",
+        "version_normalized": "7.1.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/admin_views",
+            "reference": "44098bb9da5447765da02bd7b3bc974661acc5e4"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/admin_views-7.x-1.5.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*",
+            "drupal/views": "7.*",
+            "drupal/views_bulk_operations": ">=7.3.2"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Replaces all system object management pages in Drupal core with real views.",
+        "homepage": "https://www.drupal.org/project/admin_views"
+    },
+    {
+        "name": "drupal/uuid",
+        "version": "7.1.0-beta1",
+        "version_normalized": "7.1.0.0-beta1",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/uuid",
+            "reference": "0707ea6350131480cc45d35eb864b21df2a99e50"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/uuid-7.x-1.0-beta1.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*",
+            "drupal/node": "7.*",
+            "drupal/user": "7.*"
+        },
+        "replace": {
+            "drupal/uuid_path": "self.version",
+            "drupal/uuid_services": "self.version",
+            "drupal/uuid_services_example": "self.version"
+        },
+        "suggest": {
+            "drupal/entity": "Required by drupal/uuid_services",
+            "drupal/rest_server": "Required by drupal/uuid_services_example",
+            "drupal/services": "Required by drupal/uuid_services, drupal/uuid_services_example",
+            "drupal/uuid_services": "Required by drupal/uuid_services_example"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Extends the entity functionality and adds support for universally unique identifiers.",
+        "homepage": "https://www.drupal.org/project/uuid"
+    },
+    {
+        "name": "drupal/node_export",
+        "version": "7.3.0",
+        "version_normalized": "7.3.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/node_export",
+            "reference": "ebef56784374f977f3cfdb87f4a5ba42182b3477"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/node_export-7.x-3.0.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*",
+            "drupal/uuid": "7.*"
+        },
+        "replace": {
+            "drupal/node_export_dependency": "self.version",
+            "drupal/node_export_features": "self.version",
+            "drupal/node_export_feeds": "self.version",
+            "drupal/node_export_relation": "self.version"
+        },
+        "suggest": {
+            "drupal/features": "Required by drupal/node_export_features",
+            "drupal/feeds": "Required by drupal/node_export_feeds",
+            "drupal/uuid": "Required by drupal/node_export_dependency, drupal/node_export_features, drupal/node_export_relation"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-3.x": "7.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Allows users to export content and then import into another Drupal installation.",
+        "homepage": "https://www.drupal.org/project/node_export"
+    },
+    {
+        "name": "drupal/pathauto",
+        "version": "7.1.3",
+        "version_normalized": "7.1.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/pathauto",
+            "reference": "88db3ee74ddf62eab54e12347955dd2f6dd66737"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/pathauto-7.x-1.3.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*",
+            "drupal/path": "7.*",
+            "drupal/token": "7.*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            },
+            "patches_applied": {
+                "Add drush support": "https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Provides a mechanism for modules to automatically generate aliases for the content they manage.",
+        "homepage": "https://www.drupal.org/project/pathauto"
+    },
+    {
+        "name": "drupal/redirect",
+        "version": "7.1.0-rc3",
+        "version_normalized": "7.1.0.0-RC3",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/redirect",
+            "reference": "70dad3fe0674823398679fca691eb532fb657b1a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/redirect-7.x-1.0-rc3.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Allows users to redirect from old URLs to new URLs.",
+        "homepage": "https://www.drupal.org/project/redirect"
+    },
+    {
+        "name": "drupal/sharethis",
+        "version": "7.2.12",
+        "version_normalized": "7.2.12.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/sharethis",
+            "reference": "b3d911904efd5e53f2e6a8c2d2d6f39cd5388b09"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/sharethis-7.x-2.12.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-2.x": "7.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Add the <a href=\"http://www.sharethis.com/\">ShareThis</a> widget to nodes on your site.",
+        "homepage": "https://www.drupal.org/project/sharethis"
     }
 ]

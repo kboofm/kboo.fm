@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "947e5e0b068c753b270d2f808107ffd0",
-    "content-hash": "c31056c0f18c19775ceb1170de5cdb5c",
+    "hash": "d9b9f9516784652ad3c63279cf10adad",
+    "content-hash": "8d9fff62473ab65b35336713394608d5",
     "packages": [
         {
             "name": "composer/installers",
@@ -360,6 +360,35 @@
             "homepage": "https://www.drupal.org/project/admin_menu"
         },
         {
+            "name": "drupal/admin_views",
+            "version": "7.1.5",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/admin_views",
+                "reference": "44098bb9da5447765da02bd7b3bc974661acc5e4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/admin_views-7.x-1.5.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*",
+                "drupal/views": "7.*",
+                "drupal/views_bulk_operations": ">=7.3.2"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-1.x": "7.1.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Replaces all system object management pages in Drupal core with real views.",
+            "homepage": "https://www.drupal.org/project/admin_views"
+        },
+        {
             "name": "drupal/adminimal_admin_menu",
             "version": "7.1.7",
             "source": {
@@ -591,7 +620,7 @@
         },
         {
             "name": "drupal/ckeditor",
-            "version": "7.1.17",
+            "version": "dev-7.x-1.x",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/ckeditor",
@@ -599,7 +628,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/ckeditor-7.x-1.17.zip",
+                "url": "https://ftp.drupal.org/files/projects/ckeditor-7.x-1.17.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -614,7 +643,8 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.",
-            "homepage": "https://www.drupal.org/project/ckeditor"
+            "homepage": "https://www.drupal.org/project/ckeditor",
+            "time": "2015-11-30 15:46:08"
         },
         {
             "name": "drupal/content_access",
@@ -1795,6 +1825,45 @@
             "homepage": "https://www.drupal.org/project/node_clone"
         },
         {
+            "name": "drupal/node_export",
+            "version": "7.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/node_export",
+                "reference": "ebef56784374f977f3cfdb87f4a5ba42182b3477"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/node_export-7.x-3.0.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*",
+                "drupal/uuid": "7.*"
+            },
+            "replace": {
+                "drupal/node_export_dependency": "self.version",
+                "drupal/node_export_features": "self.version",
+                "drupal/node_export_feeds": "self.version",
+                "drupal/node_export_relation": "self.version"
+            },
+            "suggest": {
+                "drupal/features": "Required by drupal/node_export_features",
+                "drupal/feeds": "Required by drupal/node_export_feeds",
+                "drupal/uuid": "Required by drupal/node_export_dependency, drupal/node_export_features, drupal/node_export_relation"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-3.x": "7.3.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Allows users to export content and then import into another Drupal installation.",
+            "homepage": "https://www.drupal.org/project/node_export"
+        },
+        {
             "name": "drupal/pathauto",
             "version": "7.1.3",
             "source": {
@@ -1804,7 +1873,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/pathauto-7.x-1.3.zip",
+                "url": "https://ftp.drupal.org/files/projects/pathauto-7.x-1.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1817,6 +1886,9 @@
             "extra": {
                 "branch-alias": {
                     "dev-7.x-1.x": "7.1.x-dev"
+                },
+                "patches_applied": {
+                    "Add drush support": "https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch"
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
@@ -1903,6 +1975,33 @@
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Protect your website from spam and abuse while letting real people pass through with ease.",
             "homepage": "https://www.drupal.org/project/recaptcha"
+        },
+        {
+            "name": "drupal/redirect",
+            "version": "7.1.0-rc3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/redirect",
+                "reference": "70dad3fe0674823398679fca691eb532fb657b1a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/redirect-7.x-1.0-rc3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-1.x": "7.1.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Allows users to redirect from old URLs to new URLs.",
+            "homepage": "https://www.drupal.org/project/redirect"
         },
         {
             "name": "drupal/remote_stream_wrapper",
@@ -2008,6 +2107,33 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Exclude specific content from search results if user doesn't have privileges."
+        },
+        {
+            "name": "drupal/sharethis",
+            "version": "7.2.12",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/sharethis",
+                "reference": "b3d911904efd5e53f2e6a8c2d2d6f39cd5388b09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/sharethis-7.x-2.12.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-2.x": "7.2.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Add the <a href=\"http://www.sharethis.com/\">ShareThis</a> widget to nodes on your site.",
+            "homepage": "https://www.drupal.org/project/sharethis"
         },
         {
             "name": "drupal/station",
@@ -2220,6 +2346,46 @@
             "description": "Converts non-latin text to US-ASCII and sanitizes file names."
         },
         {
+            "name": "drupal/uuid",
+            "version": "7.1.0-beta1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/uuid",
+                "reference": "0707ea6350131480cc45d35eb864b21df2a99e50"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/uuid-7.x-1.0-beta1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*",
+                "drupal/node": "7.*",
+                "drupal/user": "7.*"
+            },
+            "replace": {
+                "drupal/uuid_path": "self.version",
+                "drupal/uuid_services": "self.version",
+                "drupal/uuid_services_example": "self.version"
+            },
+            "suggest": {
+                "drupal/entity": "Required by drupal/uuid_services",
+                "drupal/rest_server": "Required by drupal/uuid_services_example",
+                "drupal/services": "Required by drupal/uuid_services, drupal/uuid_services_example",
+                "drupal/uuid_services": "Required by drupal/uuid_services_example"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-1.x": "7.1.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Extends the entity functionality and adds support for universally unique identifiers.",
+            "homepage": "https://www.drupal.org/project/uuid"
+        },
+        {
             "name": "drupal/variable",
             "version": "7.2.5",
             "source": {
@@ -2286,6 +2452,38 @@
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Create customized lists and queries from your database.",
             "homepage": "https://www.drupal.org/project/views"
+        },
+        {
+            "name": "drupal/views_bulk_operations",
+            "version": "7.3.3",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/views_bulk_operations",
+                "reference": "57eea91d94c33e4991484a19cd0ccfafde85b405"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/views_bulk_operations-7.x-3.3.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*",
+                "drupal/entity": "7.*",
+                "drupal/views": "7.*"
+            },
+            "replace": {
+                "drupal/actions_permissions": "self.version"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-3.x": "7.3.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Provides a way of selecting multiple rows and applying operations to them.",
+            "homepage": "https://www.drupal.org/project/views_bulk_operations"
         },
         {
             "name": "drupal/webform",
@@ -2375,7 +2573,9 @@
     "packages-dev": [],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "drupal/ckeditor": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": [],
