@@ -6,8 +6,7 @@ class CullCkeditorProfiles {
   /**
    * Constructor
    */
-  public function __construct()
-  {
+  public function __construct() {
     $this->ckeditor_profile_delete('Advanced');
     $this->ckeditor_profile_delete('Full');
   }
