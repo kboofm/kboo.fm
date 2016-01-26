@@ -30,6 +30,18 @@ function radio_station_menu() {
 
 
 /**
+ * Implements hook_cron().
+ */
+function radio_station_cron() {
+  $component = new StationContentComponent();
+  $episodes = $component->getRippingEpisodes(Streams::One, 5);
+  $component->scheduleRippingEpisodes($episodes);
+  $component->attachNewRips();
+  $component->cullArchive();
+}
+
+
+/**
  * Implements hook_theme().
  */
 function radio_station_theme() {

@@ -36,3 +36,10 @@ abstract class EDisplayStyle {
   const Small = 0;
   const Medium = 1;
 }
+
+
+abstract class EArchiveTypes {
+  const NEVER = 0;
+  const TEMPORARY = 1;
+  const PERMANENT = 2;
+}
