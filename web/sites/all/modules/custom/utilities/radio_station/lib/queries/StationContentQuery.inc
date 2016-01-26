@@ -29,6 +29,37 @@ class StationContentQuery extends NodeQuery {
   }
 
 
+  public function type($term_name) {
+    $terms = taxonomy_get_term_by_name($term_name, 'station_content_types');
+    $term = reset($terms);
+
+    $tid = NULL;
+    if (isset($term->tid)) {
+      $tid = $term->tid;
+    }
+
+    $this->fieldCondition('field_station_content_type', 'tid', $tid);
+    return $this;
+  }
+
+
+  public function hasAudio() {
+    $subquery = db_select('field_data_field_audio_files', 'f');
+    $subquery->distinct();
+    $subquery->addField('f', 'entity_id');
+    $subquery->condition('f.deleted', '0', '=');
+    $subquery->condition('f.field_audio_files_fid', 'NULL', 'IS NOT');
+
+    $this->entityCondition('entity_id', $subquery, 'IN');
+  }
+
+
+  public function olderThan($timestamp) {
+    $this->fieldCondition('field_air_time', 'value', $timestamp, '<=');
+    return $this;
+  }
+
+
   public static function modifyGetEpisode(QueryAlterableInterface $query) {
     $start = $finish = time();
     $tags = $query->alterTags;

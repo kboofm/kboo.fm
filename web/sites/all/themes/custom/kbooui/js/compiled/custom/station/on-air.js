@@ -2,10 +2,8 @@
 (function() {
   var modulo = function(a, b) { return (+a % (b = +b) + b) % b; };
 
-  window.App.Schedule = window.App.Schedule || {};
-
   (function($) {
-    return App.Schedule.OnAir = (function() {
+    return App.Station.OnAir = (function() {
       function OnAir() {}
 
       OnAir.interval = 60;
@@ -19,7 +17,7 @@
         OnAir.interval = OnAir.interval * 1000;
         OnAir.$el = $('.on-air');
         OnAir.stream = OnAir.$el.attr('data-stream');
-        callback = App.Schedule.OnAir.timeCheck;
+        callback = App.Station.OnAir.timeCheck;
         C4.Utilities.Timer.repeat(callback, OnAir.interval, "timeCheck");
         return true;
       };
@@ -39,8 +37,8 @@
       OnAir.refresh = function() {
         var route, timestamp;
         timestamp = Math.floor(Date.now() / 1000);
-        route = "/station/episode/" + OnAir.stream + "/at/" + timestamp;
-        $.get(route, App.Schedule.OnAir.renderOnAir);
+        route = "/api/schedule/episode/" + OnAir.stream + "/at/" + timestamp;
+        $.get(route, App.Station.OnAir.renderOnAir);
         return true;
       };
 

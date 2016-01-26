@@ -4,10 +4,8 @@
     extend = function(child, parent) { for (var key in parent) { if (hasProp.call(parent, key)) child[key] = parent[key]; } function ctor() { this.constructor = child; } ctor.prototype = parent.prototype; child.prototype = new ctor(); child.__super__ = parent.prototype; return child; },
     hasProp = {}.hasOwnProperty;
 
-  window.App.Schedule = window.App.Schedule || {};
-
   (function($) {
-    return App.Schedule.Carousel = (function(superClass) {
+    App.Station.Carousel = (function(superClass) {
       extend(Carousel, superClass);
 
       function Carousel() {
@@ -73,7 +71,7 @@
       Carousel.prototype.change = function(event, direction) {
         var route;
         this.getCarousel(event);
-        route = "/station/" + this.type + "/" + this.stream + "/" + direction + "/" + this.timestamp;
+        route = "/api/schedule/" + this.type + "/" + this.stream + "/" + direction + "/" + this.timestamp;
         if (this.type === 'episode') {
           this.getEpisode(route);
         }
@@ -87,17 +85,17 @@
       };
 
       Carousel.prototype.getEpisode = function(route) {
-        $.get(route, this.renderEpisode);
+        jQuery.get(route, this.renderEpisode);
         return true;
       };
 
       Carousel.prototype.getDay = function(route) {
-        $.get(route, this.renderDay);
+        jQuery.get(route, this.renderDay);
         return true;
       };
 
       Carousel.prototype.getWeek = function(route) {
-        $.get(route, this.renderWeek);
+        jQuery.get(route, this.renderWeek);
         return true;
       };
 
@@ -229,6 +227,10 @@
       return Carousel;
 
     })(C4.Components.Base);
+    return $(function() {
+      new App.Station.Carousel();
+      return true;
+    });
   })(jQuery);
 
 }).call(this);

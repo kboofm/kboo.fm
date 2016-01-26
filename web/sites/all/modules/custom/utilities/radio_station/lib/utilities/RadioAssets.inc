@@ -16,6 +16,11 @@ class RadioAssets {
         'callback' => [$this, 'routeProgramsPlaylists'],
       ],
       [
+        'path' => 'listen',
+        'search_type' => EStringSearchOptions::Equals,
+        'callback' => [$this, 'routeListen'],
+      ],
+      [
         'path' => 'schedule',
         'search_type' => EStringSearchOptions::Equals,
         'callback' => [$this, 'routeSchedule'],
@@ -81,15 +86,19 @@ class RadioAssets {
   }
 
 
+  private function routeListen() {
+    $this->addJPlayer();
+    $this->addJs("js/compiled/custom/player/live-player.js");
+  }
+
+
   private function routeSchedule() {
     $this->addJs("js/compiled/custom/station/carousel.js");
   }
 
 
   public function audioPlayer() {
-    $dist = "bower_components/jPlayer/dist";
-    $this->addCss("{$dist}/skin/blue.monday/css/jplayer.blue.monday.css");
-    $this->addJs("{$dist}/jplayer/jquery.jplayer.min.js");
+    $this->addJPlayer();
     $this->addJs("js/compiled/custom/player/audio-player.js");
   }
 
@@ -98,6 +107,13 @@ class RadioAssets {
     $dist = "bower_components/bootstrap-datepicker/dist";
     $this->addCss("{$dist}/css/bootstrap-datepicker3.min.css");
     $this->addJs("{$dist}/js/bootstrap-datepicker.min.js");
+  }
+
+
+  private function addJPlayer() {
+    $dist = "bower_components/jPlayer/dist";
+    $this->addCss("{$dist}/skin/blue.monday/css/jplayer.blue.monday.css");
+    $this->addJs("{$dist}/jplayer/jquery.jplayer.min.js");
   }
 
 
