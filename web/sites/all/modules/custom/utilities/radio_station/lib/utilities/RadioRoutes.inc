@@ -61,13 +61,6 @@ class RadioRoutes {
 
 
   private function pageRoutesPublic() {
-    $this->items['about/contributors'] = [
-      'title' => 'Contributors',
-      'page callback' => 'radio_station_get_about_contributors',
-      'access arguments' => ['access content'],
-      'type' => MENU_CALLBACK,
-    ];
-
     $this->items['blog'] = [
       'title' => 'Blog',
       'page callback' => 'radio_station_get_blog',
@@ -101,13 +94,6 @@ class RadioRoutes {
     $this->items['programs/playlists'] = [
       'title' => 'Programs Playlists',
       'page callback' => 'radio_station_get_programs_playlists',
-      'access arguments' => ['access content'],
-      'type' => MENU_CALLBACK,
-    ];
-
-    $this->items['programs/show-hosts'] = [
-      'title' => 'Show Hosts',
-      'page callback' => 'radio_station_get_programs_show_hosts',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];

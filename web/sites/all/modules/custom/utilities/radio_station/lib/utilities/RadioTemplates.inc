@@ -12,7 +12,6 @@ class RadioTemplates {
 
 
   public function get() {
-    $this->addTemplate('about_contributors');
     $this->addTemplate('audio_player');
     $this->addTemplate('blog');
     $this->addTemplate('community_events');
@@ -20,7 +19,6 @@ class RadioTemplates {
     $this->addTemplate('news');
     $this->addTemplate('programs_content');
     $this->addTemplate('programs_playlists');
-    $this->addTemplate('programs_show_hosts');
     $this->addTemplate('schedule');
 
     return $this->templates;

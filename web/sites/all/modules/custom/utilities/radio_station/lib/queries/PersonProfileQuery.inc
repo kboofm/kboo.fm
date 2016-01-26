@@ -48,6 +48,8 @@ class PersonProfileQuery extends NodeQuery {
    * @return $this
    */
   public function getShowHosts($status = null) {
+    // field_show_host_status is not used, so status is cruft
+    // Todo: determine if show host status code should be removed fully
     if ($status == EShowHostStatus::Both) {
       $status = null;
     }
@@ -56,10 +58,6 @@ class PersonProfileQuery extends NodeQuery {
     $term = reset($terms);
 
     $this->fieldCondition('field_profile_type', 'tid', $term->tid);
-
-    if (!is_null($status)) {
-      $this->fieldCondition('field_show_host_status', 'value', $status);
-    }
 
     $this->sortByTitle();
     return $this;

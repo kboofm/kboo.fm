@@ -130,12 +130,6 @@ function radio_station_get_news() {
 }
 
 
-function radio_station_get_about_contributors() {
-  $response = new ProfilesResponse();
-  return $response->getContributors();
-}
-
-
 function radio_station_get_blog() {
   $response = new BlogResponse();
   return $response->get();
@@ -151,12 +145,6 @@ function radio_station_get_programs_content($program_alias) {
 function radio_station_get_programs_content_title($program_alias) {
   $title = ProgramsResponse::getTitle($program_alias);
   return "Latest Content for {$title}";
-}
-
-
-function radio_station_get_programs_show_hosts() {
-  $response = new ProfilesResponse();
-  return $response->getShowHosts();
 }
 
 
