@@ -1,10 +1,4 @@
-<p class="margin-vertical-lg">
-  Set your alarm for jazz in the morning and hit the pillow to sultry blues.
-  Don't miss any of your favorite programs or show hosts!
-</p>
-
-
-<div class="row oz-schedule visible-xs">
+<div class="row station-schedule visible-xs">
   <div class="col-md-4 col-md-offset-4">
     <?php include "partials/schedule/schedule-tabs.tpl.php"; ?>
   </div>

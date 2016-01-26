@@ -4,16 +4,6 @@ class TemplateProcessor {
 
   public static function getTeaserTitle($entity) {
     $title = $entity->title->value();
-
-    try {
-      $teaser_title = $entity->field_teaser_title->value();
-      if (!empty($teaser_title)) {
-        $title = $teaser_title;
-      }
-    } catch (EntityMetadataWrapperException $e) {
-      // duck typing
-    }
-
     return $title;
   }
 
@@ -28,20 +18,7 @@ class TemplateProcessor {
     }
 
     try {
-      $image_gallery = $entity->field_image_gallery[0];
-      $image = $image_gallery->field_image_files[0]->file->value();
-    } catch (EntityMetadataWrapperException $e) {
-      // ducktyping
-    }
-
-    try {
       $image = $entity->field_lead_image->file->value();
-    } catch (EntityMetadataWrapperException $e) {
-      // ducktyping
-    }
-
-    try {
-      $image = $entity->field_teaser_image->file->value();
     } catch (EntityMetadataWrapperException $e) {
       // ducktyping
     }
@@ -52,12 +29,6 @@ class TemplateProcessor {
 
   public static function getTeaserSummary($entity) {
     $summary = null;
-
-    try {
-      $summary = $entity->field_teaser_summary->value();
-    } catch (EntityMetadataWrapperException $e) {
-      // duck typing
-    }
 
     if (!$summary) {
       $body = $entity->body->value();

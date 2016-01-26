@@ -17,20 +17,11 @@ class RadioTemplates {
     $this->addTemplate('blog');
     $this->addTemplate('community_events');
     $this->addTemplate('episode_playlists');
-    $this->addTemplate('events_quick_add');
-    $this->addTemplate('events_quick_view');
-    $this->addTemplate('live_events');
-    $this->addTemplate('live_events_previous');
-    $this->addTemplate('livewire_calendar');
-    $this->addTemplate('livewire_generator');
     $this->addTemplate('news');
     $this->addTemplate('programs_content');
-    $this->addTemplate('programs_podcast');
     $this->addTemplate('programs_playlists');
     $this->addTemplate('programs_show_hosts');
-    $this->addTemplate('programs_streams');
     $this->addTemplate('schedule');
-    $this->addTemplate('venues');
 
     return $this->templates;
   }

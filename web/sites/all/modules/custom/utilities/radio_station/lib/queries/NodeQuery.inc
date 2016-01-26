@@ -51,11 +51,6 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
-  protected function hasLeadOrTeaserImage() {
-    $this->addTag('radio_NodeQuery_applyHasLeadOrTeaserImage');
-  }
-
-
   protected function sortByTitle() {
     $this->fieldOrderBy('title_field', 'value');
   }
@@ -319,29 +314,5 @@ class NodeQuery extends EntityFieldQuery {
       'node.nid = publication_date.nid'
     );
     $query->orderBy('ifnull(publication_date.published_at, node.created)', 'DESC');
-  }
-
-
-  public static function applyHasLeadOrTeaserImage(
-    QueryAlterableInterface $query
-  ) {
-
-    $query->leftJoin(
-      'field_data_field_lead_image',
-      'field_lead_image',
-      'node.nid = field_lead_image.entity_id'
-    );
-
-    $query->leftJoin(
-      'field_data_field_teaser_image',
-      'field_teaser_image',
-      'node.nid = field_teaser_image.entity_id'
-    );
-
-    $db_or = db_or();
-    $db_or->condition('field_lead_image.field_lead_image_fid', 'NULL', '<>')
-      ->condition('field_teaser_image.field_teaser_image_fid', 'NULL', '<>');
-
-    $query->condition($db_or);
   }
 }

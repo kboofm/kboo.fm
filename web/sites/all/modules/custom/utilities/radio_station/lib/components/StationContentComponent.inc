@@ -29,16 +29,4 @@ class StationContentComponent extends BaseComponent {
     $pager['items'] = $episodes;
     return $pager;
   }
-
-
-  public function getPodcastForProgram($program_nid) {
-    $query = new StationContentQuery();
-    $query = $query->getPodcastByProgram($program_nid);
-    $result = $query->execute();
-
-    $processor = new PodcastProcessor();
-    return $processor->process(
-      $this->getNids($result)
-    );
-  }
 }

@@ -1,12 +1,12 @@
 <?php
 
 class NewsQuery extends NodeQuery {
+
   /**
    * Initialize
    */
   public function initialize() {
     $this->content_types = [
-      'article',
       'blog_post',
       'promo',
       'station_content',

@@ -75,43 +75,6 @@ function radio_station_user_has_role(array $roles) {
 }
 
 
-function radio_station_livewire_form($form, &$form_state) {
-  return RadioForms::getConfigLivewire($form);
-}
-
-
-function radio_station_sample_groove_guardian($style) {
-  $response = new ApiResponse();
-  $response->getSampleAds($style);
-}
-
-
-function radio_station_player_carousel() {
-  $response = new ApiResponse();
-  $response->getPlayerCarousel();
-}
-
-
-function radio_station_promos($count) {
-  $response = new ApiResponse();
-  $response->getPromos($count);
-}
-
-
-function radio_station_acts() {
-  $params = Helpers::getQueryParameters();
-  $response = new ApiResponse();
-  $response->getActs($params['term']);
-}
-
-
-function radio_station_venue() {
-  $params = Helpers::getQueryParameters();
-  $response = new ApiResponse();
-  $response->getVenue($params['term']);
-}
-
-
 function radio_station_get_episode($stream, $direction, $timestamp) {
   $response = new ApiResponse();
   $response->getEpisode($stream, $direction, $timestamp);
@@ -143,49 +106,9 @@ function radio_station_get_schedule() {
 }
 
 
-function radio_station_get_livewire_generator() {
-  $response = new LivewireResponse();
-  return $response->getGenerator();
-}
-
-
-function radio_station_get_livewire_calendar() {
-  $response = new LivewireResponse();
-  return $response->getCalendar();
-}
-
-
 function radio_station_get_community_events() {
   $response = new EventsResponse();
   return $response->getUpcomingCommunity();
-}
-
-
-function radio_station_get_live_events() {
-  $response = new EventsResponse();
-  return $response->getUpcomingLive();
-}
-
-function radio_station_get_events_quick_add() {
-  if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-    $response = new EventsResponse();
-    return $response->postQuickAdd();
-  } else {
-    $response = new EventsResponse();
-    return $response->getQuickAdd();
-  }
-}
-
-
-function radio_station_get_events_quick_view() {
-  $response = new EventsResponse();
-  return $response->getQuickView();
-}
-
-
-function radio_station_get_live_events_previous() {
-  $response = new EventsResponse();
-  return $response->getPreviousLive();
 }
 
 
@@ -207,12 +130,6 @@ function radio_station_get_blog() {
 }
 
 
-function radio_station_get_venues() {
-  $response = new VenuesResponse();
-  return $response->get();
-}
-
-
 function radio_station_get_programs_content($program_alias) {
   $response = new ProgramsResponse();
   return $response->getContent($program_alias);
@@ -225,27 +142,9 @@ function radio_station_get_programs_content_title($program_alias) {
 }
 
 
-function radio_station_get_programs_podcast($program_alias) {
-  $response = new ProgramsResponse();
-  return $response->getPodcast($program_alias);
-}
-
-
-function radio_station_get_programs_podcast_title($program_alias) {
-  $title = ProgramsResponse::getTitle($program_alias);
-  return "{$title} Podcast";
-}
-
-
 function radio_station_get_programs_show_hosts() {
   $response = new ProfilesResponse();
   return $response->getShowHosts();
-}
-
-
-function radio_station_get_programs_streams() {
-  $response = new ProgramsResponse();
-  return $response->getStreams();
 }
 
 

@@ -7,33 +7,13 @@ class RadioAssets {
 
   public function __construct() {
     $this->current_route = current_path();
-    $this->theme_path = drupal_get_path('theme', 'wwozui');
+    $this->theme_path = drupal_get_path('theme', 'kbooui');
 
     $this->routes = [
-      [
-        'path' => 'livewire',
-        'search_type' => EStringSearchOptions::Equals,
-        'callback' => [$this, 'routeLivewire'],
-      ],
       [
         'path' => 'programs/playlists',
         'search_type' => EStringSearchOptions::Equals,
         'callback' => [$this, 'routeProgramsPlaylists'],
-      ],
-      [
-        'path' => 'programs/streams',
-        'search_type' => EStringSearchOptions::Equals,
-        'callback' => [$this, 'routeProgramsStreams'],
-      ],
-      [
-        'path' => 'station/events/quick/add',
-        'search_type' => EStringSearchOptions::Equals,
-        'callback' => [$this, 'routeEventsQuickadd'],
-      ],
-      [
-        'path' => 'station/livewire-hotline',
-        'search_type' => EStringSearchOptions::Equals,
-        'callback' => [$this, 'routeLivewireHotline'],
       ],
       [
         'path' => 'schedule',
@@ -95,45 +75,9 @@ class RadioAssets {
   }
 
 
-  private function routeLivewire() {
-    $this->addDatePicker();
-    $this->addJs("js/compiled/custom/station/livewire-calendar.js");
-  }
-
-
-
-  private function routeEventsQuickadd() {
-    $this->addDateTimePicker();
-    $this->addSelect2();
-    $this->addJs("js/compiled/custom/station/events-quickadd.js");
-  }
-
-
-  private function routeLivewireHotline()
-  {
-    $params = Helpers::getQueryParameters();
-
-    $phase = isset($params['phase']) ?
-      $params['phase'] : ELivewireRoutePhase::EventForm;
-
-    if ($phase == ELivewireRoutePhase::EventForm) {
-      $this->addDatePicker();
-      $this->addJs("js/compiled/custom/station/livewire-events.js");
-
-    } elseif ($phase == ELivewireRoutePhase::ScriptForm) {
-      $this->addJs("js/compiled/custom/station/livewire-script.js");
-    }
-  }
-
-
   private function routeProgramsPlaylists() {
     $this->addDatePicker();
     $this->addJs("js/compiled/custom/station/playlists.js");
-  }
-
-
-  private function routeProgramsStreams() {
-    $this->addModals();
   }
 
 
@@ -154,36 +98,6 @@ class RadioAssets {
     $dist = "bower_components/bootstrap-datepicker/dist";
     $this->addCss("{$dist}/css/bootstrap-datepicker3.min.css");
     $this->addJs("{$dist}/js/bootstrap-datepicker.min.js");
-  }
-
-
-  private function addDateTimePicker() {
-    $this->addMoment();
-
-    $dist = "bower_components/eonasdan-bootstrap-datetimepicker/build";
-    $this->addCss("{$dist}/css/bootstrap-datetimepicker.min.css");
-    $this->addJs("{$dist}/js/bootstrap-datetimepicker.min.js");
-  }
-
-
-  private function addMoment() {
-    $dist = "bower_components/moment";
-    $this->addJs("{$dist}/min/moment.min.js");
-  }
-
-
-  private function addSelect2() {
-    $dist = "bower_components/select2";
-    $this->addCss("{$dist}/select2.css");
-    $this->addJs("{$dist}/select2.js");
-
-    $dist = "bower_components/select2-bootstrap-css";
-    $this->addCss("{$dist}/select2-bootstrap.css");
-  }
-
-
-  private function addModals() {
-    $this->addJs("bower_components/bootstrap/js/modal.js");
   }
 
 

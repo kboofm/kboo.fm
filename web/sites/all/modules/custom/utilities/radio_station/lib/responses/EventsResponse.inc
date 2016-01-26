@@ -45,34 +45,4 @@ class EventsResponse extends Response {
     $this->addTemplateData($data);
     return $this->renderHtml();
   }
-
-
-  public function getQuickAdd() {
-    $this->template_name = 'radio_template_events_quick_add';
-    return $this->renderHtml();
-  }
-
-
-  public function postQuickAdd() {
-    $post = $_POST;
-    $component = new EventsComponent();
-    $component->createStubs($post);
-    drupal_goto("station/events/quick/view");
-  }
-
-
-  public function getQuickView() {
-    $this->template_name = 'radio_template_events_quick_view';
-    $this->readParams();
-    $page = $this->getParam('page', 1);
-
-    $component = new EventsComponent();
-    $pager = $component->latest($page);
-
-    $data = [
-      'pager' => $pager,
-    ];
-    $this->addTemplateData($data);
-    return $this->renderHtml();
-  }
 }

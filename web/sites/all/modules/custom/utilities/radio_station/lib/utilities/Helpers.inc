@@ -142,37 +142,6 @@ class Helpers {
   }
 
 
-  public static function livewireDayBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->startOfDay()
-      ->getTimestamp();
-  }
-
-
-  public static function livewireExtendedDayEnd($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->addDay()
-      ->setTimeFromTimeString("6:00am")
-      ->getTimestamp();
-  }
-
-
-  public static function livewireNextDayBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->addDay()
-      ->setTimeFromTimeString("6:00am")
-      ->getTimestamp();
-  }
-
-
-  public static function livewireNextDayEnd($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->addDay()
-      ->setTimeFromTimeString("12:00pm")
-      ->getTimestamp();
-  }
-
-
   public static function printif($array, $key) {
     if (isset($array[$key])) {
       print $array[$key];

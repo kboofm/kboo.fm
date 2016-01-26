@@ -32,20 +32,6 @@ abstract class EShowHostStatus {
 }
 
 
-abstract class ELivewireRoutePhase {
-  const EventForm = 0;
-  const ScriptForm = 1;
-  const GeneratedScript = 2;
-}
-
-
-abstract class ELivewireOverride {
-  const None = 0;
-  const AlwaysInclude = 1;
-  const DontInclude = 2;
-}
-
-
 abstract class EDisplayStyle {
   const Small = 0;
   const Medium = 1;

@@ -2,18 +2,18 @@
 
   <script type="text/javascript">
    jQuery(document).ready(function () {
-     new App.Player.Audio("#oz-audio-wrapper-<?php print $index; ?>");
+     new App.Player.Audio("#station-audio-wrapper-<?php print $index; ?>");
     });
   </script>
 
 
-  <div id="oz-audio-wrapper-<?php print $index; ?>" class="wwoz-audio-player">
+  <div id="station-audio-wrapper-<?php print $index; ?>" class="station-audio-player">
     <div class="jp-jplayer"
          data-endpoint="<?php print $audio_file['filepath']; ?>">
     </div>
 
 
-    <div id="oz-audio-container-<?php print $index; ?>"
+    <div id="station-audio-container-<?php print $index; ?>"
          class="jp-audio">
 
       <div class="jp-type-single">
@@ -50,7 +50,7 @@
 
         <div class="jp-title">
           <ul>
-            <li>WWOZ</li>
+            <li>KBOO</li>
           </ul>
         </div>
 
