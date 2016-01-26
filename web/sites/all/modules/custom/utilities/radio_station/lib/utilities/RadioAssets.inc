@@ -16,7 +16,7 @@ class RadioAssets {
         'callback' => [$this, 'routeProgramsPlaylists'],
       ],
       [
-        'path' => 'listen',
+        'path' => 'listen-now',
         'search_type' => EStringSearchOptions::Equals,
         'callback' => [$this, 'routeListen'],
       ],
