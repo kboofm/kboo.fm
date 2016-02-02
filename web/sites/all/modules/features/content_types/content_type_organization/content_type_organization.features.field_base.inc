@@ -10,7 +10,7 @@
 function content_type_organization_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_email'
+  // Exported field_base: 'field_email'.
   $field_bases['field_email'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -25,7 +25,7 @@ function content_type_organization_field_default_field_bases() {
     'type' => 'email',
   );
 
-  // Exported field_base: 'field_organization_status'
+  // Exported field_base: 'field_organization_status'.
   $field_bases['field_organization_status'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -50,7 +50,7 @@ function content_type_organization_field_default_field_bases() {
     'type' => 'list_integer',
   );
 
-  // Exported field_base: 'field_organization_type'
+  // Exported field_base: 'field_organization_type'.
   $field_bases['field_organization_type'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -76,7 +76,7 @@ function content_type_organization_field_default_field_bases() {
     'type' => 'taxonomy_term_reference',
   );
 
-  // Exported field_base: 'field_phone'
+  // Exported field_base: 'field_phone'.
   $field_bases['field_phone'] = array(
     'active' => 1,
     'cardinality' => -1,
@@ -91,7 +91,7 @@ function content_type_organization_field_default_field_bases() {
     'type' => 'telephone',
   );
 
-  // Exported field_base: 'field_url'
+  // Exported field_base: 'field_url'.
   $field_bases['field_url'] = array(
     'active' => 1,
     'cardinality' => -1,
