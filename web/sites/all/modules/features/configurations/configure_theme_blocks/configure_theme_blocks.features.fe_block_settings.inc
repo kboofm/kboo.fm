@@ -354,8 +354,8 @@ function configure_theme_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kbooui' => array(
-        'region' => 'sidebar',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'kbooui',
         'weight' => -2,
       ),
@@ -610,8 +610,8 @@ function configure_theme_blocks_default_fe_block_settings() {
         'weight' => 0,
       ),
       'kbooui' => array(
-        'region' => 'help',
-        'status' => 1,
+        'region' => '',
+        'status' => 0,
         'theme' => 'kbooui',
         'weight' => 0,
       ),
