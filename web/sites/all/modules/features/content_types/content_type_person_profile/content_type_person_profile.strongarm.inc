@@ -93,13 +93,20 @@ function content_type_person_profile_strongarm() {
           'weight' => '1',
         ),
         'path' => array(
-          'weight' => '9',
-        ),
-        'metatags' => array(
           'weight' => '10',
         ),
+        'metatags' => array(
+          'weight' => '11',
+        ),
       ),
-      'display' => array(),
+      'display' => array(
+        'sharethis' => array(
+          'default' => array(
+            'weight' => '11',
+            'visible' => TRUE,
+          ),
+        ),
+      ),
     ),
   );
   $export['field_bundle_settings_node__person_profile'] = $strongarm;
@@ -108,9 +115,7 @@ function content_type_person_profile_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'menu_options_person_profile';
-  $strongarm->value = array(
-    0 => 'main-menu',
-  );
+  $strongarm->value = array();
   $export['menu_options_person_profile'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -147,8 +152,15 @@ function content_type_person_profile_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'pathauto_node_person_profile_pattern';
-  $strongarm->value = 'profile/[node:title]';
+  $strongarm->value = 'profiles/[node:title]';
   $export['pathauto_node_person_profile_pattern'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'pathauto_taxonomy_term_profile_types_pattern';
+  $strongarm->value = '';
+  $export['pathauto_taxonomy_term_profile_types_pattern'] = $strongarm;
 
   return $export;
 }

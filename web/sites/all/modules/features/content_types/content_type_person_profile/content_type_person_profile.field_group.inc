@@ -21,7 +21,7 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content below media',
-    'weight' => '5',
+    'weight' => '3',
     'children' => array(
       0 => 'field_body_below_media',
     ),
@@ -51,19 +51,12 @@ function content_type_person_profile_field_group_info() {
     'weight' => '0',
     'children' => array(
       0 => 'body',
-      1 => 'field_audio_files',
-      2 => 'field_email',
-      3 => 'field_genres',
-      4 => 'field_lead_image',
-      5 => 'field_location',
-      6 => 'field_more_images',
-      7 => 'field_name',
-      8 => 'field_parent_section',
-      9 => 'field_phone',
-      10 => 'field_profile_type',
-      11 => 'field_short_description',
-      12 => 'field_topic_tags',
-      13 => 'title_field',
+      1 => 'field_email',
+      2 => 'field_parent_section',
+      3 => 'field_profile_type',
+      4 => 'field_short_description',
+      5 => 'title_field',
+      6 => 'field_name',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -88,7 +81,7 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Developer info',
-    'weight' => '8',
+    'weight' => '9',
     'children' => array(
       0 => 'field_d6_nid',
       1 => 'field_published_date',
@@ -108,6 +101,35 @@ function content_type_person_profile_field_group_info() {
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
   $field_group->api_version = 1;
+  $field_group->identifier = 'group_images|node|person_profile|form';
+  $field_group->group_name = 'group_images';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'person_profile';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Images',
+    'weight' => '1',
+    'children' => array(
+      0 => 'field_image_gallery',
+      1 => 'field_lead_image',
+      2 => 'field_more_images',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-images field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_images|node|person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
   $field_group->identifier = 'group_media|node|person_profile|form';
   $field_group->group_name = 'group_media';
   $field_group->entity_type = 'node';
@@ -116,11 +138,12 @@ function content_type_person_profile_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '4',
+    'weight' => '2',
     'children' => array(
-      0 => 'field_files',
-      1 => 'field_links',
-      2 => 'field_video_files',
+      0 => 'field_audio_files',
+      1 => 'field_files',
+      2 => 'field_links',
+      3 => 'field_video_files',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -151,6 +174,7 @@ function content_type_person_profile_field_group_info() {
       1 => 'field_hosted_by',
       2 => 'field_produced_by',
       3 => 'field_produced_for',
+      4 => 'field_sponsored_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -174,35 +198,129 @@ function content_type_person_profile_field_group_info() {
   $field_group->mode = 'form';
   $field_group->parent_name = '';
   $field_group->data = array(
-    'label' => 'Related info',
+    'label' => 'Related info & topics',
     'weight' => '7',
     'children' => array(
-      0 => 'field_related_info_content',
-      1 => 'field_related_organizations',
-      2 => 'field_related_programs',
-      3 => 'field_related_show_hosts',
+      0 => 'field_related_acts',
+      1 => 'field_related_info_content',
+      2 => 'field_related_organizations',
+      3 => 'field_related_programs',
+      4 => 'field_related_show_hosts',
+      5 => 'field_topic_tags',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
-      'label' => 'Related info',
-      'instance_settings' => array(
-        'required_fields' => 1,
-        'classes' => 'group-related field-group-tab',
-        'description' => '',
-      ),
       'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-related field-group-tab',
+        'required_fields' => 1,
+      ),
     ),
   );
   $field_groups['group_related|node|person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_show_host|node|person_profile|form';
+  $field_group->group_name = 'group_show_host';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'person_profile';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Show host',
+    'weight' => '5',
+    'children' => array(
+      0 => 'field_genres',
+      1 => 'field_show_host_status',
+      2 => 'field_signature_tune',
+      3 => 'field_stream',
+      4 => 'field_substitute',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_show_host|node|person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_staff_member|node|person_profile|form';
+  $field_group->group_name = 'group_staff_member';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'person_profile';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Staff member',
+    'weight' => '4',
+    'children' => array(
+      0 => 'field_job_description',
+      1 => 'field_job_title',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => '',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_staff_member|node|person_profile|form'] = $field_group;
+
+  $field_group = new stdClass();
+  $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
+  $field_group->api_version = 1;
+  $field_group->identifier = 'group_teaser_info|node|person_profile|form';
+  $field_group->group_name = 'group_teaser_info';
+  $field_group->entity_type = 'node';
+  $field_group->bundle = 'person_profile';
+  $field_group->mode = 'form';
+  $field_group->parent_name = '';
+  $field_group->data = array(
+    'label' => 'Teaser info',
+    'weight' => '8',
+    'children' => array(
+      0 => 'field_promote_to_wwoz_latest',
+      1 => 'field_teaser_image',
+      2 => 'field_teaser_summary',
+      3 => 'field_teaser_title',
+    ),
+    'format_type' => 'tab',
+    'format_settings' => array(
+      'formatter' => 'closed',
+      'instance_settings' => array(
+        'description' => '',
+        'classes' => 'group-teaser-info field-group-tab',
+        'required_fields' => 1,
+      ),
+    ),
+  );
+  $field_groups['group_teaser_info|node|person_profile|form'] = $field_group;
 
   // Translatables
   // Included for use with string extractors like potx.
   t('Content');
   t('Content below media');
   t('Developer info');
+  t('Images');
   t('Media');
   t('Profile info');
-  t('Related info');
+  t('Related info & topics');
+  t('Show host');
+  t('Staff member');
+  t('Teaser info');
 
   return $field_groups;
 }
