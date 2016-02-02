@@ -1166,6 +1166,97 @@ function content_type_event_field_default_field_instances() {
     ),
   );
 
+  // Exported field_instance: 'node-event-field_produced_by'.
+  $field_instances['node-event-field_produced_by'] = array(
+    'bundle' => 'event',
+    'default_value' => array(
+      0 => array(
+        'value' => 'KBOO',
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 29,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_produced_by',
+    'label' => 'Produced by',
+    'required' => 0,
+    'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'full_html_no_wysiwyg' => 'full_html_no_wysiwyg',
+          'full_html_simple_wysiwyg' => 'full_html_simple_wysiwyg',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => -7,
+            ),
+            'full_html' => array(
+              'weight' => -10,
+            ),
+            'full_html_no_wysiwyg' => array(
+              'weight' => -8,
+            ),
+            'full_html_simple_wysiwyg' => array(
+              'weight' => -9,
+            ),
+            'plain_text' => array(
+              'weight' => -6,
+            ),
+          ),
+        ),
+      ),
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 0,
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'text',
+      'settings' => array(
+        'size' => 60,
+      ),
+      'type' => 'text_textfield',
+      'weight' => 51,
+    ),
+  );
+
   // Exported field_instance: 'node-event-field_produced_for'.
   $field_instances['node-event-field_produced_for'] = array(
     'bundle' => 'event',
@@ -1708,7 +1799,7 @@ function content_type_event_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 53,
+      'weight' => 52,
     ),
   );
 
@@ -2017,6 +2108,7 @@ function content_type_event_field_default_field_instances() {
   t('Location');
   t('More Images');
   t('Parent section');
+  t('Produced by');
   t('Produced for');
   t('Published date');
   t('Related content');

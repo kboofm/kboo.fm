@@ -149,8 +149,8 @@ function content_type_event_field_group_info() {
     'children' => array(
       0 => 'field_authored_by',
       1 => 'field_hosted_by',
-      2 => 'field_produced_by',
-      3 => 'field_sponsored_by',
+      2 => 'field_sponsored_by',
+      3 => 'field_produced_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -207,11 +207,7 @@ function content_type_event_field_group_info() {
   $field_group->data = array(
     'label' => 'Teaser info',
     'weight' => '10',
-    'children' => array(
-      0 => 'field_teaser_image',
-      1 => 'field_teaser_summary',
-      2 => 'field_teaser_title',
-    ),
+    'children' => array(),
     'format_type' => 'tab',
     'format_settings' => array(
       'formatter' => 'closed',
