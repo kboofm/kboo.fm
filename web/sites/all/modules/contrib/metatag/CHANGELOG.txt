@@ -1,3 +1,13 @@
+Metatag 7.x-1.11, 2016-01-26
+----------------------------
+#2568499 by DamienMcKenna, DD 85: Removed an errant space.
+#2655582 by DamienMcKenna, MihaiMiculescu: Fixed automatic image parsing.
+By DamienMcKenna: Minor changes to the README.txt file.
+#2655614 by DamienMcKenna: Added tests for image handling.
+#2655662 by DamienMcKenna: Fixed handling of output translation on pages with
+  really long paths.
+
+
 Metatag 7.x-1.10, 2016-01-22
 ----------------------------
 #2654838 by Plazik, DamienMcKenna: Disabling output caching lead to Undefined

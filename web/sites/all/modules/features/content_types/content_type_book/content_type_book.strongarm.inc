@@ -101,6 +101,9 @@ function content_type_book_strongarm() {
         'path' => array(
           'weight' => '9',
         ),
+        'redirect' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(),
     ),

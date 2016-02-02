@@ -32,6 +32,8 @@ files[] = tests/metatag.core_tag_removal.test
 ; String handling.
 files[] = tests/metatag.string_handling.test
 files[] = tests/metatag.string_handling_with_i18n.test
+; Images need specia attention.
+files[] = tests/metatag.image.test
 ; Internationalization & translation.
 files[] = tests/metatag.locale.test
 files[] = tests/metatag.with_i18n_output.test
@@ -56,9 +58,9 @@ test_dependencies[] = context
 test_dependencies[] = panels
 test_dependencies[] = views
 
-; Information added by Drupal.org packaging script on 2016-01-22
-version = "7.x-1.10"
+; Information added by Drupal.org packaging script on 2016-01-26
+version = "7.x-1.11"
 core = "7.x"
 project = "metatag"
-datestamp = "1453490349"
+datestamp = "1453835341"
 

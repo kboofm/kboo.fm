@@ -100,111 +100,6 @@
         "description": "Provides a way to patch Composer packages."
     },
     {
-        "name": "drupal/drupal",
-        "version": "7.39.0",
-        "version_normalized": "7.39.0.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/drupal",
-            "reference": "c0351e9a8561a477d3bd88b36a3be7ded0f611ab"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "http://ftp.drupal.org/files/projects/drupal-7.39.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "replace": {
-            "drupal/aggregator": "self.version",
-            "drupal/bartik": "self.version",
-            "drupal/block": "self.version",
-            "drupal/blog": "self.version",
-            "drupal/book": "self.version",
-            "drupal/color": "self.version",
-            "drupal/comment": "self.version",
-            "drupal/contact": "self.version",
-            "drupal/contextual": "self.version",
-            "drupal/dashboard": "self.version",
-            "drupal/dblog": "self.version",
-            "drupal/field": "self.version",
-            "drupal/field_sql_storage": "self.version",
-            "drupal/field_ui": "self.version",
-            "drupal/file": "self.version",
-            "drupal/filter": "self.version",
-            "drupal/forum": "self.version",
-            "drupal/garland": "self.version",
-            "drupal/help": "self.version",
-            "drupal/image": "self.version",
-            "drupal/list": "self.version",
-            "drupal/locale": "self.version",
-            "drupal/menu": "self.version",
-            "drupal/minimal": "self.version",
-            "drupal/node": "self.version",
-            "drupal/number": "self.version",
-            "drupal/openid": "self.version",
-            "drupal/options": "self.version",
-            "drupal/overlay": "self.version",
-            "drupal/path": "self.version",
-            "drupal/php": "self.version",
-            "drupal/poll": "self.version",
-            "drupal/profile": "self.version",
-            "drupal/rdf": "self.version",
-            "drupal/search": "self.version",
-            "drupal/seven": "self.version",
-            "drupal/shortcut": "self.version",
-            "drupal/standard": "self.version",
-            "drupal/stark": "self.version",
-            "drupal/statistics": "self.version",
-            "drupal/syslog": "self.version",
-            "drupal/system": "self.version",
-            "drupal/taxonomy": "self.version",
-            "drupal/text": "self.version",
-            "drupal/toolbar": "self.version",
-            "drupal/tracker": "self.version",
-            "drupal/translation": "self.version",
-            "drupal/trigger": "self.version",
-            "drupal/update": "self.version",
-            "drupal/user": "self.version"
-        },
-        "suggest": {
-            "drupal/block": "Required by drupal/dashboard, drupal/minimal, drupal/standard",
-            "drupal/color": "Required by drupal/standard",
-            "drupal/comment": "Required by drupal/forum, drupal/tracker, drupal/standard",
-            "drupal/contextual": "Required by drupal/standard",
-            "drupal/dashboard": "Required by drupal/standard",
-            "drupal/dblog": "Required by drupal/minimal, drupal/standard",
-            "drupal/field": "Required by drupal/field_sql_storage, drupal/list, drupal/number, drupal/options, drupal/text, drupal/field_ui, drupal/file",
-            "drupal/field_sql_storage": "Required by drupal/field",
-            "drupal/field_ui": "Required by drupal/standard",
-            "drupal/file": "Required by drupal/image, drupal/standard",
-            "drupal/help": "Required by drupal/standard",
-            "drupal/image": "Required by drupal/standard",
-            "drupal/list": "Required by drupal/standard",
-            "drupal/locale": "Required by drupal/translation",
-            "drupal/menu": "Required by drupal/standard",
-            "drupal/number": "Required by drupal/standard",
-            "drupal/options": "Required by drupal/list, drupal/taxonomy, drupal/standard",
-            "drupal/overlay": "Required by drupal/standard",
-            "drupal/path": "Required by drupal/standard",
-            "drupal/rdf": "Required by drupal/standard",
-            "drupal/search": "Required by drupal/standard",
-            "drupal/shortcut": "Required by drupal/standard",
-            "drupal/taxonomy": "Required by drupal/forum, drupal/standard",
-            "drupal/text": "Required by drupal/comment",
-            "drupal/toolbar": "Required by drupal/standard"
-        },
-        "type": "drupal-core",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-": "7.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Handles general site configuration for administrators.",
-        "homepage": "https://www.drupal.org/project/drupal"
-    },
-    {
         "name": "drupal/ad",
         "version": "dev-7.x-1.x",
         "version_normalized": "dev-7.x-1.x",
@@ -514,34 +409,6 @@
         "notification-url": "http://packagist.drupal-composer.org/downloads/",
         "description": "Allows hiding of the content title field and automatic title creation.",
         "homepage": "https://www.drupal.org/project/auto_nodetitle"
-    },
-    {
-        "name": "drupal/better_formats",
-        "version": "7.1.0-beta1",
-        "version_normalized": "7.1.0.0-beta1",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/better_formats",
-            "reference": "3b148f6082cee680331628ac80e4fc77398e9076"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "http://ftp.drupal.org/files/projects/better_formats-7.x-1.0-beta1.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/drupal": "7.*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-1.x": "7.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Enhances the core input format system by managing input format defaults and settings."
     },
     {
         "name": "drupal/cdn",
@@ -1711,106 +1578,6 @@
         "description": "Variable Information and basic variable API"
     },
     {
-        "name": "composer/installers",
-        "version": "v1.0.22",
-        "version_normalized": "1.0.22.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/composer/installers.git",
-            "reference": "bd9b14f094c89c8b5804a4e41edeb7853bb85046"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/bd9b14f094c89c8b5804a4e41edeb7853bb85046",
-            "reference": "bd9b14f094c89c8b5804a4e41edeb7853bb85046",
-            "shasum": ""
-        },
-        "require": {
-            "composer-plugin-api": "1.0.0"
-        },
-        "replace": {
-            "roundcube/plugin-installer": "*",
-            "shama/baton": "*"
-        },
-        "require-dev": {
-            "composer/composer": "1.0.*@dev",
-            "phpunit/phpunit": "4.1.*"
-        },
-        "time": "2015-10-29 23:28:48",
-        "type": "composer-plugin",
-        "extra": {
-            "class": "Composer\\Installers\\Plugin",
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-0": {
-                "Composer\\Installers\\": "src/"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Kyle Robinson Young",
-                "email": "kyle@dontkry.com",
-                "homepage": "https://github.com/shama"
-            }
-        ],
-        "description": "A multi-framework Composer library installer",
-        "homepage": "http://composer.github.com/installers/",
-        "keywords": [
-            "Craft",
-            "Dolibarr",
-            "Hurad",
-            "MODX Evo",
-            "OXID",
-            "SMF",
-            "Thelia",
-            "WolfCMS",
-            "agl",
-            "aimeos",
-            "annotatecms",
-            "bitrix",
-            "cakephp",
-            "chef",
-            "codeigniter",
-            "concrete5",
-            "croogo",
-            "dokuwiki",
-            "drupal",
-            "elgg",
-            "fuelphp",
-            "grav",
-            "installer",
-            "joomla",
-            "kohana",
-            "laravel",
-            "lithium",
-            "magento",
-            "mako",
-            "mediawiki",
-            "modulework",
-            "moodle",
-            "phpbb",
-            "piwik",
-            "ppi",
-            "puppet",
-            "roundcube",
-            "shopware",
-            "silverstripe",
-            "symfony",
-            "typo3",
-            "wordpress",
-            "zend",
-            "zikula"
-        ]
-    },
-    {
         "name": "drupal/addressfield",
         "version": "7.1.2",
         "version_normalized": "7.1.2.0",
@@ -2381,65 +2148,6 @@
         "homepage": "https://www.drupal.org/project/name"
     },
     {
-        "name": "drupal/metatag",
-        "version": "7.1.10",
-        "version_normalized": "7.1.10.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/metatag",
-            "reference": "975a58e256546d813871a81473748c380fe44a41"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.10.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/ctools": "7.*",
-            "drupal/drupal": "7.*",
-            "drupal/system": ">=7.28.0",
-            "drupal/token": ">=7.1.6"
-        },
-        "replace": {
-            "drupal/metatag_app_links": "self.version",
-            "drupal/metatag_context": "self.version",
-            "drupal/metatag_dc": "self.version",
-            "drupal/metatag_dc_advanced": "self.version",
-            "drupal/metatag_devel": "self.version",
-            "drupal/metatag_facebook": "self.version",
-            "drupal/metatag_favicons": "self.version",
-            "drupal/metatag_google_plus": "self.version",
-            "drupal/metatag_hreflang": "self.version",
-            "drupal/metatag_importer": "self.version",
-            "drupal/metatag_mobile": "self.version",
-            "drupal/metatag_opengraph": "self.version",
-            "drupal/metatag_opengraph_products": "self.version",
-            "drupal/metatag_panels": "self.version",
-            "drupal/metatag_twitter_cards": "self.version",
-            "drupal/metatag_verification": "self.version",
-            "drupal/metatag_views": "self.version"
-        },
-        "suggest": {
-            "drupal/context": "Required by drupal/metatag_context",
-            "drupal/locale": "Required by drupal/metatag_hreflang",
-            "drupal/metatag_dc": "Required by drupal/metatag_dc_advanced",
-            "drupal/metatag_opengraph": "Required by drupal/metatag_opengraph_products",
-            "drupal/panels": "Required by drupal/metatag_panels",
-            "drupal/views": "Required by drupal/metatag_views"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-1.x": "7.1.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Adds support and an API to implement meta tags.",
-        "homepage": "https://www.drupal.org/project/metatag"
-    },
-    {
         "name": "drupal/ckeditor",
         "version": "dev-7.x-1.x",
         "version_normalized": "dev-7.x-1.x",
@@ -2707,5 +2415,298 @@
         "notification-url": "http://packagist.drupal-composer.org/downloads/",
         "description": "Add the <a href=\"http://www.sharethis.com/\">ShareThis</a> widget to nodes on your site.",
         "homepage": "https://www.drupal.org/project/sharethis"
+    },
+    {
+        "name": "composer/installers",
+        "version": "v1.0.23",
+        "version_normalized": "1.0.23.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/composer/installers.git",
+            "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/composer/installers/zipball/6213d900e92647831f7a406d5c530ea1f3d4360e",
+            "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0"
+        },
+        "replace": {
+            "roundcube/plugin-installer": "*",
+            "shama/baton": "*"
+        },
+        "require-dev": {
+            "composer/composer": "1.0.*@dev",
+            "phpunit/phpunit": "4.1.*"
+        },
+        "time": "2016-01-27 12:54:22",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "Composer\\Installers\\Plugin",
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "Composer\\Installers\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kyle Robinson Young",
+                "email": "kyle@dontkry.com",
+                "homepage": "https://github.com/shama"
+            }
+        ],
+        "description": "A multi-framework Composer library installer",
+        "homepage": "http://composer.github.com/installers/",
+        "keywords": [
+            "Craft",
+            "Dolibarr",
+            "Hurad",
+            "MODX Evo",
+            "OXID",
+            "SMF",
+            "Thelia",
+            "WolfCMS",
+            "agl",
+            "aimeos",
+            "annotatecms",
+            "bitrix",
+            "cakephp",
+            "chef",
+            "codeigniter",
+            "concrete5",
+            "croogo",
+            "dokuwiki",
+            "drupal",
+            "elgg",
+            "fuelphp",
+            "grav",
+            "installer",
+            "joomla",
+            "kohana",
+            "laravel",
+            "lithium",
+            "magento",
+            "mako",
+            "mediawiki",
+            "modulework",
+            "moodle",
+            "phpbb",
+            "piwik",
+            "ppi",
+            "puppet",
+            "roundcube",
+            "shopware",
+            "silverstripe",
+            "symfony",
+            "typo3",
+            "wordpress",
+            "zend",
+            "zikula"
+        ]
+    },
+    {
+        "name": "drupal/drupal",
+        "version": "7.41.0",
+        "version_normalized": "7.41.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/drupal",
+            "reference": "69af622114261c1c13cf3c9b5ccc418cd036594b"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/drupal-7.41.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "replace": {
+            "drupal/aggregator": "self.version",
+            "drupal/bartik": "self.version",
+            "drupal/block": "self.version",
+            "drupal/blog": "self.version",
+            "drupal/book": "self.version",
+            "drupal/color": "self.version",
+            "drupal/comment": "self.version",
+            "drupal/contact": "self.version",
+            "drupal/contextual": "self.version",
+            "drupal/dashboard": "self.version",
+            "drupal/dblog": "self.version",
+            "drupal/field": "self.version",
+            "drupal/field_sql_storage": "self.version",
+            "drupal/field_ui": "self.version",
+            "drupal/file": "self.version",
+            "drupal/filter": "self.version",
+            "drupal/forum": "self.version",
+            "drupal/garland": "self.version",
+            "drupal/help": "self.version",
+            "drupal/image": "self.version",
+            "drupal/list": "self.version",
+            "drupal/locale": "self.version",
+            "drupal/menu": "self.version",
+            "drupal/minimal": "self.version",
+            "drupal/node": "self.version",
+            "drupal/number": "self.version",
+            "drupal/openid": "self.version",
+            "drupal/options": "self.version",
+            "drupal/overlay": "self.version",
+            "drupal/path": "self.version",
+            "drupal/php": "self.version",
+            "drupal/poll": "self.version",
+            "drupal/profile": "self.version",
+            "drupal/rdf": "self.version",
+            "drupal/search": "self.version",
+            "drupal/seven": "self.version",
+            "drupal/shortcut": "self.version",
+            "drupal/standard": "self.version",
+            "drupal/stark": "self.version",
+            "drupal/statistics": "self.version",
+            "drupal/syslog": "self.version",
+            "drupal/system": "self.version",
+            "drupal/taxonomy": "self.version",
+            "drupal/text": "self.version",
+            "drupal/toolbar": "self.version",
+            "drupal/tracker": "self.version",
+            "drupal/translation": "self.version",
+            "drupal/trigger": "self.version",
+            "drupal/update": "self.version",
+            "drupal/user": "self.version"
+        },
+        "suggest": {
+            "drupal/block": "Required by drupal/dashboard, drupal/minimal, drupal/standard",
+            "drupal/color": "Required by drupal/standard",
+            "drupal/comment": "Required by drupal/forum, drupal/tracker, drupal/standard",
+            "drupal/contextual": "Required by drupal/standard",
+            "drupal/dashboard": "Required by drupal/standard",
+            "drupal/dblog": "Required by drupal/minimal, drupal/standard",
+            "drupal/field": "Required by drupal/field_sql_storage, drupal/list, drupal/number, drupal/options, drupal/text, drupal/field_ui, drupal/file",
+            "drupal/field_sql_storage": "Required by drupal/field",
+            "drupal/field_ui": "Required by drupal/standard",
+            "drupal/file": "Required by drupal/image, drupal/standard",
+            "drupal/help": "Required by drupal/standard",
+            "drupal/image": "Required by drupal/standard",
+            "drupal/list": "Required by drupal/standard",
+            "drupal/locale": "Required by drupal/translation",
+            "drupal/menu": "Required by drupal/standard",
+            "drupal/number": "Required by drupal/standard",
+            "drupal/options": "Required by drupal/list, drupal/taxonomy, drupal/standard",
+            "drupal/overlay": "Required by drupal/standard",
+            "drupal/path": "Required by drupal/standard",
+            "drupal/rdf": "Required by drupal/standard",
+            "drupal/search": "Required by drupal/standard",
+            "drupal/shortcut": "Required by drupal/standard",
+            "drupal/taxonomy": "Required by drupal/forum, drupal/standard",
+            "drupal/text": "Required by drupal/comment",
+            "drupal/toolbar": "Required by drupal/standard"
+        },
+        "type": "drupal-core",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-": "7.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Handles general site configuration for administrators.",
+        "homepage": "https://www.drupal.org/project/drupal"
+    },
+    {
+        "name": "drupal/better_formats",
+        "version": "7.1.0-beta2",
+        "version_normalized": "7.1.0.0-beta2",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/better_formats",
+            "reference": "3b4a8c92b317add4e218216a002b2bc777fbc736"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/better_formats-7.x-1.0-beta2.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Enhances the core input format system by managing input format defaults and settings.",
+        "homepage": "https://www.drupal.org/project/better_formats"
+    },
+    {
+        "name": "drupal/metatag",
+        "version": "7.1.11",
+        "version_normalized": "7.1.11.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/metatag",
+            "reference": "8bf64019918e97d2952c39fe0fd662fb67b73720"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.11.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/ctools": "7.*",
+            "drupal/drupal": "7.*",
+            "drupal/system": ">=7.28.0",
+            "drupal/token": ">=7.1.6"
+        },
+        "replace": {
+            "drupal/metatag_app_links": "self.version",
+            "drupal/metatag_context": "self.version",
+            "drupal/metatag_dc": "self.version",
+            "drupal/metatag_dc_advanced": "self.version",
+            "drupal/metatag_devel": "self.version",
+            "drupal/metatag_facebook": "self.version",
+            "drupal/metatag_favicons": "self.version",
+            "drupal/metatag_google_plus": "self.version",
+            "drupal/metatag_hreflang": "self.version",
+            "drupal/metatag_importer": "self.version",
+            "drupal/metatag_mobile": "self.version",
+            "drupal/metatag_opengraph": "self.version",
+            "drupal/metatag_opengraph_products": "self.version",
+            "drupal/metatag_panels": "self.version",
+            "drupal/metatag_twitter_cards": "self.version",
+            "drupal/metatag_verification": "self.version",
+            "drupal/metatag_views": "self.version"
+        },
+        "suggest": {
+            "drupal/context": "Required by drupal/metatag_context",
+            "drupal/locale": "Required by drupal/metatag_hreflang",
+            "drupal/metatag_dc": "Required by drupal/metatag_dc_advanced",
+            "drupal/metatag_opengraph": "Required by drupal/metatag_opengraph_products",
+            "drupal/panels": "Required by drupal/metatag_panels",
+            "drupal/views": "Required by drupal/metatag_views"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Adds support and an API to implement meta tags.",
+        "homepage": "https://www.drupal.org/project/metatag"
     }
 ]

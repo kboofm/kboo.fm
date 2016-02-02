@@ -35,6 +35,11 @@ class BlogPostFromBlog extends NodeImageMigration {
       'Vocabulary__topics_from_12'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 
