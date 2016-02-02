@@ -60,6 +60,7 @@ dependencies[] = pathauto
 dependencies[] = pathologic
 dependencies[] = publication_date
 dependencies[] = recaptcha
+dependencies[] = redirect
 dependencies[] = remote_stream_wrapper
 dependencies[] = responsive_favicons
 dependencies[] = search

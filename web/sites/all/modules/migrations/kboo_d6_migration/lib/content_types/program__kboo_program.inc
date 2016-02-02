@@ -37,6 +37,11 @@ class ProgramFromKbooProgram extends NodeImageMigration {
       'field_episode_record'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 }

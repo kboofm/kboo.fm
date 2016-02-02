@@ -38,6 +38,11 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
       'station_content_type'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 

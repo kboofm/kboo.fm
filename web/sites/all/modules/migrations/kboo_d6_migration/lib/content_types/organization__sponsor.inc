@@ -42,6 +42,11 @@ class OrganizationFromSponsor extends NodeMigration {
       'field_website_url'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 }

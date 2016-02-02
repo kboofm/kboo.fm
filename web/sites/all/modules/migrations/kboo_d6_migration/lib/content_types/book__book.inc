@@ -17,6 +17,11 @@ class BookFromBook extends NodeImageMigration {
       'field_short_description'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 }

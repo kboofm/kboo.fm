@@ -24,6 +24,11 @@ class BasicPageFromPage extends NodeImageMigration {
       'Vocabulary__topics_from_5'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 }
