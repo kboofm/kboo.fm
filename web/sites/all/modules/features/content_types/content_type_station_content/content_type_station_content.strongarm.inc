@@ -98,6 +98,9 @@ function content_type_station_content_strongarm() {
         'metatags' => array(
           'weight' => '7',
         ),
+        'redirect' => array(
+          'weight' => '9',
+        ),
       ),
       'display' => array(),
     ),
