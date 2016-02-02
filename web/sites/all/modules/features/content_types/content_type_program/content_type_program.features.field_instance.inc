@@ -10,7 +10,7 @@
 function content_type_program_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_program-comment_body'
+  // Exported field_instance: 'comment-comment_node_program-comment_body'.
   $field_instances['comment-comment_node_program-comment_body'] = array(
     'bundle' => 'comment_node_program',
     'default_value' => NULL,
@@ -79,7 +79,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-body'
+  // Exported field_instance: 'node-program-body'.
   $field_instances['node-program-body'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -143,7 +143,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_audio_files'
+  // Exported field_instance: 'node-program-field_audio_files'.
   $field_instances['node-program-field_audio_files'] = array(
     'bundle' => 'program',
     'deleted' => 0,
@@ -218,7 +218,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_authored_by'
+  // Exported field_instance: 'node-program-field_authored_by'.
   $field_instances['node-program-field_authored_by'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -291,7 +291,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_body_below_media'
+  // Exported field_instance: 'node-program-field_body_below_media'.
   $field_instances['node-program-field_body_below_media'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -380,7 +380,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_d6_nid'
+  // Exported field_instance: 'node-program-field_d6_nid'.
   $field_instances['node-program-field_d6_nid'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -432,7 +432,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_episode_record'
+  // Exported field_instance: 'node-program-field_episode_record'.
   $field_instances['node-program-field_episode_record'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -479,7 +479,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_files'
+  // Exported field_instance: 'node-program-field_files'.
   $field_instances['node-program-field_files'] = array(
     'bundle' => 'program',
     'deleted' => 0,
@@ -556,7 +556,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_genres'
+  // Exported field_instance: 'node-program-field_genres'.
   $field_instances['node-program-field_genres'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -655,7 +655,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_hosted_by'
+  // Exported field_instance: 'node-program-field_hosted_by'.
   $field_instances['node-program-field_hosted_by'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -728,7 +728,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_lead_image'
+  // Exported field_instance: 'node-program-field_lead_image'.
   $field_instances['node-program-field_lead_image'] = array(
     'bundle' => 'program',
     'deleted' => 0,
@@ -808,7 +808,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_links'
+  // Exported field_instance: 'node-program-field_links'.
   $field_instances['node-program-field_links'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -882,7 +882,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_more_images'
+  // Exported field_instance: 'node-program-field_more_images'.
   $field_instances['node-program-field_more_images'] = array(
     'bundle' => 'program',
     'deleted' => 0,
@@ -962,7 +962,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_parent_section'
+  // Exported field_instance: 'node-program-field_parent_section'.
   $field_instances['node-program-field_parent_section'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1010,80 +1010,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_produced_by'
-  $field_instances['node-program-field_produced_by'] = array(
-    'bundle' => 'program',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 3,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 7,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 7,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_produced_by',
-    'label' => 'Produced by',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 47,
-    ),
-  );
-
-  // Exported field_instance: 'node-program-field_produced_for'
+  // Exported field_instance: 'node-program-field_produced_for'.
   $field_instances['node-program-field_produced_for'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1156,7 +1083,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_program_type'
+  // Exported field_instance: 'node-program-field_program_type'.
   $field_instances['node-program-field_program_type'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1204,7 +1131,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_published_date'
+  // Exported field_instance: 'node-program-field_published_date'.
   $field_instances['node-program-field_published_date'] = array(
     'bundle' => 'program',
     'deleted' => 0,
@@ -1263,7 +1190,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_related_info_content'
+  // Exported field_instance: 'node-program-field_related_info_content'.
   $field_instances['node-program-field_related_info_content'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1331,7 +1258,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_related_organizations'
+  // Exported field_instance: 'node-program-field_related_organizations'.
   $field_instances['node-program-field_related_organizations'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1404,7 +1331,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_related_programs'
+  // Exported field_instance: 'node-program-field_related_programs'.
   $field_instances['node-program-field_related_programs'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1477,7 +1404,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_related_show_hosts'
+  // Exported field_instance: 'node-program-field_related_show_hosts'.
   $field_instances['node-program-field_related_show_hosts'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1550,7 +1477,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_short_description'
+  // Exported field_instance: 'node-program-field_short_description'.
   $field_instances['node-program-field_short_description'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1604,7 +1531,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_spinitron_showid'
+  // Exported field_instance: 'node-program-field_spinitron_showid'.
   $field_instances['node-program-field_spinitron_showid'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1662,7 +1589,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_sponsored_by'
+  // Exported field_instance: 'node-program-field_sponsored_by'.
   $field_instances['node-program-field_sponsored_by'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1735,7 +1662,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_streams'
+  // Exported field_instance: 'node-program-field_streams'.
   $field_instances['node-program-field_streams'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1790,7 +1717,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_topic_tags'
+  // Exported field_instance: 'node-program-field_topic_tags'.
   $field_instances['node-program-field_topic_tags'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -1889,7 +1816,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-field_video_files'
+  // Exported field_instance: 'node-program-field_video_files'.
   $field_instances['node-program-field_video_files'] = array(
     'bundle' => 'program',
     'deleted' => 0,
@@ -1964,7 +1891,7 @@ function content_type_program_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-program-title_field'
+  // Exported field_instance: 'node-program-title_field'.
   $field_instances['node-program-title_field'] = array(
     'bundle' => 'program',
     'default_value' => NULL,
@@ -2034,7 +1961,6 @@ function content_type_program_field_default_field_instances() {
   t('Link(s)');
   t('More Images');
   t('Parent section');
-  t('Produced by');
   t('Produced for');
   t('Program Type');
   t('Published date');
