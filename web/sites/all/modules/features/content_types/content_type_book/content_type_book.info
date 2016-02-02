@@ -1,7 +1,7 @@
 name = Book page
 core = 7.x
 package = Content Types
-version = 7.x-1.3
+version = 7.x-1.4
 dependencies[] = content_type_basic_page
 dependencies[] = ctools
 dependencies[] = date
@@ -42,7 +42,6 @@ features[field_instance][] = node-book-field_lead_image
 features[field_instance][] = node-book-field_links
 features[field_instance][] = node-book-field_more_images
 features[field_instance][] = node-book-field_parent_section
-features[field_instance][] = node-book-field_produced_by
 features[field_instance][] = node-book-field_produced_for
 features[field_instance][] = node-book-field_published_date
 features[field_instance][] = node-book-field_related_info_content
