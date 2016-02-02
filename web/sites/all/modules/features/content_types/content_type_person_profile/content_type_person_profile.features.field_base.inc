@@ -10,7 +10,7 @@
 function content_type_person_profile_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_name'
+  // Exported field_base: 'field_name'.
   $field_bases['field_name'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -110,7 +110,7 @@ Prof.',
     'type' => 'name',
   );
 
-  // Exported field_base: 'field_profile_type'
+  // Exported field_base: 'field_profile_type'.
   $field_bases['field_profile_type'] = array(
     'active' => 1,
     'cardinality' => -1,

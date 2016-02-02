@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function content_type_person_profile_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -35,7 +35,7 @@ function content_type_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_content_bottom|node|person_profile|form'] = $field_group;
+  $field_groups['group_content_bottom|node|person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -75,7 +75,7 @@ function content_type_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_content|node|person_profile|form'] = $field_group;
+  $field_groups['group_content|node|person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -103,7 +103,7 @@ function content_type_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_developer_info|node|person_profile|form'] = $field_group;
+  $field_groups['group_developer_info|node|person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -132,7 +132,7 @@ function content_type_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_media|node|person_profile|form'] = $field_group;
+  $field_groups['group_media|node|person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -162,7 +162,7 @@ function content_type_person_profile_field_group_info() {
       ),
     ),
   );
-  $export['group_profile_info|node|person_profile|form'] = $field_group;
+  $field_groups['group_profile_info|node|person_profile|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -193,7 +193,16 @@ function content_type_person_profile_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_related|node|person_profile|form'] = $field_group;
+  $field_groups['group_related|node|person_profile|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Content');
+  t('Content below media');
+  t('Developer info');
+  t('Media');
+  t('Profile info');
+  t('Related info');
+
+  return $field_groups;
 }
