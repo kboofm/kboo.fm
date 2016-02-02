@@ -145,8 +145,8 @@ function content_type_basic_page_field_group_info() {
     'children' => array(
       0 => 'field_authored_by',
       1 => 'field_hosted_by',
-      2 => 'field_produced_by',
-      3 => 'field_sponsored_by',
+      2 => 'field_sponsored_by',
+      3 => 'field_produced_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
