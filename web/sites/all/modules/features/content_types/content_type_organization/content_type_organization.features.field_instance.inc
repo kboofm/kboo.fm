@@ -10,7 +10,7 @@
 function content_type_organization_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_organization-comment_body'
+  // Exported field_instance: 'comment-comment_node_organization-comment_body'.
   $field_instances['comment-comment_node_organization-comment_body'] = array(
     'bundle' => 'comment_node_organization',
     'default_value' => NULL,
@@ -79,7 +79,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-body'
+  // Exported field_instance: 'node-organization-body'.
   $field_instances['node-organization-body'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -140,7 +140,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_audio_files'
+  // Exported field_instance: 'node-organization-field_audio_files'.
   $field_instances['node-organization-field_audio_files'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -215,7 +215,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_authored_by'
+  // Exported field_instance: 'node-organization-field_authored_by'.
   $field_instances['node-organization-field_authored_by'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -288,7 +288,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_body_below_media'
+  // Exported field_instance: 'node-organization-field_body_below_media'.
   $field_instances['node-organization-field_body_below_media'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -377,7 +377,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_d6_nid'
+  // Exported field_instance: 'node-organization-field_d6_nid'.
   $field_instances['node-organization-field_d6_nid'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -429,7 +429,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_email'
+  // Exported field_instance: 'node-organization-field_email'.
   $field_instances['node-organization-field_email'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -482,7 +482,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_files'
+  // Exported field_instance: 'node-organization-field_files'.
   $field_instances['node-organization-field_files'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -559,7 +559,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_genres'
+  // Exported field_instance: 'node-organization-field_genres'.
   $field_instances['node-organization-field_genres'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -645,7 +645,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_hosted_by'
+  // Exported field_instance: 'node-organization-field_hosted_by'.
   $field_instances['node-organization-field_hosted_by'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -718,7 +718,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_lead_image'
+  // Exported field_instance: 'node-organization-field_lead_image'.
   $field_instances['node-organization-field_lead_image'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -798,7 +798,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_links'
+  // Exported field_instance: 'node-organization-field_links'.
   $field_instances['node-organization-field_links'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -872,7 +872,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_location'
+  // Exported field_instance: 'node-organization-field_location'.
   $field_instances['node-organization-field_location'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -959,7 +959,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_more_images'
+  // Exported field_instance: 'node-organization-field_more_images'.
   $field_instances['node-organization-field_more_images'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -1039,7 +1039,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_organization_status'
+  // Exported field_instance: 'node-organization-field_organization_status'.
   $field_instances['node-organization-field_organization_status'] = array(
     'bundle' => 'organization',
     'default_value' => array(
@@ -1092,7 +1092,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_organization_type'
+  // Exported field_instance: 'node-organization-field_organization_type'.
   $field_instances['node-organization-field_organization_type'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1140,7 +1140,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_parent_section'
+  // Exported field_instance: 'node-organization-field_parent_section'.
   $field_instances['node-organization-field_parent_section'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1188,7 +1188,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_phone'
+  // Exported field_instance: 'node-organization-field_phone'.
   $field_instances['node-organization-field_phone'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1243,51 +1243,35 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_produced_by'
+  // Exported field_instance: 'node-organization-field_produced_by'.
   $field_instances['node-organization-field_produced_by'] = array(
     'bundle' => 'organization',
-    'default_value' => NULL,
+    'default_value' => array(
+      0 => array(
+        'value' => 'KBOO',
+      ),
+    ),
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 3,
+        'label' => 'above',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
+        'weight' => 29,
       ),
       'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 12,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'search_result' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 12,
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
       ),
       'teaser' => array(
         'label' => 'above',
@@ -1301,22 +1285,56 @@ function content_type_organization_field_default_field_instances() {
     'label' => 'Produced by',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'full_html_no_wysiwyg' => 'full_html_no_wysiwyg',
+          'full_html_simple_wysiwyg' => 'full_html_simple_wysiwyg',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => -7,
+            ),
+            'full_html' => array(
+              'weight' => -10,
+            ),
+            'full_html_no_wysiwyg' => array(
+              'weight' => -8,
+            ),
+            'full_html_simple_wysiwyg' => array(
+              'weight' => -9,
+            ),
+            'plain_text' => array(
+              'weight' => -6,
+            ),
+          ),
+        ),
+      ),
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'text',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
+      'type' => 'text_textfield',
       'weight' => 31,
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_produced_for'
+  // Exported field_instance: 'node-organization-field_produced_for'.
   $field_instances['node-organization-field_produced_for'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1389,7 +1407,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_published_date'
+  // Exported field_instance: 'node-organization-field_published_date'.
   $field_instances['node-organization-field_published_date'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -1448,7 +1466,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_related_info_content'
+  // Exported field_instance: 'node-organization-field_related_info_content'.
   $field_instances['node-organization-field_related_info_content'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1516,7 +1534,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_related_organizations'
+  // Exported field_instance: 'node-organization-field_related_organizations'.
   $field_instances['node-organization-field_related_organizations'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1589,7 +1607,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_related_programs'
+  // Exported field_instance: 'node-organization-field_related_programs'.
   $field_instances['node-organization-field_related_programs'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1662,7 +1680,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_related_show_hosts'
+  // Exported field_instance: 'node-organization-field_related_show_hosts'.
   $field_instances['node-organization-field_related_show_hosts'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1735,7 +1753,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_short_description'
+  // Exported field_instance: 'node-organization-field_short_description'.
   $field_instances['node-organization-field_short_description'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1789,7 +1807,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_topic_tags'
+  // Exported field_instance: 'node-organization-field_topic_tags'.
   $field_instances['node-organization-field_topic_tags'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1888,7 +1906,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_url'
+  // Exported field_instance: 'node-organization-field_url'.
   $field_instances['node-organization-field_url'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,
@@ -1959,7 +1977,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-field_video_files'
+  // Exported field_instance: 'node-organization-field_video_files'.
   $field_instances['node-organization-field_video_files'] = array(
     'bundle' => 'organization',
     'deleted' => 0,
@@ -2034,7 +2052,7 @@ function content_type_organization_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-organization-title_field'
+  // Exported field_instance: 'node-organization-title_field'.
   $field_instances['node-organization-title_field'] = array(
     'bundle' => 'organization',
     'default_value' => NULL,

@@ -10,7 +10,7 @@
 function content_type_station_content_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_explicit'
+  // Exported field_base: 'field_explicit'.
   $field_bases['field_explicit'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -35,7 +35,7 @@ function content_type_station_content_field_default_field_bases() {
     'type' => 'list_text',
   );
 
-  // Exported field_base: 'field_station_content_type'
+  // Exported field_base: 'field_station_content_type'.
   $field_bases['field_station_content_type'] = array(
     'active' => 1,
     'cardinality' => 1,
