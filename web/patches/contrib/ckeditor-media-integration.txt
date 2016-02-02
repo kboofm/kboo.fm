@@ -1,8 +1,0 @@
-KBOO-153
-
-This patch resolves the issue found here: https://www.drupal.org/node/2455391
-
-The patch in #13 achieves what we are trying to correct.
-However, our patch has been generated from the docroot, so our patch's path is different than #13.
-
-
