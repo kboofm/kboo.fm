@@ -1,0 +1,115 @@
+.station-audio-player {
+  position: relative;
+  width: 100%;
+  background-color: @brand-info;
+  margin: @margin-sm auto;
+  clear: both;
+
+  a.jp-play,
+  a.jp-pause {
+    width: 24px;
+    height: 24px;
+  }
+
+  a.jp-play,
+  a.jp-play:hover {
+    background: url(../images/play-circle.png) left top no-repeat;
+  }
+
+  a.jp-pause,
+  a.jp-pause:hover {
+    background: url(../images/pause-circle.png) left top no-repeat;
+  }
+
+  ul.jp-controls {
+    list-style: none;
+
+    li {
+      a {
+        text-indent: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        display: block;
+      }
+    }
+  }
+
+  a.jp-mute,
+  a.jp-unmute {
+    width: 12px;
+    height: 12px;
+    position: absolute;
+    right: 8px;
+    top: 15px;
+  }
+
+  a.jp-mute,
+  a.jp-mute:hover {
+    background: url(../images/volume.png) left top no-repeat;
+  }
+
+  a.jp-unmute,
+  a.jp-unmute:hover {
+    background: url(../images/volume-mute.png) left top no-repeat;
+  }
+
+  div.jp-audio div.jp-type-single div.jp-progress  {
+    background-color: @tiffany-blue;
+    height: 8px;
+    position: absolute;
+    top: 16px;
+    left: 42px;
+    border-radius: 6px;
+    -webkit-border-radius: 6px;
+    -moz-border-radius: 6px;
+    width: 82%;
+    overflow: visible;
+
+    @media (min-width: 501px) and (max-width: 700px) {
+      width: 75%;
+    }
+
+    @media (max-width: 500px) {
+      width: 60%;
+    }
+  }
+
+  div.jp-seek-bar {
+    background:none;
+  }
+
+  div.jp-play-bar {
+    background: @brand-primary;
+    border-radius: 6px;
+    margin-top: 0px;
+  }
+
+  div.jp-type-single div.jp-title {
+    display: none;
+  }
+
+  div.jp-audio {
+    height:40px;
+    border:none;
+    background:none;
+    width:100%;
+  }
+
+  div.jp-audio div.jp-type-single div.jp-interface {
+    background:none;
+    height:40px;
+  }
+
+  div.jp-audio ul.jp-controls {
+    width:100%;
+    padding:8px 10px;
+  }
+
+  div.jp-duration {
+    font-style: normal;
+    color: #FFF;
+    position: absolute;
+    top: 13px;
+    right: 32px;
+  }
+}
