@@ -21,7 +21,7 @@ function content_type_station_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content below media',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_body_below_media',
     ),
@@ -117,7 +117,7 @@ function content_type_station_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_files',
       1 => 'field_links',
@@ -146,7 +146,7 @@ function content_type_station_content_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Profile info',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_authored_by',
       1 => 'field_produced_by',
