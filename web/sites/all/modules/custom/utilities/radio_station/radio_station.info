@@ -41,6 +41,7 @@ files[] = lib/processors/ScheduleProcessor.inc
 files[] = lib/components/BaseComponent.inc
 files[] = lib/components/BlogComponent.inc
 files[] = lib/components/EventsComponent.inc
+files[] = lib/components/HomeComponent.inc
 files[] = lib/components/NewsComponent.inc
 files[] = lib/components/OrganizationComponent.inc
 files[] = lib/components/ProfilesComponent.inc
