@@ -39,7 +39,7 @@
       @$programInfo = $ ".program-info"
 
       @$player.jPlayer
-        cssSelectorAncestor: container,
+        cssSelectorAncestor: "##{container}",
         swfPath: @swfPath,
         preload: "none",
         wmode: "window",
