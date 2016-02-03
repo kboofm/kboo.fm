@@ -264,7 +264,7 @@ function configure_theme_blocks_default_fe_block_settings() {
         'weight' => -12,
       ),
     ),
-    'title' => 'Test news thing',
+    'title' => '',
     'visibility' => 0,
   );
 
