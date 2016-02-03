@@ -87,20 +87,22 @@
   </div>
 </div>
 <footer class="footer container">
-  <div class="footer-menu footer-left">
-    <?php print render($page['footer_left']); ?>
-  </div>
-  <div class="footer-menu footer-first">
-    <?php print render($page['footer_first']); ?>
-  </div>
-  <div class="footer-menu footer-second">
-    <?php print render($page['footer_second']); ?>
-  </div>
-  <div class="footer-menu footer-third">
-    <?php print render($page['footer_third']); ?>
-  </div>
-  <div class="footer-menu footer-fourth">
-    <?php print render($page['footer_fourth']); ?>
-  </div>
+  <div class="footer-menus">
+    <div class="footer-menu footer-left">
+      <?php print render($page['footer_left']); ?>
+    </div>
+    <div class="footer-menu footer-first">
+      <?php print render($page['footer_first']); ?>
+    </div>
+    <div class="footer-menu footer-second">
+      <?php print render($page['footer_second']); ?>
+    </div>
+    <div class="footer-menu footer-third">
+      <?php print render($page['footer_third']); ?>
+    </div>
+    <div class="footer-menu footer-fourth">
+      <?php print render($page['footer_fourth']); ?>
+    </div>
+  </div>  
   <?php print render($page['copyright']); ?>
 </footer>
