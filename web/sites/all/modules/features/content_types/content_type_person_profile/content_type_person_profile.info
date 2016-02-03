@@ -4,7 +4,6 @@ core = 7.x
 package = Content Types
 version = 7.x-1.28
 project = content_type_person_profile
-dependencies[] = content_type_act
 dependencies[] = content_type_basic_page
 dependencies[] = content_type_blog_post
 dependencies[] = content_type_organization

@@ -53,6 +53,7 @@ files[] = lib/responses/Response.inc
 files[] = lib/responses/ApiResponse.inc
 files[] = lib/responses/BlogResponse.inc
 files[] = lib/responses/EventsResponse.inc
+files[] = lib/responses/HomeResponse.inc
 files[] = lib/responses/NewsResponse.inc
 files[] = lib/responses/PlayerResponse.inc
 files[] = lib/responses/ProfilesResponse.inc
