@@ -50,7 +50,7 @@ class TemplateProcessor {
       return NULL;
     }
 
-    if ($object->type == 'promo') {
+    if (isset($object->type) && $object->type == 'promo') {
       $wrapped = entity_metadata_wrapper($type, $object);
       $link = $wrapped->field_link->value();
 
