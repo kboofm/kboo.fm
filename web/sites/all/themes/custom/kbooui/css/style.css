@@ -6975,6 +6975,14 @@ ul.navbar-nav > li > a {
   text-transform: uppercase;
   font-size: 16px;
 }
+ul.navbar-nav > li ul.dropdown-menu {
+  background-color: #00a887;
+  border: none;
+}
+ul.navbar-nav > li ul.dropdown-menu > .active > a {
+  color: #003b4c;
+  background-color: #00a887;
+}
 #sidebar {
   padding-left: 0px;
   padding-right: 0px;
