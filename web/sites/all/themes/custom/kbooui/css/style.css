@@ -6919,6 +6919,52 @@ body.cke_ltr {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
 }
+.node .node-images {
+  float: right;
+}
+@media (max-width: 991px) {
+  .node .node-images {
+    float: none;
+  }
+}
+.node .field-name-field-lead-image {
+  float: right;
+  margin: 0px 0px 10px 10px;
+  clear: both;
+}
+@media (max-width: 991px) {
+  .node .field-name-field-lead-image {
+    float: none;
+    clear: none;
+    margin: 5px;
+    text-align: center;
+  }
+}
+@media (max-width: 400px) {
+  .node .field-name-field-lead-image img {
+    max-width: 100%;
+  }
+}
+.node .field-name-field-more-images {
+  margin: 10px 0px 10px 10px;
+  float: right;
+  clear: both;
+}
+@media (min-width: 992px) {
+  .node .field-name-field-more-images {
+    width: 290px;
+    text-align: center;
+  }
+}
+@media (max-width: 991px) {
+  .node .field-name-field-more-images {
+    float: none;
+    text-align: center;
+  }
+}
+.node .field-name-field-more-images img {
+  padding: 5px 0px;
+}
 ul.navbar-nav {
   margin-top: 45px;
   border-top: 2px solid #003b4c;
