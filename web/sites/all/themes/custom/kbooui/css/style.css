@@ -6976,6 +6976,15 @@ ul.navbar-nav > li > a {
   font-size: 16px;
 }
 #sidebar {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+@media (max-width: 767px) {
+  #sidebar {
+    margin-top: 15px;
+  }
+}
+#sidebar .block {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 0px 15px 10px;
 }
@@ -7008,6 +7017,19 @@ ul.navbar-nav > li > a {
 }
 #sidebar a.more-link.bg-tiffany:hover {
   background-color: #52c5c2;
+}
+#sidebar .block-search {
+  margin-bottom: 15px;
+  padding-top: 10px;
+}
+#sidebar .block-search input {
+  border-radius: 0px;
+}
+#sidebar .block-search .btn {
+  text-indent: -9999px;
+  margin-left: 5px;
+  border: none;
+  background: url(../images/search.png) no-repeat center;
 }
 .bold {
   font-weight: bold;
