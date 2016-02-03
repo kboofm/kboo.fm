@@ -1,39 +1,58 @@
 .footer {
-  background: @brand-primary url(../images/kboo-footer-logo.png) no-repeat center top;
-  border-top: 3px solid @white;
-  height: 348px;
-  padding-top: 50px;
-  margin-top: @margin;
+  .footer-menus {
+    background: @brand-primary url(../images/kboo-footer-logo.png) no-repeat center top;
+    border-top: 3px solid @white;
+    height: 348px;
+    padding-top: 50px;
+    margin-top: @margin;
 
-  .footer-menu {
-    float: left;
-    width: 15%;
-    margin-left: @margin-sm;
+    @media (max-width: @screen-sm-max) {
+      display: none;
+    }  
 
-    &.footer-left {
-      color: @white;
-      width: 25%;
-      margin-right: @margin;
-    }
+    .footer-menu {
+     float: left;
+      width: 15%;
+      margin-left: @margin-sm;
 
-    &.footer-first {
-      font-size: 16px;
-      font-weight: bold;
-    }
+      &.footer-left {
+        color: @white;
+        width: 25%;
+        margin-right: @margin;
+      }
 
-    .nav {
-      > li {
-        &.first {
-          margin-top: -@margin-sm;
-        }
+      &.footer-first {
+        font-size: 16px;
+        font-weight: bold;
+      }
 
-        > a {
-          &:hover {
-            background-color: @brand-info;
-            color: fade(@white, 90%);
+      .nav {
+        > li {
+          &.first {
+            margin-top: -@margin-sm;
+          }
+
+          > a {
+            &:hover {
+              background-color: @brand-info;
+              color: fade(@white, 90%);
+            }
           }
         }
       }
+    }
+  }
+
+  .region-copyright {
+    text-align: center;
+    clear: both;
+    padding-top: 50px;
+
+    p {
+      margin: 0px;
+      text-align: center;
+      color: @white;
+      padding-top: @pad;
     }
   }
 }
