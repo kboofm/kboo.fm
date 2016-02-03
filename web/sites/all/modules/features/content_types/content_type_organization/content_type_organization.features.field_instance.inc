@@ -241,7 +241,7 @@ function content_type_organization_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -441,7 +441,7 @@ function content_type_organization_field_default_field_instances() {
         'module' => 'email',
         'settings' => array(),
         'type' => 'email_default',
-        'weight' => 8,
+        'weight' => 7,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -671,7 +671,7 @@ function content_type_organization_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -732,7 +732,7 @@ function content_type_organization_field_default_field_instances() {
           'image_style' => 'default_lead_1x',
         ),
         'type' => 'image',
-        'weight' => 5,
+        'weight' => 4,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -889,7 +889,7 @@ function content_type_organization_field_default_field_instances() {
           'use_widget_handlers' => 1,
         ),
         'type' => 'addressfield_default',
-        'weight' => 6,
+        'weight' => 5,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1202,7 +1202,7 @@ function content_type_organization_field_default_field_instances() {
           'title' => '',
         ),
         'type' => 'telephone_link',
-        'weight' => 7,
+        'weight' => 6,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1255,11 +1255,11 @@ function content_type_organization_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 29,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1360,7 +1360,7 @@ function content_type_organization_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1765,7 +1765,7 @@ function content_type_organization_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 9,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1918,7 +1918,7 @@ function content_type_organization_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
-        'weight' => 9,
+        'weight' => 8,
       ),
       'search_index' => array(
         'label' => 'hidden',
