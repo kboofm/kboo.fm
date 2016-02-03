@@ -10,7 +10,7 @@
 function contrib_webform_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-webform-body'
+  // Exported field_instance: 'node-webform-body'.
   $field_instances['node-webform-body'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -22,7 +22,7 @@ function contrib_webform_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -104,7 +104,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_audio_files'
+  // Exported field_instance: 'node-webform-field_audio_files'.
   $field_instances['node-webform-field_audio_files'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -179,7 +179,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_body_below_media'
+  // Exported field_instance: 'node-webform-field_body_below_media'.
   $field_instances['node-webform-field_body_below_media'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -268,7 +268,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_files'
+  // Exported field_instance: 'node-webform-field_files'.
   $field_instances['node-webform-field_files'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -345,7 +345,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_genres'
+  // Exported field_instance: 'node-webform-field_genres'.
   $field_instances['node-webform-field_genres'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -431,7 +431,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_lead_image'
+  // Exported field_instance: 'node-webform-field_lead_image'.
   $field_instances['node-webform-field_lead_image'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -445,7 +445,7 @@ function contrib_webform_field_default_field_instances() {
           'image_style' => 'default_lead_1x',
         ),
         'type' => 'image',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -511,7 +511,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_links'
+  // Exported field_instance: 'node-webform-field_links'.
   $field_instances['node-webform-field_links'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -585,7 +585,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_more_images'
+  // Exported field_instance: 'node-webform-field_more_images'.
   $field_instances['node-webform-field_more_images'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -599,7 +599,7 @@ function contrib_webform_field_default_field_instances() {
           'image_style' => 'default_more_1x',
         ),
         'type' => 'image',
-        'weight' => 3,
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -665,7 +665,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_parent_section'
+  // Exported field_instance: 'node-webform-field_parent_section'.
   $field_instances['node-webform-field_parent_section'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -713,7 +713,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_short_description'
+  // Exported field_instance: 'node-webform-field_short_description'.
   $field_instances['node-webform-field_short_description'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -725,7 +725,7 @@ function contrib_webform_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -802,7 +802,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_topic_tags'
+  // Exported field_instance: 'node-webform-field_topic_tags'.
   $field_instances['node-webform-field_topic_tags'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,
@@ -901,7 +901,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-field_video_files'
+  // Exported field_instance: 'node-webform-field_video_files'.
   $field_instances['node-webform-field_video_files'] = array(
     'bundle' => 'webform',
     'deleted' => 0,
@@ -976,7 +976,7 @@ function contrib_webform_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-webform-title_field'
+  // Exported field_instance: 'node-webform-title_field'.
   $field_instances['node-webform-title_field'] = array(
     'bundle' => 'webform',
     'default_value' => NULL,

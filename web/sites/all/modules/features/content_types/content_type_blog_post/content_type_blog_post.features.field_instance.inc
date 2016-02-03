@@ -91,7 +91,7 @@ function content_type_blog_post_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -244,7 +244,7 @@ function content_type_blog_post_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 1,
+        'weight' => 0,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -621,7 +621,7 @@ function content_type_blog_post_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 2,
+        'weight' => 1,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -676,12 +676,13 @@ function content_type_blog_post_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'file_entity',
+        'module' => 'image',
         'settings' => array(
-          'file_view_mode' => 'lead',
+          'image_link' => '',
+          'image_style' => 'default_lead_1x',
         ),
-        'type' => 'file_rendered',
-        'weight' => 5,
+        'type' => 'image',
+        'weight' => 4,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -829,12 +830,13 @@ function content_type_blog_post_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'hidden',
-        'module' => 'file_entity',
+        'module' => 'image',
         'settings' => array(
-          'file_view_mode' => 'more',
+          'image_link' => '',
+          'image_style' => 'default_more_1x',
         ),
-        'type' => 'file_rendered',
-        'weight' => 7,
+        'type' => 'image',
+        'weight' => 5,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -960,11 +962,11 @@ function content_type_blog_post_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 23,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1065,7 +1067,7 @@ function content_type_blog_post_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 4,
+        'weight' => 3,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1467,7 +1469,7 @@ function content_type_blog_post_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 0,
+        'weight' => 6,
       ),
       'search_index' => array(
         'label' => 'hidden',

@@ -10,7 +10,7 @@
 function content_type_promo_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'comment-comment_node_promo-comment_body'
+  // Exported field_instance: 'comment-comment_node_promo-comment_body'.
   $field_instances['comment-comment_node_promo-comment_body'] = array(
     'bundle' => 'comment_node_promo',
     'default_value' => NULL,
@@ -79,7 +79,7 @@ function content_type_promo_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-promo-field_link'
+  // Exported field_instance: 'node-promo-field_link'.
   $field_instances['node-promo-field_link'] = array(
     'bundle' => 'promo',
     'default_value' => NULL,
@@ -156,7 +156,7 @@ function content_type_promo_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-promo-field_teaser_image'
+  // Exported field_instance: 'node-promo-field_teaser_image'.
   $field_instances['node-promo-field_teaser_image'] = array(
     'bundle' => 'promo',
     'deleted' => 0,
@@ -167,7 +167,7 @@ function content_type_promo_field_default_field_instances() {
         'module' => 'image',
         'settings' => array(
           'image_link' => '',
-          'image_style' => 'medium',
+          'image_style' => 'teaser_150w',
         ),
         'type' => 'image',
         'weight' => 1,
@@ -240,7 +240,7 @@ function content_type_promo_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-promo-field_teaser_summary'
+  // Exported field_instance: 'node-promo-field_teaser_summary'.
   $field_instances['node-promo-field_teaser_summary'] = array(
     'bundle' => 'promo',
     'default_value' => NULL,
@@ -330,7 +330,7 @@ function content_type_promo_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-promo-field_teaser_title'
+  // Exported field_instance: 'node-promo-field_teaser_title'.
   $field_instances['node-promo-field_teaser_title'] = array(
     'bundle' => 'promo',
     'default_value' => NULL,
@@ -420,7 +420,7 @@ function content_type_promo_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-promo-title_field'
+  // Exported field_instance: 'node-promo-title_field'.
   $field_instances['node-promo-title_field'] = array(
     'bundle' => 'promo',
     'default_value' => NULL,

@@ -27,9 +27,9 @@ function configure_theme_blocks_menu_default_menu_links() {
     'external' => 1,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -49,
     'customized' => 1,
-    'parent_identifier' => 'main-menu_about-link-1:<front>',
+    'parent_identifier' => 'main-menu_about:<front>',
   );
   // Exported menu link: main-menu_about-link-1:<front>.
   $menu_links['main-menu_about-link-1:<front>'] = array(
@@ -46,9 +46,9 @@ function configure_theme_blocks_menu_default_menu_links() {
     'module' => 'menu',
     'hidden' => 0,
     'external' => 1,
-    'has_children' => 1,
+    'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -50,
     'customized' => 1,
     'parent_identifier' => 'main-menu_about:<front>',
   );
@@ -69,7 +69,7 @@ function configure_theme_blocks_menu_default_menu_links() {
     'external' => 1,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -48,
     'customized' => 1,
     'parent_identifier' => 'main-menu_about:<front>',
   );
@@ -85,6 +85,7 @@ function configure_theme_blocks_menu_default_menu_links() {
         'class' => array(
           0 => 'dropdown-toggle',
         ),
+        'title' => '',
       ),
       'item_attributes' => array(
         'id' => '',
@@ -96,7 +97,7 @@ function configure_theme_blocks_menu_default_menu_links() {
     'hidden' => 0,
     'external' => 1,
     'has_children' => 1,
-    'expanded' => 0,
+    'expanded' => 1,
     'weight' => -46,
     'customized' => 1,
   );
@@ -157,7 +158,7 @@ function configure_theme_blocks_menu_default_menu_links() {
     'external' => 1,
     'has_children' => 0,
     'expanded' => 0,
-    'weight' => 0,
+    'weight' => -47,
     'customized' => 1,
     'parent_identifier' => 'main-menu_about:<front>',
   );

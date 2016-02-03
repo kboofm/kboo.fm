@@ -731,62 +731,6 @@ function content_type_person_profile_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-person_profile-field_image_gallery'.
-  $field_instances['node-person_profile-field_image_gallery'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => 'Enter the Image Gallery\'s name or node ID here by starting to type and then selecting the right Gallery from the dropdown. <br /><br />Image galleries are created separately under <a href="/node/add/image-gallery" target="_blank">Content > Add Content > Image Gallery</a>. ',
-    'display' => array(
-      'default' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'links' => 0,
-          'view_mode' => 'default',
-        ),
-        'type' => 'entityreference_entity_view',
-        'weight' => 13,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 32,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 32,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_image_gallery',
-    'label' => 'Image Gallery',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 6,
-    ),
-  );
-
   // Exported field_instance: 'node-person_profile-field_job_description'.
   $field_instances['node-person_profile-field_job_description'] = array(
     'bundle' => 'person_profile',
@@ -1343,6 +1287,7 @@ function content_type_person_profile_field_default_field_instances() {
     'label' => 'Produced by',
     'required' => 0,
     'settings' => array(
+      'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
@@ -1482,61 +1427,6 @@ function content_type_person_profile_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance:
-  // 'node-person_profile-field_promote_to_wwoz_latest'.
-  $field_instances['node-person_profile-field_promote_to_wwoz_latest'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => array(
-      0 => array(
-        'value' => 0,
-      ),
-    ),
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 38,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_promote_to_wwoz_latest',
-    'label' => 'Promote to WWOZ Latest',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(
-        'display_label' => 1,
-      ),
-      'type' => 'options_onoff',
-      'weight' => 38,
-    ),
-  );
-
   // Exported field_instance: 'node-person_profile-field_published_date'.
   $field_instances['node-person_profile-field_published_date'] = array(
     'bundle' => 'person_profile',
@@ -1593,79 +1483,6 @@ function content_type_person_profile_field_default_field_instances() {
       ),
       'type' => 'date_text',
       'weight' => 31,
-    ),
-  );
-
-  // Exported field_instance: 'node-person_profile-field_related_acts'.
-  $field_instances['node-person_profile-field_related_acts'] = array(
-    'bundle' => 'person_profile',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
-        'weight' => 23,
-      ),
-      'search_index' => array(
-        'label' => 'hidden',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 13,
-      ),
-      'search_result' => array(
-        'label' => 'inline',
-        'module' => 'entityreference',
-        'settings' => array(
-          'link' => FALSE,
-        ),
-        'type' => 'entityreference_label',
-        'weight' => 15,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_related_acts',
-    'label' => 'Related act(s)',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'entityreference',
-      'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
-        'size' => 60,
-      ),
-      'type' => 'entityreference_autocomplete',
-      'weight' => 22,
     ),
   );
 
@@ -2762,11 +2579,9 @@ function content_type_person_profile_field_default_field_instances() {
   t('Comment');
   t('D6 nid');
   t('Email');
-  t('Enter the Image Gallery\'s name or node ID here by starting to type and then selecting the right Gallery from the dropdown. <br /><br />Image galleries are created separately under <a href="/node/add/image-gallery" target="_blank">Content > Add Content > Image Gallery</a>. ');
   t('File(s)');
   t('Genre(s)');
   t('Hosted by');
-  t('Image Gallery');
   t('Job description');
   t('Job title');
   t('Lead Image');
@@ -2777,9 +2592,7 @@ function content_type_person_profile_field_default_field_instances() {
   t('Produced by');
   t('Produced for');
   t('Profile Name');
-  t('Promote to WWOZ Latest');
   t('Published date');
-  t('Related act(s)');
   t('Related content');
   t('Related organization(s)');
   t('Related program(s)');
