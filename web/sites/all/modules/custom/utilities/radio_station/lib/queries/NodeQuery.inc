@@ -46,6 +46,11 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
+  public function isPromoted() {
+    $this->entityCondition('promote', 1, '=');
+  }
+
+
   protected function hasLeadImage() {
     $this->fieldCondition('field_lead_image', 'fid', 'NULL', '!=');
   }
