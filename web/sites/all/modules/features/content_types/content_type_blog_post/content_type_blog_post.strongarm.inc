@@ -98,6 +98,9 @@ function content_type_blog_post_strongarm() {
         'metatags' => array(
           'weight' => '11',
         ),
+        'redirect' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(),
     ),

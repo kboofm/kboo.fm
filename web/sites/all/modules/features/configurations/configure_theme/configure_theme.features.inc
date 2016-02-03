@@ -249,5 +249,21 @@ function configure_theme_image_default_styles() {
     ),
   );
 
+  // Exported image style: teaser_150w.
+  $styles['teaser_150w'] = array(
+    'label' => 'teaser_150w',
+    'effects' => array(
+      1 => array(
+        'name' => 'image_scale',
+        'data' => array(
+          'width' => 150,
+          'height' => '',
+          'upscale' => 0,
+        ),
+        'weight' => 1,
+      ),
+    ),
+  );
+
   return $styles;
 }

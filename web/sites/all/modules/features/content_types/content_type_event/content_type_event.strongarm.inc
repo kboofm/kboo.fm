@@ -95,6 +95,9 @@ function content_type_event_strongarm() {
         'metatags' => array(
           'weight' => '11',
         ),
+        'redirect' => array(
+          'weight' => '30',
+        ),
       ),
       'display' => array(),
     ),

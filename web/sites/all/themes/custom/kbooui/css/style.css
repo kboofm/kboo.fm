@@ -6724,8 +6724,107 @@ button.close {
     display: none !important;
   }
 }
+.station-audio-player {
+  position: relative;
+  width: 100%;
+  background-color: #00a887;
+  margin: 10px auto;
+  clear: both;
+}
+.station-audio-player a.jp-play,
+.station-audio-player a.jp-pause {
+  width: 24px;
+  height: 24px;
+}
+.station-audio-player a.jp-play,
+.station-audio-player a.jp-play:hover {
+  background: url(../images/play-circle.png) left top no-repeat;
+}
+.station-audio-player a.jp-pause,
+.station-audio-player a.jp-pause:hover {
+  background: url(../images/pause-circle.png) left top no-repeat;
+}
+.station-audio-player ul.jp-controls {
+  list-style: none;
+}
+.station-audio-player ul.jp-controls li a {
+  text-indent: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  display: block;
+}
+.station-audio-player a.jp-mute,
+.station-audio-player a.jp-unmute {
+  width: 12px;
+  height: 12px;
+  position: absolute;
+  right: 8px;
+  top: 15px;
+}
+.station-audio-player a.jp-mute,
+.station-audio-player a.jp-mute:hover {
+  background: url(../images/volume.png) left top no-repeat;
+}
+.station-audio-player a.jp-unmute,
+.station-audio-player a.jp-unmute:hover {
+  background: url(../images/volume-mute.png) left top no-repeat;
+}
+.station-audio-player div.jp-audio div.jp-type-single div.jp-progress {
+  background-color: #65cbc9;
+  height: 8px;
+  position: absolute;
+  top: 16px;
+  left: 42px;
+  border-radius: 6px;
+  -webkit-border-radius: 6px;
+  -moz-border-radius: 6px;
+  width: 82%;
+  overflow: visible;
+}
+@media (min-width: 501px) and (max-width: 700px) {
+  .station-audio-player div.jp-audio div.jp-type-single div.jp-progress {
+    width: 75%;
+  }
+}
+@media (max-width: 500px) {
+  .station-audio-player div.jp-audio div.jp-type-single div.jp-progress {
+    width: 60%;
+  }
+}
+.station-audio-player div.jp-seek-bar {
+  background: none;
+}
+.station-audio-player div.jp-play-bar {
+  background: #003b4c;
+  border-radius: 6px;
+  margin-top: 0px;
+}
+.station-audio-player div.jp-type-single div.jp-title {
+  display: none;
+}
+.station-audio-player div.jp-audio {
+  height: 40px;
+  border: none;
+  background: none;
+  width: 100%;
+}
+.station-audio-player div.jp-audio div.jp-type-single div.jp-interface {
+  background: none;
+  height: 40px;
+}
+.station-audio-player div.jp-audio ul.jp-controls {
+  width: 100%;
+  padding: 8px 10px;
+}
+.station-audio-player div.jp-duration {
+  font-style: normal;
+  color: #FFF;
+  position: absolute;
+  top: 13px;
+  right: 32px;
+}
 html {
-  background: #003b4c url(../images/kboo-bg.jpg) repeat-x center top fixed;
+  background: #003b4c url(../images/kboo-body-bg.jpg) repeat-x center top fixed;
   height: 100%;
   overflow: hidden;
 }
@@ -6820,6 +6919,52 @@ body.cke_ltr {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
 }
+.node .node-images {
+  float: right;
+}
+@media (max-width: 991px) {
+  .node .node-images {
+    float: none;
+  }
+}
+.node .field-name-field-lead-image {
+  float: right;
+  margin: 0px 0px 10px 10px;
+  clear: both;
+}
+@media (max-width: 991px) {
+  .node .field-name-field-lead-image {
+    float: none;
+    clear: none;
+    margin: 5px;
+    text-align: center;
+  }
+}
+@media (max-width: 400px) {
+  .node .field-name-field-lead-image img {
+    max-width: 100%;
+  }
+}
+.node .field-name-field-more-images {
+  margin: 10px 0px 10px 10px;
+  float: right;
+  clear: both;
+}
+@media (min-width: 992px) {
+  .node .field-name-field-more-images {
+    width: 290px;
+    text-align: center;
+  }
+}
+@media (max-width: 991px) {
+  .node .field-name-field-more-images {
+    float: none;
+    text-align: center;
+  }
+}
+.node .field-name-field-more-images img {
+  padding: 5px 0px;
+}
 ul.navbar-nav {
   margin-top: 45px;
   border-top: 2px solid #003b4c;
@@ -6831,6 +6976,15 @@ ul.navbar-nav > li > a {
   font-size: 16px;
 }
 #sidebar {
+  padding-left: 0px;
+  padding-right: 0px;
+}
+@media (max-width: 767px) {
+  #sidebar {
+    margin-top: 15px;
+  }
+}
+#sidebar .block {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 0px 15px 10px;
 }
@@ -6863,6 +7017,19 @@ ul.navbar-nav > li > a {
 }
 #sidebar a.more-link.bg-tiffany:hover {
   background-color: #52c5c2;
+}
+#sidebar .block-search {
+  margin-bottom: 15px;
+  padding-top: 10px;
+}
+#sidebar .block-search input {
+  border-radius: 0px;
+}
+#sidebar .block-search .btn {
+  text-indent: -9999px;
+  margin-left: 5px;
+  border: none;
+  background: url(../images/search.png) no-repeat center;
 }
 .bold {
   font-weight: bold;

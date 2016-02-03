@@ -75,6 +75,13 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['home'] = [
+      'title' => 'Home',
+      'page callback' => 'radio_station_get_home',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['listen-now'] = [
       'title' => 'Listen Now',
       'page callback' => 'radio_station_get_listen_now',

@@ -61,7 +61,7 @@
         container = $wrapper.find(".jp-audio").attr("id");
         this.$programInfo = $(".program-info");
         this.$player.jPlayer({
-          cssSelectorAncestor: container,
+          cssSelectorAncestor: "#" + container,
           swfPath: this.swfPath,
           preload: "none",
           wmode: "window"

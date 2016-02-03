@@ -18,7 +18,7 @@ class RadioAssets {
       [
         'path' => 'listen-now',
         'search_type' => EStringSearchOptions::Equals,
-        'callback' => [$this, 'routeListen'],
+        'callback' => [$this, 'routeListenNow'],
       ],
       [
         'path' => 'schedule',
@@ -86,7 +86,7 @@ class RadioAssets {
   }
 
 
-  private function routeListen() {
+  private function routeListenNow() {
     $this->addJPlayer();
     $this->addJs("js/compiled/custom/player/live-player.js");
   }

@@ -1,7 +1,7 @@
 name = Book page
 core = 7.x
 package = Content Types
-version = 7.x-1.3
+version = 7.x-1.6
 dependencies[] = content_type_basic_page
 dependencies[] = ctools
 dependencies[] = date
@@ -69,4 +69,3 @@ features[variable][] = node_preview_book
 features[variable][] = node_submitted_book
 features[variable][] = pathauto_node_book_pattern
 features_exclude[field_group][group_images|node|book|form] = group_images|node|book|form
-project path = sites/all/modules/features/content_types
