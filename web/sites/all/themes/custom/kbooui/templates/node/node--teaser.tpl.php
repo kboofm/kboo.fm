@@ -1,8 +1,8 @@
 <?php
 if ($node_teaser['image']):
-  $classes = "col-sm-9 teaser-padding";
+  $classes = "col-md-9 teaser-padding";
 else:
-  $classes = "col-sm-12";
+  $classes = "col-md-12";
 endif;
 ?>
 
@@ -16,7 +16,7 @@ endif;
 
 <div class="row node-teaser">
   <?php if ($node_teaser['image']): ?>
-  <div class="col-sm-3 teaser-image">
+  <div class="col-md-3 teaser-image">
     <a href="<?php print $node_url; ?>">
       <img  src="<?php print $node_teaser['image']; ?>"
             alt="">
