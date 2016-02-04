@@ -6846,33 +6846,49 @@ body.cke_ltr {
     width: 970px;
   }
 }
-.footer {
+.footer .footer-menus {
   background: #003b4c url(../images/kboo-footer-logo.png) no-repeat center top;
   border-top: 3px solid #ffffff;
   height: 348px;
   padding-top: 50px;
   margin-top: 20px;
 }
-.footer .footer-menu {
+@media (max-width: 991px) {
+  .footer .footer-menus {
+    display: none;
+  }
+}
+.footer .footer-menus .footer-menu {
   float: left;
   width: 15%;
   margin-left: 10px;
 }
-.footer .footer-menu.footer-left {
+.footer .footer-menus .footer-menu.footer-left {
   color: #ffffff;
   width: 25%;
   margin-right: 20px;
 }
-.footer .footer-menu.footer-first {
+.footer .footer-menus .footer-menu.footer-first {
   font-size: 16px;
   font-weight: bold;
 }
-.footer .footer-menu .nav > li.first {
+.footer .footer-menus .footer-menu .nav > li.first {
   margin-top: -10px;
 }
-.footer .footer-menu .nav > li > a:hover {
+.footer .footer-menus .footer-menu .nav > li > a:hover {
   background-color: #00a887;
   color: rgba(255, 255, 255, 0.9);
+}
+.footer .region-copyright {
+  text-align: center;
+  clear: both;
+  padding-top: 50px;
+}
+.footer .region-copyright p {
+  margin: 0px;
+  text-align: center;
+  color: #ffffff;
+  padding-top: 10px;
 }
 .navbar {
   border: none;
@@ -6995,6 +7011,7 @@ ul.navbar-nav > li ul.dropdown-menu > .active > a {
 #sidebar .block {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 0px 15px 10px;
+  margin-bottom: 15px;
 }
 #sidebar h2 {
   color: rgba(255, 255, 255, 0.5);
@@ -7027,7 +7044,6 @@ ul.navbar-nav > li ul.dropdown-menu > .active > a {
   background-color: #52c5c2;
 }
 #sidebar .block-search {
-  margin-bottom: 15px;
   padding-top: 10px;
 }
 #sidebar .block-search input {
