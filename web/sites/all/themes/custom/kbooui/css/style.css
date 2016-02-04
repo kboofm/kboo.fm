@@ -7362,6 +7362,9 @@ h1.page-header {
   padding-top: 2.5px;
   padding-bottom: 2.5px;
 }
+.z-top {
+  z-index: 1030;
+}
 .cursor-pointer {
   cursor: pointer;
 }

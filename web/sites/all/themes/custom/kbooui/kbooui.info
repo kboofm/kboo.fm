@@ -55,18 +55,18 @@ stylesheets[all][] = bower_components/fontawesome/css/font-awesome.css
 
 ; Bootstrap
 ;
+scripts[] = 'bower_components/bootstrap/js/transition.js'
 ; scripts[] = 'bower_components/bootstrap/js/affix.js'
 ; scripts[] = 'bower_components/bootstrap/js/alert.js'
 ; scripts[] = 'bower_components/bootstrap/js/button.js'
 ; scripts[] = 'bower_components/bootstrap/js/carousel.js'
-; scripts[] = 'bower_components/bootstrap/js/collapse.js'
+scripts[] = 'bower_components/bootstrap/js/collapse.js'
 scripts[] = 'bower_components/bootstrap/js/dropdown.js'
 ; scripts[] = 'bower_components/bootstrap/js/modal.js'
 ; scripts[] = 'bower_components/bootstrap/js/tooltip.js'
 ; scripts[] = 'bower_components/bootstrap/js/popover.js'
 ; scripts[] = 'bower_components/bootstrap/js/scrollspy.js'
 scripts[] = 'bower_components/bootstrap/js/tab.js'
-; scripts[] = 'bower_components/bootstrap/js/transition.js'
 
 
 ; Bootstrap Grid Column Clearing
@@ -93,6 +93,7 @@ scripts[] = 'js/compiled/c4/utilities/window.js'
 
 ; namespace: C4.Components
 scripts[] = 'js/compiled/c4/components/base.js'
+scripts[] = 'js/compiled/c4/components/navbar.js'
 
 
 ; namespace: App.Station
