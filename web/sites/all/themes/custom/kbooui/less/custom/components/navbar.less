@@ -3,6 +3,12 @@ ul.navbar-nav {
   border-top: 2px solid @brand-primary;
   margin-left: @margin;
 
+  .open {
+    a {
+      background-color: @brand-info;
+    }
+  }
+
   > li {
     > a {
       font-weight: bold;
@@ -18,6 +24,10 @@ ul.navbar-nav {
         > a {
           color: @brand-primary;
           background-color: @brand-info;
+
+          &:hover {
+            background-color: darken(@brand-info, 5%);
+          }
         }
       }
     }

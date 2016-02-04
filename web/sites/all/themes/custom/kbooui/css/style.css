@@ -6986,6 +6986,9 @@ ul.navbar-nav {
   border-top: 2px solid #003b4c;
   margin-left: 20px;
 }
+ul.navbar-nav .open a {
+  background-color: #00a887;
+}
 ul.navbar-nav > li > a {
   font-weight: bold;
   text-transform: uppercase;
@@ -6998,6 +7001,9 @@ ul.navbar-nav > li ul.dropdown-menu {
 ul.navbar-nav > li ul.dropdown-menu > .active > a {
   color: #003b4c;
   background-color: #00a887;
+}
+ul.navbar-nav > li ul.dropdown-menu > .active > a:hover {
+  background-color: #008f73;
 }
 #sidebar {
   padding-left: 0px;
