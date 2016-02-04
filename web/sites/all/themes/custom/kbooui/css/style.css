@@ -6882,7 +6882,8 @@ body.cke_ltr {
 .footer .region-copyright {
   text-align: center;
   clear: both;
-  padding-top: 50px;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .footer .region-copyright p {
   margin: 0px;
@@ -7374,6 +7375,9 @@ h1.page-header {
 .padding-vertical-xs {
   padding-top: 2.5px;
   padding-bottom: 2.5px;
+}
+.z-top {
+  z-index: 1030;
 }
 .cursor-pointer {
   cursor: pointer;

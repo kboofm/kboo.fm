@@ -55,6 +55,78 @@ function configure_theme_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
+  $strongarm->name = 'responsive_favicons_path';
+  $strongarm->value = 'favicons';
+  $export['responsive_favicons_path'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'responsive_favicons_remove_default';
+  $strongarm->value = 0;
+  $export['responsive_favicons_remove_default'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'responsive_favicons_tags';
+  $strongarm->value = array(
+    0 => '<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">',
+    1 => '<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">',
+    2 => '<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">',
+    3 => '<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">',
+    4 => '<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">',
+    5 => '<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">',
+    6 => '<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">',
+    7 => '<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">',
+    8 => '<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">',
+    9 => '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
+    10 => '<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">',
+    11 => '<link rel="manifest" href="/manifest.json">',
+    12 => '<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">',
+    13 => '<meta name="msapplication-TileColor" content="#da532c">',
+    14 => '<meta name="msapplication-TileImage" content="/mstile-144x144.png">',
+    15 => '<meta name="theme-color" content="#ffffff">',
+    16 => '',
+    17 => '<link rel="shortcut icon" href="/favicon.ico" />',
+    18 => '<<link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">',
+    19 => '<link rel="apple-touch-icon" sizes="60x60" href="/apple-touch-icon-60x60.png">',
+    20 => '<link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon-72x72.png">',
+    21 => '<link rel="apple-touch-icon" sizes="76x76" href="/apple-touch-icon-76x76.png">',
+    22 => '<link rel="apple-touch-icon" sizes="114x114" href="/apple-touch-icon-114x114.png">',
+    23 => '<link rel="apple-touch-icon" sizes="120x120" href="/apple-touch-icon-120x120.png">',
+    24 => '<link rel="apple-touch-icon" sizes="144x144" href="/apple-touch-icon-144x144.png">',
+    25 => '<link rel="apple-touch-icon" sizes="152x152" href="/apple-touch-icon-152x152.png">',
+    26 => '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon-180x180.png">',
+    27 => '<link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">',
+    28 => '<link rel="icon" type="image/png" href="/android-chrome-192x192.png" sizes="192x192">',
+    29 => '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96">',
+    30 => '<link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">',
+    31 => '<link rel="manifest" href="/manifest.json">',
+    32 => '<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">',
+    33 => '<meta name="msapplication-TileColor" content="#da532c">',
+    34 => '<meta name="msapplication-TileImage" content="/mstile-144x144.png">',
+    35 => '<meta name="msapplication-config" content="/browserconfig.xml">',
+    36 => '<meta name="theme-color" content="#ffffff">',
+    37 => '',
+    38 => '<!-- IE11 tiles -->',
+    39 => '<meta name="msapplication-square70x70logo" content="mstile-70x70.png"/>',
+    40 => '<meta name="msapplication-square150x150logo" content="mstile-150x150.png"/>',
+    41 => '<meta name="msapplication-wide310x150logo" content="mstile-310x150.png"/>',
+    42 => '<meta name="msapplication-square310x310logo" content="mstile-310x310.png"/>',
+  );
+  $export['responsive_favicons_tags'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
+  $strongarm->name = 'responsive_favicons_upload';
+  $strongarm->value = '';
+  $export['responsive_favicons_upload'] = $strongarm;
+
+  $strongarm = new stdClass();
+  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
+  $strongarm->api_version = 1;
   $strongarm->name = 'theme_default';
   $strongarm->value = 'kbooui';
   $export['theme_default'] = $strongarm;
