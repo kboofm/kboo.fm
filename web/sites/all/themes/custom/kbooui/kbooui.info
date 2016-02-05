@@ -93,7 +93,6 @@ scripts[] = 'js/compiled/c4/utilities/window.js'
 
 ; namespace: C4.Components
 scripts[] = 'js/compiled/c4/components/base.js'
-scripts[] = 'js/compiled/c4/components/navbar.js'
 
 
 ; namespace: App.Station
