@@ -19,7 +19,8 @@ class RadioTemplates {
     $this->addTemplate('home');
     $this->addTemplate('listen_now');
     $this->addTemplate('news');
-    $this->addTemplate('programs_content');
+    $this->addTemplate('program_content_list');
+    $this->addTemplate('program_content');
     $this->addTemplate('programs_playlists');
     $this->addTemplate('schedule');
 

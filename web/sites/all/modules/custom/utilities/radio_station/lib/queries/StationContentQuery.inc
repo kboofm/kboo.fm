@@ -48,7 +48,7 @@ class StationContentQuery extends NodeQuery {
     $subquery->distinct();
     $subquery->addField('f', 'entity_id');
     $subquery->condition('f.deleted', '0', '=');
-    $subquery->condition('f.field_audio_files_fid', 'NULL', 'IS NOT');
+    $subquery->condition('f.field_audio_files_fid', 'NULL', '!=');
 
     $this->entityCondition('entity_id', $subquery, 'IN');
   }
