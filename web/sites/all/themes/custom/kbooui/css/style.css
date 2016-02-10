@@ -6838,6 +6838,11 @@ body.cke_editable,
 body.cke_ltr {
   background: #ffffff;
 }
+@media (min-width: 768px) {
+  .main-body {
+    padding-left: 0px;
+  }
+}
 #admin-menu {
   z-index: 1080;
 }
@@ -6845,6 +6850,10 @@ body.cke_ltr {
   .container {
     width: 970px;
   }
+}
+.footer {
+  padding-left: 0px;
+  padding-right: 0px;
 }
 .footer .footer-menus {
   background: #003b4c url(../images/kboo-footer-logo.png) no-repeat center top;
