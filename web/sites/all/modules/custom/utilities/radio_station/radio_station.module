@@ -148,13 +148,13 @@ function radio_station_get_home() {
 }
 
 
-function radio_station_get_programs_content($program_alias) {
+function radio_station_get_program_content($program_alias) {
   $response = new ProgramsResponse();
   return $response->getContent($program_alias);
 }
 
 
-function radio_station_get_programs_content_title($program_alias) {
+function radio_station_get_program_content_title($program_alias) {
   $title = ProgramsResponse::getTitle($program_alias);
   return "Latest Content for {$title}";
 }
