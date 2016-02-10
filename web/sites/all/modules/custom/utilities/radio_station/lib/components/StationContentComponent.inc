@@ -2,8 +2,12 @@
 
 class StationContentComponent extends BaseComponent {
 
-  public function getContentForProgram($program_nid, $page = 1) {
-    $per_page = 10;
+  public function getContentForProgram(
+    $program_nid,
+    $page = 1,
+    $per_page = 10
+  ) {
+
     $start = ($page - 1) * $per_page;
 
     $query = new StationContentQuery();

@@ -160,6 +160,23 @@ function radio_station_get_programs_content_title($program_alias) {
 }
 
 
+function radio_station_preprocess_radio_template_program_content_list(&$vars) {
+  $node = menu_get_object();
+  $component = new StationContentComponent();
+  $pager = $component->getContentForProgram($node->nid, 1, 3);
+  $vars['pager'] = $pager;
+
+  $vars['program'] = [
+    'title' => $node->title,
+  ];
+
+  if (count($pager['items']) > 0) {
+    $program_url = TemplateProcessor::getEntityUrl($node);
+    $vars['content_url'] = "$program_url/content";
+  }
+}
+
+
 function radio_station_get_programs_playlists() {
   $response = new ProgramsPlaylistResponse();
   return $response->get();
