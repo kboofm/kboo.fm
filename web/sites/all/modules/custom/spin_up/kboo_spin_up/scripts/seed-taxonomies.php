@@ -7,8 +7,7 @@ class SeedTaxonomies {
   /**
    * Constructor
    */
-  public function __construct()
-  {
+  public function __construct() {
     $this->initialize();
     $this->execute();
   }
@@ -16,12 +15,13 @@ class SeedTaxonomies {
   /**
    * Initialize
    */
-  private function initialize()
-  {
+  private function initialize() {
     $this->taxonomies[] = [
       'event_types' => [
-        'Music',
-        'Community',
+        'Community events',
+        'KBOO events',
+        'Concerts',
+        'Art and culture',
       ],
     ];
 
@@ -65,8 +65,7 @@ class SeedTaxonomies {
    *
    * @param array $vocabulary_definition
    */
-  private function seed(array $vocabulary_definition)
-  {
+  private function seed(array $vocabulary_definition) {
     $vocabulary_name = key($vocabulary_definition);
     $term_names = reset($vocabulary_definition);
     $vocabulary = taxonomy_vocabulary_machine_name_load($vocabulary_name);
@@ -97,8 +96,7 @@ class SeedTaxonomies {
    * @param $vocabulary_name
    * @return bool
    */
-  private function hasTerm($term_name, $vocabulary_name)
-  {
+  private function hasTerm($term_name, $vocabulary_name) {
     $terms = taxonomy_get_term_by_name($term_name, $vocabulary_name);
     return (bool)count($terms);
   }
@@ -106,8 +104,7 @@ class SeedTaxonomies {
   /**
    * Execute the script
    */
-  private function execute()
-  {
+  private function execute() {
     foreach ($this->taxonomies as $item) {
       $this->seed($item);
     }

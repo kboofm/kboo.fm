@@ -16,7 +16,7 @@ class EventQuery extends NodeQuery {
 
 
   public function getCommunityEvents() {
-    return $this->getUpcomingEventsByTermName('Community event');
+    return $this->getUpcomingEventsByTermName('Community events');
   }
 
 
