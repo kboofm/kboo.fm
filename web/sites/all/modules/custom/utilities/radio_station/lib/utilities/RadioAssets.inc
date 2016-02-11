@@ -11,9 +11,9 @@ class RadioAssets {
 
     $this->routes = [
       [
-        'path' => 'programs/playlists',
+        'path' => 'program/playlists',
         'search_type' => EStringSearchOptions::Equals,
-        'callback' => [$this, 'routeProgramsPlaylists'],
+        'callback' => [$this, 'routeProgramPlaylists'],
       ],
       [
         'path' => 'listen-now',
@@ -80,7 +80,7 @@ class RadioAssets {
   }
 
 
-  private function routeProgramsPlaylists() {
+  private function routeProgramPlaylists() {
     $this->addDatePicker();
     $this->addJs("js/compiled/custom/station/playlists.js");
   }

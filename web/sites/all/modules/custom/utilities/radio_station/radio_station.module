@@ -177,7 +177,7 @@ function radio_station_preprocess_radio_template_program_content_list(&$vars) {
 }
 
 
-function radio_station_get_programs_playlists() {
+function radio_station_get_program_playlists() {
   $response = new ProgramsPlaylistResponse();
   return $response->get();
 }

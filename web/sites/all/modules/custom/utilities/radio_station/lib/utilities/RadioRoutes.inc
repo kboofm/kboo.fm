@@ -105,9 +105,9 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
-    $this->items['programs/playlists'] = [
-      'title' => 'Programs Playlists',
-      'page callback' => 'radio_station_get_programs_playlists',
+    $this->items['program/playlists'] = [
+      'title' => 'Program Playlists',
+      'page callback' => 'radio_station_get_program_playlists',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];
