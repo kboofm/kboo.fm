@@ -12,15 +12,15 @@ class ProgramFromKbooProgram extends NodeImageMigration {
    * @param array $arguments
    */
   public function __construct(array $arguments) {
-//    $this->addDependencies([
-//      'UserProfileMigration',
-//    ]);
+    $this->addDependencies([
+      'UserProfile',
+    ]);
 
-//    $this->addReferenceMapping(
-//      'field_hosted_by',
-//      'field_program_host',
-//      'UserProfileMigration'
-//    );
+    $this->addReferenceMapping(
+      'field_hosted_by',
+      'field_program_host',
+      'UserProfile'
+    );
 
     $this->addFieldMapping(
       'field_short_description',
@@ -35,6 +35,11 @@ class ProgramFromKbooProgram extends NodeImageMigration {
     $this->addFieldMapping(
       'field_episode_record',
       'field_episode_record'
+    );
+
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
     );
 
     parent::__construct($arguments);

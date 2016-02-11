@@ -1,0 +1,56 @@
+#main-body {
+  background-color: fade(@white, 85%);
+  padding: @pad @pad-md;
+} 
+
+.node {
+  .node-images {
+    float: right;
+
+    @media (max-width: @screen-sm-max) {
+      float: none;
+    }
+  }
+
+  .field-name-field-lead-image {
+    float: right;
+    margin: 0px 0px @margin-sm @margin-sm;
+    clear: both;
+
+    @media (max-width: @screen-sm-max) {
+      float: none;
+      clear: none;
+      margin: @margin-xs;
+      text-align: center;
+    }
+
+    @media (max-width: 400px) {
+      img {
+        max-width: 100%;
+      }
+    }
+  }
+
+  .field-name-field-more-images {
+    margin: @margin-sm 0px @margin-sm @margin-sm;
+    float: right;
+    clear: both;
+
+    @media (min-width: @screen-md-min) {
+      width: 290px;
+      text-align: center;
+    }
+
+    @media (max-width: @screen-sm-max) {
+      float: none;
+      text-align: center;
+    }
+
+    img {
+      padding: @pad-sm 0px;
+    }
+  }
+
+  .field-label-inline .field-items {
+  }
+}  

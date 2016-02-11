@@ -4,6 +4,60 @@ package = Radio - Utilities
 core = 7.x
 version = 7.x-1.0
 
-dependencies[] = radio_template_query
-files[] = lib/RadioStation.inc
-files[] = lib/RadioStationCallbacks.inc
+; Utilities
+files[] = lib/utilities/RadioAssets.inc
+files[] = lib/utilities/RadioEnums.inc
+files[] = lib/utilities/RadioPaginator.inc
+files[] = lib/utilities/RadioRoutes.inc
+files[] = lib/utilities/RadioSpinitron.inc
+files[] = lib/utilities/RadioTemplates.inc
+files[] = lib/utilities/Spinitron.inc
+files[] = lib/utilities/SpinitronClient.inc
+
+
+; Entity queries
+files[] = lib/queries/NodeQuery.inc
+files[] = lib/queries/BlogPostQuery.inc
+files[] = lib/queries/EventQuery.inc
+files[] = lib/queries/HasMediaQuery.inc
+files[] = lib/queries/NewsQuery.inc
+files[] = lib/queries/OrganizationQuery.inc
+files[] = lib/queries/PersonProfileQuery.inc
+files[] = lib/queries/ProgramQuery.inc
+files[] = lib/queries/ScheduledTimeslotQuery.inc
+files[] = lib/queries/StationContentQuery.inc
+files[] = lib/queries/TitleQuery.inc
+
+
+; Template Processors
+files[] = lib/processors/TemplateProcessor.inc
+files[] = lib/processors/EventsProcessor.inc
+files[] = lib/processors/ListProcessor.inc
+files[] = lib/processors/NodeTeaserProcessor.inc
+files[] = lib/processors/ScheduleProcessor.inc
+
+
+; UI Components
+files[] = lib/components/BaseComponent.inc
+files[] = lib/components/BlogComponent.inc
+files[] = lib/components/EventsComponent.inc
+files[] = lib/components/HomeComponent.inc
+files[] = lib/components/NewsComponent.inc
+files[] = lib/components/OrganizationComponent.inc
+files[] = lib/components/ProfilesComponent.inc
+files[] = lib/components/ScheduleComponent.inc
+files[] = lib/components/StationContentComponent.inc
+
+
+; Responses
+files[] = lib/responses/Response.inc
+files[] = lib/responses/ApiResponse.inc
+files[] = lib/responses/BlogResponse.inc
+files[] = lib/responses/EventsResponse.inc
+files[] = lib/responses/HomeResponse.inc
+files[] = lib/responses/NewsResponse.inc
+files[] = lib/responses/PlayerResponse.inc
+files[] = lib/responses/ProfilesResponse.inc
+files[] = lib/responses/ProgramsResponse.inc
+files[] = lib/responses/ProgramsPlaylistsResponse.inc
+files[] = lib/responses/ScheduleResponse.inc

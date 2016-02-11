@@ -1,0 +1,33 @@
+html {
+  background: @brand-primary url(../images/kboo-body-bg.jpg) repeat-x center top fixed;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  height: 100%;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  background: none;
+
+  &.cke_editable,
+  &.cke_ltr {
+    background: @white;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .main-body {
+    padding-left: 0px;
+  }
+}
+
+#admin-menu {
+  z-index: @zindex-navbar-fixed + 50;
+}
+
+@media (min-width: 1200px) {
+  .container {
+    width: 970px;
+  }
+}

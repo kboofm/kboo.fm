@@ -3,33 +3,27 @@
 class UserMigration extends DrupalUser6Migration {
 
   /**
-   * Prepare the source row
+   * Query
    *
-   * @param $row
-   * @return bool
+   * @return \QueryConditionInterface
    */
-  public function prepareRow($row) {
-    if (parent::prepareRow($row) === FALSE) {
-      return FALSE;
-    }
-
-    $anonymous_user = ($row->uid == 0);
-    if ($anonymous_user) {
-      return TRUE;
-    }
-
-    $active = ($row->status == 1);
-    if (!$active) {
-      return FALSE;
-    }
+  protected function query() {
+    $query = parent::query();
+    $query->condition('u.status', 1, '=');
 
     $one_month_ago = strtotime("-1 month");
-    $old_enough = ($row->created >= $one_month_ago);
-    $logged_in_before = ($row->access > 0);
-    if ($old_enough && !$logged_in_before) {
-      return FALSE;
-    }
+    $logged_in_before = new DatabaseCondition('AND');
+    $logged_in_before->condition('u.created', $one_month_ago, '>=');
+    $logged_in_before->condition('u.access', 0, '>');
 
-    return TRUE;
+    $new_users = new DatabaseCondition('AND');
+    $new_users->condition('u.created', $one_month_ago, '<');
+
+    $or = new DatabaseCondition('OR');
+    $or->condition($logged_in_before);
+    $or->condition($new_users);
+
+    $query->condition($or);
+    return $query;
   }
 }

@@ -32,7 +32,10 @@ class NodeImageMigration extends NodeMigration {
       return FALSE;
     }
 
-    $row->lead_image = array_shift($row->field_node_image);
+    if (isset($row->field_node_image)) {
+      $row->lead_image = array_shift($row->field_node_image);
+    }
+
     return TRUE;
   }
 }

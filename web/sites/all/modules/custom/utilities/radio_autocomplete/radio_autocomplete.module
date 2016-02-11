@@ -35,6 +35,7 @@ function radio_autocomplete_field_streams($string) {
   drupal_json_output($matches);
 }
 
+
 function radio_autocomplete_field_show($string) {
   $matches = RadioAutoComplete::fuzzyMatchProgramShows($string);
   drupal_json_output($matches);
@@ -47,7 +48,7 @@ function radio_autocomplete_field_related_show_hosts($string) {
 }
 
 
-function radio_autocomplete_field_related_organizations($string) {
+function radio_autocomplete_field_venue($string) {
   $matches = RadioAutoComplete::fuzzyMatchOrganizationVenues($string);
   drupal_json_output($matches);
 }

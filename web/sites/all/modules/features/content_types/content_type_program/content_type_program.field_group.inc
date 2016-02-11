@@ -8,7 +8,7 @@
  * Implements hook_field_group_info().
  */
 function content_type_program_field_group_info() {
-  $export = array();
+  $field_groups = array();
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -21,7 +21,7 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content below media',
-    'weight' => '3',
+    'weight' => '2',
     'children' => array(
       0 => 'field_body_below_media',
     ),
@@ -35,7 +35,7 @@ function content_type_program_field_group_info() {
       ),
     ),
   );
-  $export['group_content_bottom|node|program|form'] = $field_group;
+  $field_groups['group_content_bottom|node|program|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -48,7 +48,7 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Content',
-    'weight' => '1',
+    'weight' => '0',
     'children' => array(
       0 => 'body',
       1 => 'field_audio_files',
@@ -75,7 +75,7 @@ function content_type_program_field_group_info() {
       ),
     ),
   );
-  $export['group_content|node|program|form'] = $field_group;
+  $field_groups['group_content|node|program|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -103,7 +103,7 @@ function content_type_program_field_group_info() {
       ),
     ),
   );
-  $export['group_developer_info|node|program|form'] = $field_group;
+  $field_groups['group_developer_info|node|program|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -116,7 +116,7 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Media',
-    'weight' => '2',
+    'weight' => '1',
     'children' => array(
       0 => 'field_files',
       1 => 'field_links',
@@ -132,7 +132,7 @@ function content_type_program_field_group_info() {
       ),
     ),
   );
-  $export['group_media|node|program|form'] = $field_group;
+  $field_groups['group_media|node|program|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -145,11 +145,11 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Profile info',
-    'weight' => '4',
+    'weight' => '3',
     'children' => array(
       0 => 'field_authored_by',
-      1 => 'field_produced_by',
-      2 => 'field_sponsored_by',
+      1 => 'field_sponsored_by',
+      2 => 'field_produced_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -161,7 +161,7 @@ function content_type_program_field_group_info() {
       ),
     ),
   );
-  $export['group_profile_info|node|program|form'] = $field_group;
+  $field_groups['group_profile_info|node|program|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -174,7 +174,7 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Related info',
-    'weight' => '5',
+    'weight' => '4',
     'children' => array(
       0 => 'field_related_info_content',
       1 => 'field_related_organizations',
@@ -192,7 +192,7 @@ function content_type_program_field_group_info() {
       'formatter' => 'closed',
     ),
   );
-  $export['group_related|node|program|form'] = $field_group;
+  $field_groups['group_related|node|program|form'] = $field_group;
 
   $field_group = new stdClass();
   $field_group->disabled = FALSE; /* Edit this to true to make a default field_group disabled initially */
@@ -205,10 +205,8 @@ function content_type_program_field_group_info() {
   $field_group->parent_name = '';
   $field_group->data = array(
     'label' => 'Spinitron',
-    'weight' => '6',
-    'children' => array(
-      0 => 'field_spinitron_showid',
-    ),
+    'weight' => '5',
+    'children' => array(),
     'format_type' => 'tab',
     'format_settings' => array(
       'formatter' => 'closed',
@@ -219,7 +217,17 @@ function content_type_program_field_group_info() {
       ),
     ),
   );
-  $export['group_spinitron|node|program|form'] = $field_group;
+  $field_groups['group_spinitron|node|program|form'] = $field_group;
 
-  return $export;
+  // Translatables
+  // Included for use with string extractors like potx.
+  t('Content');
+  t('Content below media');
+  t('Developer info');
+  t('Media');
+  t('Profile info');
+  t('Related info');
+  t('Spinitron');
+
+  return $field_groups;
 }

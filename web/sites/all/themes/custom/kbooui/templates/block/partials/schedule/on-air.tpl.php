@@ -24,7 +24,7 @@ endif;
   <span class="text-uppercase bold">
     On Air:
   </span>
-
+  
   <span class="song-artist">
     <a href="<?php print $schedule_url; ?>"
        class="text-capitalize"

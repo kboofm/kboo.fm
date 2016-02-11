@@ -1,0 +1,67 @@
+#sidebar {
+  padding-left: 0px;
+  padding-right: 0px;
+
+  @media (max-width: @screen-xs-max) {
+    margin-top: @margin-md;
+  }
+
+  .block {
+    background-color: fade(@white, 85%);
+    padding: 0px @pad-md @pad;
+    margin-bottom: @margin-md;
+  }
+
+  h2 {
+    color: fade(@white, 50%);
+    font-size: 24px;
+    font-weight: normal;
+    margin-top: @margin;
+    text-align: center;
+    padding: @pad-sm 0px;
+    text-transform: uppercase;
+  }
+
+  a {
+    &.more-link {
+      text-align: right;
+      display: block;
+      clear: both;
+      color: fade(@white, 50%);
+      margin-bottom: @margin;
+      padding: 0px @pad-sm;
+      width: 100%;
+
+      &:hover {
+        color: fade(@white, 65%);
+      }
+
+      &.bg-primary:hover {
+        background-color: darken(@brand-primary, 3%);
+      }
+
+      &.bg-info:hover {
+        background-color: darken(@brand-info, 5%);
+      }
+
+      &.bg-tiffany:hover {
+        background-color: darken(@tiffany-blue, 5%);
+      }
+    }
+  }
+
+  .block-search {
+    padding-top: @pad;
+
+    input {
+      border-radius: 0px;
+    }
+
+    .btn {
+      text-indent: -9999px;
+      margin-left: @margin-xs;
+      border: none;
+      background: url(../images/search.png) no-repeat center;
+    }
+  }
+}

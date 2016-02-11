@@ -12,6 +12,14 @@ settings[bootstrap_cdn] = ''
 ;; Regions
 ;;;;;;;;;;;;;;;;;;;;;
 
+regions[sidebar] = 'Sidebar'
+regions[footer_left] = 'Footer Left'
+regions[footer_first] = 'Footer First'
+regions[footer_second] = 'Footer Second'
+regions[footer_third] = 'Footer Third'
+regions[footer_fourth] = 'Footer Fourth'
+regions[copyright] = 'Copyright'
+
 ; Drupal required regions
 regions[help] = 'Help'
 regions[content] = 'Content'
@@ -47,18 +55,18 @@ stylesheets[all][] = bower_components/fontawesome/css/font-awesome.css
 
 ; Bootstrap
 ;
+scripts[] = 'bower_components/bootstrap/js/transition.js'
 ; scripts[] = 'bower_components/bootstrap/js/affix.js'
 ; scripts[] = 'bower_components/bootstrap/js/alert.js'
 ; scripts[] = 'bower_components/bootstrap/js/button.js'
 ; scripts[] = 'bower_components/bootstrap/js/carousel.js'
-; scripts[] = 'bower_components/bootstrap/js/collapse.js'
-; scripts[] = 'bower_components/bootstrap/js/dropdown.js'
+scripts[] = 'bower_components/bootstrap/js/collapse.js'
+scripts[] = 'bower_components/bootstrap/js/dropdown.js'
 ; scripts[] = 'bower_components/bootstrap/js/modal.js'
 ; scripts[] = 'bower_components/bootstrap/js/tooltip.js'
 ; scripts[] = 'bower_components/bootstrap/js/popover.js'
 ; scripts[] = 'bower_components/bootstrap/js/scrollspy.js'
 scripts[] = 'bower_components/bootstrap/js/tab.js'
-; scripts[] = 'bower_components/bootstrap/js/transition.js'
 
 
 ; Bootstrap Grid Column Clearing
@@ -87,12 +95,20 @@ scripts[] = 'js/compiled/c4/utilities/window.js'
 scripts[] = 'js/compiled/c4/components/base.js'
 
 
-; namespace: App.Schedule
-scripts[] = 'js/compiled/custom/schedule/carousel.js'
-scripts[] = 'js/compiled/custom/schedule/on-air.js'
+; namespace: App.Station
+scripts[] = 'js/compiled/custom/station/listen-now.js'
+scripts[] = 'js/compiled/custom/station/on-air.js'
 
 
 ; -- MAIN --
 ; namespace: App
 scripts[] = 'js/compiled/custom/main.js'
 
+;;;;;;;;;;;;;;;;;;;;;
+;; Fonts
+;;;;;;;;;;;;;;;;;;;;;
+
+fonts[google_fonts_api][] = "Montserrat&subset=latin#700"
+fonts[google_fonts_api][] = "Montserrat&subset=latin#regular"
+fonts[google_fonts_api][] = "Oswald&subset=latin#700"
+fonts[google_fonts_api][] = "Oswald&subset=latin#regular"

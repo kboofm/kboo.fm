@@ -59,7 +59,7 @@ function configure_text_editing_filter_default_formats() {
   $formats['full_html'] = array(
     'format' => 'full_html',
     'name' => 'Full HTML + Advanced WYSIWYG',
-    'cache' => 0,
+    'cache' => 1,
     'status' => 1,
     'weight' => -10,
     'filters' => array(
@@ -90,7 +90,7 @@ function configure_text_editing_filter_default_formats() {
   $formats['full_html_no_wysiwyg'] = array(
     'format' => 'full_html_no_wysiwyg',
     'name' => 'Full HTML + No WYSIWYG',
-    'cache' => 0,
+    'cache' => 1,
     'status' => 1,
     'weight' => -8,
     'filters' => array(
@@ -121,7 +121,7 @@ function configure_text_editing_filter_default_formats() {
   $formats['full_html_simple_wysiwyg'] = array(
     'format' => 'full_html_simple_wysiwyg',
     'name' => 'Full HTML + Simple WYSIWYG',
-    'cache' => 0,
+    'cache' => 1,
     'status' => 1,
     'weight' => -9,
     'filters' => array(

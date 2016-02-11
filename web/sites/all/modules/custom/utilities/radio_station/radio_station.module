@@ -1,14 +1,22 @@
 <?php
+require_once __DIR__ . '/lib/utilities/RadioEnums.inc';
+require_once __DIR__ . '/lib/utilities/Helpers.inc';
+
+
+function printif($array, $key) {
+  if (isset($array[$key])) {
+    print $array[$key];
+  }
+}
+
 
 /**
- * Implements hook_cron().
+ * Implements hook_init().
  */
-function radio_station_cron() {
-  $station = new RadioStation();
-  $episodes = $station->getRippingEpisodes(Streams::One, 5);
-  $station->scheduleRippingEpisodes($episodes);
-  $station->attachNewRips();
-  $station->cullArchive();
+function radio_station_init() {
+  require_once __DIR__ . '/lib/utilities/RadioAssets.inc';
+  $assets = new RadioAssets();
+  $assets->add();
 }
 
 
@@ -16,38 +24,186 @@ function radio_station_cron() {
  * Implements hook_menu().
  */
 function radio_station_menu() {
-  $routes = RadioStationCallbacks::buildRoutes();
-  return $routes;
+  $router = new RadioRoutes();
+  return $router->get();
+}
+
+
+/**
+ * Implements hook_cron().
+ */
+function radio_station_cron() {
+  $component = new StationContentComponent();
+  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
+  $component->scheduleRippingEpisodes($episodes);
+  $component->attachNewRips();
+  $component->cullArchive();
+}
+
+
+/**
+ * Implements hook_theme().
+ */
+function radio_station_theme() {
+  $templates = new RadioTemplates();
+  return $templates->get();
+}
+
+
+/**
+ * Implements hook_query_alter().
+ *
+ * @param \QueryAlterableInterface $query
+ */
+function radio_station_query_alter(QueryAlterableInterface $query) {
+  if (!isset($query->alterTags)) {
+    return;
+  }
+
+  $tags = $query->alterTags;
+
+  foreach ($tags as $tag => $value) {
+    if (Helpers::startsWith($tag, 'radio_')) {
+      $callback = explode('_', $tag);
+      array_shift($callback);
+      $callback = implode('::', $callback);
+      call_user_func($callback, $query);
+    }
+  }
+}
+
+
+function radio_station_user_has_role(array $roles) {
+  global $user;
+
+  if ($user->uid == 1) {
+    return true;
+  }
+
+  $user_roles = array_values($user->roles);
+  $check = array_intersect($roles, $user_roles);
+  $has_role = !empty($check);
+  return $has_role;
 }
 
 
 function radio_station_get_episode($stream, $direction, $timestamp) {
-  $data = RadioStationCallbacks::getEpisode($stream, $direction, $timestamp);
-  drupal_json_output($data);
+  $response = new ApiResponse();
+  $response->getEpisode($stream, $direction, $timestamp);
 }
 
 
 function radio_station_get_day($stream, $direction, $timestamp) {
-  $data = RadioStationCallbacks::getDay($stream, $direction, $timestamp);
-  drupal_json_output($data);
+  $response = new ApiResponse();
+  $response->getDay($stream, $direction, $timestamp);
 }
 
 
 function radio_station_get_week($stream, $direction, $timestamp) {
-  $data = RadioStationCallbacks::getWeek($stream, $direction, $timestamp);
+  $response = new ApiResponse();
+  $response->getWeek($stream, $direction, $timestamp);
+}
+
+
+function radio_station_get_playlists() {
+  $params = Helpers::getQueryParameters();
+  $data = RadioSpinitron::getPlaylists($params);
   drupal_json_output($data);
 }
 
 
-function radio_station_get_schedule($stream) {
-  return RadioStationCallbacks::getSchedule($stream);
-}
-
-function radio_station_get_playlist() {
-  return RadioStationCallbacks::getPlaylist();
+function radio_station_get_schedule() {
+  $response = new ScheduleResponse();
+  return $response->getCalendar();
 }
 
 
-function radio_station_theme() {
-  return RadioStationCallbacks::getTemplates();
+function radio_station_get_community_events() {
+  $response = new EventsResponse();
+  return $response->getUpcomingCommunity();
 }
+
+
+function radio_station_get_news() {
+  $response = new NewsResponse();
+  return $response->get();
+}
+
+
+function radio_station_get_listen_now() {
+  $response = new PlayerResponse();
+  return $response->get();
+}
+
+
+function radio_station_get_blog() {
+  $response = new BlogResponse();
+  return $response->get();
+}
+
+
+function radio_station_get_home() {
+  $response = new HomeResponse();
+  return $response->get();
+}
+
+
+function radio_station_get_program_content($program_alias) {
+  $response = new ProgramsResponse();
+  return $response->getContent($program_alias);
+}
+
+
+function radio_station_get_program_content_title($program_alias) {
+  $title = ProgramsResponse::getTitle($program_alias);
+  return "Latest Content for {$title}";
+}
+
+
+function radio_station_preprocess_radio_template_program_content_list(&$vars) {
+  $node = menu_get_object();
+  $component = new StationContentComponent();
+  $pager = $component->getContentForProgram($node->nid, 1, 3);
+  $vars['pager'] = $pager;
+
+  $vars['program'] = [
+    'title' => $node->title,
+  ];
+
+  if (count($pager['items']) > 0) {
+    $program_url = TemplateProcessor::getEntityUrl($node);
+    $vars['content_url'] = "$program_url/content";
+  }
+}
+
+
+function radio_station_get_program_playlists() {
+  $response = new ProgramsPlaylistResponse();
+  return $response->get();
+}
+
+
+function radio_station_preprocess_radio_template_audio_player(&$vars) {
+  $node = menu_get_object();
+  $entity = entity_metadata_wrapper('node', $node);
+  $audio_files = $entity->field_audio_files->value();
+  foreach ($audio_files as &$audio_file) {
+    $audio_file['filepath'] = file_create_url($audio_file['uri']);
+  }
+  $vars['audio_files'] = $audio_files;
+
+  $assets = new RadioAssets();
+  $assets->audioPlayer();
+}
+
+
+function radio_station_preprocess_radio_template_episode_playlists(&$vars) {
+  $node = menu_get_object();
+  $vars['playlists'] = RadioSpinitron::getEpisodePlaylist($node);
+}
+
+
+function radio_station_preprocess_node(&$vars) {
+  NodeTeaserProcessor::preprocess($vars);
+}
+

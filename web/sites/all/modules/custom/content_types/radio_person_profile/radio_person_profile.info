@@ -1,7 +1,0 @@
-name = Radio Person Profile
-description = Radio code for person_profile content type
-package = Radio - Content Types
-core = 7.x
-version = 7.x-1.0
-
-files[] = lib/PersonProfileContentType.inc

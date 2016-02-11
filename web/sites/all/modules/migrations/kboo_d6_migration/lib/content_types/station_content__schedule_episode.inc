@@ -38,31 +38,32 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
       'station_content_type'
     );
 
+    $this->addFieldMapping(
+      'migrate_redirects',
+      'path'
+    );
+
     parent::__construct($arguments);
   }
 
 
   /**
-   * Prepare the source row
+   * Prepare the destination node
    *
+   * @param $node
    * @param $row
-   * @return bool
    */
-  public function prepareRow($row) {
-    if (parent::prepareRow($row) === FALSE) {
-      return FALSE;
-    }
-
+  public function prepare($node, $row) {
     static $term;
+
     if (!$term) {
       $terms = taxonomy_get_term_by_name(
-        $this->profile_type_taxonomy_name,
-        'profile_types'
+        'Episode',
+        'station_content_types'
       );
       $term = reset($terms);
     }
 
-    $row->station_content_type = $term->tid;
-    return TRUE;
+    $node->field_station_content_type['und'][]['tid'] = $term->tid;
   }
 }

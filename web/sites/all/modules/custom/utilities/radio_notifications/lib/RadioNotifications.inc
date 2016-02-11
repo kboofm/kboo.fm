@@ -1,10 +1,5 @@
 <?php
 
-abstract class RadioNotificationCommentSave {
-  const KEY = 'comment_save';
-  const RECIPIENTS = 'radio_notifications_comment_save_recipients';
-}
-
 
 class RadioNotifications {
   /**
@@ -15,7 +10,7 @@ class RadioNotifications {
   public static function commentSendEmail($comment) {
     drupal_mail(
       $module = 'radio_notifications',
-      $key = RadioNotificationCommentSave::KEY,
+      $key = ENotificationCommentSave::KEY,
       $to = NULL,
       $language = 'und',
       $params = ['comment' => $comment]
@@ -29,7 +24,7 @@ class RadioNotifications {
    * @return mixed
    */
   public static function defineVariables() {
-    $variables[RadioNotificationCommentSave::RECIPIENTS] = [
+    $variables[ENotificationCommentSave::RECIPIENTS] = [
       'title' => t('Comment saved recipients'),
       'description' => t(
         'List of email address whom to send notifications upon comment saved'
@@ -51,7 +46,7 @@ class RadioNotifications {
    * @param $params
    */
   public static function defineEmail($key, &$message, $params) {
-    if ($key == RadioNotificationCommentSave::KEY) {
+    if ($key == ENotificationCommentSave::KEY) {
       RadioNotifications::defineEmailCommentSave($message, $params);
     }
   }
@@ -75,7 +70,7 @@ class RadioNotifications {
 
 
     // Email to
-    $to = variable_get_value(RadioNotificationCommentSave::RECIPIENTS);
+    $to = variable_get_value(ENotificationCommentSave::RECIPIENTS);
     if (is_array($to)) {
       $to = implode(', ', $to);
     }

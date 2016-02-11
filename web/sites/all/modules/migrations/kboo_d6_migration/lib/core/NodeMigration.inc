@@ -33,6 +33,11 @@ class NodeMigration extends DrupalNode6Migration {
 
     parent::__construct($arguments);
 
+    // Turn on pathauto; it is disabled by default
+    $this->removeFieldMapping('pathauto');
+    $this->addFieldMapping('pathauto')
+      ->defaultValue(TRUE);
+
     // Do not migrate the body summary
     $this->removeFieldMapping('body:summary');
   }
@@ -85,6 +90,8 @@ class NodeMigration extends DrupalNode6Migration {
       return FALSE;
     }
 
+    // Set all rows to 'undefined' language
+    $row->language = "";
     $row->title_field = $row->title;
     return TRUE;
   }

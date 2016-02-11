@@ -7,17 +7,15 @@ project = custom_module_dependencies_base
 
 ; Custom modules - utilities
 dependencies[] = radio_autocomplete
+dependencies[] = radio_auto_title
 dependencies[] = radio_file_types
 dependencies[] = radio_forms
 dependencies[] = radio_notifications
-dependencies[] = radio_spinitron
 dependencies[] = radio_station
-dependencies[] = radio_template_query
 dependencies[] = radio_urls
 
 ; Custom modules - content types
 dependencies[] = radio_organization
-dependencies[] = radio_person_profile
 dependencies[] = radio_scheduled_timeslot
 
 features[features_api][] = api:2

@@ -1,0 +1,62 @@
+.footer {
+  padding-left: 0px;
+  padding-right: 0px;
+  
+  .footer-menus {
+    background: @brand-primary url(../images/kboo-footer-logo.png) no-repeat center top;
+    border-top: 3px solid @white;
+    height: 348px;
+    padding-top: 50px;
+    margin-top: @margin;
+
+    @media (max-width: @screen-sm-max) {
+      display: none;
+    }  
+
+    .footer-menu {
+     float: left;
+      width: 15%;
+      margin-left: @margin-sm;
+
+      &.footer-left {
+        color: @white;
+        width: 25%;
+        margin-right: @margin;
+      }
+
+      &.footer-first {
+        font-size: 16px;
+        font-weight: bold;
+      }
+
+      .nav {
+        > li {
+          &.first {
+            margin-top: -@margin-sm;
+          }
+
+          > a {
+            &:hover {
+              background-color: @brand-info;
+              color: fade(@white, 90%);
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .region-copyright {
+    text-align: center;
+    clear: both;
+    padding-top: @pad-lg;
+    padding-bottom: @pad-lg;
+
+    p {
+      margin: 0px;
+      text-align: center;
+      color: @white;
+      padding-top: @pad;
+    }
+  }
+}

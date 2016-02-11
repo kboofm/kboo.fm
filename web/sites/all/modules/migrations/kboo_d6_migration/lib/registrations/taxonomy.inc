@@ -24,11 +24,11 @@ class TaxonomyRegistration extends BaseRegistration {
     list($dest, $src) = $info;
 
     $this->custom_args = [
-      'group_name' => 'Core',
+      'group_name' => 'Taxonomy',
       'class_name' => 'DrupalTerm6Migration',
       'source_vocabulary' => $src,
       'destination_vocabulary' => $dest,
-      'machine_name' => "Taxonomy__{$dest}_from_{$src}",
+      'machine_name' => "Vocabulary__{$dest}_from_{$src}",
       'description' => t("Migration of {$dest} vocabulary from D6 vid {$src}"),
     ];
   }

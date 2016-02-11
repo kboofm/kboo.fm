@@ -1,0 +1,7 @@
+name = Radio Auto Title
+description = Radio auto title code
+package = Radio - Utilities
+core = 7.x
+version = 7.x-1.0
+
+files[] = lib/RadioAutoTitle.inc

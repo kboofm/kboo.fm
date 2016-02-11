@@ -159,7 +159,9 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
         ),
       ),
-      'input_formats' => array(),
+      'input_formats' => array(
+        'full_html' => 'Full HTML + Advanced WYSIWYG',
+      ),
     ),
     'Full_HTML_Simple' => array(
       'name' => 'Full_HTML_Simple',
@@ -263,7 +265,9 @@ function configure_text_editing_ckeditor_profile_defaults() {
           ),
         ),
       ),
-      'input_formats' => array(),
+      'input_formats' => array(
+        'full_html_simple_wysiwyg' => 'Full HTML + Simple WYSIWYG',
+      ),
     ),
   );
   return $data;
