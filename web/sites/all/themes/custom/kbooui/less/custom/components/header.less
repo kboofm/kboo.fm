@@ -15,11 +15,11 @@
 
   .btn {
     border-radius: 0px;
-    background-color: @brand-danger;
+    background-color: @red;
     color: @brand-warning;
 
     &:hover {
-      background-color: darken(@brand-danger, 10%);
+      background-color: darken(@red, 5%);
     }
   }
 
@@ -40,7 +40,7 @@
     right: 20px;
     top: 0px;
 
-    @media (max-width: @screen-md-max) {
+    @media (max-width: @screen-md-min) {
       display: none;
     }
   }

@@ -6915,11 +6915,11 @@ body.cke_ltr {
 }
 .navbar .btn {
   border-radius: 0px;
-  background-color: #e2231a;
+  background-color: #971a31;
   color: #ffb600;
 }
 .navbar .btn:hover {
-  background-color: #b41c15;
+  background-color: #81162a;
 }
 .navbar .on-air {
   position: absolute;
@@ -6936,7 +6936,7 @@ body.cke_ltr {
   right: 20px;
   top: 0px;
 }
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
   .navbar .donate-btn {
     display: none;
   }
@@ -6996,10 +6996,29 @@ ul.navbar-nav {
   border-top: 2px solid #003b4c;
   margin-left: 20px;
 }
+ul.navbar-nav .open a {
+  background-color: #00a887;
+}
 ul.navbar-nav > li > a {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 16px;
+}
+@media (min-width: 768px) and (max-width: 1199px) {
+  ul.navbar-nav > li > a {
+    padding: 7px;
+  }
+}
+ul.navbar-nav > li .dropdown-menu {
+  background-color: #00a887;
+  border: none;
+}
+ul.navbar-nav > li .dropdown-menu li a {
+  color: #003b4c;
+  background-color: #00a887;
+}
+ul.navbar-nav > li .dropdown-menu li a:hover {
+  background-color: #008f73;
 }
 #sidebar {
   padding-left: 0px;
