@@ -6,23 +6,23 @@ class ProgramsResponse extends Response {
 
     $path = drupal_lookup_path("source", $url_alias);
     if (!$path) {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
     $node = menu_get_object("node", 1, $path);
     if (!$node) {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
     if ($node->type != 'program') {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
     $entity = entity_metadata_wrapper('node', $node);
 
     $program_type = $entity->field_program_type->value();
     if (!$program_type || $program_type->name != 'Show') {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
     return $entity;
@@ -31,13 +31,19 @@ class ProgramsResponse extends Response {
 
   public static function getTitle($program_alias) {
     $entity = ProgramsResponse::getEntity($program_alias);
-    return $entity->title->value();
+    $title = "";
+
+    if ($entity) {
+      $title = $entity->title->value();
+    }
+
+    return $title;
   }
 
 
   public function getContent($program_alias) {
     $entity = ProgramsResponse::getEntity($program_alias);
-    if ($entity == MENU_NOT_FOUND) {
+    if (!$entity) {
       return MENU_NOT_FOUND;
     }
 
