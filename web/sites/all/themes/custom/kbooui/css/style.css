@@ -6824,7 +6824,7 @@ button.close {
   right: 32px;
 }
 html {
-  background: #003b4c url(../images/kboo-body-bg.jpg) repeat-x center top fixed;
+  background: #003b4c url(../images/kboo-body-bg.jpg) repeat center top fixed;
   height: 100%;
   overflow: hidden;
 }
@@ -6857,7 +6857,7 @@ body.cke_ltr {
 }
 .footer .footer-menus {
   background: #003b4c url(../images/kboo-footer-logo.png) no-repeat center top;
-  border-top: 3px solid #ffffff;
+  border-top: 3px solid #eeeeee;
   height: 348px;
   padding-top: 50px;
   margin-top: 20px;
@@ -6907,7 +6907,7 @@ body.cke_ltr {
 }
 .navbar.navbar-default {
   background-color: #00a887;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid #eeeeee;
 }
 .navbar.navbar-default .logo.navbar-btn {
   margin-top: 0px;
