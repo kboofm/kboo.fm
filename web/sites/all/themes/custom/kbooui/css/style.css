@@ -4001,7 +4001,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #7f9da5;
 }
 .nav-tabs > li {
   float: left;
@@ -4014,14 +4014,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+  border-color: #eeeeee #eeeeee #7f9da5;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555555;
+  color: #7f9da5;
   background-color: #003b4c;
-  border: 1px solid #dddddd;
+  border: 1px solid #7f9da5;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4056,11 +4056,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > .active > a,
 .nav-tabs.nav-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:focus {
-  border: 1px solid #dddddd;
+  border: 1px solid #7f9da5;
 }
 @media (min-width: 768px) {
   .nav-tabs.nav-justified > li > a {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #7f9da5;
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs.nav-justified > .active > a,
@@ -4124,11 +4124,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs-justified > .active > a:focus {
-  border: 1px solid #dddddd;
+  border: 1px solid #7f9da5;
 }
 @media (min-width: 768px) {
   .nav-tabs-justified > li > a {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #7f9da5;
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs-justified > .active > a,
@@ -6944,6 +6944,10 @@ body.cke_ltr {
 #main-body {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
+  width: 72%;
+}
+hr {
+  border-top-color: #7f9da5;
 }
 .node .node-images {
   float: right;
@@ -7023,6 +7027,7 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
 #sidebar {
   padding-left: 0px;
   padding-right: 0px;
+  margin-left: 3%;
 }
 @media (max-width: 767px) {
   #sidebar {
@@ -7109,6 +7114,7 @@ a:hover {
 }
 h1.page-header {
   margin-top: 10px;
+  border-bottom: 1px solid #7f9da5;
 }
 .margin-top-none {
   margin-top: 0px;
