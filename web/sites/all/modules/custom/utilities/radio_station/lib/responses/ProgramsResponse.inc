@@ -43,7 +43,7 @@ class ProgramsResponse extends Response {
       return MENU_NOT_FOUND;
     }
 
-    $this->template_name = 'radio_template_programs_content';
+    $this->template_name = 'radio_template_program_content';
     $this->readParams();
     $page = $this->getParam('page', 1);
 
