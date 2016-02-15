@@ -5,7 +5,9 @@ class HomeComponent extends BaseComponent {
     $per_page = 15;
     $start = ($page - 1) * $per_page;
 
-    $query = $this->getQuery();
+    $query = new NodeQuery();
+    $query->isPromoted();
+    $query->addTag('radio_HomeComponent_orderByAirDateOrPublicationDate');
     $query->range($start, $per_page);
     $result = $query->execute();
 
@@ -17,7 +19,8 @@ class HomeComponent extends BaseComponent {
       node_load_multiple($nids)
     );
 
-    $query = $this->getQuery();
+    $query = new NodeQuery();
+    $query->isPromoted();
     $query->count();
     $total_count = $query->execute();
 
@@ -28,10 +31,22 @@ class HomeComponent extends BaseComponent {
   }
 
 
-  private function getQuery() {
-    $query = new NodeQuery();
-    $query->isPromoted();
-    $query->addTag('radio_NodeQuery_orderByPublicationDateOrCreated');
-    return $query;
+  public static function orderByAirDateOrPublicationDate(
+    QueryAlterableInterface $query
+  ) {
+
+    $query->leftJoin(
+      'field_data_field_air_time',
+      'field_data_field_air_time',
+      'node.nid = field_data_field_air_time.entity_id'
+    );
+
+    $query->leftJoin(
+      'publication_date',
+      'publication_date',
+      'node.nid = publication_date.nid'
+    );
+
+    $query->orderBy('ifnull(field_data_field_air_time.field_air_time_value, publication_date.published_at)', 'DESC');
   }
 }
