@@ -7,6 +7,8 @@ version = 7.x-1.0
 dependencies[] = migrate
 dependencies[] = migrate_d2d
 
+files[] = lib/misc/redirect-migrate.inc
+
 files[] = lib/settings/source.inc
 files[] = lib/registrations/base.inc
 files[] = lib/registrations/comment.inc
