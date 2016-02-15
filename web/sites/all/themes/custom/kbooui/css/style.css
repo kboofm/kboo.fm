@@ -6960,7 +6960,11 @@ body.cke_ltr {
 #main-body {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
-  width: 72%;
+}
+@media (min-width: 768px) {
+  #main-body {
+    width: 72%;
+  }
 }
 hr {
   border-top-color: #7f9da5;
@@ -7043,7 +7047,11 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
 #sidebar {
   padding-left: 0px;
   padding-right: 0px;
-  margin-left: 3%;
+}
+@media (min-width: 768px) {
+  #sidebar {
+    margin-left: 3%;
+  }
 }
 @media (max-width: 767px) {
   #sidebar {
