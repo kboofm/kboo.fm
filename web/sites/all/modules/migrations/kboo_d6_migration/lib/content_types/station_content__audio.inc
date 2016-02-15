@@ -49,6 +49,49 @@ class StationContentFromAudio extends NodeMigration {
       'path'
     );
 
+    $this->addAudio();
+
     parent::__construct($arguments);
+  }
+
+
+  private function addAudio() {
+    $d7 = "field_audio_files";
+
+    $mapping = $this->addFieldMapping(
+      $d7,
+      'audio_fid'
+    );
+    $mapping->sourceMigration('File');
+
+    $mapping = $this->addFieldMapping("{$d7}:file_class");
+    $mapping->defaultValue(FileType::FID);
+
+    $mapping = $this->addFieldMapping("{$d7}:preserve_files");
+    $mapping->defaultValue(TRUE);
+  }
+
+
+  /**
+   * Query
+   *
+   * @return \QueryConditionInterface
+   */
+  protected function query() {
+    $query = parent::query();
+
+    $query->leftJoin(
+      'audio',
+      'au',
+      'au.nid = n.nid AND au.vid = n.vid'
+    );
+
+    $query->addField(
+      'au',
+      'fid',
+      'audio_fid'
+    );
+
+    return $query;
   }
 }
