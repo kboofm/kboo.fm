@@ -6823,6 +6823,22 @@ button.close {
   top: 13px;
   right: 32px;
 }
+.page-listen-now .jp-duration {
+  display: none;
+}
+.page-listen-now div.jp-audio div.jp-type-single div.jp-progress {
+  width: 86%;
+}
+@media (min-width: 501px) and (max-width: 700px) {
+  .page-listen-now div.jp-audio div.jp-type-single div.jp-progress {
+    width: 75%;
+  }
+}
+@media (max-width: 500px) {
+  .page-listen-now div.jp-audio div.jp-type-single div.jp-progress {
+    width: 60%;
+  }
+}
 html {
   background: #003b4c url(../images/kboo-body-bg.jpg) repeat center top fixed;
   height: 100%;
