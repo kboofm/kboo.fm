@@ -38,6 +38,11 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
       'station_content_type'
     );
 
+    $this->addAudioMapping(
+      'field_audio_files',
+      'field_episode_audio'
+    );
+
     $this->addFieldMapping(
       'migrate_redirects',
       'path'

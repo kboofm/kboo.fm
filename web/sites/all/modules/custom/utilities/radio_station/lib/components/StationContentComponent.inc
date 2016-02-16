@@ -241,14 +241,6 @@ class StationContentComponent extends BaseComponent {
       return;
     }
 
-    $temporary = ($recording_type == EArchiveTypes::TEMPORARY);
-    $rip_length = (5 * 3600) + ($padding * 2);
-    $length_check = ($length < $rip_length);
-
-    if ($temporary && $length_check) {
-      $length = $rip_length;
-    }
-
     $command = "$ripper {$stream}";
     $command .= "-l {$length} -A -a {$filename} -q -s -d {$ripdir} --quiet";
     $command .= "; rm {$ripdir}/{$filename}.cue";

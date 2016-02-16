@@ -4001,7 +4001,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   max-width: none;
 }
 .nav-tabs {
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid #7f9da5;
 }
 .nav-tabs > li {
   float: left;
@@ -4014,14 +4014,14 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-radius: 4px 4px 0 0;
 }
 .nav-tabs > li > a:hover {
-  border-color: #eeeeee #eeeeee #dddddd;
+  border-color: #eeeeee #eeeeee #7f9da5;
 }
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555555;
+  color: #7f9da5;
   background-color: #003b4c;
-  border: 1px solid #dddddd;
+  border: 1px solid #7f9da5;
   border-bottom-color: transparent;
   cursor: default;
 }
@@ -4056,11 +4056,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs.nav-justified > .active > a,
 .nav-tabs.nav-justified > .active > a:hover,
 .nav-tabs.nav-justified > .active > a:focus {
-  border: 1px solid #dddddd;
+  border: 1px solid #7f9da5;
 }
 @media (min-width: 768px) {
   .nav-tabs.nav-justified > li > a {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #7f9da5;
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs.nav-justified > .active > a,
@@ -4124,11 +4124,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs-justified > .active > a,
 .nav-tabs-justified > .active > a:hover,
 .nav-tabs-justified > .active > a:focus {
-  border: 1px solid #dddddd;
+  border: 1px solid #7f9da5;
 }
 @media (min-width: 768px) {
   .nav-tabs-justified > li > a {
-    border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #7f9da5;
     border-radius: 4px 4px 0 0;
   }
   .nav-tabs-justified > .active > a,
@@ -6823,8 +6823,24 @@ button.close {
   top: 13px;
   right: 32px;
 }
+.page-listen-now .jp-duration {
+  display: none;
+}
+.page-listen-now div.jp-audio div.jp-type-single div.jp-progress {
+  width: 86%;
+}
+@media (min-width: 501px) and (max-width: 700px) {
+  .page-listen-now div.jp-audio div.jp-type-single div.jp-progress {
+    width: 75%;
+  }
+}
+@media (max-width: 500px) {
+  .page-listen-now div.jp-audio div.jp-type-single div.jp-progress {
+    width: 60%;
+  }
+}
 html {
-  background: #003b4c url(../images/kboo-body-bg.jpg) repeat-x center top fixed;
+  background: #003b4c url(../images/kboo-body-bg.jpg) repeat center top fixed;
   height: 100%;
   overflow: hidden;
 }
@@ -6857,7 +6873,7 @@ body.cke_ltr {
 }
 .footer .footer-menus {
   background: #003b4c url(../images/kboo-footer-logo.png) no-repeat center top;
-  border-top: 3px solid #ffffff;
+  border-top: 3px solid #eeeeee;
   height: 348px;
   padding-top: 50px;
   margin-top: 20px;
@@ -6907,7 +6923,7 @@ body.cke_ltr {
 }
 .navbar.navbar-default {
   background-color: #00a887;
-  border-bottom: 3px solid #ffffff;
+  border-bottom: 3px solid #eeeeee;
 }
 .navbar.navbar-default .logo.navbar-btn {
   margin-top: 0px;
@@ -6915,11 +6931,11 @@ body.cke_ltr {
 }
 .navbar .btn {
   border-radius: 0px;
-  background-color: #e2231a;
+  background-color: #971a31;
   color: #ffb600;
 }
 .navbar .btn:hover {
-  background-color: #b41c15;
+  background-color: #81162a;
 }
 .navbar .on-air {
   position: absolute;
@@ -6936,7 +6952,7 @@ body.cke_ltr {
   right: 20px;
   top: 0px;
 }
-@media (max-width: 1199px) {
+@media (max-width: 992px) {
   .navbar .donate-btn {
     display: none;
   }
@@ -6944,6 +6960,14 @@ body.cke_ltr {
 #main-body {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
+}
+@media (min-width: 768px) {
+  #main-body {
+    width: 72%;
+  }
+}
+hr {
+  border-top-color: #7f9da5;
 }
 .node .node-images {
   float: right;
@@ -6996,14 +7020,38 @@ ul.navbar-nav {
   border-top: 2px solid #003b4c;
   margin-left: 20px;
 }
+ul.navbar-nav .open a {
+  background-color: #00a887;
+}
 ul.navbar-nav > li > a {
   font-weight: bold;
   text-transform: uppercase;
   font-size: 16px;
 }
+@media (min-width: 768px) and (max-width: 1199px) {
+  ul.navbar-nav > li > a {
+    padding: 7px;
+  }
+}
+ul.navbar-nav > li .dropdown-menu {
+  background-color: #00a887;
+  border: none;
+}
+ul.navbar-nav > li .dropdown-menu li a {
+  color: #003b4c;
+  background-color: #00a887;
+}
+ul.navbar-nav > li .dropdown-menu li a:hover {
+  background-color: #008f73;
+}
 #sidebar {
   padding-left: 0px;
   padding-right: 0px;
+}
+@media (min-width: 768px) {
+  #sidebar {
+    margin-left: 3%;
+  }
 }
 @media (max-width: 767px) {
   #sidebar {
@@ -7090,6 +7138,7 @@ a:hover {
 }
 h1.page-header {
   margin-top: 10px;
+  border-bottom: 1px solid #7f9da5;
 }
 .margin-top-none {
   margin-top: 0px;
