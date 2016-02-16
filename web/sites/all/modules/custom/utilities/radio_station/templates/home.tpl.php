@@ -1,8 +1,8 @@
 <div class="row margin-vertical-none">
   <div class="col-sm-12">
     <?php
-    $last = count($pager['items']) - 1;
-    foreach ($pager['items'] as $index => $item):
+    $last = count($items) - 1;
+    foreach ($items as $index => $item):
       $view = node_view($item, 'teaser');
       print drupal_render($view);
 
@@ -10,8 +10,6 @@
         print "<hr />";
       endif;
     endforeach;
-
-    include 'partials/pager.tpl.php';
     ?>
   </div>
 </div>

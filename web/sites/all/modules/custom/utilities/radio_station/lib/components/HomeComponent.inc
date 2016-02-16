@@ -1,44 +1,34 @@
 <?php
 
 class HomeComponent extends BaseComponent {
-  public function latest($page = 1) {
-    $per_page = 15;
-    $start = ($page - 1) * $per_page;
-
+  public function latest() {
     $query = new NodeQuery();
     $query->isPromoted();
-    $query->addTag('radio_HomeComponent_orderByAirDateOrPublicationDate');
-    $query->range($start, $per_page);
+    $query->propertyOrderBy('sticky', 'DESC');
+    $query->addTag('radio_HomeComponent_orderBy');
+    $query->setLimit(10);
     $result = $query->execute();
 
     $nids = array_keys(
       $this->getNodes($result)
     );
 
-    $events = array_values(
+    $items = array_values(
       node_load_multiple($nids)
     );
 
-    $query = new NodeQuery();
-    $query->isPromoted();
-    $query->count();
-    $total_count = $query->execute();
-
-    $paginator = new RadioPaginator();
-    $pager = $paginator->paginate($page, $total_count);
-    $pager['items'] = $events;
-    return $pager;
+    return $items;
   }
 
 
-  public static function orderByAirDateOrPublicationDate(
+  public static function orderBy(
     QueryAlterableInterface $query
   ) {
 
     $query->leftJoin(
       'field_data_field_air_time',
-      'field_data_field_air_time',
-      'node.nid = field_data_field_air_time.entity_id'
+      'field_air_time',
+      'node.nid = field_air_time.entity_id'
     );
 
     $query->leftJoin(
@@ -47,6 +37,7 @@ class HomeComponent extends BaseComponent {
       'node.nid = publication_date.nid'
     );
 
-    $query->orderBy('ifnull(field_data_field_air_time.field_air_time_value, publication_date.published_at)', 'DESC');
+    $query->orderBy('field_air_time.field_air_time_value', 'DESC');
+    $query->orderBy('publication_date.published_at', 'DESC');
   }
 }
