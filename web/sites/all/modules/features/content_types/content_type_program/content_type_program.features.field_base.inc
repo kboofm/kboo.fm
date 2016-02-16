@@ -27,8 +27,8 @@ function content_type_program_field_default_field_bases() {
     'settings' => array(
       'allowed_values' => array(
         0 => 'Do not record this program',
-        1 => 'Record for two-week archive (5 hour block)',
-        2 => 'Record for permanent archive (can not contain royalty music!)',
+        1 => 'Music (do not display download link)',
+        2 => 'Public affairs program (display download link)',
       ),
       'allowed_values_function' => '',
     ),
