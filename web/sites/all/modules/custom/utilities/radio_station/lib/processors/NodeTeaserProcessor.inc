@@ -15,21 +15,34 @@ class NodeTeaserProcessor extends TemplateProcessor {
       $image = NodeTeaserProcessor::getSizedImage($image, "teaser_150w");
     }
 
-    $published_date = NodeTeaserProcessor::getPublishedDate(
-      $entity,
-      "D, m/d/y"
-    );
+    try {
+      $related_programs = $entity->field_related_programs->value();
+      $related_programs = array_map(
+        function ($item) {
+          return [
+            'title' => $item->title,
+            'url' => NodeTeaserProcessor::getEntityUrl($item),
+          ];
+        },
+        $related_programs
+      );
+    } catch (EntityMetadataWrapperException $e) {
+      $related_programs = [];
+    }
 
-    $author = user_load($node->uid);
-    $author_url = NodeTeaserProcessor::getEntityUrl($author, 'user');
+    try {
+      $airs_at = $entity->field_air_time->value();
+      $airs_at = $airs_at['value'];
+    } catch (EntityMetadataWrapperException $e) {
+      $airs_at = "";
+    }
 
     $node_teaser = [
       'title' => NodeTeaserProcessor::getTeaserTitle($entity),
-      'author' => $author->name,
-      'author_url' => $author_url,
-      'published_date' => $published_date,
-      'image' => $image,
       'summary' => NodeTeaserProcessor::getTeaserSummary($entity),
+      'related_programs' => $related_programs,
+      'airs_at' => $airs_at,
+      'image' => $image,
     ];
 
     $vars['node_teaser'] = $node_teaser;
