@@ -37,3 +37,63 @@ ul.navbar-nav {
     }
   }  
 }  
+
+@media (max-width: @screen-xs-max) {
+  .navbar-default .navbar-toggle {
+    border: none;
+    border-radius: 0px;
+    margin-right: 0px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: darken(@brand-info, 5%);
+    }
+
+    .icon-bar {
+      background-color: @brand-primary;
+      border-radius: 0px;
+      width: 30px;
+      height: 3px;
+      margin-bottom: @margin-xs;
+    }
+  }
+
+  .navbar-collapse {
+    position: relative;
+    top: -5px;
+    right: -20px;
+
+    ul.navbar-nav {
+      margin-top: 0px;
+      background-color: @brand-info;
+      border: none;
+      -webkit-box-shadow: -3px 4px 10px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: -3px 4px 10px 0px rgba(0,0,0,0.75);
+      box-shadow: -3px 4px 10px 0px rgba(0,0,0,0.75);
+      margin-bottom: @margin;
+    }
+  }
+}
+
+@media (max-width: 525px) {
+  .navbar {
+    height: 52px;
+
+    .logo {
+      img {
+        width: 90px;
+        position: relative;
+        left: -10px;
+      }
+    }
+
+    .on-air {
+      display: none;
+    }
+
+    .listen-now-btn {
+      left: 110px;
+    }
+  }
+}
