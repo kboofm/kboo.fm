@@ -66,5 +66,11 @@
       </div>
     </div>
   </div>
+
+  <?php if ($allow_download): ?>
+    <a href="<?php print $audio_file['filepath']; ?>">
+      Download audio file
+    </a>
+  <?php endif; ?>
 <?php endforeach; ?>
 
