@@ -32,6 +32,7 @@
     "drupal/ckeditor": "7.1.x-dev",
     "drupal/ctools": "7.1.*",
     "drupal/date": "7.2.*",
+    "drupal/devel": "7.1.*",
     "drupal/diff": "7.3.*",
     "drupal/email": "7.1.*",
     "drupal/entity": "7.1.*",
