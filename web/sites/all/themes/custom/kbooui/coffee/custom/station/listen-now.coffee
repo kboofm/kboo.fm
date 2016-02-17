@@ -5,10 +5,6 @@
     maxHeight: 840
     popupParams: "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes"
 
-    init: ->
-      super()
-      true
-
     bind: ->
       @bindItem 'click', @button, @onClick
       true
@@ -30,7 +26,7 @@
         deviceHeight -= 18
         params = "width=#{deviceWidth},height=#{deviceHeight},#{@popupParams}"
 
-      url = "/listen"
+      url = "/listen-now"
       window.open url, "player", params
       true
 

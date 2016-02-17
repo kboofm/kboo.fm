@@ -1,4 +1,4 @@
-<div class="row margin-vertical-lg">
+<div class="row margin-vertical-none">
   <div class="col-sm-12">
     <?php
     $last = count($pager['items']) - 1;

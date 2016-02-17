@@ -33,7 +33,7 @@
     <?php print $page_top; ?>
   </div>
 
-  <div class="container">
+  <div class="container main-body">
     <?php print $page; ?>
   </div>
 </body>

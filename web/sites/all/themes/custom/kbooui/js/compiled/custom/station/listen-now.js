@@ -23,11 +23,6 @@
 
       ListenNow.prototype.popupParams = "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes";
 
-      ListenNow.prototype.init = function() {
-        ListenNow.__super__.init.call(this);
-        return true;
-      };
-
       ListenNow.prototype.bind = function() {
         this.bindItem('click', this.button, this.onClick);
         return true;
@@ -54,7 +49,7 @@
           deviceHeight -= 18;
           params = "width=" + deviceWidth + ",height=" + deviceHeight + "," + this.popupParams;
         }
-        url = "/listen";
+        url = "/listen-now";
         window.open(url, "player", params);
         return true;
       };

@@ -1,5 +1,5 @@
 html {
-  background: @brand-primary url(../images/kboo-body-bg.jpg) repeat-x center top fixed;
+  background: @brand-primary url(../images/kboo-body-bg.jpg) repeat center top fixed;
   height: 100%;
   overflow: hidden;
 }
@@ -13,6 +13,12 @@ body {
   &.cke_editable,
   &.cke_ltr {
     background: @white;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .main-body {
+    padding-left: 0px;
   }
 }
 

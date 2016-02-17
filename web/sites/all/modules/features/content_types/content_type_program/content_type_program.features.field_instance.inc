@@ -1156,7 +1156,7 @@ function content_type_program_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1995,7 +1995,7 @@ function content_type_program_field_default_field_instances() {
   t('More Images');
   t('Parent section');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Program Type');
   t('Published date');
   t('Related content');

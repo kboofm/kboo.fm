@@ -1072,54 +1072,6 @@ function content_type_station_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-station_content-field_parent_section'.
-  $field_instances['node-station_content-field_parent_section'] = array(
-    'bundle' => 'station_content',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 24,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 24,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 23,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_parent_section',
-    'label' => 'Parent section',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => 9,
-    ),
-  );
-
   // Exported field_instance: 'node-station_content-field_produced_by'.
   $field_instances['node-station_content-field_produced_by'] = array(
     'bundle' => 'station_content',
@@ -1266,7 +1218,7 @@ function content_type_station_content_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1978,9 +1930,8 @@ function content_type_station_content_field_default_field_instances() {
   t('Lead Image');
   t('Link(s)');
   t('More Images');
-  t('Parent section');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Published date');
   t('Related content');
   t('Related organization(s)');

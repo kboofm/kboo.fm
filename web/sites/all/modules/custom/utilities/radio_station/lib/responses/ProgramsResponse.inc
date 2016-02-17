@@ -2,46 +2,48 @@
 
 class ProgramsResponse extends Response {
   private static function getEntity($program_alias) {
-    $url_alias = "programs/{$program_alias}";
+    $pattern = variable_get("pathauto_node_program_pattern", "program");
+    $pattern = explode("/", $pattern);
+    $pattern = reset($pattern);
+    $url_alias = "{$pattern}/{$program_alias}";
 
     $path = drupal_lookup_path("source", $url_alias);
     if (!$path) {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
     $node = menu_get_object("node", 1, $path);
     if (!$node) {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
     if ($node->type != 'program') {
-      return MENU_NOT_FOUND;
+      return null;
     }
 
-    $entity = entity_metadata_wrapper('node', $node);
-
-    $program_type = $entity->field_program_type->value();
-    if (!$program_type || $program_type->name != 'Show') {
-      return MENU_NOT_FOUND;
-    }
-
-    return $entity;
+    return entity_metadata_wrapper('node', $node);
   }
 
 
   public static function getTitle($program_alias) {
     $entity = ProgramsResponse::getEntity($program_alias);
-    return $entity->title->value();
+    $title = "";
+
+    if ($entity) {
+      $title = $entity->title->value();
+    }
+
+    return $title;
   }
 
 
   public function getContent($program_alias) {
     $entity = ProgramsResponse::getEntity($program_alias);
-    if ($entity == MENU_NOT_FOUND) {
+    if (!$entity) {
       return MENU_NOT_FOUND;
     }
 
-    $this->template_name = 'radio_template_programs_content';
+    $this->template_name = 'radio_template_program_content';
     $this->readParams();
     $page = $this->getParam('page', 1);
 

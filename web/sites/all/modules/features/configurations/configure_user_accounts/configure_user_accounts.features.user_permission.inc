@@ -16,6 +16,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'admin_menu',
   );
@@ -26,6 +29,9 @@ function configure_user_accounts_user_default_permissions() {
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'system',
   );
@@ -598,6 +604,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'create blog_post content',
     'roles' => array(
       'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -665,6 +672,9 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'create url aliases',
     'roles' => array(
       'Admin - Site Administrator' => 'Admin - Site Administrator',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'path',
   );
@@ -1160,6 +1170,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'edit own blog_post content',
     'roles' => array(
       'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1213,7 +1224,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own person_profile content'.
   $permissions['edit own person_profile content'] = array(
     'name' => 'edit own person_profile content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1531,6 +1544,9 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'use media wysiwyg',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'media_wysiwyg',
   );

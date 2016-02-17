@@ -3,14 +3,12 @@
 class HomeResponse extends Response {
   public function get() {
     $this->template_name = 'radio_template_home';
-    $this->readParams();
-    $page = $this->getParam('page', 1);
 
     $component = new HomeComponent();
-    $pager = $component->latest($page);
+    $items = $component->latest();
 
     $data = [
-      'pager' => $pager,
+      'items' => $items,
     ];
 
     $this->addTemplateData($data);

@@ -30,7 +30,7 @@
 
   <?php if (RadioSpinitron::eligible($node)): ?>
     <div class="margin-vertical-lg">
-      <?php print theme('spinitron_playlist'); ?>
+      <?php print theme('radio_template_episode_playlists'); ?>
     </div>
   <?php endif; ?>
 
