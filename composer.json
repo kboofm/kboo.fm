@@ -60,7 +60,6 @@
     "drupal/mollom": "7.2.*",
     "drupal/multiselect": "7.1.*",
     "drupal/name": "7.1.*",
-    "drupal/node_breadcrumb": "7.1.*",
     "drupal/node_clone": "7.1.*",
     "drupal/node_export": "7.3.*",
     "drupal/pathauto": "7.1.*",
