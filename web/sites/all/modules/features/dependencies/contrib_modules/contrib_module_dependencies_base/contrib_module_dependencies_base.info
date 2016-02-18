@@ -52,7 +52,6 @@ dependencies[] = metatag_twitter_cards
 dependencies[] = mollom
 dependencies[] = multiselect
 dependencies[] = name
-dependencies[] = node_breadcrumb
 dependencies[] = number
 dependencies[] = options
 dependencies[] = path
