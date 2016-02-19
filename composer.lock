@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "409b41439d022dc2e3ace3fcb670d44f",
-    "content-hash": "3588a059cad618b88b3e33d948f089a2",
+    "hash": "9c34496cbf1392062603733a4633e2de",
+    "content-hash": "5a19f12bd1f5ee6be46ab24887cfe5ce",
     "packages": [
         {
             "name": "composer/installers",
@@ -1801,33 +1801,6 @@
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Defines a persons name field type.",
             "homepage": "https://www.drupal.org/project/name"
-        },
-        {
-            "name": "drupal/node_breadcrumb",
-            "version": "7.1.0-alpha1",
-            "source": {
-                "type": "git",
-                "url": "https://git.drupal.org/project/node_breadcrumb.git",
-                "reference": "bb6b681561c0b885cbc4b5309075b3adf70277d1"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/node_breadcrumb-7.x-dev.zip",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "drupal/drupal": "7.*",
-                "drupal/menu": "7.*"
-            },
-            "type": "drupal-module",
-            "extra": {
-                "branch-alias": {
-                    "dev-7.x-1.x": "7.1.x-dev"
-                }
-            },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Customize breadcrumb and menu location of nodes depending on their content type, associated terms and others conditions."
         },
         {
             "name": "drupal/node_clone",
