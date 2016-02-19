@@ -6843,6 +6843,7 @@ html {
   background: #003b4c url(../images/kboo-body-bg.jpg) repeat center top fixed;
   height: 100%;
   overflow: hidden;
+  -webkit-text-stroke: 0.25px;
 }
 body {
   height: 100%;
