@@ -34,13 +34,6 @@ function configure_spam_prevention_strongarm() {
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
-  $strongarm->name = 'captcha_default_challenge';
-  $strongarm->value = 'recaptcha/reCAPTCHA';
-  $export['captcha_default_challenge'] = $strongarm;
-
-  $strongarm = new stdClass();
-  $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
-  $strongarm->api_version = 1;
   $strongarm->name = 'captcha_default_challenge_on_nonlisted_forms';
   $strongarm->value = 0;
   $export['captcha_default_challenge_on_nonlisted_forms'] = $strongarm;
