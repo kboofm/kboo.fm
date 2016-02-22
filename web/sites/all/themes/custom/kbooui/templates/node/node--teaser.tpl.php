@@ -1,4 +1,9 @@
 <?php
+$formats = [
+  'date' => 'D, m/d/Y',
+  'time' => 'g:ia',
+];
+
 if ($node_teaser["image"]):
   $classes = "col-md-9 teaser-padding";
 else:
@@ -26,26 +31,55 @@ endif;
 
 
   <div class="<?php print $classes; ?>">
-    <div>
-      Airs at:
-      <?php
-        print Helpers::toCarbonString(
-          "Y-m-d H:i",
-          $node_teaser["airs_at"]
-        );
-      ?>
-    </div>
+    <?php if ($node_teaser["starttime"]): ?>
+      <div>
+        Airs at:
+
+        <?php
+          $start_day = Helpers::toCarbonString(
+            $formats['date'],
+            $node_teaser['starttime']
+          );
+
+          $start_time = Helpers::toCarbonString(
+            $formats['time'],
+            $node_teaser['starttime']
+          );
+
+          $end_time = Helpers::toCarbonString(
+            $formats['time'],
+            $node_teaser['endtime']
+          );
+
+          print "{$start_day} at {$start_time}";
+
+          if ($node_teaser['ends_different_day']):
+            $end_day = Helpers::toCarbonString(
+              $formats['date'],
+              $node_teaser['endtime']
+            );
+
+            print " - {$end_day} at {$end_day}";
+
+          elseif ($start_time != $end_time):
+            print " - {$end_time}";
+          endif;
+        ?>
+      </div>
+    <?php endif; ?>
 
 
-    <div>
-      <span class="bold">Related programs</span>:&nbsp;
-      <?php $last = count($node_teaser["related_programs"]) - 1; ?>
-      <?php foreach ($node_teaser["related_programs"] as $index => $program): ?>
-      <a href="<?php $program["url"]; ?>"
-         class="node entityreference">
-        <?php print $program["title"]; ?></a><?php if ($index != $last): ?>, <?php endif; ?>
-      <?php endforeach; ?>
-    </div>
+    <?php if ($node_teaser["related_programs"]): ?>
+      <div>
+        <span class="bold">Related programs</span>:&nbsp;
+        <?php $last = count($node_teaser["related_programs"]) - 1; ?>
+        <?php foreach ($node_teaser["related_programs"] as $index => $program): ?>
+        <a href="<?php $program["url"]; ?>"
+           class="node entityreference">
+          <?php print $program["title"]; ?></a><?php if ($index != $last): ?>, <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
 
 
     <div class="teaser-summary">

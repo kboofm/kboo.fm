@@ -31,18 +31,28 @@ class NodeTeaserProcessor extends TemplateProcessor {
     }
 
     try {
-      $airs_at = $entity->field_air_time->value();
-      $airs_at = $airs_at['value'];
+      $air_time = $entity->field_air_time->value();
+      $starttime = $air_time['value'];
+      $endtime = $air_time['value2'];
+
+      $ymd_format = 'Y-m-d';
+      $start_day = Helpers::toCarbonString($ymd_format, $starttime);
+      $end_day = Helpers::toCarbonString($ymd_format, $endtime);
+      $ends_different_day = ($start_day != $end_day);
     } catch (EntityMetadataWrapperException $e) {
-      $airs_at = "";
+      $starttime = "";
+      $endtime = "";
+      $ends_different_day = false;
     }
 
     $node_teaser = [
       'title' => NodeTeaserProcessor::getTeaserTitle($entity),
       'summary' => NodeTeaserProcessor::getTeaserSummary($entity),
       'related_programs' => $related_programs,
-      'airs_at' => $airs_at,
+      'starttime' => $starttime,
+      'endtime' => $endtime,
       'image' => $image,
+      'ends_different_day' => $ends_different_day,
     ];
 
     $vars['node_teaser'] = $node_teaser;
