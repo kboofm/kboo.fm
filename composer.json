@@ -72,6 +72,7 @@
     "drupal/reroute_email": "7.1.*",
     "drupal/search_restrict": "7.1.*",
     "drupal/sharethis": "7.2.*",
+    "drupal/simpleads": "7.1.*",
     "drupal/station": "7.2.*",
     "drupal/strongarm": "7.2.*",
     "drupal/telephone": "7.1.*",

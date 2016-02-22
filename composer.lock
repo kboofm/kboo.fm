@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9c34496cbf1392062603733a4633e2de",
-    "content-hash": "5a19f12bd1f5ee6be46ab24887cfe5ce",
+    "hash": "05fd69924011ee180df7f3e73b4d867d",
+    "content-hash": "6d2a44115cfb645610779983da707401",
     "packages": [
         {
             "name": "composer/installers",
@@ -2142,6 +2142,44 @@
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Add the <a href=\"http://www.sharethis.com/\">ShareThis</a> widget to nodes on your site.",
             "homepage": "https://www.drupal.org/project/sharethis"
+        },
+        {
+            "name": "drupal/simpleads",
+            "version": "7.1.9",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/simpleads",
+                "reference": "786b97eba21ff609915c01b37fa4407c169628f8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/simpleads-7.x-1.9.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*",
+                "drupal/field": "7.*",
+                "drupal/field_sql_storage": "7.*",
+                "drupal/file": "7.*",
+                "drupal/image": "7.*",
+                "drupal/list": "7.*",
+                "drupal/options": "7.*",
+                "drupal/taxonomy": "7.*",
+                "drupal/text": "7.*"
+            },
+            "replace": {
+                "drupal/simpleads_campaigns": "self.version"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-1.x": "7.1.x-dev"
+                }
+            },
+            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "description": "Advertisements",
+            "homepage": "https://www.drupal.org/project/simpleads"
         },
         {
             "name": "drupal/station",
