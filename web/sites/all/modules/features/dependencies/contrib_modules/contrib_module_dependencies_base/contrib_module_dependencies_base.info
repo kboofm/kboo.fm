@@ -64,6 +64,7 @@ dependencies[] = remote_stream_wrapper
 dependencies[] = responsive_favicons
 dependencies[] = search
 dependencies[] = search_restrict
+dependencies[] = simpleads
 dependencies[] = strongarm
 dependencies[] = taxonomy
 dependencies[] = telephone
