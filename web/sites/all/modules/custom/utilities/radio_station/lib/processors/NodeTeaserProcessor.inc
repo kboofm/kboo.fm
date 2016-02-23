@@ -16,18 +16,18 @@ class NodeTeaserProcessor extends TemplateProcessor {
     }
 
     try {
-      $related_programs = $entity->field_related_programs->value();
-      $related_programs = array_map(
+      $produced_for = $entity->field_produced_for->value();
+      $produced_for = array_map(
         function ($item) {
           return [
             'title' => $item->title,
             'url' => NodeTeaserProcessor::getEntityUrl($item),
           ];
         },
-        $related_programs
+        $produced_for
       );
     } catch (EntityMetadataWrapperException $e) {
-      $related_programs = [];
+      $produced_for = [];
     }
 
     try {
@@ -48,7 +48,7 @@ class NodeTeaserProcessor extends TemplateProcessor {
     $node_teaser = [
       'title' => NodeTeaserProcessor::getTeaserTitle($entity),
       'summary' => NodeTeaserProcessor::getTeaserSummary($entity),
-      'related_programs' => $related_programs,
+      'produced_for' => $produced_for,
       'starttime' => $starttime,
       'endtime' => $endtime,
       'image' => $image,

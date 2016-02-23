@@ -69,11 +69,11 @@ endif;
     <?php endif; ?>
 
 
-    <?php if ($node_teaser["related_programs"]): ?>
+    <?php if ($node_teaser["produced_for"]): ?>
       <div>
-        <span class="bold">Related programs</span>:&nbsp;
-        <?php $last = count($node_teaser["related_programs"]) - 1; ?>
-        <?php foreach ($node_teaser["related_programs"] as $index => $program): ?>
+        <span class="bold">Produced for</span>:&nbsp;
+        <?php $last = count($node_teaser["produced_for"]) - 1; ?>
+        <?php foreach ($node_teaser["produced_for"] as $index => $program): ?>
         <a href="<?php $program["url"]; ?>"
            class="node entityreference">
           <?php print $program["title"]; ?></a><?php if ($index != $last): ?>, <?php endif; ?>
