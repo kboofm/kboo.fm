@@ -15,21 +15,44 @@ class NodeTeaserProcessor extends TemplateProcessor {
       $image = NodeTeaserProcessor::getSizedImage($image, "teaser_150w");
     }
 
-    $published_date = NodeTeaserProcessor::getPublishedDate(
-      $entity,
-      "D, m/d/y"
-    );
+    try {
+      $produced_for = $entity->field_produced_for->value();
+      $produced_for = array_map(
+        function ($item) {
+          return [
+            'title' => $item->title,
+            'url' => NodeTeaserProcessor::getEntityUrl($item),
+          ];
+        },
+        $produced_for
+      );
+    } catch (EntityMetadataWrapperException $e) {
+      $produced_for = [];
+    }
 
-    $author = user_load($node->uid);
-    $author_url = NodeTeaserProcessor::getEntityUrl($author, 'user');
+    try {
+      $air_time = $entity->field_air_time->value();
+      $starttime = $air_time['value'];
+      $endtime = $air_time['value2'];
+
+      $ymd_format = 'Y-m-d';
+      $start_day = Helpers::toCarbonString($ymd_format, $starttime);
+      $end_day = Helpers::toCarbonString($ymd_format, $endtime);
+      $ends_different_day = ($start_day != $end_day);
+    } catch (EntityMetadataWrapperException $e) {
+      $starttime = "";
+      $endtime = "";
+      $ends_different_day = false;
+    }
 
     $node_teaser = [
       'title' => NodeTeaserProcessor::getTeaserTitle($entity),
-      'author' => $author->name,
-      'author_url' => $author_url,
-      'published_date' => $published_date,
-      'image' => $image,
       'summary' => NodeTeaserProcessor::getTeaserSummary($entity),
+      'produced_for' => $produced_for,
+      'starttime' => $starttime,
+      'endtime' => $endtime,
+      'image' => $image,
+      'ends_different_day' => $ends_different_day,
     ];
 
     $vars['node_teaser'] = $node_teaser;

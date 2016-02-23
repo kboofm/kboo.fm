@@ -1224,7 +1224,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own person_profile content'.
   $permissions['edit own person_profile content'] = array(
     'name' => 'edit own person_profile content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 

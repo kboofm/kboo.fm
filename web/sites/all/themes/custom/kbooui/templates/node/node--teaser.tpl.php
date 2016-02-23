@@ -1,5 +1,10 @@
 <?php
-if ($node_teaser['image']):
+$formats = [
+  'date' => 'D, m/d/Y',
+  'time' => 'g:ia',
+];
+
+if ($node_teaser["image"]):
   $classes = "col-md-9 teaser-padding";
 else:
   $classes = "col-md-12";
@@ -9,16 +14,16 @@ endif;
 
 <h2 class="teaser-header">
   <a href="<?php print $node_url; ?>">
-    <?php print $node_teaser['title']; ?>
+    <?php print $node_teaser["title"]; ?>
   </a>
 </h2>
 
 
 <div class="row node-teaser">
-  <?php if ($node_teaser['image']): ?>
+  <?php if ($node_teaser["image"]): ?>
   <div class="col-md-3 teaser-image">
     <a href="<?php print $node_url; ?>">
-      <img  src="<?php print $node_teaser['image']; ?>"
+      <img  src="<?php print $node_teaser["image"]; ?>"
             alt="">
     </a>
   </div>
@@ -26,23 +31,59 @@ endif;
 
 
   <div class="<?php print $classes; ?>">
-    <div>
-      <?php print $node_teaser['published_date']; ?>
-    </div>
+    <?php if ($node_teaser["starttime"]): ?>
+      <div>
+        Airs at:
+
+        <?php
+          $start_day = Helpers::toCarbonString(
+            $formats['date'],
+            $node_teaser['starttime']
+          );
+
+          $start_time = Helpers::toCarbonString(
+            $formats['time'],
+            $node_teaser['starttime']
+          );
+
+          $end_time = Helpers::toCarbonString(
+            $formats['time'],
+            $node_teaser['endtime']
+          );
+
+          print "{$start_day} at {$start_time}";
+
+          if ($node_teaser['ends_different_day']):
+            $end_day = Helpers::toCarbonString(
+              $formats['date'],
+              $node_teaser['endtime']
+            );
+
+            print " - {$end_day} at {$end_day}";
+
+          elseif ($start_time != $end_time):
+            print " - {$end_time}";
+          endif;
+        ?>
+      </div>
+    <?php endif; ?>
 
 
-    <div>
-      <span class="bold">Authored by</span>:&nbsp;
-
-      <a href="<?php $node_teaser['author_url']; ?>"
-         class="node entityreference">
-        <?php print $node_teaser['author']; ?>
-      </a>
-    </div>
+    <?php if ($node_teaser["produced_for"]): ?>
+      <div>
+        <span class="bold">Produced for</span>:&nbsp;
+        <?php $last = count($node_teaser["produced_for"]) - 1; ?>
+        <?php foreach ($node_teaser["produced_for"] as $index => $program): ?>
+        <a href="<?php $program["url"]; ?>"
+           class="node entityreference">
+          <?php print $program["title"]; ?></a><?php if ($index != $last): ?>, <?php endif; ?>
+        <?php endforeach; ?>
+      </div>
+    <?php endif; ?>
 
 
     <div class="teaser-summary">
-      <?php print $node_teaser['summary']; ?>
+      <?php print $node_teaser["summary"]; ?>
       <a href="<?php print $node_url; ?>"
          class="btn pull-right more-link">
          Read more

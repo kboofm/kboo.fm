@@ -7044,6 +7044,55 @@ ul.navbar-nav > li .dropdown-menu li a {
 ul.navbar-nav > li .dropdown-menu li a:hover {
   background-color: #008f73;
 }
+@media (max-width: 767px) {
+  .navbar-default .navbar-toggle {
+    border: none;
+    border-radius: 0px;
+    margin-right: 0px;
+  }
+  .navbar-default .navbar-toggle:hover,
+  .navbar-default .navbar-toggle:active,
+  .navbar-default .navbar-toggle:focus {
+    background-color: #008f73;
+  }
+  .navbar-default .navbar-toggle .icon-bar {
+    background-color: #003b4c;
+    border-radius: 0px;
+    width: 30px;
+    height: 3px;
+    margin-bottom: 5px;
+  }
+  .navbar-collapse {
+    position: relative;
+    top: -5px;
+    right: -20px;
+  }
+  .navbar-collapse ul.navbar-nav {
+    margin-top: 0px;
+    background-color: #00a887;
+    border: none;
+    -webkit-box-shadow: -3px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: -3px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    box-shadow: -3px 4px 10px 0px rgba(0, 0, 0, 0.75);
+    margin-bottom: 20px;
+  }
+}
+@media (max-width: 525px) {
+  .navbar {
+    height: 52px;
+  }
+  .navbar .logo img {
+    width: 90px;
+    position: relative;
+    left: -10px;
+  }
+  .navbar .on-air {
+    display: none;
+  }
+  .navbar .listen-now-btn {
+    left: 110px;
+  }
+}
 #sidebar {
   padding-left: 0px;
   padding-right: 0px;

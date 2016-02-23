@@ -21,7 +21,7 @@ endif;
    data-stream="<?php print $schedule['stream']; ?>"
    data-type="<?php print $schedule['type']; ?>">
 
-  <span class="text-uppercase bold">
+  <span class="">
     On Air:
   </span>
   

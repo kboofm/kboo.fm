@@ -188,35 +188,6 @@
         "description": "Allows modules that operate on access grants to work together in the expected way."
     },
     {
-        "name": "drupal/node_breadcrumb",
-        "version": "7.1.0-alpha1",
-        "version_normalized": "7.1.0.0-alpha1",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/node_breadcrumb.git",
-            "reference": "bb6b681561c0b885cbc4b5309075b3adf70277d1"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "http://ftp.drupal.org/files/projects/node_breadcrumb-7.x-dev.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/drupal": "7.*",
-            "drupal/menu": "7.*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-1.x": "7.1.x-dev"
-            }
-        },
-        "installation-source": "source",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Customize breadcrumb and menu location of nodes depending on their content type, associated terms and others conditions."
-    },
-    {
         "name": "drupal/station",
         "version": "dev-7.x-2.x",
         "version_normalized": "dev-7.x-2.x",
@@ -409,35 +380,6 @@
         "notification-url": "http://packagist.drupal-composer.org/downloads/",
         "description": "Allows hiding of the content title field and automatic title creation.",
         "homepage": "https://www.drupal.org/project/auto_nodetitle"
-    },
-    {
-        "name": "drupal/cdn",
-        "version": "7.2.6",
-        "version_normalized": "7.2.6.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/cdn",
-            "reference": "c9b98bf5c8254b0c6d721fea8b5bf1ac3a827df5"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "http://ftp.drupal.org/files/projects/cdn-7.x-2.6.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/drupal": "7.*"
-        },
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-2.x": "7.2.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "http://packagist.drupal-composer.org/downloads/",
-        "description": "Integrates your site with a CDN, through altering file URLs.",
-        "homepage": "https://www.drupal.org/project/cdn"
     },
     {
         "name": "drupal/content_access",
@@ -2651,17 +2593,46 @@
         "homepage": "https://www.drupal.org/project/better_formats"
     },
     {
-        "name": "drupal/metatag",
-        "version": "7.1.11",
-        "version_normalized": "7.1.11.0",
+        "name": "drupal/cdn",
+        "version": "7.2.7",
+        "version_normalized": "7.2.7.0",
         "source": {
             "type": "git",
-            "url": "https://git.drupal.org/project/metatag",
-            "reference": "8bf64019918e97d2952c39fe0fd662fb67b73720"
+            "url": "https://git.drupal.org/project/cdn",
+            "reference": "c486f04af89bc9b6e1909e71072a5f05bb091fcd"
         },
         "dist": {
             "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.11.zip",
+            "url": "https://ftp.drupal.org/files/projects/cdn-7.x-2.7.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-2.x": "7.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Integrates your site with a CDN, through altering file URLs.",
+        "homepage": "https://www.drupal.org/project/cdn"
+    },
+    {
+        "name": "drupal/metatag",
+        "version": "7.1.13",
+        "version_normalized": "7.1.13.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/metatag",
+            "reference": "f3fbaffe4ab04e2896a17e40b90a2034695bc012"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.13.zip",
             "reference": null,
             "shasum": null
         },
@@ -2669,7 +2640,7 @@
             "drupal/ctools": "7.*",
             "drupal/drupal": "7.*",
             "drupal/system": ">=7.28.0",
-            "drupal/token": ">=7.1.6"
+            "drupal/token": "7.*"
         },
         "replace": {
             "drupal/metatag_app_links": "self.version",
@@ -2708,5 +2679,81 @@
         "notification-url": "http://packagist.drupal-composer.org/downloads/",
         "description": "Adds support and an API to implement meta tags.",
         "homepage": "https://www.drupal.org/project/metatag"
+    },
+    {
+        "name": "drupal/devel",
+        "version": "7.1.5",
+        "version_normalized": "7.1.5.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/devel",
+            "reference": "becb6ca3ced27872b941b30ca308da03a209425a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/devel-7.x-1.5.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "replace": {
+            "drupal/devel_generate": "self.version",
+            "drupal/devel_node_access": "self.version"
+        },
+        "suggest": {
+            "drupal/menu": "Required by drupal/devel_node_access"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Various blocks, pages, and functions for developers.",
+        "homepage": "https://www.drupal.org/project/devel"
+    },
+    {
+        "name": "drupal/simpleads",
+        "version": "7.1.9",
+        "version_normalized": "7.1.9.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/simpleads",
+            "reference": "786b97eba21ff609915c01b37fa4407c169628f8"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/simpleads-7.x-1.9.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*",
+            "drupal/field": "7.*",
+            "drupal/field_sql_storage": "7.*",
+            "drupal/file": "7.*",
+            "drupal/image": "7.*",
+            "drupal/list": "7.*",
+            "drupal/options": "7.*",
+            "drupal/taxonomy": "7.*",
+            "drupal/text": "7.*"
+        },
+        "replace": {
+            "drupal/simpleads_campaigns": "self.version"
+        },
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "http://packagist.drupal-composer.org/downloads/",
+        "description": "Advertisements",
+        "homepage": "https://www.drupal.org/project/simpleads"
     }
 ]

@@ -186,10 +186,15 @@ function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
   $entity = entity_metadata_wrapper('node', $node);
   $audio_files = $entity->field_audio_files->value();
+  $record = $entity->field_episode_record->value();
+  $allow_download = ($record == EArchiveTypes::PERMANENT);
+
   foreach ($audio_files as &$audio_file) {
     $audio_file['filepath'] = file_create_url($audio_file['uri']);
   }
+
   $vars['audio_files'] = $audio_files;
+  $vars['allow_download'] = $allow_download;
 
   $assets = new RadioAssets();
   $assets->audioPlayer();

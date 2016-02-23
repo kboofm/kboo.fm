@@ -30,7 +30,7 @@ class Helpers {
 
 
   public static function timezone() {
-    return variable_get('date_default_timezone', 'America/Chicago');
+    return variable_get('date_default_timezone', 'America/Los_Angeles');
   }
 
 
