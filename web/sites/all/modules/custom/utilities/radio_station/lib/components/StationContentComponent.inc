@@ -7,7 +7,7 @@ class StationContentComponent extends BaseComponent {
     $query->latestAudio();
     $result = $query->execute();
 
-    $processor = new ListProcessor();
+    $processor = new StationContentProcessor();
     return $processor->process(
       $this->getNids($result)
     );
