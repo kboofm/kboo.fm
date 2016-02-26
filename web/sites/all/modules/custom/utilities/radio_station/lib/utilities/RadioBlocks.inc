@@ -3,10 +3,11 @@
 class RadioBlocks {
 
   public function get() {
-    $blocks = array();
-    $blocks['sidebar-audio'] = array(
+    $blocks = [];
+
+    $blocks['sidebar-audio'] = [
       'info' => t('Sidebar Audio'),
-    );
+    ];
 
     return $blocks;
   }
