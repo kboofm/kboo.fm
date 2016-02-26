@@ -2,6 +2,18 @@
 
 class StationContentComponent extends BaseComponent {
 
+  public function latestAudio() {
+    $query = new StationContentQuery();
+    $query->latestAudio();
+    $result = $query->execute();
+
+    $processor = new ListProcessor();
+    return $processor->process(
+      $this->getNids($result)
+    );
+  }
+
+
   public function getContentForProgram(
     $program_nid,
     $page = 1,

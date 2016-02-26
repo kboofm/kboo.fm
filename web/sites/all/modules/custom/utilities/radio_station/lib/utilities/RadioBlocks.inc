@@ -18,8 +18,9 @@ class RadioBlocks {
 
     switch($delta) {
       case 'sidebar-audio' :
+        $component = new StationContentComponent();
         $variables = [
-          'foo' => "Hello Dolly!",
+          'items' => $component->latestAudio(),
         ];
 
         $block['content'] = theme(
