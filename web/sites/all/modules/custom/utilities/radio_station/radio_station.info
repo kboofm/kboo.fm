@@ -6,6 +6,7 @@ version = 7.x-1.0
 
 ; Utilities
 files[] = lib/utilities/RadioAssets.inc
+files[] = lib/utilities/RadioBlocks.inc
 files[] = lib/utilities/RadioEnums.inc
 files[] = lib/utilities/RadioPaginator.inc
 files[] = lib/utilities/RadioRoutes.inc

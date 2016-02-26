@@ -50,6 +50,24 @@ function radio_station_theme() {
 
 
 /**
+ * Implements hook_block_info().
+ */
+function radio_station_block_info() {
+  $blocks = new RadioBlocks();
+  return $blocks->get();
+}
+
+
+/**
+ * Implements hook_block_view().
+ */
+function radio_station_block_view($delta = '') {
+  $blocks = new RadioBlocks();
+  return $blocks->view($delta);
+}
+
+
+/**
  * Implements hook_query_alter().
  *
  * @param \QueryAlterableInterface $query

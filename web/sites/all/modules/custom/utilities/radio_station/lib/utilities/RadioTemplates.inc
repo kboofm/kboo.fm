@@ -13,6 +13,7 @@ class RadioTemplates {
 
   public function get() {
     $this->addTemplate('audio_player');
+    $this->addTemplate('sidebar_audio');
     $this->addTemplate('blog');
     $this->addTemplate('community_events');
     $this->addTemplate('episode_playlists');
