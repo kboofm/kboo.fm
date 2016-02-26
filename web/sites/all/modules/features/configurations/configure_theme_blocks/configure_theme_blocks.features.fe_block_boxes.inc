@@ -23,5 +23,24 @@ function configure_theme_blocks_default_fe_block_boxes() {
 
   $export['footer_contact'] = $fe_block_boxes;
 
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'Simple user login';
+  $fe_block_boxes->format = 'full_html';
+  $fe_block_boxes->machine_name = 'user_login_simple';
+  $fe_block_boxes->body = '<p class="margin-top"><a href="/user"><img src="/sites/all/themes/custom/kbooui/images/log-in.png" /> &nbsp;&nbsp;User login</a></p>
+';
+
+  $export['user_login_simple'] = $fe_block_boxes;
+
+  $fe_block_boxes = new stdClass();
+  $fe_block_boxes->info = 'Simple user logout/manage';
+  $fe_block_boxes->format = 'full_html';
+  $fe_block_boxes->machine_name = 'user_logout_simple';
+  $fe_block_boxes->body = '<p class="margin-top"><a href="/user">Manage account</a> | <a href="/user/logout">Log out</a></p>
+
+';
+
+  $export['user_logout_simple'] = $fe_block_boxes;
+
   return $export;
 }
