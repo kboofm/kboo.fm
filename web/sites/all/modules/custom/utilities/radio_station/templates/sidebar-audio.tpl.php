@@ -5,8 +5,9 @@
 
 <?php foreach ($items as $item): ?>
   <p>
-    Program Title
+    <?php print $item['program']; ?>
     <br />
+
     <a href="<?php print $item['url']; ?>">
       <?php print $item['title']; ?>
     </a>
