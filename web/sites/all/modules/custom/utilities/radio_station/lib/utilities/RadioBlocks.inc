@@ -9,6 +9,10 @@ class RadioBlocks {
       'info' => t('Sidebar Audio'),
     ];
 
+    $blocks['sidebar-playlists'] = [
+      'info' => t('Sidebar Playlists'),
+    ];
+
     return $blocks;
   }
 
@@ -17,7 +21,7 @@ class RadioBlocks {
     $block = [];
 
     switch($delta) {
-      case 'sidebar-audio' :
+      case 'sidebar-audio':
         $component = new StationContentComponent();
         $variables = [
           'items' => $component->latestAudio(),
@@ -25,6 +29,18 @@ class RadioBlocks {
 
         $block['content'] = theme(
           'radio_template_sidebar_audio',
+          $variables
+        );
+        break;
+
+      case 'sidebar-playlists':
+        $component = new StationContentComponent();
+        $variables = [
+          'items' => $component->latestAudio(),
+        ];
+
+        $block['content'] = theme(
+          'radio_template_sidebar_playlists',
           $variables
         );
         break;
