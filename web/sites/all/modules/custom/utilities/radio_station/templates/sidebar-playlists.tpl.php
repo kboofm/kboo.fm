@@ -5,10 +5,13 @@
 
 <?php foreach ($items as $item): ?>
   <p>
-    <?php print $item['program']; ?>
+    <span class="truncate">
+      <?php print $item['program']; ?>
+    </span>
     <br />
 
-    <a href="<?php print $item['url']; ?>">
+    <a href="<?php print $item['url']; ?>"
+       class="truncate">
       <?php print $item['title']; ?>
     </a>
   </p>
