@@ -225,6 +225,25 @@ class Spinitron {
    *
    * @see SpinPapi API Specification https://bitbucket.org/spinitron/documentation
    */
+  public function getPlaylists($num) {
+    return $this->runQuery(
+      [
+        'method' => 'getPlaylistsInfo',
+        'UserID' => NULL,
+        'ShowID' => NULL,
+        'NDays' => NULL,
+        'EndDate' => NULL,
+        'Num' => $num,
+      ]
+    );
+  }
+
+
+  /*
+   * Wrapper for SpinPapi getPlaylistsInfo method.
+   *
+   * @see SpinPapi API Specification https://bitbucket.org/spinitron/documentation
+   */
   public function getPlaylistsByDate($date, $ndays = 1) {
     return $this->runQuery(
       [
