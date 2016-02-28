@@ -3,16 +3,16 @@
 </h2>
 
 
-<?php foreach ($items as $item): ?>
+<?php foreach ($playlists as $playlist): ?>
   <p>
     <span class="truncate">
-      <?php print $item['program']; ?>
+      <?php print $playlist['program']; ?>
     </span>
     <br />
 
-    <a href="<?php print $item['url']; ?>"
+    <a href="<?php print $playlist['url']; ?>"
        class="truncate">
-      <?php print $item['title']; ?>
+      <?php print $playlist['title']; ?>
     </a>
   </p>
 <?php endforeach; ?>

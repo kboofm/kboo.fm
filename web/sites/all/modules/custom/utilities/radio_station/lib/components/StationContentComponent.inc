@@ -2,15 +2,33 @@
 
 class StationContentComponent extends BaseComponent {
 
-  public function latestAudio() {
+  public function latestAudio($count) {
     $query = new StationContentQuery();
-    $query->latestAudio();
+    $query->latestAudio($count);
     $result = $query->execute();
 
     $processor = new StationContentProcessor();
     return $processor->process(
       $this->getNids($result)
     );
+  }
+
+
+  public function latestPlaylists($count) {
+    $playlists = RadioSpinitron::getLatestPlaylists($count);
+
+    $playlists = array_map(
+      function ($item) {
+        return [
+          'title' => $item['DJName'],
+          'url' => $item['ShowUrl'],
+          'program' => $item['ShowName'],
+        ];
+      },
+      $playlists
+    );
+
+    return $playlists;
   }
 
 

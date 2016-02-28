@@ -18,13 +18,16 @@ class RadioBlocks {
 
 
   public function view($delta) {
+    $count = 6;
     $block = [];
 
     switch($delta) {
       case 'sidebar-audio':
         $component = new StationContentComponent();
+        $episodes = $component->latestAudio($count);
+
         $variables = [
-          'items' => $component->latestAudio(),
+          'episodes' => $episodes,
         ];
 
         $block['content'] = theme(
@@ -35,8 +38,10 @@ class RadioBlocks {
 
       case 'sidebar-playlists':
         $component = new StationContentComponent();
+        $playlists = $component->latestPlaylists($count);
+
         $variables = [
-          'items' => $component->latestAudio(),
+          'playlists' => $playlists,
         ];
 
         $block['content'] = theme(
@@ -45,6 +50,7 @@ class RadioBlocks {
         );
         break;
     }
+
     return $block;
   }
 }

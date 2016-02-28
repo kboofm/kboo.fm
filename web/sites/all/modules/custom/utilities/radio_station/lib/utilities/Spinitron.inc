@@ -226,16 +226,20 @@ class Spinitron {
    * @see SpinPapi API Specification https://bitbucket.org/spinitron/documentation
    */
   public function getPlaylists($num) {
-    return $this->runQuery(
+    $today = date("Y-m-d");
+
+    $results = $this->runQuery(
       [
         'method' => 'getPlaylistsInfo',
         'UserID' => NULL,
         'ShowID' => NULL,
-        'NDays' => NULL,
-        'EndDate' => NULL,
+        'NDays' => '7',
+        'EndDate' => $today,
         'Num' => $num,
       ]
     );
+
+    return $results;
   }
 
 

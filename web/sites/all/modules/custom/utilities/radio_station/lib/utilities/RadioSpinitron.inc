@@ -40,7 +40,7 @@ class RadioSpinitron {
       return [];
     }
 
-    return $playlists;
+    return array_slice($playlists, 0, $count);
   }
 
 
