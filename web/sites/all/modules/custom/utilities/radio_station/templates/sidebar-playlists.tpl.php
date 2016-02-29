@@ -20,7 +20,7 @@
 
 <p>
   <a class="more-link bg-info"
-     href="#">
+     href="/program/playlists">
     More
   </a>
 </p>
