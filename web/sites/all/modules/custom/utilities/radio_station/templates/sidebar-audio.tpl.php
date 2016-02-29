@@ -20,7 +20,7 @@
 
 <p>
   <a class="more-link bg-primary"
-     href="#">
+     href="/audio">
     More
   </a>
 </p>
