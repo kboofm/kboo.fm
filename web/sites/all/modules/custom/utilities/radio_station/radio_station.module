@@ -126,7 +126,7 @@ function radio_station_get_week($stream, $direction, $timestamp) {
 
 
 function radio_station_get_playlists() {
-  $data = RadioSpinitron::getLatestPlaylists(10);
+  $data = RadioSpinitron::getLatestPlaylists(10, true);
   drupal_json_output($data);
 }
 
