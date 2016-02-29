@@ -15,20 +15,46 @@ class StationContentComponent extends BaseComponent {
 
 
   public function latestPlaylists($count) {
-    $playlists = RadioSpinitron::getLatestPlaylists($count);
+    $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
 
-    $playlists = array_map(
+    $episodes = array_map(
       function ($item) {
-        return [
-          'title' => $item['DJName'],
-          'url' => $item['ShowUrl'],
-          'program' => $item['ShowName'],
-        ];
+        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $onair = strtotime($onair);
+
+        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $offair = strtotime($offair);
+
+        if ($offair < $onair) {
+          // If offair is the next day, then playlist date will be one day off
+          $offair = strtotime("+1 day", $offair);
+        }
+
+        $query = new StationContentQuery();
+        $query->getEpisodeInRange($onair, $offair);
+        $result = $query->execute();
+        $nids = $this->getNids($result);
+
+        if ($nids) {
+          return $nids[0];
+        } else {
+          return NULL;
+        }
       },
-      $playlists
+      $spinitron_data
     );
 
-    return $playlists;
+    $episodes = array_filter($episodes);
+    $episodes = array_values($episodes);
+
+    // The count restraint for RadioSpinitron::getPlaylists is not working.
+    // Therefore, slice the episodes array to size $count here.
+    $episodes = array_slice($episodes, 0, $count);
+
+    $processor = new StationContentProcessor();
+    return $processor->process(
+      $episodes
+    );
   }
 
 
@@ -405,12 +431,6 @@ class StationContentComponent extends BaseComponent {
   }
 
 
-  /**
-   * Check if episode exists for a timeslot
-   *
-   * @param $timeslot
-   * @return bool
-   */
   private function getEpisode($timeslot) {
     $query = new StationContentQuery();
     $query->getEpisode(

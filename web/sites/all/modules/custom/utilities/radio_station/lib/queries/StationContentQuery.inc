@@ -9,9 +9,28 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getEpisode($start, $finish) {
+  public function getEpisode($start, $end) {
+    $daterange = [
+      $start,
+      $end
+    ];
+
+    $this->type('Episode');
     $this->addTag("radio_StationContentQuery_modifyGetEpisode");
-    $this->addTag("parameter_StationContentQuery__{$start}__{$finish}");
+    NodeQuery::addParam('daterange', $daterange);
+    return $this;
+  }
+
+
+  public function getEpisodeInRange($start, $end) {
+    $daterange = [
+      $start,
+      $end
+    ];
+
+    $this->type('Episode');
+    $this->addTag('radio_StationContentQuery_modifyGetEpisodeInRange');
+    NodeQuery::addParam('daterange', $daterange);
     return $this;
   }
 
@@ -69,19 +88,24 @@ class StationContentQuery extends NodeQuery {
 
 
   public static function modifyGetEpisode(QueryAlterableInterface $query) {
-    $start = $finish = time();
-    $tags = $query->alterTags;
-
-    foreach ($tags as $tag => $value) {
-      if (Helpers::startsWith($tag, "parameter_StationContentQuery")) {
-        $parts = explode("__", $tag);
-        $start = $parts[1];
-        $finish = $parts[2];
-        break;
-      }
-    }
+    $now = time();
+    $default = [$now, $now];
+    list($start, $end) = NodeQuery::getParam('daterange', $default);
 
     NodeQuery::joinField($query, "field_air_time");
-    NodeQuery::dateFieldEquals($query, "field_air_time", $start, $finish);
+    NodeQuery::dateFieldEquals($query, "field_air_time", $start, $end);
+  }
+
+
+  public static function modifyGetEpisodeInRange(
+    QueryAlterableInterface $query
+  ) {
+
+    $now = time();
+    $default = [$now, $now];
+    list($start, $end) = NodeQuery::getParam('daterange', $default);
+
+    NodeQuery::joinField($query, 'field_air_time');
+    NodeQuery::dateFieldInRange($query, 'field_air_time', $start, $end);
   }
 }
