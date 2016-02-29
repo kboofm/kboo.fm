@@ -36,7 +36,6 @@ class RadioAssets {
 
 
   private function routeProgramPlaylists() {
-    $this->addDatePicker();
     $this->addJs("js/compiled/custom/station/playlists.js");
   }
 

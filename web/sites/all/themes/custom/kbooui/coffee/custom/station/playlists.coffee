@@ -2,44 +2,17 @@
   class App.Station.Playlists extends C4.Components.Base
     $el: null
     route: "/api/playlists"
-    submit: "#btn-submit"
-    fields:
-      artist: "#id-artist"
-      $artist: null
 
     init: =>
       super()
       @$el = $ ".playlists"
-      @fields.$artist = $ @fields.artist
 
       @renderHeader()
       C4.Utilities.Timer.delay @refresh, 1000, "playlists_init"
       true
 
-    bind: =>
-      @bindItem "click", @submit, @onSubmit
-      @bindItem "submit", @form, @onFormSubmit
-      true
-
-    onFormSubmit: (event) =>
-      event.preventDefault()
-      true
-
-    onSubmit: (event) =>
-      event.preventDefault()
-      @refresh()
-      true
-
-    buildQuery: =>
-      artist = @fields.$artist.val()
-      query = "artist=#{artist}"
-      encodeURIComponent query
-
     refresh: =>
-      query = @buildQuery()
-      queryRoute = "#{@route}?#{query}"
-
-      jQuery.get queryRoute, @renderOnAir
+      jQuery.get @route, @renderOnAir
       true
 
     renderHeader: =>
