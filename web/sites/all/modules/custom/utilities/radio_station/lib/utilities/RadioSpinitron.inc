@@ -32,12 +32,18 @@ class RadioSpinitron {
   }
 
 
-  public static function getLatestPlaylists($count) {
+  public static function getLatestPlaylists($count, $includeSongs = false) {
     $connection = RadioSpinitron::getConnection();
     $playlists = $connection->getPlaylists($count);
 
     if (!$playlists) {
       return [];
+    }
+
+    if ($includeSongs) {
+      foreach ($playlists as &$playlist) {
+        RadioSpinitron::includeSongs($playlist);
+      }
     }
 
     return $playlists;

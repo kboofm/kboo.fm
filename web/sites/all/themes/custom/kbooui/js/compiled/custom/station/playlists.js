@@ -12,10 +12,6 @@
         this.renderOnAir = bind(this.renderOnAir, this);
         this.renderHeader = bind(this.renderHeader, this);
         this.refresh = bind(this.refresh, this);
-        this.buildQuery = bind(this.buildQuery, this);
-        this.onSubmit = bind(this.onSubmit, this);
-        this.onFormSubmit = bind(this.onFormSubmit, this);
-        this.bind = bind(this.bind, this);
         this.init = bind(this.init, this);
         return Playlists.__super__.constructor.apply(this, arguments);
       }
@@ -24,51 +20,16 @@
 
       Playlists.prototype.route = "/api/playlists";
 
-      Playlists.prototype.submit = "#btn-submit";
-
-      Playlists.prototype.fields = {
-        artist: "#id-artist",
-        $artist: null
-      };
-
       Playlists.prototype.init = function() {
         Playlists.__super__.init.call(this);
         this.$el = $(".playlists");
-        this.fields.$artist = $(this.fields.artist);
         this.renderHeader();
         C4.Utilities.Timer.delay(this.refresh, 1000, "playlists_init");
         return true;
       };
 
-      Playlists.prototype.bind = function() {
-        this.bindItem("click", this.submit, this.onSubmit);
-        this.bindItem("submit", this.form, this.onFormSubmit);
-        return true;
-      };
-
-      Playlists.prototype.onFormSubmit = function(event) {
-        event.preventDefault();
-        return true;
-      };
-
-      Playlists.prototype.onSubmit = function(event) {
-        event.preventDefault();
-        this.refresh();
-        return true;
-      };
-
-      Playlists.prototype.buildQuery = function() {
-        var artist, query;
-        artist = this.fields.$artist.val();
-        query = "artist=" + artist;
-        return encodeURIComponent(query);
-      };
-
       Playlists.prototype.refresh = function() {
-        var query, queryRoute;
-        query = this.buildQuery();
-        queryRoute = this.route + "?" + query;
-        jQuery.get(queryRoute, this.renderOnAir);
+        jQuery.get(this.route, this.renderOnAir);
         return true;
       };
 
