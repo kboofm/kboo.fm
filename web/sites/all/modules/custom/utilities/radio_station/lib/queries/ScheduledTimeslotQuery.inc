@@ -29,7 +29,7 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
 
   protected function whereStream($stream) {
-    $stream_nid = ScheduledTimeslotQuery::getStreamNid($stream);
+    $stream_nid = Helpers::getStreamNid($stream);
     $this->addTag('radio_ScheduledTimeslotQuery_addStream');
     NodeQuery::addParam('stream', $stream_nid);
   }
@@ -97,27 +97,8 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
-  public static function getStreamNid($stream) {
-    if (is_numeric($stream)) {
-      return (int)$stream;
-    }
-
-    $query = new ProgramQuery();
-    $query->getStreams();
-    $query->searchTitle($stream, EStringSearchOptions::Equals);
-    $result = $query->execute();
-
-    if (empty($result)) {
-      return NULL;
-    }
-
-    $stream_node = reset($result['node']);
-    return $stream_node->nid;
-  }
-
-
   public static function addStream(QueryAlterableInterface $query) {
-    $default = ScheduledTimeslotQuery::getStreamNid(EStreams::One);
+    $default = Helpers::getStreamNid(EStreams::One);
     $stream = NodeQuery::getParam('stream', $default);
 
     NodeQuery::joinField($query, 'field_stream');

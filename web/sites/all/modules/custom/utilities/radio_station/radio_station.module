@@ -94,16 +94,12 @@ function radio_station_query_alter(QueryAlterableInterface $query) {
 
 
 function radio_station_user_has_role(array $roles) {
-  global $user;
+  return RadioRoles::hasAny($roles, true);
+}
 
-  if ($user->uid == 1) {
-    return true;
-  }
 
-  $user_roles = array_values($user->roles);
-  $check = array_intersect($roles, $user_roles);
-  $has_role = !empty($check);
-  return $has_role;
+function radio_station_streams_form($form, &$form_state) {
+  return RadioForms::getStreams($form);
 }
 
 
@@ -230,4 +226,3 @@ function radio_station_preprocess_radio_template_episode_playlists(&$vars) {
 function radio_station_preprocess_node(&$vars) {
   NodeTeaserProcessor::preprocess($vars);
 }
-

@@ -149,17 +149,17 @@ class Helpers {
   }
 
 
-  public static function streamName($stream) {
-    $match = in_array(
-      strtolower($stream),
-      ['stream1', 'stream 1']
-    );
-
-    if ($match || $stream == 1) {
-      return EStreams::One;
+  public static function getStreamNid($stream) {
+    // If $stream is a number, then assume it is the stream nid
+    if (is_numeric($stream)) {
+      return (int)$stream;
     }
 
-    return EStreams::Two;
+    if (!in_array($stream, EStreams::all())) {
+      return NULL;
+    }
+
+    return variable_get("radio_station_stream_{$stream}_nid");
   }
 
 

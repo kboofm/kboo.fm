@@ -34,7 +34,6 @@
 
       @type = @$carousel.attr "data-type"
       @stream = @$carousel.attr "data-stream"
-      @stream = encodeURIComponent @stream
       true
 
     change: (event, direction) =>
