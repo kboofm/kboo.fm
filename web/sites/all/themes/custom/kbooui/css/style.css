@@ -7018,6 +7018,38 @@ hr {
 .node .field-name-field-more-images img {
   padding: 5px 0px;
 }
+#webform-components-form .form-type-textfield {
+  margin-left: 15px;
+}
+.field-label-inline.clearfix:after,
+div.addressfield-container-inline::after,
+.field-label-inline.dl-horizontal dd:after,
+.field-label-inline.container:after,
+.field-label-inline.container-fluid:after,
+.field-label-inline.row:after,
+.field-label-inline.form-horizontal .form-group:after,
+.field-label-inline.btn-toolbar:after,
+.field-label-inline.btn-group-vertical > .btn-group:after,
+.field-label-inline.nav:after,
+.field-label-inline.navbar:after,
+.field-label-inline.navbar-header:after,
+.field-label-inline.navbar-collapse:after,
+.field-label-inline.pager:after,
+.field-label-inline.panel-body:after,
+.field-label-inline.modal-header:after,
+.field-label-inline.modal-footer:after {
+  clear: left;
+}
+.radio,
+.checkbox {
+  margin-top: -1px;
+}
+.radio input[type="radio"],
+.radio-inline input[type="radio"],
+.checkbox input[type="checkbox"],
+.checkbox-inline input[type="checkbox"] {
+  margin-left: 0px;
+}
 ul.navbar-nav {
   margin-top: 45px;
   border-top: 2px solid #003b4c;
