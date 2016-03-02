@@ -7224,6 +7224,9 @@ h1.page-header {
   margin-top: 10px;
   border-bottom: 1px solid #7f9da5;
 }
+.front h1.page-header {
+  display: none;
+}
 .margin-top-none {
   margin-top: 0px;
 }
