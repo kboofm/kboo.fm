@@ -22,9 +22,9 @@ function content_type_station_content_ctools_plugin_api($module = NULL, $api = N
 function content_type_station_content_node_info() {
   $items = array(
     'station_content' => array(
-      'name' => t('Station Content'),
+      'name' => t('Program Episode or Audio'),
       'base' => 'node_content',
-      'description' => t('A show, episode, release, or an edition of a program. For example, an audio episode or an edition of a newsletter.'),
+      'description' => t('A show, episode, or an edition of a program. For example, an audio episode.'),
       'has_title' => '1',
       'title_label' => t('Title'),
       'help' => '',
