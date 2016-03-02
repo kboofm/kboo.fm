@@ -10,7 +10,7 @@
 function content_type_scheduled_timeslot_field_default_field_instances() {
   $field_instances = array();
 
-  // Exported field_instance: 'node-scheduled_timeslot-field_show'
+  // Exported field_instance: 'node-scheduled_timeslot-field_show'.
   $field_instances['node-scheduled_timeslot-field_show'] = array(
     'bundle' => 'scheduled_timeslot',
     'default_value' => NULL,
@@ -53,7 +53,7 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-scheduled_timeslot-field_stream'
+  // Exported field_instance: 'node-scheduled_timeslot-field_stream'.
   $field_instances['node-scheduled_timeslot-field_stream'] = array(
     'bundle' => 'scheduled_timeslot',
     'default_value' => NULL,
@@ -96,7 +96,7 @@ function content_type_scheduled_timeslot_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-scheduled_timeslot-field_timeslot'
+  // Exported field_instance: 'node-scheduled_timeslot-field_timeslot'.
   $field_instances['node-scheduled_timeslot-field_timeslot'] = array(
     'bundle' => 'scheduled_timeslot',
     'deleted' => 0,
