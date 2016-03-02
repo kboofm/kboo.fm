@@ -10,7 +10,7 @@
 function content_type_scheduled_timeslot_field_default_field_bases() {
   $field_bases = array();
 
-  // Exported field_base: 'field_show'
+  // Exported field_base: 'field_show'.
   $field_bases['field_show'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -45,7 +45,7 @@ function content_type_scheduled_timeslot_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_stream'
+  // Exported field_base: 'field_stream'.
   $field_bases['field_stream'] = array(
     'active' => 1,
     'cardinality' => 1,
@@ -80,7 +80,7 @@ function content_type_scheduled_timeslot_field_default_field_bases() {
     'type' => 'entityreference',
   );
 
-  // Exported field_base: 'field_timeslot'
+  // Exported field_base: 'field_timeslot'.
   $field_bases['field_timeslot'] = array(
     'active' => 1,
     'cardinality' => -1,
