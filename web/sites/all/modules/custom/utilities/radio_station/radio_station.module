@@ -50,6 +50,27 @@ function radio_station_theme() {
 
 
 /**
+ * Implements hook_block_info().
+ */
+function radio_station_block_info() {
+  $blocks = new RadioBlocks();
+  return $blocks->get();
+}
+
+
+/**
+ * Implements hook_block_view().
+ *
+ * @param string $delta
+ * @return array
+ */
+function radio_station_block_view($delta = '') {
+  $blocks = new RadioBlocks();
+  return $blocks->view($delta);
+}
+
+
+/**
  * Implements hook_query_alter().
  *
  * @param \QueryAlterableInterface $query
@@ -73,16 +94,12 @@ function radio_station_query_alter(QueryAlterableInterface $query) {
 
 
 function radio_station_user_has_role(array $roles) {
-  global $user;
+  return RadioRoles::hasAny($roles, true);
+}
 
-  if ($user->uid == 1) {
-    return true;
-  }
 
-  $user_roles = array_values($user->roles);
-  $check = array_intersect($roles, $user_roles);
-  $has_role = !empty($check);
-  return $has_role;
+function radio_station_streams_form($form, &$form_state) {
+  return RadioForms::getStreams($form);
 }
 
 
@@ -105,8 +122,7 @@ function radio_station_get_week($stream, $direction, $timestamp) {
 
 
 function radio_station_get_playlists() {
-  $params = Helpers::getQueryParameters();
-  $data = RadioSpinitron::getPlaylists($params);
+  $data = RadioSpinitron::getLatestPlaylists(10, true);
   drupal_json_output($data);
 }
 
@@ -210,4 +226,3 @@ function radio_station_preprocess_radio_template_episode_playlists(&$vars) {
 function radio_station_preprocess_node(&$vars) {
   NodeTeaserProcessor::preprocess($vars);
 }
-

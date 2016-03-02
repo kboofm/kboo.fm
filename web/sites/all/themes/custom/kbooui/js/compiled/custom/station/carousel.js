@@ -64,7 +64,6 @@
         this.timestamp = this.$carousel.find(this.carousel_timestamp).attr("data-timestamp");
         this.type = this.$carousel.attr("data-type");
         this.stream = this.$carousel.attr("data-stream");
-        this.stream = encodeURIComponent(this.stream);
         return true;
       };
 

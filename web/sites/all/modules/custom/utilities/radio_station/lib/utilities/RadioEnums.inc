@@ -1,7 +1,12 @@
 <?php
 abstract class EStreams {
-  const One = 'Stream 1';
-  const Two = 'Stream 2';
+  const One = 'one';
+
+  public static function all() {
+    return [
+      EStreams::One,
+    ];
+  }
 }
 
 

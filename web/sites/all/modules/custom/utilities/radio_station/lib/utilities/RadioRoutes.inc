@@ -19,6 +19,30 @@ class RadioRoutes {
 
 
   private function adminRoutes() {
+    $this->items['admin/config/station'] = [
+      'title' => 'Station',
+      'description' => 'Settings related to the station.',
+      'position' => 'right',
+      'weight' => -15,
+      'page callback' => 'system_admin_menu_block_page',
+      'access arguments' => ['access administration pages'],
+      'file' => 'system.admin.inc',
+      'file path' => drupal_get_path('module', 'system'),
+    ];
+
+    $this->items['admin/config/station/streams'] = [
+      'title' => "Streams",
+      'description' => "Configuration for Streams",
+      'page callback' => 'drupal_get_form',
+      'page arguments' => ['radio_station_streams_form'],
+      'access callback' => 'radio_station_user_has_role',
+      'access arguments' => [
+        [
+          'Admin - Site Administrator',
+        ]
+      ],
+      'type' => MENU_NORMAL_ITEM,
+    ];
   }
 
 
