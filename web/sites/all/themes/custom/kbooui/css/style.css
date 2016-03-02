@@ -6943,6 +6943,9 @@ body.cke_ltr {
   top: 10px;
   margin: 0px;
 }
+.navbar .on-air a {
+  color: #ffb600;
+}
 .navbar .listen-now-btn {
   position: absolute;
   left: 220px;
