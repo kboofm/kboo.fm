@@ -49,6 +49,7 @@ files[] = lib/components/HomeComponent.inc
 files[] = lib/components/NewsComponent.inc
 files[] = lib/components/OrganizationComponent.inc
 files[] = lib/components/ProfilesComponent.inc
+files[] = lib/components/ProgramsComponent.inc
 files[] = lib/components/ScheduleComponent.inc
 files[] = lib/components/StationContentComponent.inc
 

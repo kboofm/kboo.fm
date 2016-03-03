@@ -56,7 +56,7 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
-  protected function sortByTitle() {
+  public function sortByTitle() {
     $this->fieldOrderBy('title_field', 'value');
   }
 
