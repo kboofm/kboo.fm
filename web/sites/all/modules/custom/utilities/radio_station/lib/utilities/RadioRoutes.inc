@@ -136,6 +136,13 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['program/genre'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program_genre',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['program/playlists'] = [
       'title' => 'Program Playlists',
       'page callback' => 'radio_station_get_program_playlists',

@@ -1,9 +1,9 @@
 <ul class="nav nav-tabs margin-vertical-lg" role="tablist">
-  <li role="presentation" class="active">
+  <li role="presentation">
     <a href="/program" role="tab">All Programs</a>
   </li>
 
-  <li role="presentation">
+  <li role="presentation" class="active">
     <a href="/program/genre" role="tab">Programs by Genre</a>
   </li>
 
