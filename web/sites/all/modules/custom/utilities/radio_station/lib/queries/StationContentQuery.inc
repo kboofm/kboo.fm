@@ -73,6 +73,15 @@ class StationContentQuery extends NodeQuery {
   }
 
 
+  public function getAudio() {
+    $this->type('Episode');
+    $this->hasAudio();
+    $this->propertyOrderBy('sticky', 'DESC');
+    $this->fieldOrderBy('field_air_time', 'value');
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+  }
+
+
   public function latestAudio($count) {
     $this->type('Episode');
     $this->setLimit($count);

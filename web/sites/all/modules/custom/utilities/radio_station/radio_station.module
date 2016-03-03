@@ -167,6 +167,16 @@ function radio_station_get_listen_now() {
 }
 
 
+function radio_station_get_audio() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getAudio();
+}
+
+
 function radio_station_get_blog() {
   if (arg(1)) {
     return MENU_NOT_FOUND;
