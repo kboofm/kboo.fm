@@ -37,6 +37,7 @@ files[] = lib/processors/TemplateProcessor.inc
 files[] = lib/processors/EventsProcessor.inc
 files[] = lib/processors/ListProcessor.inc
 files[] = lib/processors/NodeTeaserProcessor.inc
+files[] = lib/processors/ProgramProcessor.inc
 files[] = lib/processors/ScheduleProcessor.inc
 files[] = lib/processors/StationContentProcessor.inc
 
