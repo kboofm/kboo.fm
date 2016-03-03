@@ -170,5 +170,12 @@ class RadioRoutes {
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];
+
+    $this->items['underwriters'] = [
+      'title' => 'KBOO Sponsors',
+      'page callback' => 'radio_station_get_underwriters',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
   }
 }

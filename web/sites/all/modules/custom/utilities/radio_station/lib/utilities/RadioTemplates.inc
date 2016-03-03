@@ -29,6 +29,7 @@ class RadioTemplates {
     $this->addTemplate('schedule');
     $this->addTemplate('sidebar_audio');
     $this->addTemplate('sidebar_playlists');
+    $this->addTemplate('underwriters');
 
     return $this->templates;
   }

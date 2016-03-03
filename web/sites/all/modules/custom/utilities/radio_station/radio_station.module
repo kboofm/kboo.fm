@@ -177,6 +177,16 @@ function radio_station_get_audio() {
 }
 
 
+function radio_station_get_underwriters() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new OrganizationResponse();
+  return $response->getSponsors();
+}
+
+
 function radio_station_get_blog() {
   if (arg(1)) {
     return MENU_NOT_FOUND;
