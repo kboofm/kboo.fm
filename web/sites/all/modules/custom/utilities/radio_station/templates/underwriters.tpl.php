@@ -10,8 +10,6 @@
         print "<hr />";
       endif;
     endforeach;
-
-    include 'partials/pager.tpl.php';
     ?>
   </div>
 </div>
