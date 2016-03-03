@@ -73,13 +73,13 @@ class ProgramsResponse extends Response {
   }
 
 
-  public function getByGenre() {
+  public function getGenres() {
     $this->template_name = 'radio_template_program_genre';
     $component = new ProgramsComponent();
-    $programs = $component->getShows();
+    $genres = $component->getGenres();
 
     $data = [
-      'programs' => $programs,
+      'genres' => $genres,
     ];
     $this->addTemplateData($data);
     return $this->renderHtml();

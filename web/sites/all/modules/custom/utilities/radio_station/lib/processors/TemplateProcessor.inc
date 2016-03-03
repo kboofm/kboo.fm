@@ -114,4 +114,57 @@ class TemplateProcessor {
 
     return $published_date;
   }
+
+
+  public static function groupAlphabetically($data) {
+    $alphabet = array_fill_keys(
+      range('A', 'Z'),
+      []
+    );
+
+    # This will hold all non-alphabetic titles
+    $alphabet['#'] = [];
+
+    foreach ($data as $item) {
+      $first_letter = strtoupper($item['title'][0]);
+
+      if (isset($alphabet[$first_letter])) {
+        $alphabet[$first_letter][] = $item;
+      } else {
+        $alphabet['#'][] = $item;
+      }
+    }
+
+    $alphabet = array_filter(
+      $alphabet,
+      function ($item) {
+        return (count($item) > 0);
+      }
+    );
+
+    return $alphabet;
+  }
+
+
+  public static function groupByKey($data, $key) {
+    $set = [];
+
+    foreach ($data as $item) {
+      $values = $item[$key];
+
+      if (!is_array($values)) {
+        $values = [$values];
+      }
+
+      foreach ($values as $value) {
+        if (!isset($set[$value])) {
+          $set[$value] = [];
+        }
+
+        $set[$value][] = $item;
+      }
+    }
+
+    return $set;
+  }
 }

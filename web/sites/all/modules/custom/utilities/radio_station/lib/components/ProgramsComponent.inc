@@ -16,4 +16,19 @@ class ProgramsComponent extends BaseComponent {
       node_load_multiple($nids)
     );
   }
+
+
+  public function getGenres() {
+    $query = new ProgramQuery();
+    $query->getShows();
+    $query->sortByTitle();
+    $result = $query->execute();
+
+    $processor = new ProgramProcessor();
+    $items = $processor->process(
+      $this->getNids($result)
+    );
+
+    return $processor->groupByKey($items, "genres");
+  }
 }

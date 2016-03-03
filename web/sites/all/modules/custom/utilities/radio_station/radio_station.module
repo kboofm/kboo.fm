@@ -203,7 +203,7 @@ function radio_station_get_program_genre() {
   }
 
   $response = new ProgramsResponse();
-  return $response->getByGenre();
+  return $response->getGenres();
 }
 
 
