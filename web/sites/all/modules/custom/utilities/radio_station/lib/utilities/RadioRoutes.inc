@@ -92,6 +92,13 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['audio/feed'] = [
+      'title' => 'KBOO Audio Archives',
+      'page callback' => 'radio_station_get_audio_feed',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['blog'] = [
       'title' => 'Blog',
       'page callback' => 'radio_station_get_blog',

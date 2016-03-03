@@ -2,7 +2,7 @@
 
 class StationContentComponent extends BaseComponent {
 
-  public function audio($page) {
+  public function getAudio($page) {
     $per_page = 10;
     $start = ($page - 1) * $per_page;
 
@@ -28,6 +28,15 @@ class StationContentComponent extends BaseComponent {
     $pager = $paginator->paginate($page, $total_count);
     $pager['items'] = $events;
     return $pager;
+  }
+
+
+  public function getAudioFeed() {
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->range(0, 10);
+    $result = $query->execute();
+    return $this->getNids($result);
   }
 
 

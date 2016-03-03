@@ -177,6 +177,16 @@ function radio_station_get_audio() {
 }
 
 
+function radio_station_get_audio_feed() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getAudioFeed();
+}
+
+
 function radio_station_get_underwriters() {
   if (arg(1)) {
     return MENU_NOT_FOUND;
@@ -283,8 +293,19 @@ function radio_station_get_program_playlists() {
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
   $entity = entity_metadata_wrapper('node', $node);
-  $audio_files = $entity->field_audio_files->value();
-  $record = $entity->field_episode_record->value();
+
+  try {
+    $audio_files = $entity->field_audio_files->value();
+  } catch (EntityMetadataWrapperException $e) {
+    $audio_files = [];
+  }
+
+  try {
+    $record = $entity->field_episode_record->value();
+  } catch (EntityMetadataWrapperException $e) {
+    $record = EArchiveTypes::NEVER;
+  }
+
   $allow_download = ($record == EArchiveTypes::PERMANENT);
 
   foreach ($audio_files as &$audio_file) {
