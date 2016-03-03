@@ -25,10 +25,25 @@ class ProgramsComponent extends BaseComponent {
     $result = $query->execute();
 
     $processor = new ProgramProcessor();
-    $items = $processor->process(
+    $items = $processor->processGenres(
       $this->getNids($result)
     );
 
     return $processor->groupByKey($items, "genres");
+  }
+
+
+  public function getTopics() {
+    $query = new ProgramQuery();
+    $query->getShows();
+    $query->sortByTitle();
+    $result = $query->execute();
+
+    $processor = new ProgramProcessor();
+    $items = $processor->processTopics(
+      $this->getNids($result)
+    );
+
+    return $processor->groupByKey($items, "topics");
   }
 }

@@ -84,4 +84,17 @@ class ProgramsResponse extends Response {
     $this->addTemplateData($data);
     return $this->renderHtml();
   }
+
+
+  public function getTopics() {
+    $this->template_name = 'radio_template_program_topic';
+    $component = new ProgramsComponent();
+    $topics = $component->getTopics();
+
+    $data = [
+      'topics' => $topics,
+    ];
+    $this->addTemplateData($data);
+    return $this->renderHtml();
+  }
 }

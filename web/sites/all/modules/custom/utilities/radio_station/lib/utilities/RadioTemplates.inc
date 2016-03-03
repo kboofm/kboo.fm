@@ -26,6 +26,7 @@ class RadioTemplates {
     $this->addTemplate('program_content_list');
     $this->addTemplate('program_genre');
     $this->addTemplate('program_playlists');
+    $this->addTemplate('program_topic');
     $this->addTemplate('schedule');
 
     return $this->templates;

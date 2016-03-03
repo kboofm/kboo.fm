@@ -150,6 +150,13 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['program/topic'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program_topic',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['schedule'] = [
       'title' => 'Weekly Schedule',
       'page callback' => 'radio_station_get_schedule',

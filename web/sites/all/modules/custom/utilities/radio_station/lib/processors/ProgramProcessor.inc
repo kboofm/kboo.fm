@@ -2,7 +2,7 @@
 
 class ProgramProcessor extends TemplateProcessor {
 
-  public function process($nids) {
+  public function processGenres($nids) {
     $nodes = [];
 
     foreach ($nids as $nid) {
@@ -26,6 +26,37 @@ class ProgramProcessor extends TemplateProcessor {
         'url' => $this->getEntityUrl($unwrapped),
         'title' => $this->getTeaserTitle($entity),
         'genres' => $genres,
+      ];
+    }
+
+    return $nodes;
+  }
+
+
+  public function processTopics($nids) {
+    $nodes = [];
+
+    foreach ($nids as $nid) {
+      $entity = entity_metadata_wrapper('node', $nid);
+
+      try {
+        $topics = $entity->field_topic_tags->value();
+      } catch (EntityMetadataWrapperException $e) {
+        $topics = [];
+      }
+
+      $topics = array_map(
+        function ($item) {
+          return $item->name;
+        },
+        $topics
+      );
+
+      $unwrapped = $entity->value();
+      $nodes[] = [
+        'url' => $this->getEntityUrl($unwrapped),
+        'title' => $this->getTeaserTitle($entity),
+        'topics' => $topics,
       ];
     }
 
