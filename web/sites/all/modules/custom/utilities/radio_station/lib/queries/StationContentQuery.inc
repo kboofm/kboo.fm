@@ -48,6 +48,26 @@ class StationContentQuery extends NodeQuery {
   }
 
 
+  public function getPodcastByProgram($program_nid) {
+    $this->fieldCondition(
+      "field_produced_for",
+      "target_id",
+      $program_nid,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
   public function type($term_name) {
     $terms = taxonomy_get_term_by_name($term_name, 'station_content_types');
     $term = reset($terms);

@@ -280,6 +280,22 @@ function radio_station_preprocess_radio_template_program_content_list(&$vars) {
 }
 
 
+function radio_station_get_program_podcast($program_alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  $response->getPodcast($program_alias);
+}
+
+
+function radio_station_get_program_podcast_title($program_alias) {
+  $title = ProgramsResponse::getTitle($program_alias);
+  return "{$title} Podcast";
+}
+
+
 function radio_station_get_program_playlists() {
   if (arg(2)) {
     return MENU_NOT_FOUND;

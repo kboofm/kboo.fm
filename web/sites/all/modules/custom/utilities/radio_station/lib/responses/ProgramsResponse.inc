@@ -59,6 +59,20 @@ class ProgramsResponse extends Response {
   }
 
 
+  public function getPodcast($program_alias) {
+    $entity = ProgramsResponse::getEntity($program_alias);
+    if ($entity == MENU_NOT_FOUND) {
+      return MENU_NOT_FOUND;
+    }
+
+    $this->template_name = 'radio_template_program_podcast';
+    $program_nid = $entity->getIdentifier();
+    $component = new StationContentComponent();
+    $nids = $component->getPodcastForProgram($program_nid);
+    node_feed($nids);
+  }
+
+
   public function getShows() {
     $this->template_name = 'radio_template_program';
 
