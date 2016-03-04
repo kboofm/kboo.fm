@@ -14,7 +14,7 @@ function content_type_scheduled_timeslot_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'ant_pattern_scheduled_timeslot';
-  $strongarm->value = '';
+  $strongarm->value = 'Timeslot for [node:field-show:title]';
   $export['ant_pattern_scheduled_timeslot'] = $strongarm;
 
   $strongarm = new stdClass();
