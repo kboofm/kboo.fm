@@ -553,11 +553,7 @@ function content_type_station_content_field_default_field_instances() {
   // Exported field_instance: 'node-station_content-field_explicit'.
   $field_instances['node-station_content-field_explicit'] = array(
     'bundle' => 'station_content',
-    'default_value' => array(
-      0 => array(
-        'value' => 'clean',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(

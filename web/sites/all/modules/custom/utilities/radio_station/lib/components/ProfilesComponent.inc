@@ -24,6 +24,7 @@ class ProfilesComponent extends BaseComponent {
     $profiles = $processor->process(
       $this->getNids($result)
     );
-    return $this->group($profiles);
+
+    return $processor->groupAlphabetically($profiles);
   }
 }

@@ -48,6 +48,86 @@ class StationContentQuery extends NodeQuery {
   }
 
 
+  public function getPodcastByGenre($target) {
+    $this->fieldCondition(
+      "field_genres",
+      "tid",
+      $target,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
+  public function getPodcastByTopic($target) {
+    $this->fieldCondition(
+      "field_topic_tags",
+      "tid",
+      $target,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
+  public function getPodcastByProgram($target_nid) {
+    $this->fieldCondition(
+      "field_produced_for",
+      "target_id",
+      $target_nid,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
+  public function getPodcastByProfile($target_nid) {
+    $this->fieldCondition(
+      "field_hosted_by",
+      "target_id",
+      $target_nid,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
   public function type($term_name) {
     $terms = taxonomy_get_term_by_name($term_name, 'station_content_types');
     $term = reset($terms);
@@ -70,6 +150,15 @@ class StationContentQuery extends NodeQuery {
     $subquery->condition('f.field_audio_files_fid', 'NULL', '!=');
 
     $this->entityCondition('entity_id', $subquery, 'IN');
+  }
+
+
+  public function getAudio() {
+    $this->type('Episode');
+    $this->hasAudio();
+    $this->propertyOrderBy('sticky', 'DESC');
+    $this->fieldOrderBy('field_air_time', 'value');
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
   }
 
 

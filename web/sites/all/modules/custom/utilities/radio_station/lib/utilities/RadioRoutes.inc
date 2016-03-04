@@ -85,6 +85,20 @@ class RadioRoutes {
 
 
   private function pageRoutesPublic() {
+    $this->items['audio'] = [
+      'title' => 'KBOO Audio Archives',
+      'page callback' => 'radio_station_get_audio',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['audio/feed'] = [
+      'title' => 'KBOO Audio Archives',
+      'page callback' => 'radio_station_get_audio_feed',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['blog'] = [
       'title' => 'Blog',
       'page callback' => 'radio_station_get_blog',
@@ -120,10 +134,45 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['program'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['program/%/content'] = [
       'title callback' => 'radio_station_get_program_content_title',
       'title arguments' => [1],
       'page callback' => 'radio_station_get_program_content',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['program/%/podcast'] = [
+      'page callback' => 'radio_station_get_program_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['program/genre'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program_genre',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['ProgramGenre/%/podcast'] = [
+      'page callback' => 'radio_station_get_genre_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['PublicAffairsTopics/%/podcast'] = [
+      'page callback' => 'radio_station_get_topic_podcast',
       'page arguments' => [1],
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
@@ -136,9 +185,30 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['program/topic'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program_topic',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['profiles/%/podcast'] = [
+      'page callback' => 'radio_station_get_profiles_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['schedule'] = [
       'title' => 'Weekly Schedule',
       'page callback' => 'radio_station_get_schedule',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['underwriters'] = [
+      'title' => 'KBOO Sponsors',
+      'page callback' => 'radio_station_get_underwriters',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];

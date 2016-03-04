@@ -101,7 +101,7 @@ class ScheduleResponse extends Response {
   }
 
 
-  public function getCalendar() {
+  public function getCalendar($stream = EStreams::One) {
     $this->template_name = 'radio_template_schedule';
 
     $columns = [
@@ -109,7 +109,6 @@ class ScheduleResponse extends Response {
       'Thursday', 'Friday', 'Saturday', 'Sunday',
     ];
 
-    $stream = EStreams::One;
     $component = new ScheduleComponent();
     $schedule = $component->calendarWeek($stream);
 

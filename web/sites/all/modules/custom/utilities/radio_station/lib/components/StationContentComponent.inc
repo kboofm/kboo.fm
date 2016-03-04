@@ -2,6 +2,44 @@
 
 class StationContentComponent extends BaseComponent {
 
+  public function getAudio($page) {
+    $per_page = 10;
+    $start = ($page - 1) * $per_page;
+
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->range($start, $per_page);
+    $result = $query->execute();
+
+    $nids = array_keys(
+      $this->getNodes($result)
+    );
+
+    $events = array_values(
+      node_load_multiple($nids)
+    );
+
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->count();
+    $total_count = $query->execute();
+
+    $paginator = new RadioPaginator();
+    $pager = $paginator->paginate($page, $total_count);
+    $pager['items'] = $events;
+    return $pager;
+  }
+
+
+  public function getAudioFeed() {
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->range(0, 10);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
   public function latestAudio($count) {
     $query = new StationContentQuery();
     $query->latestAudio($count);
@@ -89,6 +127,54 @@ class StationContentComponent extends BaseComponent {
     $pager = $paginator->paginate($page, $total_count);
     $pager['items'] = $episodes;
     return $pager;
+  }
+
+
+  public function getPodcast($target, $type) {
+    switch ($type) {
+      case "genre":
+        return $this->getPodcastForGenre($target);
+      case "person_profile":
+        return $this->getPodcastForProfile($target);
+      case "program":
+        return $this->getPodcastForProgram($target);
+      case "topic":
+        return $this->getPodcastForTopic($target);
+      default:
+        return [];
+    }
+  }
+
+
+  private function getPodcastForGenre($target) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByGenre($target);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getPodcastForTopic($target) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByTopic($target);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getPodcastForProgram($target_nid) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByProgram($target_nid);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getPodcastForProfile($target_nid) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByProfile($target_nid);
+    $result = $query->execute();
+    return $this->getNids($result);
   }
 
 

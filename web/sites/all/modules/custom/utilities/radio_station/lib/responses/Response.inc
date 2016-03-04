@@ -11,6 +11,45 @@ abstract class Response {
   }
 
 
+  protected static function getEntityFromAlias($program_alias, $type) {
+    $pattern = variable_get("pathauto_node_{$type}_pattern", $type);
+    $pattern = explode("/", $pattern);
+    $pattern = reset($pattern);
+    $url_alias = "{$pattern}/{$program_alias}";
+
+    $path = drupal_lookup_path("source", $url_alias);
+    if (!$path) {
+      return null;
+    }
+
+    $node = menu_get_object("node", 1, $path);
+    if (!$node) {
+      return null;
+    }
+
+    if ($node->type != $type) {
+      return null;
+    }
+
+    return entity_metadata_wrapper('node', $node);
+  }
+
+
+  public static function getTitleFromAlias($program_alias, $type) {
+    $title = "";
+    $entity = Response::getEntityFromAlias(
+      $program_alias,
+      $type
+    );
+
+    if ($entity) {
+      $title = $entity->title->value();
+    }
+
+    return $title;
+  }
+
+
   public function renderHtml() {
     return theme(
       $this->template_name,
@@ -26,7 +65,10 @@ abstract class Response {
 
 
   public function renderRss() {
-    drupal_add_http_header('Content-Type', 'application/rss+xml; charset=utf-8');
+    drupal_add_http_header(
+      'Content-Type',
+      'application/rss+xml; charset=utf-8'
+    );
 
     $xml = theme_render_template(
       $this->getTemplateFile(),

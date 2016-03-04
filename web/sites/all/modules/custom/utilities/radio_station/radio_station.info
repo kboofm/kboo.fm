@@ -37,6 +37,7 @@ files[] = lib/processors/TemplateProcessor.inc
 files[] = lib/processors/EventsProcessor.inc
 files[] = lib/processors/ListProcessor.inc
 files[] = lib/processors/NodeTeaserProcessor.inc
+files[] = lib/processors/ProgramProcessor.inc
 files[] = lib/processors/ScheduleProcessor.inc
 files[] = lib/processors/StationContentProcessor.inc
 
@@ -49,6 +50,7 @@ files[] = lib/components/HomeComponent.inc
 files[] = lib/components/NewsComponent.inc
 files[] = lib/components/OrganizationComponent.inc
 files[] = lib/components/ProfilesComponent.inc
+files[] = lib/components/ProgramsComponent.inc
 files[] = lib/components/ScheduleComponent.inc
 files[] = lib/components/StationContentComponent.inc
 
@@ -60,8 +62,10 @@ files[] = lib/responses/BlogResponse.inc
 files[] = lib/responses/EventsResponse.inc
 files[] = lib/responses/HomeResponse.inc
 files[] = lib/responses/NewsResponse.inc
+files[] = lib/responses/OrganizationResponse.inc
 files[] = lib/responses/PlayerResponse.inc
 files[] = lib/responses/ProfilesResponse.inc
 files[] = lib/responses/ProgramsResponse.inc
 files[] = lib/responses/ProgramsPlaylistsResponse.inc
 files[] = lib/responses/ScheduleResponse.inc
+files[] = lib/responses/StationContentResponse.inc
