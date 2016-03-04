@@ -1,44 +1,13 @@
 <?php
 
 class ProgramsResponse extends Response {
-  private static function getEntity($program_alias) {
-    $pattern = variable_get("pathauto_node_program_pattern", "program");
-    $pattern = explode("/", $pattern);
-    $pattern = reset($pattern);
-    $url_alias = "{$pattern}/{$program_alias}";
-
-    $path = drupal_lookup_path("source", $url_alias);
-    if (!$path) {
-      return null;
-    }
-
-    $node = menu_get_object("node", 1, $path);
-    if (!$node) {
-      return null;
-    }
-
-    if ($node->type != 'program') {
-      return null;
-    }
-
-    return entity_metadata_wrapper('node', $node);
-  }
-
-
-  public static function getTitle($program_alias) {
-    $entity = ProgramsResponse::getEntity($program_alias);
-    $title = "";
-
-    if ($entity) {
-      $title = $entity->title->value();
-    }
-
-    return $title;
-  }
-
 
   public function getContent($program_alias) {
-    $entity = ProgramsResponse::getEntity($program_alias);
+    $entity = Response::getEntityFromAlias(
+      $program_alias,
+      "program"
+    );
+
     if (!$entity) {
       return MENU_NOT_FOUND;
     }
@@ -60,8 +29,12 @@ class ProgramsResponse extends Response {
 
 
   public function getPodcast($program_alias) {
-    $entity = ProgramsResponse::getEntity($program_alias);
-    if ($entity == MENU_NOT_FOUND) {
+    $entity = Response::getEntityFromAlias(
+      $program_alias,
+      "program"
+    );
+
+    if (!$entity) {
       return MENU_NOT_FOUND;
     }
 

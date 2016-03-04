@@ -258,7 +258,7 @@ function radio_station_get_program_content($program_alias) {
 
 
 function radio_station_get_program_content_title($program_alias) {
-  $title = ProgramsResponse::getTitle($program_alias);
+  $title = Response::getTitleFromAlias($program_alias, "program");
   return "Latest Content for {$title}";
 }
 
@@ -291,7 +291,7 @@ function radio_station_get_program_podcast($program_alias) {
 
 
 function radio_station_get_program_podcast_title($program_alias) {
-  $title = ProgramsResponse::getTitle($program_alias);
+  $title = Response::getTitleFromAlias($program_alias, "program");
   return "{$title} Podcast";
 }
 
@@ -303,6 +303,22 @@ function radio_station_get_program_playlists() {
 
   $response = new ProgramsPlaylistResponse();
   return $response->get();
+}
+
+
+function radio_station_get_profiles_podcast($profile_alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProfilesResponse();
+  $response->getPodcast($profile_alias);
+}
+
+
+function radio_station_get_profiles_podcast_title($program_alias) {
+  $title = Response::getTitleFromAlias($program_alias, "person_profile");
+  return "{$title} Podcast";
 }
 
 

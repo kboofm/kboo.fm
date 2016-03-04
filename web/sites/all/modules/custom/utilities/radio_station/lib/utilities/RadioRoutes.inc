@@ -180,6 +180,15 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['profiles/%/podcast'] = [
+      'title callback' => 'radio_station_get_profiles_podcast_title',
+      'title arguments' => [1],
+      'page callback' => 'radio_station_get_profiles_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['schedule'] = [
       'title' => 'Weekly Schedule',
       'page callback' => 'radio_station_get_schedule',

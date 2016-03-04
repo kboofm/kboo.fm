@@ -138,6 +138,14 @@ class StationContentComponent extends BaseComponent {
   }
 
 
+  public function getPodcastForProfile($profile_nid) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByProfile($profile_nid);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
    /**
    * Get upcoming episode nodes, create as needed
    *
