@@ -76,6 +76,13 @@ class StationContentQuery extends NodeQuery {
       "="
     );
 
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
     $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
     return $this;
   }
