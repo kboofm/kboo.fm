@@ -320,6 +320,16 @@ function radio_station_get_genre_podcast($alias) {
 }
 
 
+function radio_station_get_topic_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "topic");
+}
+
+
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
   $entity = entity_metadata_wrapper('node', $node);

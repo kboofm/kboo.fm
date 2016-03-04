@@ -171,6 +171,13 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['PublicAffairsTopics/%/podcast'] = [
+      'page callback' => 'radio_station_get_topic_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['program/playlists'] = [
       'title' => 'Program Playlists',
       'page callback' => 'radio_station_get_program_playlists',

@@ -138,6 +138,8 @@ class StationContentComponent extends BaseComponent {
         return $this->getPodcastForProfile($target);
       case "program":
         return $this->getPodcastForProgram($target);
+      case "topic":
+        return $this->getPodcastForTopic($target);
       default:
         return [];
     }
@@ -147,6 +149,14 @@ class StationContentComponent extends BaseComponent {
   private function getPodcastForGenre($target) {
     $query = new StationContentQuery();
     $query = $query->getPodcastByGenre($target);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getPodcastForTopic($target) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByTopic($target);
     $result = $query->execute();
     return $this->getNids($result);
   }
