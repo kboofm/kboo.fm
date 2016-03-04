@@ -48,11 +48,11 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getPodcastByProgram($program_nid) {
+  public function getPodcastByGenre($target) {
     $this->fieldCondition(
-      "field_produced_for",
-      "target_id",
-      $program_nid,
+      "field_genres",
+      "tid",
+      $target,
       "="
     );
 
@@ -68,11 +68,51 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getPodcastByProfile($profile_nid) {
+  public function getPodcastByTopic($target) {
+    $this->fieldCondition(
+      "field_topic_tags",
+      "tid",
+      $target,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
+  public function getPodcastByProgram($target_nid) {
+    $this->fieldCondition(
+      "field_produced_for",
+      "target_id",
+      $target_nid,
+      "="
+    );
+
+    $this->fieldCondition(
+      "field_audio_files",
+      "fid",
+      "NULL",
+      "!="
+    );
+
+    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    return $this;
+  }
+
+
+  public function getPodcastByProfile($target_nid) {
     $this->fieldCondition(
       "field_hosted_by",
       "target_id",
-      $profile_nid,
+      $target_nid,
       "="
     );
 
