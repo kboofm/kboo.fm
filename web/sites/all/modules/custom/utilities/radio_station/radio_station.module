@@ -128,49 +128,137 @@ function radio_station_get_playlists() {
 
 
 function radio_station_get_schedule() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new ScheduleResponse();
   return $response->getCalendar();
 }
 
 
 function radio_station_get_community_events() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new EventsResponse();
   return $response->getUpcomingCommunity();
 }
 
 
 function radio_station_get_news() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new NewsResponse();
   return $response->get();
 }
 
 
 function radio_station_get_listen_now() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new PlayerResponse();
   return $response->get();
 }
 
 
+function radio_station_get_audio() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getAudio();
+}
+
+
+function radio_station_get_audio_feed() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getAudioFeed();
+}
+
+
+function radio_station_get_underwriters() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new OrganizationResponse();
+  return $response->getSponsors();
+}
+
+
 function radio_station_get_blog() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new BlogResponse();
   return $response->get();
 }
 
 
 function radio_station_get_home() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new HomeResponse();
   return $response->get();
 }
 
 
-function radio_station_get_program_content($program_alias) {
+function radio_station_get_program() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new ProgramsResponse();
-  return $response->getContent($program_alias);
+  return $response->getShows();
 }
 
 
-function radio_station_get_program_content_title($program_alias) {
-  $title = ProgramsResponse::getTitle($program_alias);
+function radio_station_get_program_genre() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getGenres();
+}
+
+
+function radio_station_get_program_topic() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getTopics();
+}
+
+
+function radio_station_get_program_content($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getContent($alias);
+}
+
+
+function radio_station_get_program_content_title($alias) {
+  $title = Response::getTitleFromAlias($alias, "program");
   return "Latest Content for {$title}";
 }
 
@@ -192,17 +280,72 @@ function radio_station_preprocess_radio_template_program_content_list(&$vars) {
 }
 
 
+function radio_station_get_program_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "program");
+}
+
+
 function radio_station_get_program_playlists() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new ProgramsPlaylistResponse();
   return $response->get();
+}
+
+
+function radio_station_get_profiles_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "person_profile");
+}
+
+
+function radio_station_get_genre_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "genre");
+}
+
+
+function radio_station_get_topic_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "topic");
 }
 
 
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
   $entity = entity_metadata_wrapper('node', $node);
-  $audio_files = $entity->field_audio_files->value();
-  $record = $entity->field_episode_record->value();
+
+  try {
+    $audio_files = $entity->field_audio_files->value();
+  } catch (EntityMetadataWrapperException $e) {
+    $audio_files = [];
+  }
+
+  try {
+    $record = $entity->field_episode_record->value();
+  } catch (EntityMetadataWrapperException $e) {
+    $record = EArchiveTypes::NEVER;
+  }
+
   $allow_download = ($record == EArchiveTypes::PERMANENT);
 
   foreach ($audio_files as &$audio_file) {
