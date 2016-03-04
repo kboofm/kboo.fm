@@ -247,18 +247,18 @@ function radio_station_get_program_topic() {
 }
 
 
-function radio_station_get_program_content($program_alias) {
+function radio_station_get_program_content($alias) {
   if (arg(3)) {
     return MENU_NOT_FOUND;
   }
 
   $response = new ProgramsResponse();
-  return $response->getContent($program_alias);
+  return $response->getContent($alias);
 }
 
 
-function radio_station_get_program_content_title($program_alias) {
-  $title = Response::getTitleFromAlias($program_alias, "program");
+function radio_station_get_program_content_title($alias) {
+  $title = Response::getTitleFromAlias($alias, "program");
   return "Latest Content for {$title}";
 }
 
@@ -280,19 +280,13 @@ function radio_station_preprocess_radio_template_program_content_list(&$vars) {
 }
 
 
-function radio_station_get_program_podcast($program_alias) {
+function radio_station_get_program_podcast($alias) {
   if (arg(3)) {
     return MENU_NOT_FOUND;
   }
 
-  $response = new ProgramsResponse();
-  $response->getPodcast($program_alias);
-}
-
-
-function radio_station_get_program_podcast_title($program_alias) {
-  $title = Response::getTitleFromAlias($program_alias, "program");
-  return "{$title} Podcast";
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "program");
 }
 
 
@@ -306,19 +300,23 @@ function radio_station_get_program_playlists() {
 }
 
 
-function radio_station_get_profiles_podcast($profile_alias) {
+function radio_station_get_profiles_podcast($alias) {
   if (arg(3)) {
     return MENU_NOT_FOUND;
   }
 
-  $response = new ProfilesResponse();
-  $response->getPodcast($profile_alias);
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "person_profile");
 }
 
 
-function radio_station_get_profiles_podcast_title($program_alias) {
-  $title = Response::getTitleFromAlias($program_alias, "person_profile");
-  return "{$title} Podcast";
+function radio_station_get_genre_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getPodcast($alias, "genre");
 }
 
 

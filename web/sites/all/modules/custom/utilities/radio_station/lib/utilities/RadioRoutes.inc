@@ -151,8 +151,6 @@ class RadioRoutes {
     ];
 
     $this->items['program/%/podcast'] = [
-      'title callback' => 'radio_station_get_program_podcast_title',
-      'title arguments' => [1],
       'page callback' => 'radio_station_get_program_podcast',
       'page arguments' => [1],
       'access arguments' => ['access content'],
@@ -162,6 +160,13 @@ class RadioRoutes {
     $this->items['program/genre'] = [
       'title' => 'Program Directory',
       'page callback' => 'radio_station_get_program_genre',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['ProgramGenre/%/podcast'] = [
+      'page callback' => 'radio_station_get_genre_podcast',
+      'page arguments' => [1],
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];
@@ -181,8 +186,6 @@ class RadioRoutes {
     ];
 
     $this->items['profiles/%/podcast'] = [
-      'title callback' => 'radio_station_get_profiles_podcast_title',
-      'title arguments' => [1],
       'page callback' => 'radio_station_get_profiles_podcast',
       'page arguments' => [1],
       'access arguments' => ['access content'],
