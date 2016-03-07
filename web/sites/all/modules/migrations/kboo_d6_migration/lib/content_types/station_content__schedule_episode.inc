@@ -44,6 +44,11 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
     );
 
     $this->addFieldMapping(
+      'field_episode_record',
+      'field_episode_record'
+    );
+
+    $this->addFieldMapping(
       'migrate_redirects',
       'path'
     );
