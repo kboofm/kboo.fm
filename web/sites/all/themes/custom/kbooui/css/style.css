@@ -7023,13 +7023,13 @@ hr {
 }
 .node.node-webform .webform-component-fieldset {
   border: none;
-  background-color: #cccccc;
+  background-color: #eeeeee;
 }
 .node.node-webform .webform-component-fieldset .panel-heading,
 .node.node-webform .webform-component-fieldset .help-block {
   border: none;
   font-family: "Oswald";
-  background-color: #cccccc;
+  background-color: #eeeeee;
   color: #555555;
   margin-bottom: 10px;
   font-size: 16px;
