@@ -60,7 +60,39 @@ hr {
 
   .field-label-inline .field-items {
   }
+
+  &.node-webform {
+    .form-item {
+      margin-bottom: @margin;
+    }
+
+    .webform-component-fieldset {
+      border: none;
+      background-color: @gray-lighter;
+
+      .panel-heading,
+      .help-block {
+        border: none;
+        font-family: @headings-font-family;
+        background-color: @gray-lighter;
+        color: @gray;
+        margin-bottom: @margin-sm;
+        font-size: 16px;
+
+        .panel-title,
+        .help-block {
+          border-bottom: 2px solid @gray;
+          padding-bottom: @pad-sm;
+        }
+      }
+    }
+  }
 }  
+
+.node-unpublished,
+.comment-unpublished {
+  background: @lighter-red url(../images/unpublished.gif) no-repeat 50% 50px;
+}
 
 #webform-components-form {
   .form-type-textfield {
