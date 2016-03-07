@@ -157,7 +157,7 @@ class StationContentQuery extends NodeQuery {
     $this->type('Episode');
     $this->hasAudio();
     $this->propertyOrderBy('sticky', 'DESC');
-    $this->fieldOrderBy('field_air_time', 'value');
+    $this->fieldOrderBy('field_air_time', 'value', 'DESC');
     $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
   }
 
