@@ -7018,6 +7018,10 @@ hr {
 .node .field-name-field-more-images img {
   padding: 5px 0px;
 }
+.node-unpublished,
+.comment-unpublished {
+  background: #fce9e7 url(../images/unpublished.gif) no-repeat 50% 50px;
+}
 #webform-components-form .form-type-textfield {
   margin-left: 15px;
 }
