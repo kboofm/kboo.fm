@@ -7018,6 +7018,29 @@ hr {
 .node .field-name-field-more-images img {
   padding: 5px 0px;
 }
+.node.node-webform .form-item {
+  margin-bottom: 20px;
+}
+.node.node-webform .webform-component-fieldset {
+  border: none;
+  background-color: #cccccc;
+}
+.node.node-webform .webform-component-fieldset .panel-heading,
+.node.node-webform .webform-component-fieldset .help-block {
+  border: none;
+  font-family: "Oswald";
+  background-color: #cccccc;
+  color: #555555;
+  margin-bottom: 10px;
+  font-size: 16px;
+}
+.node.node-webform .webform-component-fieldset .panel-heading .panel-title,
+.node.node-webform .webform-component-fieldset .help-block .panel-title,
+.node.node-webform .webform-component-fieldset .panel-heading .help-block,
+.node.node-webform .webform-component-fieldset .help-block .help-block {
+  border-bottom: 2px solid #555555;
+  padding-bottom: 5px;
+}
 .node-unpublished,
 .comment-unpublished {
   background: #fce9e7 url(../images/unpublished.gif) no-repeat 50% 50px;
