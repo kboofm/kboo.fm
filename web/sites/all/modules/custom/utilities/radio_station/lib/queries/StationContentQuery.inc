@@ -43,6 +43,7 @@ class StationContentQuery extends NodeQuery {
       "="
     );
 
+    $this->fieldOrderBy('field_air_time', 'value', 'DESC');
     $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
     return $this;
   }
@@ -103,6 +104,7 @@ class StationContentQuery extends NodeQuery {
       "!="
     );
 
+    $this->fieldOrderBy('field_air_time', 'value', 'DESC');
     $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
     return $this;
   }
