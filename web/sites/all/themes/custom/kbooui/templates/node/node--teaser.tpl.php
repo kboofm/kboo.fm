@@ -74,7 +74,7 @@ endif;
         <span class="bold">Produced for</span>:&nbsp;
         <?php $last = count($node_teaser["produced_for"]) - 1; ?>
         <?php foreach ($node_teaser["produced_for"] as $index => $program): ?>
-        <a href="<?php $program["url"]; ?>"
+        <a href="<?php print $program["url"]; ?>"
            class="node entityreference">
           <?php print $program["title"]; ?></a><?php if ($index != $last): ?>, <?php endif; ?>
         <?php endforeach; ?>
