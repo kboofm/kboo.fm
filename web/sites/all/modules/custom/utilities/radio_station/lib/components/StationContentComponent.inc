@@ -108,10 +108,7 @@ class StationContentComponent extends BaseComponent {
     $query = $query->getContentByProgram($program_nid);
     $query->range($start, $per_page);
     $result = $query->execute();
-
-    $nids = array_keys(
-      $this->getNodes($result)
-    );
+    $nids = $this->getNids($result);
 
     $episodes = array_values(
       node_load_multiple($nids)
@@ -119,7 +116,6 @@ class StationContentComponent extends BaseComponent {
 
     $query = new StationContentQuery();
     $query = $query->getContentByProgram($program_nid);
-    $query->range($start, $per_page);
     $query->count();
     $total_count = $query->execute();
 
