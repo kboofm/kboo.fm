@@ -199,6 +199,13 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['rss.xml'] = [
+      'title' => 'KBOO - Community Radio for Portland and beyond',
+      'page callback' => 'radio_station_get_home_feed',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['schedule'] = [
       'title' => 'Weekly Schedule',
       'page callback' => 'radio_station_get_schedule',

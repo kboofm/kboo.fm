@@ -14,4 +14,15 @@ class HomeResponse extends Response {
     $this->addTemplateData($data);
     return $this->renderHtml();
   }
+
+
+  public function getFeed() {
+    $component = new HomeComponent();
+    $nids = $component->latestFeed();
+
+    $channel = [
+      'title' => "KBOO - Community Radio for Portland and beyond",
+    ];
+    node_feed($nids, $channel);
+  }
 }

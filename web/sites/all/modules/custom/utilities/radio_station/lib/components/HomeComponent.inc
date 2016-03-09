@@ -20,6 +20,16 @@ class HomeComponent extends BaseComponent {
     return $items;
   }
 
+  public function latestFeed() {
+    $query = new NodeQuery();
+    $query->isPromoted();
+    $query->propertyOrderBy('sticky', 'DESC');
+    $query->addTag('radio_HomeComponent_orderBy');
+    $query->setLimit(10);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
 
   public static function orderBy(
     QueryAlterableInterface $query

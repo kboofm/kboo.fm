@@ -217,6 +217,12 @@ function radio_station_get_home() {
 }
 
 
+function radio_station_get_home_feed() {
+  $response = new HomeResponse();
+  return $response->getFeed();
+}
+
+
 function radio_station_get_program() {
   if (arg(1)) {
     return MENU_NOT_FOUND;
