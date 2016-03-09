@@ -9,25 +9,39 @@ class ScheduleProcessor extends TemplateProcessor {
       $wrapped_node = entity_metadata_wrapper('node', $nid);
       $timeslots = $wrapped_node->field_timeslot->value();
 
-      foreach ($timeslots as $timeslot) {
-        if ($when == 'after' && $timeslot['value'] <= $timestamp) {
-          continue;
-        } else if ($when == 'before' && $timeslot['value'] >= $timestamp) {
-          continue;
-        }
+      $timeslots = array_filter(
+        $timeslots,
+        function ($timeslot) use ($when, $timestamp) {
+          if ($when == 'after' && $timeslot['value'] <= $timestamp) {
+            return false;
+          } else if ($when == 'before' && $timeslot['value'] >= $timestamp) {
+            return false;
+          }
 
-        $schedule_item = $this->buildScheduleItem($wrapped_node, $timeslot);
-        if ($schedule_item) {
-          $schedule[] = $schedule_item;
+          return true;
         }
+      );
+
+      $direction = ($when == 'after') ? 'ASC' : 'DESC';
+      $this->sortByStartTime($timeslots, $direction);
+
+      if ($count) {
+        $timeslots = array_slice($timeslots, 0, $count);
       }
-    }
 
-    $direction = ($when == 'after') ? 'ASC' : 'DESC';
-    $this->sortByStartTime($schedule, $direction);
+      $new_schedule = array_map(
+        function ($timeslot) use ($wrapped_node) {
+          return $this->buildScheduleItem($wrapped_node, $timeslot);
+        },
+        $timeslots
+      );
 
-    if ($count) {
-      $schedule = array_slice($schedule, 0, $count);
+      $new_schedule = array_filter($new_schedule);
+
+      $schedule = array_merge(
+        $schedule,
+        $new_schedule
+      );
     }
 
     return $schedule;
@@ -41,31 +55,39 @@ class ScheduleProcessor extends TemplateProcessor {
       $wrapped = entity_metadata_wrapper('node', $nid);
       $timeslots = $wrapped->field_timeslot->value();
 
-      foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] < $start) {
-          continue;
-        }
-
-        if ($timeslot['value'] > $end) {
-          continue;
-        }
-
-        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
-        if ($schedule_item) {
-          if ($groupByDay) {
-            $day_of_week = Helpers::toCarbonString(
-              'l',
-              $timeslot['value']
-            );
-
-            if (!isset($schedule[$day_of_week])) {
-              $schedule[$day_of_week] = [];
-            }
-
-            $schedule[$day_of_week][] = $schedule_item;
-          } else {
-            $schedule[] = $schedule_item;
+      $timeslots = array_filter(
+        $timeslots,
+        function ($timeslot) use ($start, $end) {
+          if ($timeslot['value'] < $start) {
+            return false;
+          } else if ($timeslot['value'] > $end) {
+            return false;
           }
+
+          return true;
+        }
+      );
+
+      foreach ($timeslots as $timeslot) {
+        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
+
+        if (!$schedule_item) {
+          continue;
+        }
+
+        if ($groupByDay) {
+          $day_of_week = Helpers::toCarbonString(
+            'l',
+            $timeslot['value']
+          );
+
+          if (!isset($schedule[$day_of_week])) {
+            $schedule[$day_of_week] = [];
+          }
+
+          $schedule[$day_of_week][] = $schedule_item;
+        } else {
+          $schedule[] = $schedule_item;
         }
       }
     }
@@ -116,15 +138,20 @@ class ScheduleProcessor extends TemplateProcessor {
       $wrapped = entity_metadata_wrapper('node', $nid);
       $timeslots = $wrapped->field_timeslot->value();
 
+      $timeslots = array_filter(
+        $timeslots,
+        function ($timeslot) use ($start, $end) {
+          if ($timeslot['value'] < $start) {
+            return false;
+          } else if ($timeslot['value'] > $end) {
+            return false;
+          }
+
+          return true;
+        }
+      );
+
       foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] < $start) {
-          continue;
-        }
-
-        if ($timeslot['value'] > $end) {
-          continue;
-        }
-
         $hour = Helpers::toCarbonString(
           'ga',
           $timeslot['value']
@@ -177,12 +204,28 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
-  private function sortByStartTime(&$schedule_items, $direction = 'ASC') {
+  private function sortByStartTime(&$items, $direction = 'ASC') {
     usort(
-      $schedule_items,
+      $items,
       function ($a, $b) use ($direction) {
-        $left = $a['start']['timestamp'];
-        $right = $b['start']['timestamp'];
+        /*
+         * $a and $b can be either a $timelot or a $schedule_item.
+         *
+         * A $timelot will be defined as:
+         *   $a['value']
+         *
+         * A $schedule_item will be defined as:
+         *   $a['start']['timestamp']
+         *
+         * Yes, this could be done cleaner, but time is not currently allotted.
+         */
+        if (isset($a['value'])) {
+          $left = $a['value'];
+          $right = $b['value'];
+        } else {
+          $left = $a['start']['timestamp'];
+          $right = $b['start']['timestamp'];
+        }
 
         if ($direction == 'ASC') {
           return ($left < $right) ? -1 : 1;

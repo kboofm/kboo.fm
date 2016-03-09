@@ -20,7 +20,7 @@
 
 <div class="row margin-top">
   <div id="<?php print $scheduled_shows['id']; ?>"
-       class="col-md-12 schedule-carousel"
+       class="col-sm-12 schedule-carousel"
        data-stream="<?php print $scheduled_shows['stream']; ?>"
        data-type="<?php print $scheduled_shows['type']; ?>">
 
