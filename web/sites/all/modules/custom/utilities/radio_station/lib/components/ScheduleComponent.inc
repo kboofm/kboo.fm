@@ -101,5 +101,21 @@ class ScheduleComponent extends BaseComponent {
       $end
     );
   }
+
+
+  public function getTimeslotsForProgram($program_nid) {
+    $query = new ScheduledTimeslotQuery();
+    $query->getForProgram($program_nid);
+    $result = $query->execute();
+
+    if (empty($result)) {
+      return [];
+    }
+
+    $processor = new ScheduleProcessor();
+    return $processor->processForProgram(
+      $this->getNodes($result)
+    );
+  }
 }
 
