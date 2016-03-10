@@ -8,10 +8,19 @@ $schedule_item = $component->now($stream);
    data-stream="<?php print $stream; ?>"
    data-type="on-air">
 
-  <?php if ($schedule_item): ?>
+  <?php //if ($schedule_item): ?>
     <span class="">
-      On Air:
+      On Air: 
     </span>
+
+    <span class="song-artist">
+      <a href="/media/45469-world-beat-connection-031016" class="text-capitalize" data-bind="title-link">World Beat Connection</a>
+
+              by
+
+        <a href="/profiles/dj-charlie" class="text-capitalize">
+          DJ Charlieeeeeeeeeeeeeeeeeeeeeeeeeeeee        </a>
+          </span>
 
     <span class="song-artist">
       <a href="<?php print $schedule_item['url']; ?>"
@@ -27,7 +36,7 @@ $schedule_item = $component->now($stream);
            class="text-capitalize">
           <?php print $schedule_item['showhost']['name']; ?>
         </a>
-      <?php endif; ?>
+      <?php //endif; ?>
     </span>
   <?php endif; ?>
 </p>
