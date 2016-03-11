@@ -6941,6 +6941,7 @@ body.cke_ltr {
   position: absolute;
   left: 340px;
   top: 10px;
+  width: 40%;
   margin: 0px;
 }
 .navbar .on-air a {
@@ -6949,6 +6950,7 @@ body.cke_ltr {
 .navbar .listen-now-btn {
   position: absolute;
   left: 220px;
+  top: 0px;
 }
 .navbar .donate-btn {
   position: absolute;
@@ -7111,6 +7113,9 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
     border: none;
     border-radius: 0px;
     margin-right: 0px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
   }
   .navbar-default .navbar-toggle:hover,
   .navbar-default .navbar-toggle:active,
