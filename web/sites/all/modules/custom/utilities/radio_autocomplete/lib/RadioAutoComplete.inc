@@ -158,7 +158,7 @@ class RadioAutoComplete {
   public static function fuzzyMatchProgramStreams($string) {
     $query = new ProgramQuery();
     $query->getStreams();
-    $query->searchTitle($string, EStringSearchOptions::StartsWith);
+    $query->searchTitle($string, EStringSearchOptions::Contains);
     $query->setLimit(10);
     return static::getMatchResults($query, 'title_field');
   }
@@ -173,7 +173,7 @@ class RadioAutoComplete {
   public static function fuzzyMatchProgramShows($string) {
     $query = new ProgramQuery();
     $query->getShows();
-    $query->searchTitle($string, EStringSearchOptions::StartsWith);
+    $query->searchTitle($string, EStringSearchOptions::Contains);
     $query->setLimit(10);
     return static::getMatchResults($query, 'title_field');
   }
@@ -188,7 +188,7 @@ class RadioAutoComplete {
   public static function fuzzyMatchPersonProfileShowHosts($string) {
     $query = new PersonProfileQuery();
     $query->getShowHosts(EShowHostStatus::Active);
-    $query->searchTitle($string, EStringSearchOptions::StartsWith);
+    $query->searchTitle($string, EStringSearchOptions::Contains);
     $query->setLimit(10);
     return static::getMatchResults($query, 'title_field');
   }
@@ -202,8 +202,8 @@ class RadioAutoComplete {
    */
   public static function fuzzyMatchOrganizationVenues($string) {
     $query = new OrganizationQuery();
-    $query->getVenues($string);
-    $query->searchTitle($string, EStringSearchOptions::StartsWith);
+    $query->getVenues();
+    $query->searchTitle($string, EStringSearchOptions::Contains);
     $query->setLimit(10);
     return static::getMatchResults($query, 'title_field');
   }
