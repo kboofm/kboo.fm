@@ -42,6 +42,12 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
+  public function getForProgram($program_nid) {
+    $this->fieldCondition("field_show", "target_id", $program_nid, "=");
+    return $this;
+  }
+
+
   public function getNext($stream, $timestamp, $count = 1) {
     $this->whereStream($stream);
     $this->timeslotIsAfter($timestamp);

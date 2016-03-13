@@ -13,14 +13,20 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'access ad node'.
   $permissions['access ad node'] = array(
     'name' => 'access ad node',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'simpleads',
   );
 
   // Exported permission: 'access ad statistics'.
   $permissions['access ad statistics'] = array(
     'name' => 'access ad statistics',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'simpleads',
   );
 
@@ -63,6 +69,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['access all webform results'] = array(
     'name' => 'access all webform results',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'webform',
@@ -123,14 +130,20 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'access own webform results'.
   $permissions['access own webform results'] = array(
     'name' => 'access own webform results',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'webform',
   );
 
   // Exported permission: 'access own webform submissions'.
   $permissions['access own webform submissions'] = array(
     'name' => 'access own webform submissions',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'webform',
   );
 
@@ -145,6 +158,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['access site in maintenance mode'] = array(
     'name' => 'access site in maintenance mode',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'system',
@@ -466,6 +480,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer recaptcha',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'recaptcha',
   );
@@ -473,7 +488,10 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'administer redirects'.
   $permissions['administer redirects'] = array(
     'name' => 'administer redirects',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'redirect',
   );
 
@@ -644,6 +662,8 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['count ad clicks'] = array(
     'name' => 'count ad clicks',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
       'anonymous user' => 'anonymous user',
     ),
     'module' => 'simpleads',
@@ -653,6 +673,8 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['count ad impressions'] = array(
     'name' => 'count ad impressions',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
       'anonymous user' => 'anonymous user',
     ),
     'module' => 'simpleads',
@@ -794,6 +816,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['delete all webform submissions'] = array(
     'name' => 'delete all webform submissions',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'webform',
@@ -1059,7 +1082,10 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete own webform submissions'.
   $permissions['delete own webform submissions'] = array(
     'name' => 'delete own webform submissions',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'webform',
   );
 
@@ -1168,6 +1194,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit all webform submissions'] = array(
     'name' => 'edit all webform submissions',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'webform',
@@ -1455,7 +1482,10 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own webform submissions'.
   $permissions['edit own webform submissions'] = array(
     'name' => 'edit own webform submissions',
-    'roles' => array(),
+    'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
+    ),
     'module' => 'webform',
   );
 
@@ -1463,6 +1493,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit webform components'] = array(
     'name' => 'edit webform components',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'webform',

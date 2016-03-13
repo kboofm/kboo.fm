@@ -1,9 +1,9 @@
 <ul class="nav nav-tabs" role="tablist">
-  <li role="presentation" class="active">
+  <li role="presentation">
     <a href="#shows" role="tab" data-toggle="tab">Shows</a>
   </li>
 
-  <li role="presentation">
+  <li role="presentation" class="active">
     <a href="#day" role="tab" data-toggle="tab">Day</a>
   </li>
 
@@ -14,11 +14,11 @@
 
 
 <div class="tab-content">
-  <div role="tabpanel" class="tab-pane active" id="shows">
+  <div role="tabpanel" class="tab-pane" id="shows">
     <?php include 'scheduled-shows.tpl.php'; ?>
   </div>
 
-  <div role="tabpanel" class="tab-pane" id="day">
+  <div role="tabpanel" class="tab-pane active" id="day">
     <?php include 'scheduled-day.tpl.php'; ?>
   </div>
 

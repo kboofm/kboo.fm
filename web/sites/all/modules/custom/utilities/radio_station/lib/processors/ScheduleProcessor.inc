@@ -443,4 +443,51 @@ class ScheduleProcessor extends TemplateProcessor {
 
     return $schedule_item;
   }
+
+
+  public function processForProgram($nodes) {
+    $now = time();
+    $results = [];
+
+    foreach ($nodes as $nid => $item) {
+      $entity = entity_metadata_wrapper('node', $nid);
+      $stream = $entity->field_stream->value();
+      $timeslots = $entity->field_timeslot->value();
+
+      $key = null;
+      foreach ($timeslots as $index => $timeslot) {
+        if ($timeslot['value'] <= $now && $timeslot['value2'] >= $now) {
+          $key = $index;
+          break;
+        }
+      }
+
+      if (is_null($key)) {
+        continue;
+      }
+
+      $timeslot = $timeslots[$key];
+
+      // Example rrule
+      // RRULE:FREQ=DAILY;INTERVAL=1;COUNT=99;WKST=SU
+      $rrule = $timeslot['rrule'];
+      $rrule = explode(":", $rrule);
+      $rrule = $rrule[1];
+      $rrule = explode(";", $rrule);
+      $rrule = $rrule[0];
+      $rrule = explode("=", $rrule);
+      $frequency = $rrule[1];
+
+      $schedule_item = [
+        'stream' => $stream->title,
+        'starttime' => $timeslot['value'],
+        'endtime' => $timeslot['value2'],
+        'frequency' => $frequency,
+      ];
+
+      $results[] = $schedule_item;
+    }
+
+    return $results;
+  }
 }

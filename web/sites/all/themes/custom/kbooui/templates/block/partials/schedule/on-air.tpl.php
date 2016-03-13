@@ -1,10 +1,10 @@
 <?php
-$stream = 'one';
+$stream = EStreams::One;
 $component = new ScheduleComponent();
 $schedule_item = $component->now($stream);
 ?>
 
-<p class="on-air margin-bottom-lg"
+<p class="on-air margin-bottom-lg truncate"
    data-stream="<?php print $stream; ?>"
    data-type="on-air">
 
@@ -21,7 +21,7 @@ $schedule_item = $component->now($stream);
       </a>
 
       <?php if ($schedule_item['showhost']['name']): ?>
-        by
+        with
 
         <a href="<?php print $schedule_item['showhost']['url']; ?>"
            class="text-capitalize">
