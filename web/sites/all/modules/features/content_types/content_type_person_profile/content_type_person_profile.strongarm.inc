@@ -98,9 +98,6 @@ function content_type_person_profile_strongarm() {
         'metatags' => array(
           'weight' => '11',
         ),
-        'redirect' => array(
-          'weight' => '30',
-        ),
       ),
       'display' => array(
         'sharethis' => array(

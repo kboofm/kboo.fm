@@ -953,11 +953,7 @@ function content_type_blog_post_field_default_field_instances() {
   // Exported field_instance: 'node-blog_post-field_produced_by'.
   $field_instances['node-blog_post-field_produced_by'] = array(
     'bundle' => 'blog_post',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(

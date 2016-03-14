@@ -1232,11 +1232,7 @@ function content_type_person_profile_field_default_field_instances() {
   // Exported field_instance: 'node-person_profile-field_produced_by'.
   $field_instances['node-person_profile-field_produced_by'] = array(
     'bundle' => 'person_profile',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
