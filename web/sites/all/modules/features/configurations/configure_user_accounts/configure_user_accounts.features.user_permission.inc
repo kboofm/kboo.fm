@@ -80,6 +80,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'access comments',
     'roles' => array(
       'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -231,6 +232,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer CAPTCHA settings',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'captcha',
   );
@@ -259,6 +261,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer blocks',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'block',
   );
@@ -790,6 +793,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
       'Author - Page' => 'Author - Page',
       'Author - Program' => 'Author - Program',
@@ -1594,6 +1598,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'set any published on date',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'publication_date',
   );
@@ -1777,6 +1782,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'use media wysiwyg',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
       'Author - Page' => 'Author - Page',
       'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
