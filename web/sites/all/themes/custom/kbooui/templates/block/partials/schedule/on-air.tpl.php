@@ -4,15 +4,6 @@ $component = new ScheduleComponent();
 $schedule_item = $component->now($stream);
 ?>
 
-<p class="on-air margin-bottom-lg truncate" data-stream="one" data-type="on-air"><span class="">
-      On Air:
-    </span>
-
-    <span class="song-artist">
-      <a href="/media/45860-flashpoints-031516" class="text-capitalize" data-bind="title-link">Buscando America</a>
-
-          </span></p>
-
 <p class="on-air margin-bottom-lg truncate"
    data-stream="<?php print $stream; ?>"
    data-type="on-air">
