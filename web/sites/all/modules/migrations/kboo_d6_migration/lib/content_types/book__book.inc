@@ -22,6 +22,8 @@ class BookFromBook extends NodeImageMigration {
       'path'
     );
 
+    $this->addUploadMapping("field_files");
+
     parent::__construct($arguments);
   }
 }
