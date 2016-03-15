@@ -80,6 +80,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'access comments',
     'roles' => array(
       'anonymous user' => 'anonymous user',
+      'authenticated user' => 'authenticated user',
     ),
     'module' => 'comment',
   );
@@ -115,16 +116,6 @@ function configure_user_accounts_user_default_permissions() {
       'Staff' => 'Staff',
     ),
     'module' => 'media',
-  );
-
-  // Exported permission: 'access mollom statistics'.
-  $permissions['access mollom statistics'] = array(
-    'name' => 'access mollom statistics',
-    'roles' => array(
-      'Admin - Developer' => 'Admin - Developer',
-      'Admin - Site Administrator' => 'Admin - Site Administrator',
-    ),
-    'module' => 'mollom',
   );
 
   // Exported permission: 'access own webform results'.
@@ -231,6 +222,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer CAPTCHA settings',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'captcha',
   );
@@ -259,6 +251,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'administer blocks',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'block',
   );
@@ -426,16 +419,6 @@ function configure_user_accounts_user_default_permissions() {
       'Admin - Developer' => 'Admin - Developer',
     ),
     'module' => 'system',
-  );
-
-  // Exported permission: 'administer mollom'.
-  $permissions['administer mollom'] = array(
-    'name' => 'administer mollom',
-    'roles' => array(
-      'Admin - Developer' => 'Admin - Developer',
-      'Admin - Site Administrator' => 'Admin - Site Administrator',
-    ),
-    'module' => 'mollom',
   );
 
   // Exported permission: 'administer nodes'.
@@ -608,16 +591,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'file_entity',
   );
 
-  // Exported permission: 'bypass mollom protection'.
-  $permissions['bypass mollom protection'] = array(
-    'name' => 'bypass mollom protection',
-    'roles' => array(
-      'Admin - Developer' => 'Admin - Developer',
-      'Admin - Site Administrator' => 'Admin - Site Administrator',
-    ),
-    'module' => 'mollom',
-  );
-
   // Exported permission: 'bypass node access'.
   $permissions['bypass node access'] = array(
     'name' => 'bypass node access',
@@ -642,20 +615,6 @@ function configure_user_accounts_user_default_permissions() {
       'authenticated user' => 'authenticated user',
     ),
     'module' => 'user',
-  );
-
-  // Exported permission: 'clone node'.
-  $permissions['clone node'] = array(
-    'name' => 'clone node',
-    'roles' => array(),
-    'module' => 'clone',
-  );
-
-  // Exported permission: 'clone own nodes'.
-  $permissions['clone own nodes'] = array(
-    'name' => 'clone own nodes',
-    'roles' => array(),
-    'module' => 'clone',
   );
 
   // Exported permission: 'count ad clicks'.
@@ -790,6 +749,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['create url aliases'] = array(
     'name' => 'create url aliases',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
       'Author - Page' => 'Author - Page',
       'Author - Program' => 'Author - Program',
@@ -1552,16 +1512,6 @@ function configure_user_accounts_user_default_permissions() {
     'module' => 'features',
   );
 
-  // Exported permission: 'report to mollom'.
-  $permissions['report to mollom'] = array(
-    'name' => 'report to mollom',
-    'roles' => array(
-      'Admin - Developer' => 'Admin - Developer',
-      'Admin - Site Administrator' => 'Admin - Site Administrator',
-    ),
-    'module' => 'mollom',
-  );
-
   // Exported permission: 'revert revisions'.
   $permissions['revert revisions'] = array(
     'name' => 'revert revisions',
@@ -1594,6 +1544,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'set any published on date',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'publication_date',
   );
@@ -1777,6 +1728,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'use media wysiwyg',
     'roles' => array(
       'Admin - Developer' => 'Admin - Developer',
+      'Admin - Site Administrator' => 'Admin - Site Administrator',
       'Author - Page' => 'Author - Page',
       'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
