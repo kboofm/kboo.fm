@@ -1246,11 +1246,7 @@ function content_type_organization_field_default_field_instances() {
   // Exported field_instance: 'node-organization-field_produced_by'.
   $field_instances['node-organization-field_produced_by'] = array(
     'bundle' => 'organization',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(

@@ -154,14 +154,14 @@ function configure_metatags_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__basic_page';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__basic_page'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__blog_post';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__blog_post'] = $strongarm;
 
   $strongarm = new stdClass();
@@ -175,49 +175,49 @@ function configure_metatags_strongarm() {
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__event';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__event'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__organization';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__organization'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__person_profile';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__person_profile'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__program';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__program'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__promo';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__promo'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__station_content';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__station_content'] = $strongarm;
 
   $strongarm = new stdClass();
   $strongarm->disabled = FALSE; /* Edit this to true to make a default strongarm disabled initially */
   $strongarm->api_version = 1;
   $strongarm->name = 'metatag_enable_node__webform';
-  $strongarm->value = 1;
+  $strongarm->value = TRUE;
   $export['metatag_enable_node__webform'] = $strongarm;
 
   $strongarm = new stdClass();
