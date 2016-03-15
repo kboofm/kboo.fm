@@ -878,11 +878,7 @@ function content_type_book_field_default_field_instances() {
   // Exported field_instance: 'node-book-field_produced_by'.
   $field_instances['node-book-field_produced_by'] = array(
     'bundle' => 'book',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
