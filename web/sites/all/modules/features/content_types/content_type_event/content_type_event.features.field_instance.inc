@@ -1169,11 +1169,7 @@ function content_type_event_field_default_field_instances() {
   // Exported field_instance: 'node-event-field_produced_by'.
   $field_instances['node-event-field_produced_by'] = array(
     'bundle' => 'event',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(

@@ -949,23 +949,15 @@ function content_type_basic_page_field_default_field_instances() {
   // Exported field_instance: 'node-basic_page-field_produced_by'.
   $field_instances['node-basic_page-field_produced_by'] = array(
     'bundle' => 'basic_page',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'title',
-        'settings' => array(
-          'title_class' => '',
-          'title_link' => '',
-          'title_style' => '',
-        ),
-        'type' => 'title_linked',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
         'weight' => 2,
       ),
       'search_index' => array(
