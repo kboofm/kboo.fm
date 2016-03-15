@@ -85,6 +85,14 @@ function configure_spam_prevention_captcha_default_points() {
   $captcha = new stdClass();
   $captcha->disabled = FALSE; /* Edit this to true to make a default captcha disabled initially */
   $captcha->api_version = 1;
+  $captcha->form_id = 'comment_node_simpleads_form';
+  $captcha->module = '';
+  $captcha->captcha_type = '';
+  $export['comment_node_simpleads_form'] = $captcha;
+
+  $captcha = new stdClass();
+  $captcha->disabled = FALSE; /* Edit this to true to make a default captcha disabled initially */
+  $captcha->api_version = 1;
   $captcha->form_id = 'comment_node_station_content_form';
   $captcha->module = '';
   $captcha->captcha_type = '';
