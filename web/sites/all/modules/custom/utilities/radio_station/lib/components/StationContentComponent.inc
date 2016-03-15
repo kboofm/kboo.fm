@@ -84,9 +84,6 @@ class StationContentComponent extends BaseComponent {
 
     $episodes = array_filter($episodes);
     $episodes = array_values($episodes);
-
-    // The count restraint for RadioSpinitron::getPlaylists is not working.
-    // Therefore, slice the episodes array to size $count here.
     $episodes = array_slice($episodes, 0, $count);
 
     $processor = new StationContentProcessor();
