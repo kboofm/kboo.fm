@@ -6918,16 +6918,31 @@ body.cke_ltr {
 }
 .navbar {
   border: none;
-  height: 85px;
   position: relative;
+  height: 85px;
+}
+@media (min-width: 768px) {
+  .navbar {
+    height: 95px;
+  }
 }
 .navbar.navbar-default {
   background-color: #00a887;
   border-bottom: 3px solid #eeeeee;
 }
+@media (min-width: 768px) {
+  .navbar.navbar-default {
+    padding-left: 0px;
+  }
+}
 .navbar.navbar-default .logo.navbar-btn {
   margin-top: 0px;
   margin-bottom: 5px;
+}
+@media (min-width: 768px) {
+  .navbar.navbar-default .logo.navbar-btn {
+    margin-top: 5px;
+  }
 }
 .navbar .btn {
   border-radius: 0px;
@@ -6939,8 +6954,8 @@ body.cke_ltr {
 }
 .navbar .on-air {
   position: absolute;
-  left: 340px;
-  top: 10px;
+  left: 325px;
+  top: 20px;
   width: 40%;
   margin: 0px;
 }
@@ -6949,13 +6964,14 @@ body.cke_ltr {
 }
 .navbar .listen-now-btn {
   position: absolute;
-  left: 220px;
-  top: 0px;
+  left: 205px;
+  top: 10px;
+  text-transform: uppercase;
 }
 .navbar .donate-btn {
   position: absolute;
   right: 20px;
-  top: 0px;
+  top: 10px;
 }
 @media (max-width: 992px) {
   .navbar .donate-btn {
@@ -7080,7 +7096,7 @@ div.addressfield-container-inline::after,
   margin-left: 0px;
 }
 ul.navbar-nav {
-  margin-top: 45px;
+  margin-top: 55px;
   border-top: 2px solid #003b4c;
   margin-left: 20px;
 }
@@ -7095,6 +7111,11 @@ ul.navbar-nav > li > a {
 @media (min-width: 768px) and (max-width: 1199px) {
   ul.navbar-nav > li > a {
     padding: 7px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  ul.navbar-nav > li > a {
+    font-size: 14px;
   }
 }
 ul.navbar-nav > li .dropdown-menu {
