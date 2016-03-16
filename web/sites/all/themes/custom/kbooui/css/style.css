@@ -7206,6 +7206,10 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
     margin-top: 15px;
   }
 }
+#sidebar img {
+  text-align: center;
+  margin: 0 auto;
+}
 #sidebar .block {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 0px 15px 10px;
@@ -7220,6 +7224,12 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   text-align: center;
   padding: 5px 0px;
   text-transform: uppercase;
+}
+#sidebar h2.bg-info {
+  background-color: #00a887;
+}
+#sidebar h2.bg-tiffany {
+  background-color: #65cbc9;
 }
 #sidebar a.more-link {
   text-align: right;
