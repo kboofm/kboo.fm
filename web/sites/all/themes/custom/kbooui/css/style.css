@@ -6867,6 +6867,10 @@ body.cke_ltr {
     width: 970px;
   }
 }
+img {
+  max-width: 100%;
+  height: auto;
+}
 .footer {
   padding-left: 0px;
   padding-right: 0px;
@@ -7203,6 +7207,7 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
 }
 #sidebar h2 {
   color: rgba(255, 255, 255, 0.5);
+  background-color: #003b4c;
   font-size: 24px;
   font-weight: normal;
   margin-top: 20px;
