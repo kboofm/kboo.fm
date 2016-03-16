@@ -6966,11 +6966,12 @@ body.cke_ltr {
   position: absolute;
   left: 205px;
   top: 10px;
+  text-transform: uppercase;
 }
 .navbar .donate-btn {
   position: absolute;
   right: 20px;
-  top: -12px;
+  top: 10px;
 }
 @media (max-width: 992px) {
   .navbar .donate-btn {
