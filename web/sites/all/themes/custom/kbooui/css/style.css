@@ -6958,10 +6958,16 @@ img {
 }
 .navbar .on-air {
   position: absolute;
-  left: 325px;
+  left: 330px;
   top: 20px;
   width: 40%;
   margin: 0px;
+}
+@media (max-width: 767px) {
+  .navbar .on-air {
+    left: 205px;
+    top: 52px;
+  }
 }
 .navbar .on-air a {
   color: #ffb600;
@@ -6977,7 +6983,7 @@ img {
   right: 20px;
   top: 10px;
 }
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .navbar .donate-btn {
     display: none;
   }
@@ -7119,7 +7125,7 @@ ul.navbar-nav > li > a {
 }
 @media (min-width: 768px) and (max-width: 991px) {
   ul.navbar-nav > li > a {
-    font-size: 14px;
+    font-size: 13px;
   }
 }
 ul.navbar-nav > li .dropdown-menu {

@@ -37,10 +37,15 @@
 
   .on-air {
     position: absolute;
-    left: 325px;
+    left: 330px;
     top: 20px;
     width: 40%;
     margin: 0px;
+
+    @media (max-width: @screen-xs-max) {
+      left: 205px;
+      top: 52px;
+    }
 
     a {
       color: @brand-warning;
@@ -59,7 +64,7 @@
     right: 20px;
     top: 10px;
 
-    @media (max-width: @screen-md-min) {
+    @media (max-width: @screen-sm-max) {
       display: none;
     }
   }
