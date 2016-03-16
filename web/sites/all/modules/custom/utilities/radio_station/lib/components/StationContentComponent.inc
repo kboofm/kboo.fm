@@ -42,7 +42,7 @@ class StationContentComponent extends BaseComponent {
 
   public function latestAudio($count) {
     $query = new StationContentQuery();
-    $query->latestAudio($count);
+    $query->getAudio($count);
     $result = $query->execute();
 
     $processor = new StationContentProcessor();

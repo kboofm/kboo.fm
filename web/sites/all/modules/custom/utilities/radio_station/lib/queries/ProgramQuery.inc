@@ -16,7 +16,8 @@ class ProgramQuery extends NodeQuery {
    * @return $this
    */
   public function getStreams() {
-    return $this->getProgramsByType('Channel/Stream');
+    $this->getProgramsByType('Channel/Stream');
+    return $this;
   }
 
 
@@ -26,7 +27,20 @@ class ProgramQuery extends NodeQuery {
    * @return $this
    */
   public function getShows() {
-    return $this->getProgramsByType('Show');
+    $this->getProgramsByType('Show');
+    return $this;
+  }
+
+
+  public function hasGenre() {
+    $this->fieldCondition("field_genres", "tid", "NULL", "!=");
+    return $this;
+  }
+
+
+  public function hasTopic() {
+    $this->fieldCondition("field_topic_tags", "tid", "NULL", "!=");
+    return $this;
   }
 
 
