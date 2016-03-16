@@ -7179,6 +7179,7 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   }
   .navbar .listen-now-btn {
     left: 110px;
+    top: 2px;
   }
 }
 #sidebar {
