@@ -6867,6 +6867,10 @@ body.cke_ltr {
     width: 970px;
   }
 }
+img {
+  max-width: 100%;
+  height: auto;
+}
 .footer {
   padding-left: 0px;
   padding-right: 0px;
@@ -6918,16 +6922,31 @@ body.cke_ltr {
 }
 .navbar {
   border: none;
-  height: 85px;
   position: relative;
+  height: 85px;
+}
+@media (min-width: 768px) {
+  .navbar {
+    height: 95px;
+  }
 }
 .navbar.navbar-default {
   background-color: #00a887;
   border-bottom: 3px solid #eeeeee;
 }
+@media (min-width: 768px) {
+  .navbar.navbar-default {
+    padding-left: 0px;
+  }
+}
 .navbar.navbar-default .logo.navbar-btn {
   margin-top: 0px;
   margin-bottom: 5px;
+}
+@media (min-width: 768px) {
+  .navbar.navbar-default .logo.navbar-btn {
+    margin-top: 5px;
+  }
 }
 .navbar .btn {
   border-radius: 0px;
@@ -6939,25 +6958,32 @@ body.cke_ltr {
 }
 .navbar .on-air {
   position: absolute;
-  left: 340px;
-  top: 10px;
+  left: 330px;
+  top: 20px;
   width: 40%;
   margin: 0px;
+}
+@media (max-width: 767px) {
+  .navbar .on-air {
+    left: 205px;
+    top: 52px;
+  }
 }
 .navbar .on-air a {
   color: #ffb600;
 }
 .navbar .listen-now-btn {
   position: absolute;
-  left: 220px;
-  top: 0px;
+  left: 205px;
+  top: 10px;
+  text-transform: uppercase;
 }
 .navbar .donate-btn {
   position: absolute;
   right: 20px;
-  top: 0px;
+  top: 10px;
 }
-@media (max-width: 992px) {
+@media (max-width: 991px) {
   .navbar .donate-btn {
     display: none;
   }
@@ -7080,7 +7106,7 @@ div.addressfield-container-inline::after,
   margin-left: 0px;
 }
 ul.navbar-nav {
-  margin-top: 45px;
+  margin-top: 55px;
   border-top: 2px solid #003b4c;
   margin-left: 20px;
 }
@@ -7095,6 +7121,11 @@ ul.navbar-nav > li > a {
 @media (min-width: 768px) and (max-width: 1199px) {
   ul.navbar-nav > li > a {
     padding: 7px;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  ul.navbar-nav > li > a {
+    font-size: 13px;
   }
 }
 ul.navbar-nav > li .dropdown-menu {
@@ -7158,6 +7189,7 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   }
   .navbar .listen-now-btn {
     left: 110px;
+    top: 2px;
   }
 }
 #sidebar {
@@ -7174,6 +7206,10 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
     margin-top: 15px;
   }
 }
+#sidebar img {
+  text-align: center;
+  margin: 0 auto;
+}
 #sidebar .block {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 0px 15px 10px;
@@ -7181,12 +7217,19 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
 }
 #sidebar h2 {
   color: rgba(255, 255, 255, 0.5);
+  background-color: #003b4c;
   font-size: 24px;
   font-weight: normal;
   margin-top: 20px;
   text-align: center;
   padding: 5px 0px;
   text-transform: uppercase;
+}
+#sidebar h2.bg-info {
+  background-color: #00a887;
+}
+#sidebar h2.bg-tiffany {
+  background-color: #65cbc9;
 }
 #sidebar a.more-link {
   text-align: right;

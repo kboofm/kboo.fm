@@ -1,15 +1,27 @@
 .navbar {
   border: none;
-  height: 85px;
   position: relative;
+  height: 85px;
+
+  @media (min-width: @screen-sm-min) {
+    height: 95px;
+  }
 
   &.navbar-default {
     background-color: @brand-info;
     border-bottom: 3px solid @gray-lighter;
 
+    @media (min-width: @screen-sm-min) {
+      padding-left: 0px;
+    }
+
     .logo.navbar-btn {
       margin-top: 0px;
       margin-bottom: @margin-xs;
+
+      @media (min-width: @screen-sm-min) {
+        margin-top: @margin-xs;
+      }
     }
   }
 
@@ -25,10 +37,15 @@
 
   .on-air {
     position: absolute;
-    left: 340px;
-    top: 10px;
+    left: 330px;
+    top: 20px;
     width: 40%;
     margin: 0px;
+
+    @media (max-width: @screen-xs-max) {
+      left: 205px;
+      top: 52px;
+    }
 
     a {
       color: @brand-warning;
@@ -37,16 +54,17 @@
 
   .listen-now-btn {
     position: absolute;
-    left: 220px;
-    top: 0px;
+    left: 205px;
+    top: 10px;
+    text-transform: uppercase;
   }
 
   .donate-btn {
     position: absolute;
     right: 20px;
-    top: 0px;
+    top: 10px;
 
-    @media (max-width: @screen-md-min) {
+    @media (max-width: @screen-sm-max) {
       display: none;
     }
   }

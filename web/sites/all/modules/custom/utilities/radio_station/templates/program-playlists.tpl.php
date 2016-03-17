@@ -13,6 +13,7 @@
           <td data-bind="artist"></td>
           <td data-bind="title"></td>
           <td data-bind="album"></td>
+          <td data-bind="date"></td>
           <td data-bind="time"></td>
         </tr>
       </tbody>

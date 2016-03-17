@@ -32,21 +32,42 @@ class RadioSpinitron {
   }
 
 
-  public static function getLatestPlaylists($count, $includeSongs = false) {
+  public static function getLatestPlaylists($count) {
+    $date = date("Y-m-d", time());
+
     $connection = RadioSpinitron::getConnection();
-    $playlists = $connection->getPlaylists($count);
+    $playlists = $connection->getPlaylistsByDate($date, 7);
 
     if (!$playlists) {
       return [];
     }
 
-    if ($includeSongs) {
-      foreach ($playlists as &$playlist) {
-        RadioSpinitron::includeSongs($playlist);
-      }
+    return array_slice($playlists, 0, $count);
+  }
+
+
+  public static function getLatestSongs($count = null) {
+    if (!$count) {
+      $count = 99;
     }
 
-    return $playlists;
+    $connection = RadioSpinitron::getConnection();
+    $songs = $connection->getSongs(null, $count);
+
+    $songs = array_map(
+      function ($item) {
+        $date = $item['Date'];
+        $time = $item['Timestamp'];
+        $datetime = "{$date} {$time}";
+        $timestamp = strtotime($datetime);
+        $item['Date'] = date("m/j", $timestamp);
+        $item['Timestamp'] = date("g:ia", $timestamp);
+        return $item;
+      },
+      $songs
+    );
+
+    return $songs;
   }
 
 
