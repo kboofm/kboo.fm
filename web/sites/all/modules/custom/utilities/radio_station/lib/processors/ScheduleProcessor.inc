@@ -456,7 +456,7 @@ class ScheduleProcessor extends TemplateProcessor {
 
       $key = null;
       foreach ($timeslots as $index => $timeslot) {
-        if ($timeslot['value'] <= $now && $timeslot['value2'] >= $now) {
+        if ($timeslot['value'] >= $now) {
           $key = $index;
           break;
         }
