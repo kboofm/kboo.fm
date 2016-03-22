@@ -642,7 +642,10 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create basic_page content'.
   $permissions['create basic_page content'] = array(
     'name' => 'create basic_page content',
-    'roles' => array(),
+    'roles' => array(
+      'Author - Page' => 'Author - Page',
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -711,14 +714,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create program content'.
   $permissions['create program content'] = array(
     'name' => 'create program content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'create promo content'.
   $permissions['create promo content'] = array(
     'name' => 'create promo content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -741,6 +748,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'create station_content content',
     'roles' => array(
       'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'node',
   );
@@ -1173,14 +1181,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any basic_page content'.
   $permissions['edit any basic_page content'] = array(
     'name' => 'edit any basic_page content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit any blog_post content'.
   $permissions['edit any blog_post content'] = array(
     'name' => 'edit any blog_post content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1235,14 +1247,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any program content'.
   $permissions['edit any program content'] = array(
     'name' => 'edit any program content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit any promo content'.
   $permissions['edit any promo content'] = array(
     'name' => 'edit any promo content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1263,7 +1279,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any station_content content'.
   $permissions['edit any station_content content'] = array(
     'name' => 'edit any station_content content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1308,7 +1326,10 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own basic_page content'.
   $permissions['edit own basic_page content'] = array(
     'name' => 'edit own basic_page content',
-    'roles' => array(),
+    'roles' => array(
+      'Author - Page' => 'Author - Page',
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1379,6 +1400,8 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['edit own person_profile content'] = array(
     'name' => 'edit own person_profile content',
     'roles' => array(
+      'Author - Page' => 'Author - Page',
+      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1387,14 +1410,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own program content'.
   $permissions['edit own program content'] = array(
     'name' => 'edit own program content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit own promo content'.
   $permissions['edit own promo content'] = array(
     'name' => 'edit own promo content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1417,6 +1444,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'edit own station_content content',
     'roles' => array(
       'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'node',
   );
