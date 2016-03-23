@@ -32,7 +32,7 @@
         data-bind="schedule-item">
 
       <?php foreach ($scheduled_day['data'] as $index => $schedule_item): ?>
-        <li class="list-group-item <?php if ($index > 0): ?>cull<?php endif; ?>">
+        <li class="list-group-item<?php if ($index > 0): ?> cull<?php endif; ?>">
 
           <?php
           $schedule_url = NULL;

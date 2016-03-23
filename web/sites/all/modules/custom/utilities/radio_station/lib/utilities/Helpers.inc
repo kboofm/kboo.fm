@@ -113,9 +113,13 @@ class Helpers {
 
 
   public static function weekBeforeBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->subWeek()
-      ->modify('last Sunday')
+    $date = Helpers::carbonize($timestamp);
+
+    if ($date->dayOfWeek != Carbon::SUNDAY) {
+      $date->subWeek();
+    }
+
+    return $date->modify("last Sunday")
       ->startOfDay()
       ->getTimestamp();
   }
