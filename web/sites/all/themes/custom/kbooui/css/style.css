@@ -7215,15 +7215,22 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
 }
 #sidebar .block {
   background-color: rgba(255, 255, 255, 0.85);
-  padding: 0px 15px 10px;
+  padding: 15px 10px;
   margin-bottom: 15px;
+}
+#sidebar .block ul {
+  list-style: none;
+  padding-left: 0px;
+}
+#sidebar .block ul li {
+  margin-bottom: 10px;
 }
 #sidebar h2 {
   color: rgba(255, 255, 255, 0.5);
   background-color: #003b4c;
   font-size: 24px;
   font-weight: normal;
-  margin-top: 20px;
+  margin-top: 0px;
   text-align: center;
   padding: 5px 0px;
   text-transform: uppercase;
@@ -7239,7 +7246,7 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   display: block;
   clear: both;
   color: rgba(255, 255, 255, 0.5);
-  margin-bottom: 20px;
+  margin-bottom: -10px;
   padding: 0px 5px;
   width: 100%;
 }
