@@ -4,6 +4,7 @@
 
   <?php
   $station_name = "KBOO Community Radio";
+  $station_email = "podcast@kboo.org";
   ?>
 
   <channel>
@@ -58,6 +59,7 @@
 
 
       <itunes:email>
+        <?php print $station_email; ?>
       </itunes:email>
     </itunes:owner>
 
