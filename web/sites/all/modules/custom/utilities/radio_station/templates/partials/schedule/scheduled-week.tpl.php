@@ -30,18 +30,18 @@
          data-timestamp="<?php print $scheduled_week['timestamp']; ?>">
     </div>
 
-    <?php $loopIndex = 0; ?>
+    <?php $weekIndex = 0; ?>
     <?php foreach ($scheduled_week['data'] as $dayOfWeek => $data_items): ?>
-      <div class="weekdays<?php if ($loopIndex > 0): ?> cull<?php endif; ?>">
+      <div class="weekdays<?php if ($weekIndex > 0): ?> cull<?php endif; ?>">
         <h4 data-bind="schedule-dayofweek">
           <?php print $dayOfWeek; ?>
         </h4>
 
         <ul class="list-group"
-            data-bind="schedule-item">
+            data-bind="schedule-items">
 
-          <?php foreach ($data_items as $schedule_item): ?>
-            <li class="list-group-item">
+          <?php foreach ($data_items as $itemIndex => $schedule_item): ?>
+            <li class="list-group-item<?php if ($itemIndex > 0): ?> cull<?php endif; ?>">
 
               <?php
               $schedule_url = NULL;
@@ -76,7 +76,7 @@
           <?php endforeach; ?>
         </ul>
       </div>
-      <?php $loopIndex++; ?>
+      <?php $weekIndex++; ?>
     <?php endforeach; ?>
 
   </div>
