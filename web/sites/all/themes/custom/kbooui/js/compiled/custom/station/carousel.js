@@ -71,13 +71,13 @@
         var route;
         this.getCarousel(event);
         route = "/api/schedule/" + this.type + "/" + this.stream + "/" + direction + "/" + this.timestamp;
-        if (this.type === 'episode') {
+        if (this.type === "episode") {
           this.getEpisode(route);
         }
-        if (this.type === 'day') {
+        if (this.type === "day") {
           this.getDay(route);
         }
-        if (this.type === 'week') {
+        if (this.type === "week") {
           this.getWeek(route);
         }
         return true;
@@ -180,20 +180,19 @@
       };
 
       Carousel.prototype.renderWeek = function(response) {
-        var container, directives, item, timestamp, week_start, weekdata, weekday, weekdays;
+        var container, directives, item, week_start, weekday, weekdays;
         if (response.length === 0) {
           return;
         }
         week_start = null;
         weekdays = [];
         for (weekday in response) {
-          timestamp = response[weekday][0]['start']['timestamp'];
-          if (!week_start) {
+          if (week_start == null) {
             week_start = response[weekday][0]['start'];
           }
-          weekdata = {
+          weekdays.push({
             "schedule-dayofweek": weekday,
-            "schedule-item": (function() {
+            "schedule-items": (function() {
               var i, len, ref, results;
               ref = response[weekday];
               results = [];
@@ -203,8 +202,7 @@
               }
               return results;
             }).call(this)
-          };
-          weekdays.push(weekdata);
+          });
         }
         container = {
           weekdays: weekdays,

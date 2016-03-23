@@ -29,8 +29,8 @@
       @$carousel = $ "##{carousel_id}"
 
       @timestamp = @$carousel
-      .find @carousel_timestamp
-      .attr "data-timestamp"
+        .find @carousel_timestamp
+        .attr "data-timestamp"
 
       @type = @$carousel.attr "data-type"
       @stream = @$carousel.attr "data-stream"
@@ -40,9 +40,9 @@
       @getCarousel event
       route = "/api/schedule/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
 
-      @getEpisode route if @type == 'episode'
-      @getDay route if @type == 'day'
-      @getWeek route if @type == 'week'
+      @getEpisode route if @type == "episode"
+      @getDay route if @type == "day"
+      @getWeek route if @type == "week"
       true
 
     getEpisode: (route) =>
@@ -117,16 +117,14 @@
 
       week_start = null
       weekdays = []
-      for weekday of response
-        timestamp = response[weekday][0]['start']['timestamp']
 
-        if not week_start
+      for weekday of response
+        unless week_start?
           week_start = response[weekday][0]['start']
 
-        weekdata =
+        weekdays.push
           "schedule-dayofweek": weekday
-          "schedule-item": @dataItem item for item in response[weekday]
-        weekdays.push weekdata
+          "schedule-items": (@dataItem item for item in response[weekday])
 
       container =
         weekdays: weekdays
@@ -136,7 +134,10 @@
         "schedule-carousel-timestamp":
           "data-timestamp": -> "#{@timestamp}"
 
-      @$carousel.find('.cull').remove()
+      @$carousel
+        .find '.cull'
+        .remove()
+
       @$carousel.render container, directives
       @renderToolbar week_start
       true
