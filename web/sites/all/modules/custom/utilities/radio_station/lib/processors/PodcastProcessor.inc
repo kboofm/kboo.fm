@@ -26,12 +26,19 @@ class PodcastProcessor extends TemplateProcessor {
     $summary = $this->getTeaserSummary($entity);
     $summary = check_plain($summary);
 
+    try {
+      $subtitle = $entity->field_short_description->value();
+      $subtitle = check_plain($subtitle);
+    } catch (EntityMetadataWrapperException $e) {
+      $subtitle = "";
+    }
+
     $program_data = [
       'title' => $this->getTeaserTitle($entity),
       'image' => $image,
       'url' => $program_url,
       'podcast_url' => "{$program_url}/podcast",
-      'subtitle' => $entity->field_short_description->value(),
+      'subtitle' => $subtitle,
       'summary' => $summary,
       'description' => $description,
     ];
@@ -81,6 +88,13 @@ class PodcastProcessor extends TemplateProcessor {
       $summary = $this->getTeaserSummary($entity);
       $summary = check_plain($summary);
 
+      try {
+        $subtitle = $entity->field_short_description->value();
+        $subtitle = check_plain($subtitle);
+      } catch (EntityMetadataWrapperException $e) {
+        $subtitle = "";
+      }
+
       $unwrapped = $entity->value();
       $entity_url = $this->getEntityUrl($unwrapped, 'node', true);
 
@@ -91,7 +105,7 @@ class PodcastProcessor extends TemplateProcessor {
         'published_date' => $published_date,
         'audio_file' => $audio_file,
         'duration' => $audio['filesize'],
-        'subtitle' => $entity->field_short_description->value(),
+        'subtitle' => $subtitle,
         'summary' => $summary,
         'description' => $description,
       ];
