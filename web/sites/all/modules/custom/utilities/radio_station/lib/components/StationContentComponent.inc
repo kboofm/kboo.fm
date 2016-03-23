@@ -159,7 +159,11 @@ class StationContentComponent extends BaseComponent {
     $query = new StationContentQuery();
     $query = $query->getPodcastByProgram($target_nid);
     $result = $query->execute();
-    return $this->getNids($result);
+
+    $processor = new PodcastProcessor();
+    return $processor->process(
+      $this->getNids($result)
+    );
   }
 
 

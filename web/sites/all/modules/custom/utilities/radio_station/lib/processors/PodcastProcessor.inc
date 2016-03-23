@@ -30,9 +30,6 @@ class PodcastProcessor extends TemplateProcessor {
       'subtitle' => $entity->field_short_description->value(),
       'summary' => $this->getTeaserSummary($entity),
       'description' => $description,
-      'itunes_parent_category' => $entity->field_itunes_parent_category->value(),
-      'itunes_child_category' => $entity->field_itunes_child_category->value(),
-      'explicit' => $entity->field_explicit->value(),
     ];
 
     return $program_data;
