@@ -76,7 +76,7 @@ class StationContentResponse extends Response {
     if ($type == "program") {
       $this->template_name = 'radio_template_programs_podcast';
       $this->addTemplateData($response);
-      return $this->renderRss();
+      $this->renderRss();
     } else {
       $channel = [
         'title' => "{$title} Podcast",

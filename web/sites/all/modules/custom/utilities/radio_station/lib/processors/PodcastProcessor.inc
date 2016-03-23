@@ -21,6 +21,10 @@ class PodcastProcessor extends TemplateProcessor {
     $description = $entity->body->value();
     $description = $description['value'];
     $description = drupal_html_to_text($description);
+    $description = check_plain($description);
+
+    $summary = $this->getTeaserSummary($entity);
+    $summary = check_plain($summary);
 
     $program_data = [
       'title' => $this->getTeaserTitle($entity),
@@ -28,7 +32,7 @@ class PodcastProcessor extends TemplateProcessor {
       'url' => $program_url,
       'podcast_url' => "{$program_url}/podcast",
       'subtitle' => $entity->field_short_description->value(),
-      'summary' => $this->getTeaserSummary($entity),
+      'summary' => $summary,
       'description' => $description,
     ];
 
@@ -72,6 +76,10 @@ class PodcastProcessor extends TemplateProcessor {
       $description = $entity->body->value();
       $description = $description['value'];
       $description = drupal_html_to_text($description);
+      $description = check_plain($description);
+
+      $summary = $this->getTeaserSummary($entity);
+      $summary = check_plain($summary);
 
       $unwrapped = $entity->value();
       $entity_url = $this->getEntityUrl($unwrapped, 'node', true);
@@ -84,7 +92,7 @@ class PodcastProcessor extends TemplateProcessor {
         'audio_file' => $audio_file,
         'duration' => $audio['filesize'],
         'subtitle' => $entity->field_short_description->value(),
-        'summary' => $this->getTeaserSummary($entity),
+        'summary' => $summary,
         'description' => $description,
       ];
     }
