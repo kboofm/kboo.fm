@@ -71,11 +71,17 @@ class StationContentResponse extends Response {
     }
 
     $component = new StationContentComponent();
-    $nids = $component->getPodcast($target, $type);
+    $response = $component->getPodcast($target, $type);
 
-    $channel = [
-      'title' => "{$title} Podcast",
-    ];
-    node_feed($nids, $channel);
+    if ($type == "program") {
+      $this->template_name = 'radio_template_programs_podcast';
+      $this->addTemplateData($response);
+      $this->renderRss();
+    } else {
+      $channel = [
+        'title' => "{$title} Podcast",
+      ];
+      node_feed($response, $channel);
+    }
   }
 }
