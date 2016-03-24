@@ -6988,6 +6988,11 @@ img {
     display: none;
   }
 }
+.navbar .donate-btn-mobile {
+  position: absolute;
+  top: 13px;
+  left: 335px;
+}
 #main-body {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
@@ -7193,6 +7198,10 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   .navbar .listen-now-btn {
     left: 110px;
     top: 2px;
+  }
+  .navbar .donate-btn-mobile {
+    top: 5px;
+    left: 235px;
   }
 }
 #sidebar {
