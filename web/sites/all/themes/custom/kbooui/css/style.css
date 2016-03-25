@@ -6969,6 +6969,11 @@ img {
     top: 52px;
   }
 }
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar .on-air {
+    left: 430px;
+  }
+}
 .navbar .on-air a {
   color: #ffb600;
 }
