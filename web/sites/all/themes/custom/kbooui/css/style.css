@@ -7198,10 +7198,30 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   .navbar .listen-now-btn {
     left: 110px;
     top: 2px;
+    display: none;
+  }
+  .navbar .listen-icon {
+    display: block;
+    position: absolute;
+    left: 110px;
+    top: 2px;
+    width: 32px;
+  }
+  .navbar .listen-icon img {
+    position: relative;
+    top: -2px;
   }
   .navbar .donate-btn-mobile {
     top: 5px;
-    left: 235px;
+    left: 146px;
+  }
+  .navbar-default .navbar-toggle {
+    right: 5px;
+  }
+}
+@media (min-width: 525px) {
+  .listen-icon {
+    display: none;
   }
 }
 #sidebar {
