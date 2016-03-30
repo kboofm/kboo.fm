@@ -58,14 +58,23 @@
       true
 
     dataItem: (item) ->
-      data_item =
-        "title-link": item['title']
+      return {} =
+        "program":
+          "text": item['title']
+          "href": item['url']
         "formatted-date": item['start']['formatted_date']
         "formatted-time":
           "start-time": item['start']['formatted_time']
           "finish-time": item['finish']['formatted_time']
 
-      data_item
+    getDirectives: ->
+      return {} =
+        "schedule-carousel-timestamp":
+          "data-timestamp": -> "#{@timestamp}"
+        "schedule-item":
+          "title-link":
+            "text": -> @program.text
+            "href": -> @program.href
 
     renderToolbar: (start, showTime = false) =>
       datetime = start['formatted_date']
@@ -85,14 +94,10 @@
         timestamp: start['timestamp']
         "schedule-item": [@dataItem response[0]]
 
-      directives =
-        "schedule-carousel-timestamp":
-          "data-timestamp": -> "#{@timestamp}"
-
-      @$carousel.render data, directives
-
+      @$carousel.render data, @getDirectives()
       @renderToolbar start, true
       true
+
 
     renderDay: (response) =>
       return if response.length == 0
@@ -102,13 +107,8 @@
         timestamp: start['timestamp']
         "schedule-item": @dataItem item for item in response
 
-      directives =
-        "schedule-carousel-timestamp":
-          "data-timestamp": -> "#{@timestamp}"
-
       @$carousel.find('.cull').remove()
-      @$carousel.render data, directives
-
+      @$carousel.render data, @getDirectives()
       @renderToolbar start
       true
 
@@ -130,15 +130,11 @@
         weekdays: weekdays
         timestamp: week_start['timestamp']
 
-      directives =
-        "schedule-carousel-timestamp":
-          "data-timestamp": -> "#{@timestamp}"
-
       @$carousel
         .find '.cull'
         .remove()
 
-      @$carousel.render container, directives
+      @$carousel.render container, @getDirectives()
       @renderToolbar week_start
       true
 

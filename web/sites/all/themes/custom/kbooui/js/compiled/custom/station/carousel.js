@@ -99,16 +99,37 @@
       };
 
       Carousel.prototype.dataItem = function(item) {
-        var data_item;
-        data_item = {
-          "title-link": item['title'],
+        return {
+          "program": {
+            "text": item['title'],
+            "href": item['url']
+          },
           "formatted-date": item['start']['formatted_date'],
           "formatted-time": {
             "start-time": item['start']['formatted_time'],
             "finish-time": item['finish']['formatted_time']
           }
         };
-        return data_item;
+      };
+
+      Carousel.prototype.getDirectives = function() {
+        return {
+          "schedule-carousel-timestamp": {
+            "data-timestamp": function() {
+              return "" + this.timestamp;
+            }
+          },
+          "schedule-item": {
+            "title-link": {
+              "text": function() {
+                return this.program.text;
+              },
+              "href": function() {
+                return this.program.href;
+              }
+            }
+          }
+        };
       };
 
       Carousel.prototype.renderToolbar = function(start, showTime) {
@@ -127,7 +148,7 @@
       };
 
       Carousel.prototype.renderEpisode = function(response) {
-        var data, directives, start;
+        var data, start;
         if (response.length === 0) {
           return;
         }
@@ -136,20 +157,13 @@
           timestamp: start['timestamp'],
           "schedule-item": [this.dataItem(response[0])]
         };
-        directives = {
-          "schedule-carousel-timestamp": {
-            "data-timestamp": function() {
-              return "" + this.timestamp;
-            }
-          }
-        };
-        this.$carousel.render(data, directives);
+        this.$carousel.render(data, this.getDirectives());
         this.renderToolbar(start, true);
         return true;
       };
 
       Carousel.prototype.renderDay = function(response) {
-        var data, directives, item, start;
+        var data, item, start;
         if (response.length === 0) {
           return;
         }
@@ -166,21 +180,14 @@
             return results;
           }).call(this)
         };
-        directives = {
-          "schedule-carousel-timestamp": {
-            "data-timestamp": function() {
-              return "" + this.timestamp;
-            }
-          }
-        };
         this.$carousel.find('.cull').remove();
-        this.$carousel.render(data, directives);
+        this.$carousel.render(data, this.getDirectives());
         this.renderToolbar(start);
         return true;
       };
 
       Carousel.prototype.renderWeek = function(response) {
-        var container, directives, item, week_start, weekday, weekdays;
+        var container, item, week_start, weekday, weekdays;
         if (response.length === 0) {
           return;
         }
@@ -208,15 +215,8 @@
           weekdays: weekdays,
           timestamp: week_start['timestamp']
         };
-        directives = {
-          "schedule-carousel-timestamp": {
-            "data-timestamp": function() {
-              return "" + this.timestamp;
-            }
-          }
-        };
         this.$carousel.find('.cull').remove();
-        this.$carousel.render(container, directives);
+        this.$carousel.render(container, this.getDirectives());
         this.renderToolbar(week_start);
         return true;
       };
