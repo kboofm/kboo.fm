@@ -33,7 +33,7 @@ class TemplateProcessor {
     if (!$summary) {
       $body = $entity->body->value();
       $summary = $body['value'];
-      $summary = drupal_html_to_text($summary);
+      $summary = Helpers::htmlToText($summary);
     }
 
     return mb_strimwidth($summary, 0, 280, "...");

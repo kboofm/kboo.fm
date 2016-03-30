@@ -196,4 +196,25 @@ class Helpers {
 
     return ($pos === true) ? "https://" : "http://";
   }
+
+
+  /**
+   * Html To Text
+   *
+   * Without the second parameter passed to "drupal_html_to_text" then strong
+   * and emphasis are converted to "*" and "/" respectively. This function
+   * addresses that by removing those tags.
+   *
+   * https://www.drupal.org/node/2045279#comment-7689735
+   *
+   * @param $html
+   * @return string
+   */
+  public static function htmlToText($html) {
+    $allowed_tags = [
+      'a', 'br', 'p', 'blockquote', 'ul', 'ol', 'li', 'dl', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr'
+    ];
+
+    return drupal_html_to_text($html, $allowed_tags);
+  }
 }
