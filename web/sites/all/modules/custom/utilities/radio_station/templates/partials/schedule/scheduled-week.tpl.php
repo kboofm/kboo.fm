@@ -20,6 +20,9 @@
 </div>
 
 
+<?php include 'schedule-weekdays-pagination.tpl.php'; ?>
+
+
 <div class="row margin-top">
   <div id="<?php print $scheduled_week['id']; ?>"
        class="col-sm-12 schedule-carousel"
@@ -33,8 +36,11 @@
     <?php $weekIndex = 0; ?>
     <?php foreach ($scheduled_week['data'] as $dayOfWeek => $data_items): ?>
       <div class="weekdays<?php if ($weekIndex > 0): ?> cull<?php endif; ?>">
-        <h4 data-bind="schedule-dayofweek">
-          <?php print $dayOfWeek; ?>
+
+        <h4 id="dow-<?php print strtolower($dayOfWeek); ?>"
+            data-bind="schedule-dayofweek">
+
+            <?php print $dayOfWeek; ?>
         </h4>
 
         <ul class="list-group"
