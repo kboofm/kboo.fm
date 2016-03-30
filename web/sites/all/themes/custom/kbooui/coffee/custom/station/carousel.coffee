@@ -22,6 +22,12 @@
       @change event, "prev"
       true
 
+    change: (event, direction) =>
+      @getCarousel event
+      route = "/api/schedule/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
+      jQuery.get route, @renderSchedule
+      true
+
     getCarousel: (event) =>
       $button = $(event.target).parent()
       @$toolbar = $button.parent()
@@ -34,27 +40,6 @@
 
       @type = @$carousel.attr "data-type"
       @stream = @$carousel.attr "data-stream"
-      true
-
-    change: (event, direction) =>
-      @getCarousel event
-      route = "/api/schedule/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
-
-      @getEpisode route if @type == "episode"
-      @getDay route if @type == "day"
-      @getWeek route if @type == "week"
-      true
-
-    getEpisode: (route) =>
-      jQuery.get route, @renderEpisode
-      true
-
-    getDay: (route) =>
-      jQuery.get route, @renderDay
-      true
-
-    getWeek: (route) =>
-      jQuery.get route, @renderWeek
       true
 
     dataItem: (item) ->
@@ -86,9 +71,15 @@
         datetime: datetime
       @$toolbar.render data
 
-    renderEpisode: (response) =>
+    renderSchedule: (response) =>
       return if response.length == 0
 
+      @renderEpisode response if @type == "episode"
+      @renderDay response if @type == "day"
+      @renderWeek response if @type == "week"
+      true
+
+    renderEpisode: (response) =>
       start = response[0]['start']
       data =
         timestamp: start['timestamp']
@@ -98,10 +89,7 @@
       @renderToolbar start, true
       true
 
-
     renderDay: (response) =>
-      return if response.length == 0
-
       start = response[0]['start']
       data =
         timestamp: start['timestamp']
@@ -113,8 +101,6 @@
       true
 
     renderWeek: (response) =>
-      return if response.length == 0
-
       week_start = null
       weekdays = []
 
