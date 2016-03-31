@@ -30,3 +30,25 @@ function radio_station_update_7100() {
     ->execute();
 }
 
+
+/**
+ * Changes timezone handling from "date" to "site"
+ */
+function radio_station_update_7101() {
+  $field_name = "field_air_time";
+
+  $data = db_select("field_config", "fc")
+    ->condition("fc.field_name", $field_name, "=")
+    ->fields("fc", ["data"])
+    ->execute()
+    ->fetchField();
+
+  $data = unserialize($data);
+  $data['settings']['tz_handling'] = "site";
+  $data = serialize($data);
+
+  db_update("field_config")
+    ->fields(["data" => $data,])
+    ->condition("field_name", $field_name, "=")
+    ->execute();
+}
