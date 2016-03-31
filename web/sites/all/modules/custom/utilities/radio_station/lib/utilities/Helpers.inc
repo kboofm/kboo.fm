@@ -211,10 +211,6 @@ class Helpers {
    * @return string
    */
   public static function htmlToText($html) {
-    $allowed_tags = [
-      'a', 'br', 'p', 'blockquote', 'ul', 'ol', 'li', 'dl', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'hr'
-    ];
-
-    return drupal_html_to_text($html, $allowed_tags);
+    return drupal_html_to_text($html, []);
   }
 }
