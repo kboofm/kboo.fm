@@ -198,18 +198,6 @@ class Helpers {
   }
 
 
-  /**
-   * Html To Text
-   *
-   * Without the second parameter passed to "drupal_html_to_text" then strong
-   * and emphasis are converted to "*" and "/" respectively. This function
-   * addresses that by removing those tags.
-   *
-   * https://www.drupal.org/node/2045279#comment-7689735
-   *
-   * @param $html
-   * @return string
-   */
   public static function htmlToText($html) {
     $html = decode_entities($html);
     return drupal_html_to_text($html, []);
