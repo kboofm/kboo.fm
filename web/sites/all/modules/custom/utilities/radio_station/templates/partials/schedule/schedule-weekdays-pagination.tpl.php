@@ -1,43 +1,43 @@
 <nav class="text-center">
   <ul class="pagination margin-bottom-none">
     <li>
-      <a href="#dow-sunday">
+      <a href="#sunday">
         Sun
       </a>
     </li>
 
     <li>
-      <a href="#dow-monday">
+      <a href="#monday">
         Mon
       </a>
     </li>
 
     <li>
-      <a href="#dow-tuesday">
+      <a href="#tuesday">
         Tue
       </a>
     </li>
 
     <li>
-      <a href="#dow-wednesday">
+      <a href="#wednesday">
         Wed
       </a>
     </li>
 
     <li>
-      <a href="#dow-thursday">
+      <a href="#thursday">
         Thu
       </a>
     </li>
 
     <li>
-      <a href="#dow-friday">
+      <a href="#friday">
         Fri
       </a>
     </li>
 
     <li>
-      <a href="#dow-saturday">
+      <a href="#saturday">
         Sat
       </a>
     </li>
