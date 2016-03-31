@@ -211,6 +211,7 @@ class Helpers {
    * @return string
    */
   public static function htmlToText($html) {
+    $html = decode_entities($html);
     return drupal_html_to_text($html, []);
   }
 }
