@@ -655,7 +655,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'create blog_post content',
     'roles' => array(
       'Author - Page' => 'Author - Page',
-      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1382,7 +1381,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'edit own blog_post content',
     'roles' => array(
       'Author - Page' => 'Author - Page',
-      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
