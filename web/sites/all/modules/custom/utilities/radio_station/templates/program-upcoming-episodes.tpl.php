@@ -12,7 +12,7 @@ endif;
 
 <div class="well">
   <h3>
-    Upcoming Episodes
+    Coming Soon
   </h3>
 
   <div class="margin-vertical-lg">
