@@ -52,3 +52,67 @@ function radio_station_update_7101() {
     ->condition("field_name", $field_name, "=")
     ->execute();
 }
+
+
+/**
+ * Delete all station content images
+ */
+function radio_station_update_7102() {
+  $query = db_select('node', 'n');
+  $query->distinct();
+  $query->fields('n', ['nid']);
+
+  $query->join(
+    "field_data_field_lead_image",
+    "fli",
+    "n.nid = fli.entity_id and n.vid = fli.revision_id"
+  );
+
+  $query->leftJoin(
+    "field_data_field_more_images",
+    "fmi",
+    "n.nid = fmi.entity_id and n.vid = fmi.revision_id"
+  );
+
+  $query->condition("n.type", "station_content", "=");
+  $query->orderBy("nid");
+  $results = $query->execute();
+
+  $count = $results->rowCount() - 1;
+  foreach ($results as $index => $n) {
+    print "{$index}/{$count}..." . PHP_EOL;
+
+    $changed = FALSE;
+    $entity = entity_metadata_wrapper('node', $n->nid);
+
+    try {
+      $image_file = $entity->field_lead_image->file->value();
+
+      if ($image_file) {
+        file_delete($image_file);
+        $entity->field_lead_image->set(NULL);
+        $changed = TRUE;
+      }
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
+    }
+
+    try {
+      $more_images = $entity->field_more_images->value();
+
+      foreach ($more_images as $index => $image) {
+        $image_file = entity_load_single('file', $image['fid']);
+        file_delete($image_file);
+      }
+
+      $entity->field_more_images->set([]);
+      $changed = TRUE;
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
+    }
+
+    if ($changed) {
+      $entity->save();
+    }
+  }
+}

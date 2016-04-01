@@ -108,7 +108,7 @@
       <?php if (!empty($page['sidebar'])): ?>
         <?php print render($page['sidebar']); ?>
       <?php endif; ?>
-    </aside>  <!-- /#sidebar -->
+    </aside>
 
   </div>
 </div>

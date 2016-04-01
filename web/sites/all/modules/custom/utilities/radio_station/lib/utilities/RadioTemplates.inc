@@ -25,8 +25,10 @@ class RadioTemplates {
     $this->addTemplate('program_content_list');
     $this->addTemplate('program_genre');
     $this->addTemplate('program_playlists');
+    $this->addTemplate('program_podcast_link');
     $this->addTemplate('program_scheduled_timeslots');
     $this->addTemplate('program_topic');
+    $this->addTemplate('program_upcoming_episodes');
     $this->addTemplate('schedule');
     $this->addTemplate('sidebar_audio');
     $this->addTemplate('sidebar_playlists');
