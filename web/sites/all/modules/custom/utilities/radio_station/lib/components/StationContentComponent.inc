@@ -127,13 +127,11 @@ class StationContentComponent extends BaseComponent {
     $query = new StationContentQuery();
     $query->getUpcomingByProgram($program_nid, $count);
     $result = $query->execute();
-    $nids = $this->getNids($result);
 
-    $episodes = array_values(
-      node_load_multiple($nids)
+    $processor = new StationContentProcessor();
+    return $processor->processUpcoming(
+      $this->getNids($result)
     );
-
-    return $episodes;
   }
 
 
