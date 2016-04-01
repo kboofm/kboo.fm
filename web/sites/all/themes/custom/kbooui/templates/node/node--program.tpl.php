@@ -47,6 +47,7 @@
       print render($content['field_produced_by']);
       print theme('radio_template_program_podcast_link');
       print render($content);
+      print theme('radio_template_program_upcoming_episodes');
       print theme('radio_template_program_content_list');
     ?>
   </div>
