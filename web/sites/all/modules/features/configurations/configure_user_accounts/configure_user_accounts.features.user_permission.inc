@@ -325,6 +325,7 @@ function configure_user_accounts_user_default_permissions() {
   $permissions['administer files'] = array(
     'name' => 'administer files',
     'roles' => array(
+      'Admin - Developer' => 'Admin - Developer',
       'Admin - Site Administrator' => 'Admin - Site Administrator',
     ),
     'module' => 'file_entity',
@@ -654,7 +655,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'create blog_post content',
     'roles' => array(
       'Author - Page' => 'Author - Page',
-      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -663,7 +663,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create book content'.
   $permissions['create book content'] = array(
     'name' => 'create book content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -732,14 +734,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create scheduled_timeslot content'.
   $permissions['create scheduled_timeslot content'] = array(
     'name' => 'create scheduled_timeslot content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'create simpleads content'.
   $permissions['create simpleads content'] = array(
     'name' => 'create simpleads content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -769,7 +775,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'create webform content'.
   $permissions['create webform content'] = array(
     'name' => 'create webform content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -817,7 +825,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any book content'.
   $permissions['delete any book content'] = array(
     'name' => 'delete any book content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -865,35 +875,45 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any program content'.
   $permissions['delete any program content'] = array(
     'name' => 'delete any program content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any promo content'.
   $permissions['delete any promo content'] = array(
     'name' => 'delete any promo content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any scheduled_timeslot content'.
   $permissions['delete any scheduled_timeslot content'] = array(
     'name' => 'delete any scheduled_timeslot content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any simpleads content'.
   $permissions['delete any simpleads content'] = array(
     'name' => 'delete any simpleads content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete any station_content content'.
   $permissions['delete any station_content content'] = array(
     'name' => 'delete any station_content content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -910,7 +930,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete any webform content'.
   $permissions['delete any webform content'] = array(
     'name' => 'delete any webform content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -945,7 +967,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete own book content'.
   $permissions['delete own book content'] = array(
     'name' => 'delete own book content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -995,28 +1019,36 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete own program content'.
   $permissions['delete own program content'] = array(
     'name' => 'delete own program content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete own promo content'.
   $permissions['delete own promo content'] = array(
     'name' => 'delete own promo content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete own scheduled_timeslot content'.
   $permissions['delete own scheduled_timeslot content'] = array(
     'name' => 'delete own scheduled_timeslot content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'delete own simpleads content'.
   $permissions['delete own simpleads content'] = array(
     'name' => 'delete own simpleads content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1025,6 +1057,7 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'delete own station_content content',
     'roles' => array(
       'Author - Program' => 'Author - Program',
+      'Staff' => 'Staff',
     ),
     'module' => 'node',
   );
@@ -1043,7 +1076,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'delete own webform content'.
   $permissions['delete own webform content'] = array(
     'name' => 'delete own webform content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1199,7 +1234,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any book content'.
   $permissions['edit any book content'] = array(
     'name' => 'edit any book content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1265,14 +1302,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any scheduled_timeslot content'.
   $permissions['edit any scheduled_timeslot content'] = array(
     'name' => 'edit any scheduled_timeslot content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit any simpleads content'.
   $permissions['edit any simpleads content'] = array(
     'name' => 'edit any simpleads content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1298,7 +1339,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit any webform content'.
   $permissions['edit any webform content'] = array(
     'name' => 'edit any webform content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1338,7 +1381,6 @@ function configure_user_accounts_user_default_permissions() {
     'name' => 'edit own blog_post content',
     'roles' => array(
       'Author - Page' => 'Author - Page',
-      'Author - Program' => 'Author - Program',
       'Staff' => 'Staff',
     ),
     'module' => 'node',
@@ -1347,7 +1389,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own book content'.
   $permissions['edit own book content'] = array(
     'name' => 'edit own book content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1428,14 +1472,18 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own scheduled_timeslot content'.
   $permissions['edit own scheduled_timeslot content'] = array(
     'name' => 'edit own scheduled_timeslot content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
   // Exported permission: 'edit own simpleads content'.
   $permissions['edit own simpleads content'] = array(
     'name' => 'edit own simpleads content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 
@@ -1463,7 +1511,9 @@ function configure_user_accounts_user_default_permissions() {
   // Exported permission: 'edit own webform content'.
   $permissions['edit own webform content'] = array(
     'name' => 'edit own webform content',
-    'roles' => array(),
+    'roles' => array(
+      'Staff' => 'Staff',
+    ),
     'module' => 'node',
   );
 

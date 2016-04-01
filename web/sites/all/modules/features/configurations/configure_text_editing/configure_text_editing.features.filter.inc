@@ -70,6 +70,11 @@ function configure_text_editing_filter_default_formats() {
           'filter_url_length' => 72,
         ),
       ),
+      'media_filter' => array(
+        'weight' => 2,
+        'status' => 1,
+        'settings' => array(),
+      ),
       'filter_htmlcorrector' => array(
         'weight' => 10,
         'status' => 1,
@@ -101,6 +106,11 @@ function configure_text_editing_filter_default_formats() {
           'filter_url_length' => 72,
         ),
       ),
+      'media_filter' => array(
+        'weight' => 2,
+        'status' => 1,
+        'settings' => array(),
+      ),
       'filter_htmlcorrector' => array(
         'weight' => 10,
         'status' => 1,
@@ -131,6 +141,11 @@ function configure_text_editing_filter_default_formats() {
         'settings' => array(
           'filter_url_length' => 72,
         ),
+      ),
+      'media_filter' => array(
+        'weight' => 2,
+        'status' => 1,
+        'settings' => array(),
       ),
       'filter_htmlcorrector' => array(
         'weight' => 10,

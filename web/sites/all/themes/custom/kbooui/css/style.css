@@ -6969,6 +6969,11 @@ img {
     top: 52px;
   }
 }
+@media (min-width: 768px) and (max-width: 991px) {
+  .navbar .on-air {
+    left: 430px;
+  }
+}
 .navbar .on-air a {
   color: #ffb600;
 }
@@ -6988,6 +6993,11 @@ img {
     display: none;
   }
 }
+.navbar .donate-btn-mobile {
+  position: absolute;
+  top: 13px;
+  left: 335px;
+}
 #main-body {
   background-color: rgba(255, 255, 255, 0.85);
   padding: 10px 15px;
@@ -7005,10 +7015,14 @@ hr {
 }
 .node .node-images {
   float: right;
+  max-width: 300px;
+  margin-left: 10px;
 }
 @media (max-width: 991px) {
   .node .node-images {
     float: none;
+    max-width: 100%;
+    margin-left: 0px;
   }
 }
 .node .field-name-field-lead-image {
@@ -7193,6 +7207,30 @@ ul.navbar-nav > li .dropdown-menu li a:hover {
   .navbar .listen-now-btn {
     left: 110px;
     top: 2px;
+    display: none;
+  }
+  .navbar .listen-icon {
+    display: block;
+    position: absolute;
+    left: 110px;
+    top: 2px;
+    width: 32px;
+  }
+  .navbar .listen-icon img {
+    position: relative;
+    top: -2px;
+  }
+  .navbar .donate-btn-mobile {
+    top: 5px;
+    left: 146px;
+  }
+  .navbar-default .navbar-toggle {
+    right: 5px;
+  }
+}
+@media (min-width: 525px) {
+  .listen-icon {
+    display: none;
   }
 }
 #sidebar {

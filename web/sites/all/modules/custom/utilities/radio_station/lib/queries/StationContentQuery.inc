@@ -43,8 +43,31 @@ class StationContentQuery extends NodeQuery {
       "="
     );
 
-    $this->fieldOrderBy('field_air_time', 'value', 'DESC');
-    $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+    $this->fieldOrderBy("field_air_time", "value", "DESC");
+    return $this;
+  }
+
+
+  public function getUpcomingByProgram($program_nid, $count = NULL) {
+    $this->fieldCondition(
+      "field_air_time",
+      "value",
+      time(),
+      ">"
+    );
+
+    $this->fieldCondition(
+      "field_produced_for",
+      "target_id",
+      $program_nid,
+      "="
+    );
+
+    if ($count) {
+      $this->setLimit($count);
+    }
+
+    $this->fieldOrderBy("field_air_time", "value", "ASC");
     return $this;
   }
 
