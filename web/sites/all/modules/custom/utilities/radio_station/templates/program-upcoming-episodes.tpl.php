@@ -10,7 +10,7 @@ if ($last < 0):
 endif;
 ?>
 
-<div class="well">
+<div class="well col-xs-12">
   <h3>
     Coming Soon
   </h3>
