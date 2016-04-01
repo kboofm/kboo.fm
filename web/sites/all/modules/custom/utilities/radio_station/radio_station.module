@@ -289,6 +289,17 @@ function radio_station_preprocess_radio_template_program_content_list(
 }
 
 
+function radio_station_preprocess_radio_template_program_upcoming_episodes(
+  &$vars
+) {
+
+  $node = menu_get_object();
+  $component = new StationContentComponent();
+  $episodes = $component->getUpcomingForProgram($node->nid, 3);
+  $vars['upcoming'] = $episodes;
+}
+
+
 function radio_station_preprocess_radio_template_program_scheduled_timeslots(
   &$vars
 ) {
@@ -297,6 +308,13 @@ function radio_station_preprocess_radio_template_program_scheduled_timeslots(
   $component = new ScheduleComponent();
   $timeslots = $component->getTimeslotsForProgram($node->nid);
   $vars['timeslots'] = $timeslots;
+}
+
+
+function radio_station_preprocess_radio_template_program_podcast_link(
+  &$vars
+) {
+  $vars['podcast_url'] = request_path();
 }
 
 
