@@ -51,6 +51,13 @@ class StationContentProcessor extends TemplateProcessor {
         $ends_different_day = false;
       }
 
+      try {
+        $summary = $entity->field_short_description->value();
+        $summary = check_plain($summary);
+      } catch (EntityMetadataWrapperException $e) {
+        $summary = "";
+      }
+
       $unwrapped = $entity->value();
       $episodes[] = [
         'url' => $this->getEntityUrl($unwrapped),
@@ -58,7 +65,7 @@ class StationContentProcessor extends TemplateProcessor {
         'starttime' => $starttime,
         'endtime' => $endtime,
         'ends_different_day' => $ends_different_day,
-        'summary' => $this->getTeaserSummary($entity),
+        'summary' => $summary,
       ];
     }
 
