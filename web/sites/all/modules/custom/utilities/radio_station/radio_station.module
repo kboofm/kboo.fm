@@ -300,6 +300,13 @@ function radio_station_preprocess_radio_template_program_scheduled_timeslots(
 }
 
 
+function radio_station_preprocess_radio_template_program_podcast_link(
+  &$vars
+) {
+  $vars['podcast_url'] = request_path();
+}
+
+
 function radio_station_get_program_podcast($alias) {
   if (arg(3)) {
     return MENU_NOT_FOUND;
