@@ -112,7 +112,7 @@ class StationContentComponent extends BaseComponent {
     );
 
     $query = new StationContentQuery();
-    $query = $query->getContentByProgram($program_nid);
+    $query->getContentByProgram($program_nid);
     $query->count();
     $total_count = $query->execute();
 
@@ -120,6 +120,20 @@ class StationContentComponent extends BaseComponent {
     $pager = $paginator->paginate($page, $total_count);
     $pager['items'] = $episodes;
     return $pager;
+  }
+
+
+  public function getUpcomingForProgram($program_nid, $count) {
+    $query = new StationContentQuery();
+    $query->getUpcomingByProgram($program_nid, $count);
+    $result = $query->execute();
+    $nids = $this->getNids($result);
+
+    $episodes = array_values(
+      node_load_multiple($nids)
+    );
+
+    return $episodes;
   }
 
 
