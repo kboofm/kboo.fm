@@ -55,7 +55,7 @@ function content_type_blog_post_field_default_field_bases() {
       'repeat' => 0,
       'timezone_db' => 'America/Chicago',
       'todate' => 'required',
-      'tz_handling' => 'date',
+      'tz_handling' => 'site',
     ),
     'translatable' => 0,
     'type' => 'datestamp',
