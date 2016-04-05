@@ -7128,28 +7128,11 @@ div.addressfield-container-inline::after,
 .checkbox-inline input[type="checkbox"] {
   margin-left: 0px;
 }
-@media (max-width: 991px) {
-  .playlists .table-condensed > thead > tr > th,
-  .playlists .table-condensed > tbody > tr > th,
-  .playlists .table-condensed > tfoot > tr > th,
-  .playlists .table-condensed > thead > tr > td,
-  .playlists .table-condensed > tbody > tr > td,
-  .playlists .table-condensed > tfoot > tr > td {
-    max-width: 140px;
-  }
-}
 .playlists {
   /* Smartphones (portrait and landscape) ----------- */
   /* iPads (portrait and landscape) ----------- */
 }
 @media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
-  .playlists {
-    /* Force table to not be like tables anymore */
-    /* Hide table headers (but not display: none;, for accessibility) */
-    /*
-    Label the data
-    */
-  }
   .playlists table,
   .playlists thead,
   .playlists tbody,
@@ -7167,7 +7150,6 @@ div.addressfield-container-inline::after,
     border: 1px solid #ccc;
   }
   .playlists td {
-    /* Behave  like a "row" */
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -7179,9 +7161,7 @@ div.addressfield-container-inline::after,
     white-space: -pre-wrap;
   }
   .playlists td:before {
-    /* Now like a table header */
     position: absolute;
-    /* Top/left values mimic padding */
     top: 6px;
     left: 6px;
     width: 45%;

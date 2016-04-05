@@ -138,41 +138,25 @@ div.addressfield-container-inline::after {
 }
 
 .playlists {
-  .table-condensed {
-    > thead > tr > th, 
-    > tbody > tr > th, 
-    > tfoot > tr > th, 
-    > thead > tr > td, 
-    > tbody > tr > td, 
-    > tfoot > tr > td {
-      @media (max-width: @screen-sm-max) {
-        max-width: 140px;
-      }  
-    }
-  }  
-}
-
-.playlists {
   @media
   only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px)  {
 
-    /* Force table to not be like tables anymore */
     table, thead, tbody, th, td, tr {
       display: block;
     }
 
-    /* Hide table headers (but not display: none;, for accessibility) */
     thead tr {
       position: absolute;
       top: -9999px;
       left: -9999px;
     }
 
-    tr { border: 1px solid #ccc; }
+    tr { 
+      border: 1px solid #ccc; 
+    }
 
     td {
-      /* Behave  like a "row" */
       border: none;
       border-bottom: 1px solid #eee;
       position: relative;
@@ -181,28 +165,37 @@ div.addressfield-container-inline::after {
       word-wrap: break-word;
       white-space: pre-wrap; 
       white-space: -moz-pre-wrap; 
-      white-space: -pre-wrap; 
-    }
+      white-space: -pre-wrap;
 
-    td:before {
-      /* Now like a table header */
-      position: absolute;
-      /* Top/left values mimic padding */
-      top: 6px;
-      left: 6px;
-      width: 45%;
-      padding-right: 10px;
-      white-space: nowrap;
-    }
+      &:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
 
-    /*
-    Label the data
-    */
-    td:nth-of-type(1):before { content: "Artist"; }
-    td:nth-of-type(2):before { content: "Title"; }
-    td:nth-of-type(3):before { content: "Album"; }
-    td:nth-of-type(4):before { content: "Date"; }
-    td:nth-of-type(5):before { content: "Time"; }
+      &:nth-of-type(1):before {
+        content: "Artist"; 
+      }
+      
+      &:nth-of-type(2):before {
+        content: "Title"; 
+      }
+      
+      &:nth-of-type(3):before {
+        content: "Album";
+      }
+      
+      &:nth-of-type(4):before {
+        content: "Date";
+      }
+      
+      &:nth-of-type(5):before {
+        content: "Time";
+      }
+    }  
   }
 
   /* Smartphones (portrait and landscape) ----------- */
