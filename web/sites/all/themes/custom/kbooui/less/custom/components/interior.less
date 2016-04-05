@@ -136,3 +136,18 @@ div.addressfield-container-inline::after {
 .checkbox-inline input[type="checkbox"] {
   margin-left: 0px;
 }
+
+.playlists {
+  .table-condensed {
+    > thead > tr > th, 
+    > tbody > tr > th, 
+    > tfoot > tr > th, 
+    > thead > tr > td, 
+    > tbody > tr > td, 
+    > tfoot > tr > td {
+      @media (max-width: @screen-sm-max) {
+        max-width: 140px;
+      }  
+    }
+  }  
+}
