@@ -7086,6 +7086,12 @@ hr {
   border-bottom: 2px solid #555555;
   padding-bottom: 5px;
 }
+.node .book-navigation .page-links {
+  padding: 20px 0px 25px;
+}
+.node .book-navigation .page-links a.page-up {
+  padding: 0 25px;
+}
 .node-unpublished,
 .comment-unpublished {
   background: #fce9e7 url(../images/unpublished.gif) no-repeat 50% 50px;
