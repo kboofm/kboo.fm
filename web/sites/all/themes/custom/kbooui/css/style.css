@@ -7171,7 +7171,12 @@ div.addressfield-container-inline::after,
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-    padding-left: 50%;
+    padding-left: 50% !important;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
   }
   .playlists td:before {
     /* Now like a table header */
