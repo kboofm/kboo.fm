@@ -493,6 +493,7 @@ class StationContentComponent extends BaseComponent {
     $now = time();
     $end = strtotime("+25 hours", $now);
     $schedule = [];
+    $timeslots = [];
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($stream, $now, $end);
@@ -503,26 +504,43 @@ class StationContentComponent extends BaseComponent {
     }
 
     foreach ($result['node'] as $nid => $item) {
-      $wrapped = entity_metadata_wrapper('node', $nid);
-      $timeslots = $wrapped->field_timeslot->value();
+      $entity = entity_metadata_wrapper('node', $nid);
+      $entity_timeslots = $entity->field_timeslot->value();
 
-      foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] <= $now) {
-          continue;
-        }
+      $entity_timeslots = array_map(
+        function ($timeslot) use ($entity, $now, $end) {
+          if ($timeslot['value'] <= $now || $timeslot['value'] >= $end) {
+            return false;
+          }
 
-        $schedule[] = $this->buildScheduleItem($wrapped, $timeslot);
-      }
+          $timeslot['entity'] = $entity;
+          return $timeslot;
+        },
+        $entity_timeslots
+      );
+
+      $entity_timeslots = array_filter($entity_timeslots);
+      $timeslots = array_merge($timeslots, $entity_timeslots);
     }
 
     usort(
-      $schedule,
+      $timeslots,
       function ($a, $b) {
-        return $a['start'] - $b['start'];
+        return $a['value'] - $b['value'];
       }
     );
 
-    return array_slice($schedule, 0, $count);
+    $timeslots = array_slice($timeslots, 0, $count);
+
+    $schedule = array_map(
+      function ($timeslot) {
+        $entity = $timeslot['entity'];
+        return $this->buildScheduleItem($entity, $timeslot);
+      },
+      $timeslots
+    );
+
+    return $schedule;
   }
 
 
@@ -544,21 +562,6 @@ class StationContentComponent extends BaseComponent {
 
 
   /**
-   * Get a program for a timeslot
-   *
-   * @param $wrapped_scheduled_timeslot
-   * @return null
-   */
-  private function getTimeslotProgram($wrapped_scheduled_timeslot) {
-    try {
-      return $wrapped_scheduled_timeslot->field_show;
-    } catch (EntityMetadataWrapperException $e) {
-      return NULL;
-    }
-  }
-
-
-  /**
    * Build schedule item array
    *
    * @param $wrapped_scheduled_timeslot
@@ -570,7 +573,11 @@ class StationContentComponent extends BaseComponent {
     $episode = $this->getEpisode($timeslot);
 
     if (!$episode) {
-      $program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
+      try {
+        $program = $wrapped_scheduled_timeslot->field_show;
+      } catch (EntityMetadataWrapperException $e) {
+        // ducktyping
+      }
     }
 
     $schedule_item = [
