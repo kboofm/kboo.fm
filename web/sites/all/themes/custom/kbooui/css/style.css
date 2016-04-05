@@ -7138,6 +7138,94 @@ div.addressfield-container-inline::after,
     max-width: 140px;
   }
 }
+.playlists {
+  /* Smartphones (portrait and landscape) ----------- */
+  /* iPads (portrait and landscape) ----------- */
+}
+@media only screen and (max-width: 760px), (min-device-width: 768px) and (max-device-width: 1024px) {
+  .playlists {
+    /* Force table to not be like tables anymore */
+    /* Hide table headers (but not display: none;, for accessibility) */
+    /*
+    Label the data
+    */
+  }
+  .playlists table,
+  .playlists thead,
+  .playlists tbody,
+  .playlists th,
+  .playlists td,
+  .playlists tr {
+    display: block;
+  }
+  .playlists thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+  .playlists tr {
+    border: 1px solid #ccc;
+  }
+  .playlists td {
+    /* Behave  like a "row" */
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    padding-left: 50%;
+  }
+  .playlists td:before {
+    /* Now like a table header */
+    position: absolute;
+    /* Top/left values mimic padding */
+    top: 6px;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+  }
+  .playlists td:nth-of-type(1):before {
+    content: "First Name";
+  }
+  .playlists td:nth-of-type(2):before {
+    content: "Last Name";
+  }
+  .playlists td:nth-of-type(3):before {
+    content: "Job Title";
+  }
+  .playlists td:nth-of-type(4):before {
+    content: "Favorite Color";
+  }
+  .playlists td:nth-of-type(5):before {
+    content: "Wars of Trek?";
+  }
+  .playlists td:nth-of-type(6):before {
+    content: "Porn Name";
+  }
+  .playlists td:nth-of-type(7):before {
+    content: "Date of Birth";
+  }
+  .playlists td:nth-of-type(8):before {
+    content: "Dream Vacation City";
+  }
+  .playlists td:nth-of-type(9):before {
+    content: "GPA";
+  }
+  .playlists td:nth-of-type(10):before {
+    content: "Arbitrary Data";
+  }
+}
+@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
+  .playlists body {
+    padding: 0;
+    margin: 0;
+    width: 320px;
+  }
+}
+@media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+  .playlists body {
+    width: 495px;
+  }
+}
 ul.navbar-nav {
   margin-top: 55px;
   border-top: 2px solid #003b4c;
