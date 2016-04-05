@@ -5,28 +5,34 @@
     carouselTimestamp: ".schedule-carousel-timestamp"
     $carousel: null
     $toolbar: null
+    $triggers: null
+    enabled: true
     stream: null
     type: null
     timestamp: null
 
+    init: ->
+      super()
+      @$triggers =
+        "next": $("#tabs-schedule").find ".schedule-carousel-next .schedule-trigger"
+        "prev": $("#tabs-schedule").find ".schedule-carousel-prev .schedule-trigger"
+
     bind: ->
       @bindItem "click", @nextButton, @next
       @bindItem "click", @prevButton, @prev
-      true
 
     next: (event) =>
       @change event, "next"
-      true
 
     prev: (event) =>
       @change event, "prev"
-      true
 
     change: (event, direction) =>
+      return unless @enabled
+      @disableTriggers()
       @getCarousel event
       route = "/api/schedule/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
       jQuery.get route, @renderSchedule
-      true
 
     getCarousel: (event) =>
       $button = $(event.target).parent()
@@ -40,7 +46,28 @@
 
       @type = @$carousel.attr "data-type"
       @stream = @$carousel.attr "data-stream"
-      true
+
+    disableTriggers: () ->
+      @enabled = false
+
+      @$triggers["next"]
+        .removeClass "fa-arrow-right cursor-pointer"
+        .addClass "fa-spinner fa-spin"
+
+      @$triggers["prev"]
+        .removeClass "fa-arrow-left cursor-pointer"
+        .addClass "fa-spinner fa-spin"
+
+    enableTriggers: () ->
+      @enabled = true
+
+      @$triggers["next"]
+        .removeClass "fa-spinner fa-spin"
+        .addClass "fa-arrow-right cursor-pointer"
+
+      @$triggers["prev"]
+        .removeClass "fa-spinner fa-spin"
+        .addClass "fa-arrow-left cursor-pointer"
 
     dataItem: (item) ->
       return {} =
@@ -77,7 +104,7 @@
       @renderEpisode response if @type == "episode"
       @renderDay response if @type == "day"
       @renderWeek response if @type == "week"
-      true
+      @enableTriggers()
 
     renderEpisode: (response) =>
       start = response[0]["start"]
@@ -87,7 +114,6 @@
 
       @$carousel.render data, @getDirectives()
       @renderToolbar start, true
-      true
 
     renderDay: (response) =>
       start = response[0]["start"]
@@ -101,7 +127,6 @@
 
       @$carousel.render data, @getDirectives()
       @renderToolbar start
-      true
 
     renderWeek: (response) =>
       weekStart = null
@@ -128,9 +153,12 @@
       templateData =
         timestamp: weekStart["timestamp"]
 
-      @$carousel.render templateData
+      directives =
+        "schedule-carousel-timestamp":
+          "data-timestamp": -> "#{@timestamp}"
+
+      @$carousel.render templateData, directives
       @renderToolbar weekStart
-      true
 
   $ ->
     new App.Station.Carousel()
