@@ -31,34 +31,46 @@
 
       Carousel.prototype.$toolbar = null;
 
+      Carousel.prototype.$triggers = null;
+
+      Carousel.prototype.enabled = true;
+
       Carousel.prototype.stream = null;
 
       Carousel.prototype.type = null;
 
       Carousel.prototype.timestamp = null;
 
+      Carousel.prototype.init = function() {
+        Carousel.__super__.init.call(this);
+        return this.$triggers = {
+          "next": $("#tabs-schedule").find(".schedule-carousel-next .schedule-trigger"),
+          "prev": $("#tabs-schedule").find(".schedule-carousel-prev .schedule-trigger")
+        };
+      };
+
       Carousel.prototype.bind = function() {
         this.bindItem("click", this.nextButton, this.next);
-        this.bindItem("click", this.prevButton, this.prev);
-        return true;
+        return this.bindItem("click", this.prevButton, this.prev);
       };
 
       Carousel.prototype.next = function(event) {
-        this.change(event, "next");
-        return true;
+        return this.change(event, "next");
       };
 
       Carousel.prototype.prev = function(event) {
-        this.change(event, "prev");
-        return true;
+        return this.change(event, "prev");
       };
 
       Carousel.prototype.change = function(event, direction) {
         var route;
+        if (!this.enabled) {
+          return;
+        }
+        this.disableTriggers();
         this.getCarousel(event);
         route = "/api/schedule/" + this.type + "/" + this.stream + "/" + direction + "/" + this.timestamp;
-        jQuery.get(route, this.renderSchedule);
-        return true;
+        return jQuery.get(route, this.renderSchedule);
       };
 
       Carousel.prototype.getCarousel = function(event) {
@@ -69,8 +81,19 @@
         this.$carousel = $("#" + carouselId);
         this.timestamp = this.$carousel.find(this.carouselTimestamp).attr("data-timestamp");
         this.type = this.$carousel.attr("data-type");
-        this.stream = this.$carousel.attr("data-stream");
-        return true;
+        return this.stream = this.$carousel.attr("data-stream");
+      };
+
+      Carousel.prototype.disableTriggers = function() {
+        this.enabled = false;
+        this.$triggers["next"].removeClass("fa-arrow-right cursor-pointer").addClass("fa-spinner fa-spin");
+        return this.$triggers["prev"].removeClass("fa-arrow-left cursor-pointer").addClass("fa-spinner fa-spin");
+      };
+
+      Carousel.prototype.enableTriggers = function() {
+        this.enabled = true;
+        this.$triggers["next"].removeClass("fa-spinner fa-spin").addClass("fa-arrow-right cursor-pointer");
+        return this.$triggers["prev"].removeClass("fa-spinner fa-spin").addClass("fa-arrow-left cursor-pointer");
       };
 
       Carousel.prototype.dataItem = function(item) {
@@ -135,7 +158,7 @@
         if (this.type === "week") {
           this.renderWeek(response);
         }
-        return true;
+        return this.enableTriggers();
       };
 
       Carousel.prototype.renderEpisode = function(response) {
@@ -146,8 +169,7 @@
           "schedule-item": [this.dataItem(response[0])]
         };
         this.$carousel.render(data, this.getDirectives());
-        this.renderToolbar(start, true);
-        return true;
+        return this.renderToolbar(start, true);
       };
 
       Carousel.prototype.renderDay = function(response) {
@@ -167,8 +189,7 @@
         };
         this.$carousel.find(".cull").remove();
         this.$carousel.render(data, this.getDirectives());
-        this.renderToolbar(start);
-        return true;
+        return this.renderToolbar(start);
       };
 
       Carousel.prototype.renderWeek = function(response) {
@@ -205,9 +226,15 @@
         templateData = {
           timestamp: weekStart["timestamp"]
         };
-        this.$carousel.render(templateData);
-        this.renderToolbar(weekStart);
-        return true;
+        directives = {
+          "schedule-carousel-timestamp": {
+            "data-timestamp": function() {
+              return "" + this.timestamp;
+            }
+          }
+        };
+        this.$carousel.render(templateData, directives);
+        return this.renderToolbar(weekStart);
       };
 
       return Carousel;
