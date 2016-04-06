@@ -21,17 +21,20 @@ class ApiResponse extends Response {
 
     $result = $query->execute();
 
-    $processed = $this->processResponse(
-      $result,
-      $direction,
-      $timestamp
-    );
-
-    if (!$processed) {
-      $processed = [];
+    if (empty($result)) {
+      return [];
     }
 
-    $this->addTemplateData($processed);
+    $processor = new ScheduleProcessor();
+
+    $when = ($direction == 'prev') ? 'before' : 'after';
+    $data = $processor->process(
+      $result['node'],
+      $timestamp,
+      $when
+    );
+
+    $this->addTemplateData($data);
     $this->renderJson();
   }
 
@@ -57,51 +60,6 @@ class ApiResponse extends Response {
     $query->getRange($stream, $start, $end);
     $result = $query->execute();
 
-    $processed = $this->processRangeResponse(
-      $result,
-      $start,
-      $end
-    );
-
-    $this->addTemplateData($processed);
-    $this->renderJson();
-  }
-
-
-  public function getWeek($stream, $direction, $timestamp) {
-    $query = new ScheduledTimeslotQuery();
-
-    switch ($direction) {
-      case 'at':
-        $start = Helpers::weekBegin($timestamp);
-        break;
-      case 'prev':
-        $start = Helpers::weekBeforeBegin($timestamp);
-        break;
-      case 'next':
-        $start = Helpers::weekAfterBegin($timestamp);
-        break;
-      default:
-        return NULL;
-    }
-
-    $end = Helpers::weekEnd($start);
-    $query->getRange($stream, $start, $end);
-    $result = $query->execute();
-
-    $processed = $this->processRangeResponse(
-      $result,
-      $start,
-      $end,
-      true
-    );
-
-    $this->addTemplateData($processed);
-    $this->renderJson();
-  }
-
-
-  private function processRangeResponse($result, $start, $end, $groupByDay = false) {
     if (empty($result)) {
       return NULL;
     }
@@ -111,28 +69,18 @@ class ApiResponse extends Response {
     $data = $processor->processRange(
       $result['node'],
       $start,
-      $end,
-      $groupByDay
+      $end
     );
 
-    return $data;
+    $this->addTemplateData($data);
+    $this->renderJson();
   }
 
 
-  private function processResponse($result, $direction, $timestamp) {
-    if (empty($result)) {
-      return NULL;
-    }
-
-    $processor = new ScheduleProcessor();
-
-    $when = ($direction == 'prev') ? 'before' : 'after';
-    $data = $processor->process(
-      $result['node'],
-      $timestamp,
-      $when
-    );
-
-    return $data;
+  public function getWeek($stream, $direction, $timestamp) {
+    $component = new ScheduleComponent();
+    $data = $component->getWeek($stream, $direction, $timestamp);
+    $this->addTemplateData($data);
+    $this->renderJson();
   }
 }

@@ -81,6 +81,8 @@ class ScheduleProcessor extends TemplateProcessor {
             $timeslot['value']
           );
 
+          $day_of_week = strtolower($day_of_week);
+
           if (!isset($schedule[$day_of_week])) {
             $schedule[$day_of_week] = [];
           }
