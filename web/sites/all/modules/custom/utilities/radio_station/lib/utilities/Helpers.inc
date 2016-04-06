@@ -126,9 +126,13 @@ class Helpers {
 
 
   public static function weekBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->modify('last Sunday')
-      ->startOfDay()
+    $date = Helpers::carbonize($timestamp);
+
+    if ($date->dayOfWeek != Carbon::SUNDAY) {
+      $date->modify('last Sunday');
+    }
+
+    return $date->startOfDay()
       ->getTimestamp();
   }
 

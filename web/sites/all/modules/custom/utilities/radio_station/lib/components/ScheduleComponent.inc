@@ -118,6 +118,93 @@ class ScheduleComponent extends BaseComponent {
     );
   }
 
+
+  public function getShow($stream, $direction, $timestamp) {
+    $weekData = $this->getWeek($stream, "at", $timestamp);
+    $dayOfWeek = Helpers::dayOfWeek($timestamp);
+    $dayData = $weekData[$dayOfWeek];
+
+    $shows = array_filter(
+      $dayData,
+      function ($show) use ($timestamp) {
+        $segment_start = $show['start']['timestamp'];
+        $segment_end = $show['finish']['timestamp'];
+
+        $begun = ($timestamp >= $segment_start);
+        $ended = ($timestamp >= $segment_end);
+
+        return ($begun && !$ended);
+      }
+    );
+
+    $indexes = array_keys($shows);
+    $index = array_pop($indexes);
+
+    switch ($direction) {
+      case 'at':
+        return $shows;
+
+      case 'prev':
+        $index -= 1;
+
+        if ($index < 0) {
+          $dayOfWeek = $this->getDayOfWeek($dayOfWeek, $direction);
+
+          if ($dayOfWeek == 'saturday') {
+            $weekData = $this->getWeek($stream, $direction, $timestamp);
+          }
+
+          $index = count($weekData[$dayOfWeek]) - 1;
+        }
+
+        $dayData = $weekData[$dayOfWeek];
+        $shows = $dayData[$index];
+        return [$shows];
+
+      case 'next':
+        $index += 1;
+
+        if ($index >= count($dayData)) {
+          $index = 0;
+          $dayOfWeek = $this->getDayOfWeek($dayOfWeek, $direction);
+
+          if ($dayOfWeek == 'sunday') {
+            $weekData = $this->getWeek($stream, $direction, $timestamp);
+          }
+        }
+
+        $dayData = $weekData[$dayOfWeek];
+        $shows = $dayData[$index];
+        return [$shows];
+
+      default:
+        return null;
+    }
+  }
+
+
+  private function getDayOfWeek($dayOfWeek, $direction) {
+    switch ($dayOfWeek) {
+      case 'sunday':
+        return ($direction == 'next') ? 'monday' : 'saturday';
+      case 'monday':
+        return ($direction == 'next') ? 'tuesday' : 'sunday';
+      case 'tuesday':
+        return ($direction == 'next') ? 'wednesday' : 'monday';
+      case 'wednesday':
+        return ($direction == 'next') ? 'thursday' : 'tuesday';
+      case 'thursday':
+        return ($direction == 'next') ? 'friday' : 'wednesday';
+      case 'friday':
+        return ($direction == 'next') ? 'saturday' : 'thursday';
+      case 'saturday':
+        return ($direction == 'next') ? 'sunday' : 'friday';
+      default:
+        return 'sunday';
+    }
+  }
+
+
   public function getDay($stream, $direction, $timestamp) {
     $data = [];
 
@@ -136,16 +223,22 @@ class ScheduleComponent extends BaseComponent {
     }
 
     $weekBegin = $this->getWeekBegin($start);
-    $weekData = $this->getWeek($stream, $direction, $weekBegin);
+    $data = $this->getWeek($stream, "at", $weekBegin);
     $dayOfWeek = Helpers::dayOfWeek($start);
-    return $weekData[$dayOfWeek];
+    return $data[$dayOfWeek];
   }
 
 
   public function getWeek($stream, $direction, $timestamp) {
     $data = &drupal_static(__FUNCTION__);
     if (!isset($data)) {
-      $cache_key = "radio_station_week_{$stream}_{$timestamp}";
+      $weekBegin = $this->getWeekBegin($timestamp, $direction);
+
+      if (!$weekBegin) {
+        return [];
+      }
+
+      $cache_key = "radio_station_week_{$stream}_{$weekBegin}";
 
       if ($cache = cache_get($cache_key)) {
         $data = $cache->data;

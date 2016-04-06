@@ -38,7 +38,7 @@
       <h4 id="<?php print strtolower($dayOfWeek); ?>"
           data-bind="schedule-dayofweek">
 
-        <?php print $dayOfWeek; ?>
+        <?php print drupal_ucfirst($dayOfWeek); ?>
       </h4>
 
       <ul class="list-group weekday-<?php print strtolower($dayOfWeek); ?>">
