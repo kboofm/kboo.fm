@@ -1,7 +1,12 @@
 <?php
 $stream = EStreams::One;
 $component = new ScheduleComponent();
-$schedule_item = $component->getShow($stream, "at", time());
+$shows = $component->getShow($stream, "at", time());
+$schedule_item = array_pop($shows);
+
+if (!$schedule_item):
+  return;
+endif;
 ?>
 
 <p class="on-air margin-bottom-lg truncate"

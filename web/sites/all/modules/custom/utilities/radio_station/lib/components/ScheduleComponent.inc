@@ -77,7 +77,7 @@ class ScheduleComponent extends BaseComponent {
         return [$shows];
 
       default:
-        return null;
+        return [];
     }
   }
 
