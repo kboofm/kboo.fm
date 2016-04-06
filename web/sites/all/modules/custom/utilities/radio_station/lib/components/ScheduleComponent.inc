@@ -138,12 +138,13 @@ class ScheduleComponent extends BaseComponent {
       }
 
       $cache_key = "radio_station_week_{$stream}_{$weekBegin}";
+      $cache_table = "cache_radio_station_schedule";
 
-      if ($cache = cache_get($cache_key)) {
+      if ($cache = cache_get($cache_key, $cache_table)) {
         $data = $cache->data;
       } else {
         $data = $this->loadWeek($stream, $direction, $timestamp);
-        cache_set($cache_key, $data, 'cache');
+        cache_set($cache_key, $data, $cache_table);
       }
     }
 
