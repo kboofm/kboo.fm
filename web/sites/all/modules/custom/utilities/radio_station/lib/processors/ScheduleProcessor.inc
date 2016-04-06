@@ -76,12 +76,9 @@ class ScheduleProcessor extends TemplateProcessor {
         }
 
         if ($groupByDay) {
-          $day_of_week = Helpers::toCarbonString(
-            'l',
-            $timeslot['value']
+          $day_of_week = Helpers::dayOfWeek(
+            $timeslot["value"]
           );
-
-          $day_of_week = strtolower($day_of_week);
 
           if (!isset($schedule[$day_of_week])) {
             $schedule[$day_of_week] = [];

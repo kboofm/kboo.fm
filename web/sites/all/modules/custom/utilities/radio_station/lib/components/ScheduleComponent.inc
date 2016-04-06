@@ -118,6 +118,30 @@ class ScheduleComponent extends BaseComponent {
     );
   }
 
+  public function getDay($stream, $direction, $timestamp) {
+    $data = [];
+
+    switch ($direction) {
+      case 'at':
+        $start = Helpers::dayBegin($timestamp);
+        break;
+      case 'prev':
+        $start = Helpers::dayBeforeBegin($timestamp);
+        break;
+      case 'next':
+        $start = Helpers::dayAfterBegin($timestamp);
+        break;
+      default:
+        return $data;
+    }
+
+    $weekBegin = $this->getWeekBegin($start);
+    $weekData = $this->getWeek($stream, $direction, $weekBegin);
+    $dayOfWeek = Helpers::dayOfWeek($start);
+    return $weekData[$dayOfWeek];
+  }
+
+
   public function getWeek($stream, $direction, $timestamp) {
     $data = &drupal_static(__FUNCTION__);
     if (!isset($data)) {
@@ -135,7 +159,7 @@ class ScheduleComponent extends BaseComponent {
   }
 
 
-  private function loadWeek($stream, $direction, $timestamp) {
+  private function getWeekBegin($timestamp, $direction = "at") {
     switch ($direction) {
       case 'at':
         $start = Helpers::weekBegin($timestamp);
@@ -150,17 +174,28 @@ class ScheduleComponent extends BaseComponent {
         return NULL;
     }
 
+    return $start;
+  }
+
+
+  private function loadWeek($stream, $direction, $timestamp) {
+    $data = [];
+    $start = $this->getWeekBegin($timestamp, $direction);
+
+    if (!$start) {
+      return $data;
+    }
+
     $end = Helpers::weekEnd($start);
     $query = new ScheduledTimeslotQuery();
     $query->getRange($stream, $start, $end);
     $result = $query->execute();
 
     if (empty($result)) {
-      return NULL;
+      return $data;
     }
 
     $processor = new ScheduleProcessor();
-
     $data = $processor->processRange(
       $result['node'],
       $start,

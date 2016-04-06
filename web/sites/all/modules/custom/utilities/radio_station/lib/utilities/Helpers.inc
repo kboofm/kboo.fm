@@ -146,6 +146,16 @@ class Helpers {
   }
 
 
+  public static function dayOfWeek($timestamp) {
+    $day_of_week = Helpers::toCarbonString(
+      'l',
+      $timestamp
+    );
+
+    return strtolower($day_of_week);
+  }
+
+
   public static function printif($array, $key) {
     if (isset($array[$key])) {
       print $array[$key];
