@@ -2,7 +2,6 @@
 require_once __DIR__ . '/lib/utilities/RadioEnums.inc';
 require_once __DIR__ . '/lib/utilities/Helpers.inc';
 
-
 function printif($array, $key) {
   if (isset($array[$key])) {
     print $array[$key];
@@ -33,31 +32,14 @@ function radio_station_menu() {
  * Implements hook_cron().
  */
 function radio_station_cron() {
-  $stream = EStreams::One;
+  RadioCache::$enabled = false;
 
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes($stream, 5);
+  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
   $component->scheduleRippingEpisodes($episodes);
   $component->attachNewRips();
 
-
-  /*
-   * Schedule cache should be invalidated if any new episode nodes were created.
-   * Re-generate the cache for this week, next week, and last week if necessary.
-   */
-  $now = time();
-  $component = new ScheduleComponent();
-  $component->getWeek($stream, "at", $now);
-
-  $nextWeek = Helpers::carbonize($now)
-    ->addWeek()
-    ->getTimestamp();
-  $component->getWeek($stream, "at", $nextWeek);
-
-  $lastWeek = Helpers::carbonize($now)
-    ->subWeek()
-    ->getTimestamp();
-  $component->getWeek($stream, "at", $lastWeek);
+  RadioCache::$enabled = true;
 }
 
 
