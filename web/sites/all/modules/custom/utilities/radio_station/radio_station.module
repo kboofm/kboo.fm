@@ -33,10 +33,31 @@ function radio_station_menu() {
  * Implements hook_cron().
  */
 function radio_station_cron() {
+  $stream = EStreams::One;
+
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
+  $episodes = $component->getRippingEpisodes($stream, 5);
   $component->scheduleRippingEpisodes($episodes);
   $component->attachNewRips();
+
+
+  /*
+   * Schedule cache should be invalidated if any new episode nodes were created.
+   * Re-generate the cache for this week, next week, and last week if necessary.
+   */
+  $now = time();
+  $component = new ScheduleComponent();
+  $component->getWeek($stream, "at", $now);
+
+  $nextWeek = Helpers::carbonize($now)
+    ->addWeek()
+    ->getTimestamp();
+  $component->getWeek($stream, "at", $nextWeek);
+
+  $lastWeek = Helpers::carbonize($now)
+    ->subWeek()
+    ->getTimestamp();
+  $component->getWeek($stream, "at", $lastWeek);
 }
 
 
@@ -409,4 +430,17 @@ function radio_station_preprocess_radio_template_episode_playlists(
 
 function radio_station_preprocess_node(&$vars) {
   NodeTeaserProcessor::preprocess($vars);
+}
+
+
+function radio_station_node_presave($node) {
+  $types = [
+    'scheduled_timeslot',
+    'station_content',
+  ];
+  
+  if (in_array($node->type, $types)) {
+    $cache = new RadioCache();
+    $cache->clearSchedule($node);
+  }
 }
