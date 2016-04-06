@@ -1,7 +1,7 @@
 <?php
 $stream = EStreams::One;
 $component = new ScheduleComponent();
-$schedule_item = $component->now($stream);
+$schedule_item = $component->getShow($stream, "at", time());
 ?>
 
 <p class="on-air margin-bottom-lg truncate"

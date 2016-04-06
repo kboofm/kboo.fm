@@ -2,29 +2,9 @@
 
 class ScheduleResponse extends Response {
 
-  private function getOnAir($stream) {
+  private function getNextShow($stream) {
     $component = new ScheduleComponent();
-    $schedule_item = $component->now($stream);
-
-    $data = null;
-    if ($schedule_item) {
-      $data = [$schedule_item];
-    }
-
-    $onair = [
-      'data' => $data,
-      'timestamp' => $schedule_item['start']['timestamp'],
-      'type' => 'episode-now',
-      'stream' => $stream,
-    ];
-
-    return $onair;
-  }
-
-
-  private function getShows($stream) {
-    $component = new ScheduleComponent();
-    $data = $component->next($stream);
+    $data = $component->getShow($stream, "next", time());
 
     $timestamp = null;
     $datetime = null;
@@ -50,7 +30,7 @@ class ScheduleResponse extends Response {
 
   private function getDay($stream) {
     $component = new ScheduleComponent();
-    $data = $component->today($stream);
+    $data = $component->getDay($stream, "at", time());
 
     $timestamp = null;
     $datetime = null;
@@ -76,7 +56,7 @@ class ScheduleResponse extends Response {
 
   private function getWeek($stream) {
     $component = new ScheduleComponent();
-    $data = $component->thisWeek($stream);
+    $data = $component->getWeek($stream, "at", time());
 
     $timestamp = null;
     $datetime = null;
@@ -105,7 +85,7 @@ class ScheduleResponse extends Response {
     $this->template_name = 'radio_template_schedule';
 
     $data = [
-      'scheduled_shows' => $this->getShows($stream),
+      'scheduled_shows' => $this->getNextShow($stream),
       'scheduled_day' => $this->getDay($stream),
       'scheduled_week' => $this->getWeek($stream),
       'stream' => $stream,
