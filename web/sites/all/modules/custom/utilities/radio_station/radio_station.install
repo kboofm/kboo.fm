@@ -116,3 +116,21 @@ function radio_station_update_7102() {
     }
   }
 }
+
+
+/**
+ * Create custom cache table for schedule data
+ */
+function radio_station_update_7103() {
+  $table = "cache_radio_station_schedule";
+
+  $schema[$table] = drupal_get_schema_unprocessed(
+    'system',
+    'cache'
+  );
+
+  db_create_table(
+    $table,
+    $schema[$table]
+  );
+}
