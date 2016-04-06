@@ -1,5 +1,5 @@
 <div class="row margin-top">
-  <div class="col-md-10 col-md-offset-1 playlists">
+  <div class="col-xs-12 playlists">
 
     <table class="table table-striped table-condensed">
       <thead>
