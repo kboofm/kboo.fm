@@ -36,6 +36,8 @@
   <div class="container main-body">
     <?php print $page; ?>
   </div>
+
+  <?php print $page_bottom; ?>
 </body>
 
 
