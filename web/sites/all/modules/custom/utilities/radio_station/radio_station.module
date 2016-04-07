@@ -144,6 +144,12 @@ function radio_station_get_playlists() {
 }
 
 
+function radio_station_get_robots() {
+  $response = new RobotsResponse();
+  $response->get();
+}
+
+
 function radio_station_get_schedule() {
   if (arg(1)) {
     return MENU_NOT_FOUND;

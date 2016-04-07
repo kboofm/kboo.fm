@@ -69,5 +69,6 @@ files[] = lib/responses/PlayerResponse.inc
 files[] = lib/responses/ProfilesResponse.inc
 files[] = lib/responses/ProgramsResponse.inc
 files[] = lib/responses/ProgramsPlaylistsResponse.inc
+files[] = lib/responses/RobotsResponse.inc
 files[] = lib/responses/ScheduleResponse.inc
 files[] = lib/responses/StationContentResponse.inc
