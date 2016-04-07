@@ -126,9 +126,13 @@ class Helpers {
 
 
   public static function weekBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->modify('last Sunday')
-      ->startOfDay()
+    $date = Helpers::carbonize($timestamp);
+
+    if ($date->dayOfWeek != Carbon::SUNDAY) {
+      $date->modify('last Sunday');
+    }
+
+    return $date->startOfDay()
       ->getTimestamp();
   }
 
@@ -143,6 +147,16 @@ class Helpers {
 
   public static function weekAfterBegin($timestamp) {
     return Helpers::weekEnd($timestamp);
+  }
+
+
+  public static function dayOfWeek($timestamp) {
+    $day_of_week = Helpers::toCarbonString(
+      'l',
+      $timestamp
+    );
+
+    return strtolower($day_of_week);
   }
 
 

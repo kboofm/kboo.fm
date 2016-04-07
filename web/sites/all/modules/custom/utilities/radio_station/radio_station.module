@@ -2,7 +2,6 @@
 require_once __DIR__ . '/lib/utilities/RadioEnums.inc';
 require_once __DIR__ . '/lib/utilities/Helpers.inc';
 
-
 function printif($array, $key) {
   if (isset($array[$key])) {
     print $array[$key];
@@ -33,10 +32,28 @@ function radio_station_menu() {
  * Implements hook_cron().
  */
 function radio_station_cron() {
+  $stream = EStreams::One;
+
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
+  $episodes = $component->getRippingEpisodes($stream, 5);
   $component->scheduleRippingEpisodes($episodes);
   $component->attachNewRips();
+
+  /*
+   * Schedule cache should be invalidated if any new episode nodes were created.
+   * Re-generate the cache for last week, this week, and the next 4 weeks
+   */
+  $now = time();
+  $rover = Helpers::carbonize($now)
+    ->subWeeks(1);
+
+  $component = new ScheduleComponent();
+
+  for ($i=0; $i<6; $i++) {
+    $timestamp = $rover->getTimestamp();
+    $component->getWeek($stream, "at", $timestamp);
+    $rover->addWeek();
+  }
 }
 
 
@@ -409,4 +426,17 @@ function radio_station_preprocess_radio_template_episode_playlists(
 
 function radio_station_preprocess_node(&$vars) {
   NodeTeaserProcessor::preprocess($vars);
+}
+
+
+function radio_station_node_presave($node) {
+  $types = [
+    'scheduled_timeslot',
+    'station_content',
+  ];
+  
+  if (in_array($node->type, $types)) {
+    $cache = new RadioCache();
+    $cache->clearSchedule($node);
+  }
 }

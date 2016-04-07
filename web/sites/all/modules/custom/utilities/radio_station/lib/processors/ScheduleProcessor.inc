@@ -76,9 +76,8 @@ class ScheduleProcessor extends TemplateProcessor {
         }
 
         if ($groupByDay) {
-          $day_of_week = Helpers::toCarbonString(
-            'l',
-            $timeslot['value']
+          $day_of_week = Helpers::dayOfWeek(
+            $timeslot["value"]
           );
 
           if (!isset($schedule[$day_of_week])) {
@@ -98,106 +97,6 @@ class ScheduleProcessor extends TemplateProcessor {
       }
     } else {
       $this->sortByStartTime($schedule);
-    }
-
-    return $schedule;
-  }
-
-
-  public function processRangeCalendar($dataset, $start, $end) {
-    $default_item = [
-      'overlapped' => false,
-      'title' => 'Off Air',
-      'length' => 1,
-    ];
-
-    $days_of_week = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-
-    $days = [
-      'days' => array_fill_keys($days_of_week, $default_item)
-    ];
-
-    $hours = [
-      '12am', '1am', '2am', '3am', '4am', '5am',
-      '6am', '7am', '8am', '9am', '10am', '11am',
-      '12pm', '1pm', '2pm', '3pm', '4pm', '5pm',
-      '6pm', '7pm', '8pm', '9pm', '10pm', '11pm',
-    ];
-
-    $schedule = array_fill_keys($hours, $days);
-
-    foreach ($dataset as $nid => $item) {
-      $wrapped = entity_metadata_wrapper('node', $nid);
-      $timeslots = $wrapped->field_timeslot->value();
-
-      $timeslots = array_filter(
-        $timeslots,
-        function ($timeslot) use ($start, $end) {
-          if ($timeslot['value'] < $start) {
-            return false;
-          } else if ($timeslot['value'] > $end) {
-            return false;
-          }
-
-          return true;
-        }
-      );
-
-      foreach ($timeslots as $timeslot) {
-        $hour = Helpers::toCarbonString(
-          'ga',
-          $timeslot['value']
-        );
-
-        if (!isset($schedule[$hour]['days'])) {
-          $schedule[$hour]['days'] = [];
-        }
-
-        $day_of_week = Helpers::toCarbonString(
-          'l',
-          $timeslot['value']
-        );
-
-        $schedule_item = $this->buildCalendarItem(
-          $wrapped,
-          $timeslot
-        );
-
-        $schedule[$hour]['days'][$day_of_week] = $schedule_item;
-
-        if ($schedule_item['length'] > 1) {
-          $current = array_search($hour, $hours);
-          $current_dow = array_search($day_of_week, $days_of_week);
-
-          $next_dow = $current_dow + 1;
-          $next_dow = ($next_dow > count($days_of_week) - 1) ? 0 : $next_dow;
-
-          $over = $schedule_item['length'] - 1;
-          $range = range(1, $over);
-
-          foreach ($range as $index => $value) {
-            $next = $current + $value;
-            $dow = $current_dow;
-
-            if ($next > count($hours) - 1) {
-              $next = $next - count($hours);
-              $dow = $next_dow;
-            }
-
-            $dow = $days_of_week[$dow];
-            $next_hour = $hours[$next];
-            $schedule[$next_hour]['days'][$dow]['overlapped'] = true;
-          }
-        }
-      }
     }
 
     return $schedule;
@@ -234,29 +133,6 @@ class ScheduleProcessor extends TemplateProcessor {
         }
       }
     );
-  }
-
-
-  /**
-   * Process first item in dataset
-   * @param $dataset
-   * @return null
-   */
-  public function processNow($dataset) {
-    $now = time();
-    reset($dataset);
-    $nid = key($dataset);
-
-    $wrapped = entity_metadata_wrapper('node', $nid);
-    $timeslots = $wrapped->field_timeslot->value();
-
-    foreach ($timeslots as $timeslot) {
-      if ($timeslot['value'] <= $now && $timeslot['value2'] >= $now) {
-        return $this->buildScheduleItem($wrapped, $timeslot);
-      }
-    }
-
-    return NULL;
   }
 
 
@@ -356,32 +232,6 @@ class ScheduleProcessor extends TemplateProcessor {
 
     $showhost = entity_metadata_wrapper('node', $showhost_id);
     return $showhost->value();
-  }
-
-
-  private function buildCalendarItem($wrapped_scheduled_timeslot, $timeslot) {
-    $wrapped_episode = $this->getEpisode($timeslot);
-    $timeslot_program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
-    $episode_program = $this->getEpisodeProgram($wrapped_episode);
-
-    if (!$timeslot_program && !$episode_program) {
-      return NULL;
-    }
-
-
-    $title = $this->getScheduleTitle($timeslot_program, $episode_program);
-    $url = $this->getScheduleUrl($timeslot_program, $wrapped_episode);
-    $length = $timeslot['value2'] - $timeslot['value'];
-    $length = $length / 3600;
-
-    $schedule_item = [
-      'title' => $title,
-      'url' => $url,
-      'length' => $length,
-      'overlapped' => false,
-    ];
-
-    return $schedule_item;
   }
 
 

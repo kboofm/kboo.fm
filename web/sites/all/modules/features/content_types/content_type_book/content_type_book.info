@@ -1,7 +1,7 @@
 name = Book page
 core = 7.x
 package = Content Types
-version = 7.x-1.9
+version = 7.x-1.10
 dependencies[] = book
 dependencies[] = content_type_basic_page
 dependencies[] = ctools

@@ -1,6 +1,6 @@
 <?php
 $component = new ScheduleComponent();
-$schedule_item = $component->now($stream);
+$schedule_item = $component->getShow($stream, "at", time());
 
 $schedule = [
   'data' => [$schedule_item],
