@@ -19,6 +19,7 @@
           wmode: "window",
           smoothPlayBar: true,
           keyEnabled: true,
+          remainingDuration: true,
           ready: function() {
             return $(this).jPlayer("setMedia", {
               mp3: endpoint
