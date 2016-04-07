@@ -32,14 +32,28 @@ function radio_station_menu() {
  * Implements hook_cron().
  */
 function radio_station_cron() {
-  RadioCache::$enabled = false;
+  $stream = EStreams::One;
 
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
+  $episodes = $component->getRippingEpisodes($stream, 5);
   $component->scheduleRippingEpisodes($episodes);
   $component->attachNewRips();
 
-  RadioCache::$enabled = true;
+  /*
+   * Schedule cache should be invalidated if any new episode nodes were created.
+   * Re-generate the cache for last week, this week, and the next 4 weeks
+   */
+  $now = time();
+  $rover = Helpers::carbonize($now)
+    ->subWeeks(1);
+
+  $component = new ScheduleComponent();
+
+  for ($i=0; $i<6; $i++) {
+    $timestamp = $rover->getTimestamp();
+    $component->getWeek($stream, "at", $timestamp);
+    $rover->addWeek();
+  }
 }
 
 

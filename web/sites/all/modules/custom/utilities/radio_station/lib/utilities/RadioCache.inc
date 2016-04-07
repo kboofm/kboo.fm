@@ -1,13 +1,8 @@
 <?php
 
 class RadioCache {
-  public static $enabled = true;
 
   public function clearSchedule($node) {
-    if (!RadioCache::$enabled) {
-      return;
-    }
-
     $stream = EStreams::One;
     $timestamps = [];
     $entity = entity_metadata_wrapper('node', $node);
