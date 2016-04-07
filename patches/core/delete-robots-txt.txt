@@ -1,0 +1,4 @@
+Deletes robots.txt. Instead, it is handled by the radio_station module
+
+See:
+KBOO-483

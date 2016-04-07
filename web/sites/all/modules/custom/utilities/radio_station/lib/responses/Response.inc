@@ -80,6 +80,16 @@ abstract class Response {
   }
 
 
+  public function renderTxt() {
+    drupal_add_http_header('Content-Type', 'text/plain; charset=utf-8');
+
+    foreach ($this->template_data as $data) {
+      print $data;
+    }
+    drupal_exit();
+  }
+
+
   protected function getTemplateFile() {
     $filename = explode('_', $this->template_name);
     array_shift($filename);
