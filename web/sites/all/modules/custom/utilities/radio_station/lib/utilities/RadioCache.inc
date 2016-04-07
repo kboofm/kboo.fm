@@ -56,6 +56,10 @@ class RadioCache {
     } elseif ($node->type == 'station_content') {
       try {
         $timestamp = $entity->field_air_time->value();
+        if (!$timestamp) {
+          return;
+        }
+
         $timestamps = [$timestamp];
       } catch (EntityMetadataWrapperException $e) {
         return;
