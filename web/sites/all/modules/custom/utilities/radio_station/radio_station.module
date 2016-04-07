@@ -430,13 +430,8 @@ function radio_station_preprocess_node(&$vars) {
 
 
 function radio_station_node_presave($node) {
-  $types = [
-    'scheduled_timeslot',
-    'station_content',
-  ];
-  
-  if (in_array($node->type, $types)) {
-    $cache = new RadioCache();
-    $cache->clearSchedule($node);
-  }
+  // clear cache methods only if $node matches internal critieria
+  $cache = new RadioCache();
+  $cache->clearSchedule($node);
+  $cache->clearSidebar($node);
 }

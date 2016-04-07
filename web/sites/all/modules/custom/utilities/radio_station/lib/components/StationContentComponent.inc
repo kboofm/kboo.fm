@@ -41,55 +41,90 @@ class StationContentComponent extends BaseComponent {
 
 
   public function latestAudio($count) {
-    $query = new StationContentQuery();
-    $query->getAudio($count);
-    $result = $query->execute();
+    $cache_key = "radio_station_sidebar_audio";
+    $cache_table = "cache_radio_station";
 
-    $processor = new StationContentProcessor();
-    return $processor->process(
-      $this->getNids($result)
-    );
+    $loaded = false;
+    if ($cache = cache_get($cache_key, $cache_table)) {
+      $data = $cache->data;
+      if (count($data) >= $count) {
+        $data = array_slice($data, 0, $count);
+        $loaded = true;
+      }
+    }
+
+    if (!$loaded) {
+      $query = new StationContentQuery();
+      $query->getAudio($count);
+      $result = $query->execute();
+
+      $processor = new StationContentProcessor();
+      $data = $processor->process(
+        $this->getNids($result)
+      );
+      cache_set($cache_key, $data, $cache_table);
+    }
+    
+    return $data;
   }
 
 
   public function latestPlaylists($count) {
-    $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
+    $cache_key = "radio_station_sidebar_playlists";
+    $cache_table = "cache_radio_station";
 
-    $episodes = array_map(
-      function ($item) {
-        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
-        $onair = strtotime($onair);
+    $loaded = false;
+    if ($cache = cache_get($cache_key, $cache_table)) {
+      $data = $cache->data;
+      if (count($data) >= $count) {
+        $data = array_slice($data, 0, $count);
+        $loaded = true;
+      }
+    }
 
-        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
-        $offair = strtotime($offair);
+    if (!$loaded) {
+      $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
 
-        if ($offair < $onair) {
-          // If offair is the next day, then playlist date will be one day off
-          $offair = strtotime("+1 day", $offair);
-        }
+      $episodes = array_map(
+        function ($item) {
+          $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+          $onair = strtotime($onair);
 
-        $query = new StationContentQuery();
-        $query->getEpisodeInRange($onair, $offair);
-        $result = $query->execute();
-        $nids = $this->getNids($result);
+          $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+          $offair = strtotime($offair);
 
-        if ($nids) {
-          return $nids[0];
-        } else {
-          return NULL;
-        }
-      },
-      $spinitron_data
-    );
+          if ($offair < $onair) {
+            // If offair is the next day, then playlist date will be one day off
+            $offair = strtotime("+1 day", $offair);
+          }
 
-    $episodes = array_filter($episodes);
-    $episodes = array_values($episodes);
-    $episodes = array_slice($episodes, 0, $count);
+          $query = new StationContentQuery();
+          $query->getEpisodeInRange($onair, $offair);
+          $result = $query->execute();
+          $nids = $this->getNids($result);
 
-    $processor = new StationContentProcessor();
-    return $processor->process(
-      $episodes
-    );
+          if ($nids) {
+            return $nids[0];
+          }
+          else {
+            return NULL;
+          }
+        },
+        $spinitron_data
+      );
+
+      $episodes = array_filter($episodes);
+      $episodes = array_values($episodes);
+      $episodes = array_slice($episodes, 0, $count);
+
+      $processor = new StationContentProcessor();
+      $data = $processor->process(
+        $episodes
+      );
+      cache_set($cache_key, $data, $cache_table);
+    }
+
+    return $data;
   }
 
 
