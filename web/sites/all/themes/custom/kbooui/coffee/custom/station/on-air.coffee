@@ -44,7 +44,7 @@
     @renderOnAir: (response) =>
       return if response.length == 0
       data = @dataItem response[0]
-      
+
       directives =
         "title-link":
           "text": -> @program.text
@@ -52,7 +52,7 @@
         "showhost-link":
           "text": -> @showhost.text
           "href": -> @showhost.href
-            
+
       @$el.render data, directives
       true
 ) jQuery
