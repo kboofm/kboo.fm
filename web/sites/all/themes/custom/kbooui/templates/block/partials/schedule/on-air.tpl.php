@@ -29,7 +29,8 @@ endif;
         with
 
         <a href="<?php print $schedule_item['showhost']['url']; ?>"
-           class="text-capitalize">
+           class="text-capitalize"
+           data-bind="showhost-link">
           <?php print $schedule_item['showhost']['name']; ?>
         </a>
       <?php endif; ?>
