@@ -41,14 +41,15 @@ class StationContentComponent extends BaseComponent {
 
 
   public function latestAudio($count) {
-    $cache_key = "radio_station_sidebar_audio";
+    $cache_key = "radio_station_latest_audio";
     $cache_table = "cache_radio_station";
 
     $loaded = false;
     if ($cache = cache_get($cache_key, $cache_table)) {
       $data = $cache->data;
-      if (count($data) >= $count) {
-        $data = array_slice($data, 0, $count);
+
+      if ($data['requested'] >= $count) {
+        $episodes = array_slice($data['episodes'], 0, $count);
         $loaded = true;
       }
     }
@@ -59,25 +60,32 @@ class StationContentComponent extends BaseComponent {
       $result = $query->execute();
 
       $processor = new StationContentProcessor();
-      $data = $processor->process(
+      $episodes = $processor->process(
         $this->getNids($result)
       );
+
+      $data = [
+        'episodes' => $episodes,
+        'requested' => $count,
+      ];
+
       cache_set($cache_key, $data, $cache_table);
     }
     
-    return $data;
+    return $episodes;
   }
 
 
   public function latestPlaylists($count) {
-    $cache_key = "radio_station_sidebar_playlists";
+    $cache_key = "radio_station_latest_playlists";
     $cache_table = "cache_radio_station";
 
     $loaded = false;
     if ($cache = cache_get($cache_key, $cache_table)) {
       $data = $cache->data;
-      if (count($data) >= $count) {
-        $data = array_slice($data, 0, $count);
+
+      if ($data['requested'] >= $count) {
+        $playlists = array_slice($data['playlists'], 0, $count);
         $loaded = true;
       }
     }
@@ -118,13 +126,17 @@ class StationContentComponent extends BaseComponent {
       $episodes = array_slice($episodes, 0, $count);
 
       $processor = new StationContentProcessor();
-      $data = $processor->process(
-        $episodes
-      );
+      $playlists = $processor->process($episodes);
+
+      $data = [
+        'playlists' => $playlists,
+        'requested' => $count,
+      ];
+
       cache_set($cache_key, $data, $cache_table);
     }
 
-    return $data;
+    return $playlists;
   }
 
 

@@ -8,7 +8,7 @@ class RadioCache {
     }
 
     $cache_table = "cache_radio_station";
-    cache_clear_all("radio_station_sidebar_playlists", $cache_table);
+    cache_clear_all("radio_station_latest_playlists", $cache_table);
 
     $clear = false;
     $entity = entity_metadata_wrapper('node', $node);
@@ -22,7 +22,7 @@ class RadioCache {
     }
 
     if ($clear) {
-      cache_clear_all("radio_station_sidebar_audio", $cache_table);
+      cache_clear_all("radio_station_latest_audio", $cache_table);
     }
   }
 
