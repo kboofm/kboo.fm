@@ -4,6 +4,10 @@ package = Radio - Utilities
 core = 7.x
 version = 7.x-1.0
 
+; Configs
+files[] = lib/configs/RadioConfig.inc
+
+
 ; Utilities
 files[] = lib/utilities/RadioAssets.inc
 files[] = lib/utilities/RadioBlocks.inc

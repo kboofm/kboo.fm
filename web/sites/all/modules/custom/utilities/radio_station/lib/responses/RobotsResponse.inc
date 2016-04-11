@@ -2,18 +2,11 @@
 
 class RobotsResponse extends Response {
   public function get() {
-    $data = <<<TEXT
-User-agent: *
-Disallow: /
-TEXT;
+    $env = RadioConfig::environment();
+    $data = $this->getDefaultContent();
 
-    $path = drupal_get_path("module", "radio_station");
-    $env_file = "{$path}/.env";
-
-    if (file_exists($env_file)) {
-      $env = trim(
-        file_get_contents($env_file)
-      );
+    if ($env) {
+      $path = drupal_get_path("module", "radio_station");
       $robots_file = "{$path}/robots/{$env}.txt";
 
       if (file_exists($robots_file)) {
@@ -23,5 +16,13 @@ TEXT;
 
     $this->addTemplateData([$data]);
     $this->renderTxt();
+  }
+
+
+  private function getDefaultContent() {
+    return <<<TEXT
+User-agent: *
+Disallow: /
+TEXT;
   }
 }
