@@ -4,6 +4,10 @@ package = Radio - Utilities
 core = 7.x
 version = 7.x-1.0
 
+; Configs
+files[] = lib/configs/RadioConfig.inc
+
+
 ; Utilities
 files[] = lib/utilities/RadioAssets.inc
 files[] = lib/utilities/RadioBlocks.inc
@@ -69,5 +73,6 @@ files[] = lib/responses/PlayerResponse.inc
 files[] = lib/responses/ProfilesResponse.inc
 files[] = lib/responses/ProgramsResponse.inc
 files[] = lib/responses/ProgramsPlaylistsResponse.inc
+files[] = lib/responses/RobotsResponse.inc
 files[] = lib/responses/ScheduleResponse.inc
 files[] = lib/responses/StationContentResponse.inc

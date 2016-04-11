@@ -45,18 +45,43 @@
       OnAir.dataItem = function(item) {
         var data_item;
         data_item = {
-          "title-link": item['title']
+          "program": {
+            "text": item['title'],
+            "href": item['url']
+          },
+          "showhost": {
+            "text": item['showhost']['name'],
+            "href": item['showhost']['url']
+          }
         };
         return data_item;
       };
 
       OnAir.renderOnAir = function(response) {
-        var data;
+        var data, directives;
         if (response.length === 0) {
           return;
         }
         data = OnAir.dataItem(response[0]);
-        OnAir.$el.render(data);
+        directives = {
+          "title-link": {
+            "text": function() {
+              return this.program.text;
+            },
+            "href": function() {
+              return this.program.href;
+            }
+          },
+          "showhost-link": {
+            "text": function() {
+              return this.showhost.text;
+            },
+            "href": function() {
+              return this.showhost.href;
+            }
+          }
+        };
+        OnAir.$el.render(data, directives);
         return true;
       };
 

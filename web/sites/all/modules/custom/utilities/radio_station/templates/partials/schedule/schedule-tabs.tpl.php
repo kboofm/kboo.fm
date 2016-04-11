@@ -5,7 +5,7 @@
     <a href="#tab-schedule-shows"
        role="tab"
        data-toggle="tab">
-      Shows
+      Up Next
     </a>
   </li>
 

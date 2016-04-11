@@ -134,3 +134,21 @@ function radio_station_update_7103() {
     $schema[$table]
   );
 }
+
+
+/**
+ * Create custom cache table for generic radio station data
+ */
+function radio_station_update_7104() {
+  $table = "cache_radio_station";
+
+  $schema[$table] = drupal_get_schema_unprocessed(
+    'system',
+    'cache'
+  );
+
+  db_create_table(
+    $table,
+    $schema[$table]
+  );
+}

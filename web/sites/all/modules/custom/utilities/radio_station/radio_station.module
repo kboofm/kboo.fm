@@ -33,10 +33,16 @@ function radio_station_menu() {
  */
 function radio_station_cron() {
   $stream = EStreams::One;
-
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes($stream, 5);
-  $component->scheduleRippingEpisodes($episodes);
+
+  if (RadioConfig::get("generate_episodes")) {
+    $episodes = $component->getRippingEpisodes($stream, 5);
+
+    if (RadioConfig::get("automatic_ripping")) {
+      $component->scheduleRippingEpisodes($episodes);
+    }
+  }
+
   $component->attachNewRips();
 
   /*
@@ -141,6 +147,12 @@ function radio_station_get_week($stream, $direction, $timestamp) {
 function radio_station_get_playlists() {
   $data = RadioSpinitron::getLatestSongs();
   drupal_json_output($data);
+}
+
+
+function radio_station_get_robots() {
+  $response = new RobotsResponse();
+  $response->get();
 }
 
 
@@ -430,13 +442,8 @@ function radio_station_preprocess_node(&$vars) {
 
 
 function radio_station_node_presave($node) {
-  $types = [
-    'scheduled_timeslot',
-    'station_content',
-  ];
-  
-  if (in_array($node->type, $types)) {
-    $cache = new RadioCache();
-    $cache->clearSchedule($node);
-  }
+  // clear cache methods only if $node matches internal critieria
+  $cache = new RadioCache();
+  $cache->clearSchedule($node);
+  $cache->clearSidebar($node);
 }

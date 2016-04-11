@@ -2,11 +2,44 @@
 
 class RadioCache {
 
+  public function clearSidebar($node) {
+    if ($node->type != "station_content") {
+      return;
+    }
+
+    $cache_table = "cache_radio_station";
+    cache_clear_all("radio_station_latest_playlists", $cache_table);
+
+    $clear = false;
+    $entity = entity_metadata_wrapper('node', $node);
+    try {
+      $audio_files = $entity->field_audio_files->value();
+      if (count($audio_files) > 0) {
+        $clear = true;
+      }
+    } catch (EntityMetadataWrapperException $e) {
+      // duck typing
+    }
+
+    if ($clear) {
+      cache_clear_all("radio_station_latest_audio", $cache_table);
+    }
+  }
+
+
   public function clearSchedule($node) {
     $stream = EStreams::One;
     $timestamps = [];
-    $entity = entity_metadata_wrapper('node', $node);
+    $types = [
+      'scheduled_timeslot',
+      'station_content',
+    ];
 
+    if (!in_array($node->type, $types)) {
+      return;
+    }
+
+    $entity = entity_metadata_wrapper('node', $node);
     if ($node->type == 'scheduled_timeslot') {
       try {
         $timestamps = $entity->field_timeslot->value();
@@ -23,6 +56,10 @@ class RadioCache {
     } elseif ($node->type == 'station_content') {
       try {
         $timestamp = $entity->field_air_time->value();
+        if (!$timestamp) {
+          return;
+        }
+
         $timestamps = [$timestamp];
       } catch (EntityMetadataWrapperException $e) {
         return;
