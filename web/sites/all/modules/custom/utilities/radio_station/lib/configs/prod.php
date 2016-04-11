@@ -1,6 +1,6 @@
 <?php
 return array(
   'environment' => 'prod',
-  'generate_episodes' => FALSE,
-  'automatic_ripping' => FALSE,
+  'generate_episodes' => TRUE,
+  'automatic_ripping' => TRUE,
 );
