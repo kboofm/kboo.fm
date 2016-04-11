@@ -29,7 +29,6 @@
       hide($content['field_hosted_by']);
       hide($content['field_produced_by']);
 
-      print theme('radio_template_program_scheduled_timeslots');
       print render($content['field_authored_by']);
     ?>
 
