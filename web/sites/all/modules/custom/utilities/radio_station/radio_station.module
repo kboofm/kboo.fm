@@ -258,7 +258,27 @@ function radio_station_get_program() {
   }
 
   $response = new ProgramsResponse();
-  return $response->getShows();
+  return $response->getCurrentShows();
+}
+
+
+function radio_station_get_program_retired() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getRetiredShows();
+}
+
+
+function radio_station_get_program_web_only() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getWebOnlyShows();
 }
 
 

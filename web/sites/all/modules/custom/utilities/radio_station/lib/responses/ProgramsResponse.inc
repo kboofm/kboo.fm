@@ -28,8 +28,36 @@ class ProgramsResponse extends Response {
   }
 
 
-  public function getShows() {
+  public function getCurrentShows() {
     $this->template_name = 'radio_template_program';
+
+    $component = new ProgramsComponent();
+    $programs = $component->getShows();
+
+    $data = [
+      'programs' => $programs,
+    ];
+    $this->addTemplateData($data);
+    return $this->renderHtml();
+  }
+
+
+  public function getRetiredShows() {
+    $this->template_name = 'radio_template_program_retired';
+
+    $component = new ProgramsComponent();
+    $programs = $component->getShows();
+
+    $data = [
+      'programs' => $programs,
+    ];
+    $this->addTemplateData($data);
+    return $this->renderHtml();
+  }
+
+
+  public function getWebOnlyShows() {
+    $this->template_name = 'radio_template_program_web_only';
 
     $component = new ProgramsComponent();
     $programs = $component->getShows();
