@@ -95,7 +95,19 @@ function file_entity_file_update($file) {
     $query->execute();
   }
 
-  if (module_exists('image') && file_entity_file_get_mimetype_type($file) == 'image' && $file->filesize) {
+  if (module_exists('image') && file_entity_file_get_mimetype_type($file) == 'image' &&
+    $file->filesize && isset($file->original)) {
+    if (!isset($file->metadata)) {
+      $file->metadata = array();
+    }
+
+    if (!isset($file->original->metadata)) {
+      if (!is_object($file->original)) {
+        $file->original = new StdClass;
+      }
+      $file->original->metadata = array();
+    }
+
     // If the file has changed dimensions or a new file has been uploaded,
     // update any image field reference to this file and flush image style
     // derivatives.
