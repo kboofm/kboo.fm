@@ -2,9 +2,14 @@
 
 class ProgramsComponent extends BaseComponent {
 
-  public function getShows() {
+  public function getShows($status, $streams) {
     $query = new ProgramQuery();
-    $query->getShows();
+
+    $query->getShows(
+      $status,
+      $streams
+    );
+
     $query->sortByTitle();
     $result = $query->execute();
 
@@ -20,7 +25,12 @@ class ProgramsComponent extends BaseComponent {
 
   public function getGenres() {
     $query = new ProgramQuery();
-    $query->getShows();
+
+    $query->getShows(
+      EProgramStatus::Current,
+      EStreams::all()
+    );
+
     $query->hasGenre();
     $query->sortByTitle();
     $result = $query->execute();
@@ -36,7 +46,12 @@ class ProgramsComponent extends BaseComponent {
 
   public function getTopics() {
     $query = new ProgramQuery();
-    $query->getShows();
+
+    $query->getShows(
+      EProgramStatus::Current,
+      EStreams::all()
+    );
+
     $query->hasTopic();
     $query->sortByTitle();
     $result = $query->execute();

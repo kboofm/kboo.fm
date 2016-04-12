@@ -1,5 +1,5 @@
 <?php
-$active_tab = "current";
+$active_tab = "retired";
 include "partials/program-tabs.tpl.php";
 ?>
 

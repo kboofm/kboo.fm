@@ -36,6 +36,31 @@ function content_type_program_field_default_field_bases() {
     'type' => 'list_integer',
   );
 
+  // Exported field_base: 'field_program_status'.
+  $field_bases['field_program_status'] = array(
+    'active' => 1,
+    'cardinality' => 1,
+    'deleted' => 0,
+    'entity_types' => array(),
+    'field_name' => 'field_program_status',
+    'indexes' => array(
+      'value' => array(
+        0 => 'value',
+      ),
+    ),
+    'locked' => 0,
+    'module' => 'list',
+    'settings' => array(
+      'allowed_values' => array(
+        0 => 'Current',
+        1 => 'Retired',
+      ),
+      'allowed_values_function' => '',
+    ),
+    'translatable' => 0,
+    'type' => 'list_integer',
+  );
+
   // Exported field_base: 'field_program_type'.
   $field_bases['field_program_type'] = array(
     'active' => 1,
@@ -57,6 +82,7 @@ function content_type_program_field_default_field_bases() {
           'parent' => 0,
         ),
       ),
+      'options_list_callback' => 'title_taxonomy_allowed_values',
     ),
     'translatable' => 0,
     'type' => 'taxonomy_term_reference',

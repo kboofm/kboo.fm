@@ -64,6 +64,7 @@ function content_type_program_field_group_info() {
       11 => 'field_streams',
       12 => 'field_topic_tags',
       13 => 'title_field',
+      14 => 'field_program_status',
     ),
     'format_type' => 'tab',
     'format_settings' => array(
@@ -148,8 +149,8 @@ function content_type_program_field_group_info() {
     'weight' => '3',
     'children' => array(
       0 => 'field_authored_by',
-      1 => 'field_sponsored_by',
-      2 => 'field_produced_by',
+      1 => 'field_produced_by',
+      2 => 'field_sponsored_by',
     ),
     'format_type' => 'tab',
     'format_settings' => array(

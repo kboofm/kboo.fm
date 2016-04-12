@@ -1,11 +1,26 @@
 <?php
 abstract class EStreams {
   const One = 'one';
+  const Two = 'two';
 
   public static function all() {
     return [
       EStreams::One,
+      Estreams::Two,
     ];
+  }
+
+  public static function getStreamByNid($nid) {
+    $stream_one = variable_get("radio_station_stream_one_nid");
+    $stream_two = variable_get("radio_station_stream_two_nid");
+
+    if ($nid == $stream_one) {
+      return EStreams::One;
+    } else if ($nid == $stream_two) {
+      return EStreams::Two;
+    } else {
+      return NULL;
+    }
   }
 }
 
@@ -44,7 +59,13 @@ abstract class EDisplayStyle {
 
 
 abstract class EArchiveTypes {
-  const NEVER = 0;
-  const TEMPORARY = 1;
-  const PERMANENT = 2;
+  const Never = 0;
+  const Temporary = 1;
+  const Permanent = 2;
+}
+
+
+abstract class EProgramStatus {
+  const Current = 0;
+  const Retired = 1;
 }

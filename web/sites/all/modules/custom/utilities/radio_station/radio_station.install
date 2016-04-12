@@ -152,3 +152,27 @@ function radio_station_update_7104() {
     $schema[$table]
   );
 }
+
+
+/**
+ * Set all program nodes to status "Current"
+ */
+function radio_station_update_7105() {
+  $query = db_select('node', 'n');
+  $query->fields('n', ['nid']);
+
+  $query->condition("n.type", "program", "=");
+  $query->orderBy("nid");
+  $results = $query->execute();
+
+  $stream = Helpers::getStreamNid(EStreams::One);
+  $count = $results->rowCount() - 1;
+  foreach ($results as $index => $n) {
+    print "{$index}/{$count}..." . PHP_EOL;
+
+    $entity = entity_metadata_wrapper('node', $n->nid);
+    $entity->field_program_status->set(EProgramStatus::Current);
+    $entity->field_streams->set([$stream]);
+    $entity->save();
+  }
+}
