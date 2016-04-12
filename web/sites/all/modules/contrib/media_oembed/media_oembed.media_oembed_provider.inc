@@ -29,6 +29,37 @@ http://sta.sh/*';
   $provider = new stdClass();
   $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
   $provider->api_version = 1;
+  $provider->name = 'facebook_post';
+  $provider->admin_title = 'Facebook Post';
+  $provider->admin_description = 'Facebook is a social networking website that makes it easy to connect and share with family and friends online.';
+  $provider->endpoint = 'https://www.facebook.com/plugins/post/oembed.json';
+  $provider->scheme = 'https://www.facebook.com/*/posts/*
+https://www.facebook.com/*/posts/*
+https://www.facebook.com/*/activity/*
+https://www.facebook.com/photo.php?fbid=*
+https://www.facebook.com/photos/*
+https://www.facebook.com/permalink.php?story_fbid=*
+https://www.facebook.com/media/set?set=*
+https://www.facebook.com/questions/*
+https://www.facebook.com/notes/*/*/*';
+  $providers['facebook_post'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
+  $provider->name = 'facebook_video';
+  $provider->admin_title = 'Facebook Video';
+  $provider->admin_description = 'Facebook is a social networking website that makes it easy to connect and share with family and friends online.';
+  $provider->endpoint = 'https://www.facebook.com/plugins/video/oembed.json';
+  $provider->scheme = 'https://www.facebook.com/*/videos/*/
+https://www.facebook.com/*/videos/*/
+https://www.facebook.com/video.php?id=*
+https://www.facebook.com/video.php?v=*';
+  $providers['facebook_video'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
   $provider->name = 'flickr';
   $provider->admin_title = 'Flickr';
   $provider->admin_description = 'Flickr is an image hosting and video hosting website, and web services suite.';

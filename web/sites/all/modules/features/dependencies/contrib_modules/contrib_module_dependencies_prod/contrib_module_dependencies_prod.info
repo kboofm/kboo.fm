@@ -5,5 +5,4 @@ package = Dependencies
 version = 7.x-1.1
 project = contrib_module_dependencies
 dependencies[] = contrib_module_dependencies_base
-dependencies[] = cdn
 features[features_api][] = api:2

@@ -8,4 +8,5 @@ $baseDir = dirname($vendorDir);
 return array(
     'derhasi\\Composer\\' => array($vendorDir . '/derhasi/composer-preserve-paths/src'),
     'cweagans\\Composer\\' => array($vendorDir . '/cweagans/composer-patches/src'),
+    'Composer\\Installers\\' => array($vendorDir . '/composer/installers/src/Composer/Installers'),
 );
