@@ -24,11 +24,43 @@ class ProgramQuery extends NodeQuery {
   /**
    * Get shows matching the $string
    *
+   * @param $status
+   * @param $streams
    * @return $this
    */
-  public function getShows() {
+  public function getShows($status, $streams) {
     $this->getProgramsByType('Show');
+    $this->hasAnyStream($streams);
+
+    $this->fieldCondition(
+      "field_program_status",
+      "value",
+      $status,
+      "="
+    );
+
     return $this;
+  }
+
+
+  protected function hasAnyStream($streams) {
+    if (!is_array($streams)) {
+      $streams = [$streams];
+    }
+
+    $streams = array_map(
+      function ($stream) {
+        return Helpers::getStreamNid($stream);
+      },
+      $streams
+    );
+
+    $this->fieldCondition(
+      "field_streams",
+      "target_id",
+      $streams,
+      "IN"
+    );
   }
 
 

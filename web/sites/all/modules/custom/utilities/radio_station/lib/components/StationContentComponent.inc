@@ -382,7 +382,7 @@ class StationContentComponent extends BaseComponent {
       }
 
       $recording_type = $episode->field_episode_record->value();
-      if ($recording_type == EArchiveTypes::NEVER) {
+      if ($recording_type == EArchiveTypes::Never) {
         continue;
       }
 

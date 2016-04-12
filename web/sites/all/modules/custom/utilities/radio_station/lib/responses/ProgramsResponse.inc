@@ -28,15 +28,44 @@ class ProgramsResponse extends Response {
   }
 
 
-  public function getShows() {
+  public function getCurrentShows() {
     $this->template_name = 'radio_template_program';
 
+    return $this->getShows(
+      EProgramStatus::Current,
+      EStreams::One
+    );
+  }
+
+
+  public function getRetiredShows() {
+    $this->template_name = 'radio_template_program_retired';
+
+    return $this->getShows(
+      EProgramStatus::Retired,
+      EStreams::all()
+    );
+  }
+
+
+  public function getWebOnlyShows() {
+    $this->template_name = 'radio_template_program_web_only';
+
+    return $this->getShows(
+      EProgramStatus::Current,
+      EStreams::Two
+    );
+  }
+
+
+  private function getShows($status, $streams) {
     $component = new ProgramsComponent();
-    $programs = $component->getShows();
+    $programs = $component->getShows($status, $streams);
 
     $data = [
       'programs' => $programs,
     ];
+
     $this->addTemplateData($data);
     return $this->renderHtml();
   }

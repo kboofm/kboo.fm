@@ -1,17 +1,7 @@
-<ul class="nav nav-tabs margin-vertical-lg" role="tablist">
-  <li role="presentation">
-    <a href="/program" role="tab">All Programs</a>
-  </li>
-
-  <li role="presentation">
-    <a href="/program/genre" role="tab">Programs by Genre</a>
-  </li>
-
-  <li role="presentation" class="active">
-    <a href="/program/topic" role="tab">Programs by Topic</a>
-  </li>
-</ul>
-
+<?php
+$active_tab = "topic";
+include "partials/program-tabs.tpl.php";
+?>
 
 <?php foreach ($topics as $topic => $programs): ?>
   <h3>
