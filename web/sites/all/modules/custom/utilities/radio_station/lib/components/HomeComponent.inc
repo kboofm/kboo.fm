@@ -1,12 +1,9 @@
 <?php
 
 class HomeComponent extends BaseComponent {
+
   public function latest() {
-    $query = new NodeQuery();
-    $query->isPromoted();
-    $query->propertyOrderBy('sticky', 'DESC');
-    $query->addTag('radio_HomeComponent_orderBy');
-    $query->setLimit(10);
+    $query = $this->getHomeQuery();
     $result = $query->execute();
 
     $nids = array_keys(
@@ -20,14 +17,21 @@ class HomeComponent extends BaseComponent {
     return $items;
   }
 
+
   public function latestFeed() {
+    $query = $this->getHomeQuery();
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getHomeQuery() {
     $query = new NodeQuery();
     $query->isPromoted();
     $query->propertyOrderBy('sticky', 'DESC');
     $query->addTag('radio_HomeComponent_orderBy');
     $query->setLimit(10);
-    $result = $query->execute();
-    return $this->getNids($result);
+    return $query;
   }
 
 
@@ -47,7 +51,8 @@ class HomeComponent extends BaseComponent {
       'node.nid = publication_date.nid'
     );
 
-    $query->orderBy('field_air_time.field_air_time_value', 'DESC');
+    $query->orderBy('field_air_time.field_air_time_value is null');
+    $query->orderBy('field_air_time.field_air_time_value', 'ASC');
     $query->orderBy('publication_date.published_at', 'DESC');
   }
 }
