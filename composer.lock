@@ -1,23 +1,24 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "069266a6a64713ad27833420037e066b",
+    "hash": "a4fab4b5b0e447a71988e9cf1d3644b9",
+    "content-hash": "efa3ea8ab869dde40e5c46b79f14cc32",
     "packages": [
         {
             "name": "composer/installers",
-            "version": "v1.0.23",
+            "version": "v1.0.24",
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e"
+                "reference": "1cf7cc4b89d5e8549bbb7d6ab1de75da13d27988"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/6213d900e92647831f7a406d5c530ea1f3d4360e",
-                "reference": "6213d900e92647831f7a406d5c530ea1f3d4360e",
+                "url": "https://api.github.com/repos/composer/installers/zipball/1cf7cc4b89d5e8549bbb7d6ab1de75da13d27988",
+                "reference": "1cf7cc4b89d5e8549bbb7d6ab1de75da13d27988",
                 "shasum": ""
             },
             "require": {
@@ -39,8 +40,8 @@
                 }
             },
             "autoload": {
-                "psr-0": {
-                    "Composer\\Installers\\": "src/"
+                "psr-4": {
+                    "Composer\\Installers\\": "src/Composer/Installers"
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
@@ -55,12 +56,14 @@
                 }
             ],
             "description": "A multi-framework Composer library installer",
-            "homepage": "http://composer.github.com/installers/",
+            "homepage": "https://composer.github.io/installers/",
             "keywords": [
                 "Craft",
                 "Dolibarr",
                 "Hurad",
+                "ImageCMS",
                 "MODX Evo",
+                "Mautic",
                 "OXID",
                 "SMF",
                 "Thelia",
@@ -102,25 +105,25 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2016-01-27 12:54:22"
+            "time": "2016-04-05 11:42:46"
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.3.0",
+            "version": "1.4.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "1d50068f48f1a727c9baf96ae48959f3d3428a77"
+                "reference": "0d75c63b6de66144517a1da9084422b78c2ff251"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/1d50068f48f1a727c9baf96ae48959f3d3428a77",
-                "reference": "1d50068f48f1a727c9baf96ae48959f3d3428a77",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/0d75c63b6de66144517a1da9084422b78c2ff251",
+                "reference": "0d75c63b6de66144517a1da9084422b78c2ff251",
                 "shasum": ""
             },
             "require": {
                 "composer-plugin-api": "~1.0",
-                "php": ">=5.4.0"
+                "php": ">=5.3.0"
             },
             "require-dev": {
                 "composer/composer": "~1.0",
@@ -146,20 +149,20 @@
                 }
             ],
             "description": "Provides a way to patch Composer packages.",
-            "time": "2015-07-09 18:27:46"
+            "time": "2016-02-29 03:45:02"
         },
         {
             "name": "derhasi/composer-preserve-paths",
-            "version": "0.1.2",
+            "version": "0.1.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/derhasi/composer-preserve-paths.git",
-                "reference": "13309cebd530c3f5e9bfa238aa496076a644540b"
+                "reference": "e10d7acbc84df0d58faf2470049f53c97a4a1503"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/derhasi/composer-preserve-paths/zipball/13309cebd530c3f5e9bfa238aa496076a644540b",
-                "reference": "13309cebd530c3f5e9bfa238aa496076a644540b",
+                "url": "https://api.github.com/repos/derhasi/composer-preserve-paths/zipball/e10d7acbc84df0d58faf2470049f53c97a4a1503",
+                "reference": "e10d7acbc84df0d58faf2470049f53c97a4a1503",
                 "shasum": ""
             },
             "require": {
@@ -198,7 +201,7 @@
                 "installer",
                 "nested package"
             ],
-            "time": "2015-06-17 18:21:27"
+            "time": "2015-10-20 13:44:48"
         },
         {
             "name": "drupal/acquia_connector",
@@ -286,7 +289,8 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "An advertising system for Drupal powered websites.",
-            "homepage": "https://www.drupal.org/project/ad"
+            "homepage": "https://www.drupal.org/project/ad",
+            "time": "2015-09-18 11:43:15"
         },
         {
             "name": "drupal/addressfield",
@@ -642,7 +646,8 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.",
-            "homepage": "https://www.drupal.org/project/ckeditor"
+            "homepage": "https://www.drupal.org/project/ckeditor",
+            "time": "2015-11-30 15:46:08"
         },
         {
             "name": "drupal/content_access",
@@ -960,15 +965,15 @@
         },
         {
             "name": "drupal/entity",
-            "version": "7.1.6",
+            "version": "7.1.7",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/entity",
-                "reference": "724e7193419da3b7d3ca165025256371dd74eb4f"
+                "reference": "4d76c5c2302e225fea2db7aba08d48f3558bf275"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/entity-7.x-1.6.zip",
+                "url": "https://ftp.drupal.org/files/projects/entity-7.x-1.7.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -984,8 +989,13 @@
                     "dev-7.x-1.x": "7.1.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Enables modules to work with any entity type and to provide entities."
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Enables modules to work with any entity type and to provide entities.",
+            "homepage": "https://www.drupal.org/project/entity",
+            "time": "2015-02-27 17:08:22"
         },
         {
             "name": "drupal/entity_embed",
@@ -1052,15 +1062,15 @@
         },
         {
             "name": "drupal/features",
-            "version": "7.2.7",
+            "version": "7.2.8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/features",
-                "reference": "a8b9dc5aa67b95fc3e95bb91ed0647baf66c1402"
+                "reference": "095ee1b6e3b0b61cc2aebabe4b3cfc1e2407bc5d"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/features-7.x-2.7.zip",
+                "url": "https://ftp.drupal.org/files/projects/features-7.x-2.8.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1073,9 +1083,13 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Provides feature management for Drupal.",
-            "homepage": "https://www.drupal.org/project/features"
+            "homepage": "https://www.drupal.org/project/features",
+            "time": "2016-03-23 14:38:39"
         },
         {
             "name": "drupal/features_extra",
@@ -1158,7 +1172,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/file_entity-7.x-2.0-beta2.zip",
+                "url": "https://ftp.drupal.org/files/projects/file_entity-7.x-2.0-beta2.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1173,11 +1187,18 @@
             "extra": {
                 "branch-alias": {
                     "dev-7.x-2.x": "7.2.x-dev"
+                },
+                "patches_applied": {
+                    "Fix unsupported operand types": "https://www.drupal.org/files/issues/file_entity_update-2375595-18_0.patch"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Extends Drupal file entities to be fieldable and viewable.",
-            "homepage": "https://www.drupal.org/project/file_entity"
+            "homepage": "https://www.drupal.org/project/file_entity",
+            "time": "2015-07-14 17:00:36"
         },
         {
             "name": "drupal/fontyourface",
@@ -1251,15 +1272,15 @@
         },
         {
             "name": "drupal/imce",
-            "version": "7.1.9",
+            "version": "7.1.10",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/imce",
-                "reference": "6af7f032390685d98ed47e8927642d704ac45d18"
+                "reference": "0b60beb560e986ff6b03ebea64db072bb6ff6ae2"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/imce-7.x-1.9.zip",
+                "url": "https://ftp.drupal.org/files/projects/imce-7.x-1.10.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1272,8 +1293,13 @@
                     "dev-7.x-1.x": "7.1.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "An image/file uploader and browser supporting personal directories and user quota."
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "An image/file uploader and browser supporting personal directories and user quota.",
+            "homepage": "https://www.drupal.org/project/imce",
+            "time": "2016-03-30 12:48:43"
         },
         {
             "name": "drupal/imce_wysiwyg",
@@ -1520,15 +1546,15 @@
         },
         {
             "name": "drupal/media_oembed",
-            "version": "7.2.5",
+            "version": "7.2.6",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media_oembed",
-                "reference": "2221c132c7643558a76a8517deda7205674b28ad"
+                "reference": "2e0a349274c455337e2152aafda83d183da8add8"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/media_oembed-7.x-2.5.zip",
+                "url": "https://ftp.drupal.org/files/projects/media_oembed-7.x-2.6.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1542,21 +1568,25 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Adds oEmbed as a supported media provider.",
-            "homepage": "https://www.drupal.org/project/media_oembed"
+            "homepage": "https://www.drupal.org/project/media_oembed",
+            "time": "2016-04-01 18:53:08"
         },
         {
             "name": "drupal/metatag",
-            "version": "7.1.13",
+            "version": "7.1.14",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/metatag",
-                "reference": "f3fbaffe4ab04e2896a17e40b90a2034695bc012"
+                "reference": "f105cdd29c4224205018645dbeaf52d4272a8c1f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.13.zip",
+                "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.14.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1599,9 +1629,13 @@
                     "dev-7.x-1.x": "7.1.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Adds support and an API to implement meta tags.",
-            "homepage": "https://www.drupal.org/project/metatag"
+            "homepage": "https://www.drupal.org/project/metatag",
+            "time": "2016-04-02 14:23:17"
         },
         {
             "name": "drupal/migrate",
@@ -1711,7 +1745,8 @@
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Allows modules that operate on access grants to work together in the expected way."
+            "description": "Allows modules that operate on access grants to work together in the expected way.",
+            "time": "2013-11-06 11:37:28"
         },
         {
             "name": "drupal/mollom",
@@ -1830,15 +1865,15 @@
         },
         {
             "name": "drupal/node_export",
-            "version": "7.3.0",
+            "version": "7.3.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/node_export",
-                "reference": "ebef56784374f977f3cfdb87f4a5ba42182b3477"
+                "reference": "22ee7618fcc556a1df558dd70f2dace5eb60b735"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/node_export-7.x-3.0.zip",
+                "url": "https://ftp.drupal.org/files/projects/node_export-7.x-3.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1847,14 +1882,18 @@
                 "drupal/uuid": "7.*"
             },
             "replace": {
+                "drupal/node_export_book": "self.version",
                 "drupal/node_export_dependency": "self.version",
                 "drupal/node_export_features": "self.version",
+                "drupal/node_export_features_ui": "self.version",
                 "drupal/node_export_feeds": "self.version",
                 "drupal/node_export_relation": "self.version"
             },
             "suggest": {
+                "drupal/book": "Required by drupal/node_export_book",
                 "drupal/features": "Required by drupal/node_export_features",
                 "drupal/feeds": "Required by drupal/node_export_feeds",
+                "drupal/node_export_features": "Required by drupal/node_export_features_ui",
                 "drupal/uuid": "Required by drupal/node_export_dependency, drupal/node_export_features, drupal/node_export_relation"
             },
             "type": "drupal-module",
@@ -1863,9 +1902,13 @@
                     "dev-7.x-3.x": "7.3.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Allows users to export content and then import into another Drupal installation.",
-            "homepage": "https://www.drupal.org/project/node_export"
+            "homepage": "https://www.drupal.org/project/node_export",
+            "time": "2016-03-04 06:46:42"
         },
         {
             "name": "drupal/pathauto",
@@ -2221,7 +2264,8 @@
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Core of station module for running an internet radio station."
+            "description": "Core of station module for running an internet radio station.",
+            "time": "2012-09-24 14:39:02"
         },
         {
             "name": "drupal/strongarm",
@@ -2309,15 +2353,15 @@
         },
         {
             "name": "drupal/title",
-            "version": "7.1.0-alpha7",
+            "version": "7.1.0-alpha8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/title",
-                "reference": "bd4d03fdeda4320b58e5a2101a0f334f41a0bbeb"
+                "reference": "2415009632cdc4546fcd5734eb3ce53bcfd211f3"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/title-7.x-1.0-alpha7.zip",
+                "url": "https://ftp.drupal.org/files/projects/title-7.x-1.0-alpha8.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -2331,8 +2375,13 @@
                     "dev-7.x-1.x": "7.1.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Replaces entity legacy fields with regular fields."
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Replaces entity legacy fields with regular fields.",
+            "homepage": "https://www.drupal.org/project/title",
+            "time": "2016-03-28 14:58:06"
         },
         {
             "name": "drupal/token",
@@ -2581,7 +2630,8 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Add a bootstrap layout container type element to Webform.",
-            "homepage": "https://www.drupal.org/project/webform_bt_layout"
+            "homepage": "https://www.drupal.org/project/webform_bt_layout",
+            "time": "2015-03-31 15:28:32"
         },
         {
             "name": "drupal/wysiwyg",
