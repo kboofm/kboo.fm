@@ -44,7 +44,13 @@ abstract class EDisplayStyle {
 
 
 abstract class EArchiveTypes {
-  const NEVER = 0;
-  const TEMPORARY = 1;
-  const PERMANENT = 2;
+  const Never = 0;
+  const Temporary = 1;
+  const Permanent = 2;
+}
+
+
+abstract class EProgramStatus {
+  const Current = 0;
+  const Retired = 1;
 }
