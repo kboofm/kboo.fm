@@ -32,7 +32,7 @@ class ProgramsResponse extends Response {
     $this->template_name = 'radio_template_program';
 
     $component = new ProgramsComponent();
-    $programs = $component->getShows();
+    $programs = $component->getCurrentShows();
 
     $data = [
       'programs' => $programs,
@@ -46,7 +46,7 @@ class ProgramsResponse extends Response {
     $this->template_name = 'radio_template_program_retired';
 
     $component = new ProgramsComponent();
-    $programs = $component->getShows();
+    $programs = $component->getRetiredShows();
 
     $data = [
       'programs' => $programs,
@@ -60,7 +60,7 @@ class ProgramsResponse extends Response {
     $this->template_name = 'radio_template_program_web_only';
 
     $component = new ProgramsComponent();
-    $programs = $component->getShows();
+    $programs = $component->getWebOnlyShows();
 
     $data = [
       'programs' => $programs,

@@ -1,11 +1,26 @@
 <?php
 abstract class EStreams {
   const One = 'one';
+  const Two = 'two';
 
   public static function all() {
     return [
       EStreams::One,
+      Estreams::Two,
     ];
+  }
+
+  public static function getStreamByNid($nid) {
+    $stream_one = variable_get("radio_station_stream_one_nid");
+    $stream_two = variable_get("radio_station_stream_two_nid");
+
+    if ($nid == $stream_one) {
+      return EStreams::One;
+    } else if ($nid == $stream_two) {
+      return EStreams::Two;
+    } else {
+      return NULL;
+    }
   }
 }
 

@@ -2,9 +2,56 @@
 
 class ProgramsComponent extends BaseComponent {
 
-  public function getShows() {
+  public function getCurrentShows() {
     $query = new ProgramQuery();
-    $query->getShows();
+
+    $query->getShows(
+      EProgramStatus::Current,
+      EStreams::One
+    );
+
+    $query->sortByTitle();
+    $result = $query->execute();
+
+    $nids = array_keys(
+      $this->getNodes($result)
+    );
+
+    return array_values(
+      node_load_multiple($nids)
+    );
+  }
+
+
+  public function getRetiredShows() {
+    $query = new ProgramQuery();
+
+    $query->getShows(
+      EProgramStatus::Retired,
+      EStreams::all()
+    );
+
+    $query->sortByTitle();
+    $result = $query->execute();
+
+    $nids = array_keys(
+      $this->getNodes($result)
+    );
+
+    return array_values(
+      node_load_multiple($nids)
+    );
+  }
+
+
+  public function getWebOnlyShows() {
+    $query = new ProgramQuery();
+
+    $query->getShows(
+      EProgramStatus::Current,
+      EStreams::Two
+    );
+
     $query->sortByTitle();
     $result = $query->execute();
 
@@ -20,7 +67,12 @@ class ProgramsComponent extends BaseComponent {
 
   public function getGenres() {
     $query = new ProgramQuery();
-    $query->getShows();
+
+    $query->getShows(
+      EProgramStatus::Current,
+      EStreams::One
+    );
+
     $query->hasGenre();
     $query->sortByTitle();
     $result = $query->execute();
@@ -36,7 +88,12 @@ class ProgramsComponent extends BaseComponent {
 
   public function getTopics() {
     $query = new ProgramQuery();
-    $query->getShows();
+
+    $query->getShows(
+      EProgramStatus::Current,
+      EStreams::One
+    );
+
     $query->hasTopic();
     $query->sortByTitle();
     $result = $query->execute();
