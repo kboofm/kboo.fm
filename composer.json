@@ -44,6 +44,7 @@
     "drupal/file_entity": "7.2.*",
     "drupal/fontyourface": "7.2.*",
     "drupal/globalredirect": "7.1.*",
+    "drupal/google_analytics": "7.2.*",
     "drupal/imce": "7.1.*",
     "drupal/imce_wysiwyg": "7.1.*",
     "drupal/legal": "7.1.*",
