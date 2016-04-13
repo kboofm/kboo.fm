@@ -1633,54 +1633,6 @@ function content_type_station_content_field_default_field_instances() {
     ),
   );
 
-  // Exported field_instance: 'node-station_content-field_station_content_type'.
-  $field_instances['node-station_content-field_station_content_type'] = array(
-    'bundle' => 'station_content',
-    'default_value' => NULL,
-    'deleted' => 0,
-    'description' => '',
-    'display' => array(
-      'default' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 22,
-      ),
-      'search_index' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
-      ),
-      'search_result' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 21,
-      ),
-      'teaser' => array(
-        'label' => 'above',
-        'settings' => array(),
-        'type' => 'hidden',
-        'weight' => 0,
-      ),
-    ),
-    'entity_type' => 'node',
-    'field_name' => 'field_station_content_type',
-    'label' => 'Station Content type',
-    'required' => 0,
-    'settings' => array(
-      'user_register_form' => FALSE,
-    ),
-    'widget' => array(
-      'active' => 1,
-      'module' => 'options',
-      'settings' => array(),
-      'type' => 'options_select',
-      'weight' => -2,
-    ),
-  );
-
   // Exported field_instance: 'node-station_content-field_topic_tags'.
   $field_instances['node-station_content-field_topic_tags'] = array(
     'bundle' => 'station_content',
@@ -1934,7 +1886,6 @@ function content_type_station_content_field_default_field_instances() {
   t('Related program(s)');
   t('Related show host(s)');
   t('Short Description');
-  t('Station Content type');
   t('Title');
   t('Topic tags');
   t('Video File(s)');

@@ -199,30 +199,4 @@ class RadioSpinitron {
 
     return $playlists;
   }
-
-
-  public static function eligible($node) {
-    if (!$node) {
-      return false;
-    }
-
-    $wrapped_node = entity_metadata_wrapper('node', $node);
-    $type = $wrapped_node->field_station_content_type->value();
-
-    $terms = taxonomy_get_term_by_name(
-      'Episode',
-      'station_content_types'
-    );
-    $episode_term = reset($terms);
-
-    if (!isset($type->tid)) {
-      return false;
-    }
-
-    if (!isset($episode_term->tid)) {
-      return false;
-    }
-
-    return ($type->tid == $episode_term->tid);
-  }
 }
