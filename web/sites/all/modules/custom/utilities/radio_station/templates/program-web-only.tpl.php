@@ -1,5 +1,5 @@
 <?php
-$active_tab = "current";
+$active_tab = "web-only";
 include "partials/program-tabs.tpl.php";
 ?>
 

@@ -258,7 +258,27 @@ function radio_station_get_program() {
   }
 
   $response = new ProgramsResponse();
-  return $response->getShows();
+  return $response->getCurrentShows();
+}
+
+
+function radio_station_get_program_retired() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getRetiredShows();
+}
+
+
+function radio_station_get_program_web_only() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getWebOnlyShows();
 }
 
 
@@ -410,10 +430,10 @@ function radio_station_preprocess_radio_template_audio_player(&$vars) {
   try {
     $record = $entity->field_episode_record->value();
   } catch (EntityMetadataWrapperException $e) {
-    $record = EArchiveTypes::NEVER;
+    $record = EArchiveTypes::Never;
   }
 
-  $allow_download = ($record == EArchiveTypes::PERMANENT);
+  $allow_download = ($record == EArchiveTypes::Permanent);
 
   foreach ($audio_files as &$audio_file) {
     $audio_file['filepath'] = file_create_url($audio_file['uri']);

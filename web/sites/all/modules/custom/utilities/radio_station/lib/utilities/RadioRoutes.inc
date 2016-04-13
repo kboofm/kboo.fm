@@ -164,16 +164,16 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
-    $this->items['ProgramGenre/%/podcast'] = [
-      'page callback' => 'radio_station_get_genre_podcast',
-      'page arguments' => [1],
+    $this->items['program/retired'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program_retired',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];
 
-    $this->items['PublicAffairsTopics/%/podcast'] = [
-      'page callback' => 'radio_station_get_topic_podcast',
-      'page arguments' => [1],
+    $this->items['program/web-only'] = [
+      'title' => 'Program Directory',
+      'page callback' => 'radio_station_get_program_web_only',
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
     ];
@@ -192,8 +192,22 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
+    $this->items['ProgramGenre/%/podcast'] = [
+      'page callback' => 'radio_station_get_genre_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
     $this->items['profiles/%/podcast'] = [
       'page callback' => 'radio_station_get_profiles_podcast',
+      'page arguments' => [1],
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
+
+    $this->items['PublicAffairsTopics/%/podcast'] = [
+      'page callback' => 'radio_station_get_topic_podcast',
       'page arguments' => [1],
       'access arguments' => ['access content'],
       'type' => MENU_CALLBACK,
