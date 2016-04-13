@@ -428,9 +428,9 @@ class StationContentComponent extends BaseComponent {
       return;
     }
 
-    $command = "$ripper {$stream}";
-    $command .= "-l {$length} -A -a {$filename} -q -s -d {$ripdir} --quiet";
-    $command .= "; rm {$ripdir}/{$filename}.cue";
+    $command = "$ripper {$stream} ";
+    $command .= "-l {$length} -A -a {$filename} -q -s -d {$ripdir} --quiet; ";
+    $command .= "rm {$ripdir}/{$filename}.cue";
     $command = "echo \"{$command}\" | at {$atd_time}";
     shell_exec($command);
 
