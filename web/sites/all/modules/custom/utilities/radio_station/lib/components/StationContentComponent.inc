@@ -80,62 +80,58 @@ class StationContentComponent extends BaseComponent {
     $cache_key = "radio_station_latest_playlists";
     $cache_table = "cache_radio_station";
 
-    $loaded = false;
     if ($cache = cache_get($cache_key, $cache_table)) {
       $data = $cache->data;
 
       if ($data['requested'] >= $count) {
         $playlists = array_slice($data['playlists'], 0, $count);
-        $loaded = true;
+        return $playlists;
       }
     }
 
-    if (!$loaded) {
-      $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
+    $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
 
-      $episodes = array_map(
-        function ($item) {
-          $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
-          $onair = strtotime($onair);
+    $episodes = array_map(
+      function ($item) {
+        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $onair = strtotime($onair);
 
-          $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
-          $offair = strtotime($offair);
+        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $offair = strtotime($offair);
 
-          if ($offair < $onair) {
-            // If offair is the next day, then playlist date will be one day off
-            $offair = strtotime("+1 day", $offair);
-          }
+        if ($offair < $onair) {
+          // If offair is the next day, then playlist date will be one day off
+          $offair = strtotime("+1 day", $offair);
+        }
 
-          $query = new StationContentQuery();
-          $query->getEpisodeInRange($onair, $offair);
-          $result = $query->execute();
-          $nids = $this->getNids($result);
+        $query = new StationContentQuery();
+        $query->getEpisodeInRange($onair, $offair);
+        $result = $query->execute();
+        $nids = $this->getNids($result);
 
-          if ($nids) {
-            return $nids[0];
-          }
-          else {
-            return NULL;
-          }
-        },
-        $spinitron_data
-      );
+        if ($nids) {
+          return $nids[0];
+        }
+        else {
+          return NULL;
+        }
+      },
+      $spinitron_data
+    );
 
-      $episodes = array_filter($episodes);
-      $episodes = array_values($episodes);
-      $episodes = array_slice($episodes, 0, $count);
+    $episodes = array_filter($episodes);
+    $episodes = array_values($episodes);
+    $episodes = array_slice($episodes, 0, $count);
 
-      $processor = new StationContentProcessor();
-      $playlists = $processor->process($episodes);
+    $processor = new StationContentProcessor();
+    $playlists = $processor->process($episodes);
 
-      $data = [
-        'playlists' => $playlists,
-        'requested' => $count,
-      ];
+    $data = [
+      'playlists' => $playlists,
+      'requested' => $count,
+    ];
 
-      cache_set($cache_key, $data, $cache_table);
-    }
-
+    cache_set($cache_key, $data, $cache_table);
     return $playlists;
   }
 

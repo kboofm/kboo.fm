@@ -19,37 +19,48 @@ class RadioBlocks {
 
   public function view($delta) {
     $count = 6;
-    $block = [];
 
     switch($delta) {
       case 'sidebar-audio':
-        $component = new StationContentComponent();
-        $episodes = $component->latestAudio($count);
-
-        $variables = [
-          'episodes' => $episodes,
-        ];
-
-        $block['content'] = theme(
-          'radio_template_sidebar_audio',
-          $variables
-        );
-        break;
+        return $this->viewSidebarAudio($count);
 
       case 'sidebar-playlists':
-        $component = new StationContentComponent();
-        $playlists = $component->latestPlaylists($count);
-
-        $variables = [
-          'playlists' => $playlists,
-        ];
-
-        $block['content'] = theme(
-          'radio_template_sidebar_playlists',
-          $variables
-        );
-        break;
+        return $this->viewSidebarPlaylists($count);
     }
+  }
+
+
+  private function viewSidebarAudio($count) {
+    $block = [];
+    $component = new StationContentComponent();
+    $episodes = $component->latestAudio($count);
+
+    $variables = [
+      'episodes' => $episodes,
+    ];
+
+    $block['content'] = theme(
+      'radio_template_sidebar_audio',
+      $variables
+    );
+
+    return $block;
+  }
+
+
+  private function viewSidebarPlaylists($count) {
+    $block = [];
+    $component = new StationContentComponent();
+    $playlists = $component->latestPlaylists($count);
+
+    $variables = [
+      'playlists' => $playlists,
+    ];
+
+    $block['content'] = theme(
+      'radio_template_sidebar_playlists',
+      $variables
+    );
 
     return $block;
   }
