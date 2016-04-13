@@ -176,3 +176,24 @@ function radio_station_update_7105() {
     $entity->save();
   }
 }
+
+
+/**
+ * Delete field_station_content_type and it's instance
+ */
+function radio_station_update_7106() {
+  $field_name = "field_station_content_type";
+
+  $instance = field_info_instance(
+    "node",
+    $field_name,
+    "station_content"
+  );
+
+  if ($instance) {
+    field_delete_instance($instance, true);
+  }
+
+  field_delete_field($field_name);
+  field_purge_batch(1);
+}
