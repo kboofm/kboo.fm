@@ -9,27 +9,25 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getEpisode($start, $end) {
+  public function getContent($start, $end) {
     $daterange = [
       $start,
       $end
     ];
 
-    $this->type('Episode');
-    $this->addTag("radio_StationContentQuery_modifyGetEpisode");
+    $this->addTag("radio_StationContentQuery_modifyGetContent");
     NodeQuery::addParam('daterange', $daterange);
     return $this;
   }
 
 
-  public function getEpisodeInRange($start, $end) {
+  public function getContentInRange($start, $end) {
     $daterange = [
       $start,
       $end
     ];
 
-    $this->type('Episode');
-    $this->addTag('radio_StationContentQuery_modifyGetEpisodeInRange');
+    $this->addTag('radio_StationContentQuery_modifyGetContentInRange');
     NodeQuery::addParam('daterange', $daterange);
     return $this;
   }
@@ -153,20 +151,6 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function type($term_name) {
-    $terms = taxonomy_get_term_by_name($term_name, 'station_content_types');
-    $term = reset($terms);
-
-    $tid = NULL;
-    if (isset($term->tid)) {
-      $tid = $term->tid;
-    }
-
-    $this->fieldCondition('field_station_content_type', 'tid', $tid);
-    return $this;
-  }
-
-
   public function hasAudio() {
     $subquery = db_select('field_data_field_audio_files', 'f');
     $subquery->distinct();
@@ -179,7 +163,6 @@ class StationContentQuery extends NodeQuery {
 
 
   public function getAudio($count = null) {
-    $this->type('Episode');
     $this->hasAudio();
 
     if ($count) {
@@ -198,7 +181,7 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public static function modifyGetEpisode(QueryAlterableInterface $query) {
+  public static function modifyGetContent(QueryAlterableInterface $query) {
     $now = time();
     $default = [$now, $now];
     list($start, $end) = NodeQuery::getParam('daterange', $default);
@@ -208,7 +191,7 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public static function modifyGetEpisodeInRange(
+  public static function modifyGetContentInRange(
     QueryAlterableInterface $query
   ) {
 

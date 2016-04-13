@@ -33,11 +33,6 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
       'field_short_description'
     );
 
-    $this->addFieldMapping(
-      'field_station_content_type',
-      'station_content_type'
-    );
-
     $this->addAudioMapping(
       'field_audio_files',
       'field_episode_audio'
@@ -54,26 +49,5 @@ class StationContentFromScheduleEpisode extends NodeImageMigration {
     );
 
     parent::__construct($arguments);
-  }
-
-
-  /**
-   * Prepare the destination node
-   *
-   * @param $node
-   * @param $row
-   */
-  public function prepare($node, $row) {
-    static $term;
-
-    if (!$term) {
-      $terms = taxonomy_get_term_by_name(
-        'Episode',
-        'station_content_types'
-      );
-      $term = reset($terms);
-    }
-
-    $node->field_station_content_type['und'][]['tid'] = $term->tid;
   }
 }
