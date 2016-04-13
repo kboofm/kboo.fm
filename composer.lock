@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a4fab4b5b0e447a71988e9cf1d3644b9",
-    "content-hash": "efa3ea8ab869dde40e5c46b79f14cc32",
+    "hash": "a56ca6e246e3bd497079e68f5433894e",
     "packages": [
         {
             "name": "composer/installers",
@@ -289,8 +288,7 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "An advertising system for Drupal powered websites.",
-            "homepage": "https://www.drupal.org/project/ad",
-            "time": "2015-09-18 11:43:15"
+            "homepage": "https://www.drupal.org/project/ad"
         },
         {
             "name": "drupal/addressfield",
@@ -646,8 +644,7 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.",
-            "homepage": "https://www.drupal.org/project/ckeditor",
-            "time": "2015-11-30 15:46:08"
+            "homepage": "https://www.drupal.org/project/ckeditor"
         },
         {
             "name": "drupal/content_access",
@@ -1271,6 +1268,40 @@
             "description": "Searches for an alias of the current URL and 301 redirects if found. Stops duplicate content arising when path module is enabled."
         },
         {
+            "name": "drupal/google_analytics",
+            "version": "7.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://git.drupal.org/project/google_analytics",
+                "reference": "996debb416c1e1893fa34e438ad7d52367a21397"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://ftp.drupal.org/files/projects/google_analytics-7.x-2.1.zip",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "drupal/drupal": "7.*"
+            },
+            "replace": {
+                "drupal/googleanalytics": "self.version"
+            },
+            "type": "drupal-module",
+            "extra": {
+                "branch-alias": {
+                    "dev-7.x-2.x": "7.2.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Allows your site to be tracked by Google Analytics by adding a Javascript tracking code to every page.",
+            "homepage": "https://www.drupal.org/project/google_analytics",
+            "time": "2014-11-29 10:01:19"
+        },
+        {
             "name": "drupal/imce",
             "version": "7.1.10",
             "source": {
@@ -1745,8 +1776,7 @@
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Allows modules that operate on access grants to work together in the expected way.",
-            "time": "2013-11-06 11:37:28"
+            "description": "Allows modules that operate on access grants to work together in the expected way."
         },
         {
             "name": "drupal/mollom",
@@ -2264,8 +2294,7 @@
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Core of station module for running an internet radio station.",
-            "time": "2012-09-24 14:39:02"
+            "description": "Core of station module for running an internet radio station."
         },
         {
             "name": "drupal/strongarm",
@@ -2630,8 +2659,7 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Add a bootstrap layout container type element to Webform.",
-            "homepage": "https://www.drupal.org/project/webform_bt_layout",
-            "time": "2015-03-31 15:28:32"
+            "homepage": "https://www.drupal.org/project/webform_bt_layout"
         },
         {
             "name": "drupal/wysiwyg",
