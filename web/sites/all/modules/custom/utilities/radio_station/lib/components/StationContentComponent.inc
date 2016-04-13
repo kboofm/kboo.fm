@@ -105,7 +105,7 @@ class StationContentComponent extends BaseComponent {
         }
 
         $query = new StationContentQuery();
-        $query->getEpisodeInRange($onair, $offair);
+        $query->getContentInRange($onair, $offair);
         $result = $query->execute();
         $nids = $this->getNids($result);
 
@@ -240,12 +240,6 @@ class StationContentComponent extends BaseComponent {
   public function getRippingEpisodes($stream, $count) {
     $schedule = $this->getRippingSchedule($stream, $count);
 
-    $terms = taxonomy_get_term_by_name(
-      'Episode',
-      'station_content_types'
-    );
-    $episode_term = reset($terms);
-
     foreach ($schedule as &$schedule_item) {
       if ($schedule_item['episode']) {
         continue;
@@ -255,7 +249,7 @@ class StationContentComponent extends BaseComponent {
         continue;
       }
 
-      $this->createEpisode($schedule_item, $episode_term);
+      $this->createEpisode($schedule_item);
     }
 
     // get an array of episode nodes
@@ -338,7 +332,6 @@ class StationContentComponent extends BaseComponent {
   private function getEpisodesToCull() {
     $now_minus_twoweeks = strtotime('-2 weeks', time());
     $query = new StationContentQuery();
-    $query->type('Episode');
     $query->olderThan($now_minus_twoweeks);
     $query->hasAudio();
     $result = $query->execute();
@@ -463,7 +456,7 @@ class StationContentComponent extends BaseComponent {
    * @param $episode_term
    * @throws \Exception
    */
-  private function createEpisode(&$schedule_item, $episode_term) {
+  private function createEpisode(&$schedule_item) {
     $program = $schedule_item['timeslot_program'];
     $date = date('m/d/y', $schedule_item['start']);
 
@@ -479,11 +472,6 @@ class StationContentComponent extends BaseComponent {
     $node->status = 1;
     $node->active = 1;
     $node->promote = 0;
-
-    // field_station_content
-    $node->field_station_content_type[$lang][] = [
-      'tid' => $episode_term->tid
-    ];
 
 
     // field_air_time
@@ -589,7 +577,7 @@ class StationContentComponent extends BaseComponent {
 
   private function getEpisode($timeslot) {
     $query = new StationContentQuery();
-    $query->getEpisode(
+    $query->getContent(
       $timeslot['value'],
       $timeslot['value2']
     );
