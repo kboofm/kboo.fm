@@ -166,7 +166,7 @@ class ScheduleProcessor extends TemplateProcessor {
 
   private function getEpisode($timeslot) {
     $query = new StationContentQuery();
-    $query->getEpisode(
+    $query->getContent(
       $timeslot['value'],
       $timeslot['value2']
     );
