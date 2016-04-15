@@ -229,8 +229,6 @@ class Spinitron {
     return $this->runQuery(
       [
         'method' => 'getPlaylistsInfo',
-        'UserID' => NULL,
-        'ShowID' => NULL,
         'NDays' => $ndays,
         'EndDate' => $date,
         'Num' => NULL,
