@@ -316,7 +316,7 @@ class StationContentComponent extends BaseComponent {
       }
 
       $basename = basename($rip_filepath);
-      $file = file_move(
+      $file = file_copy(
         $ripped_file,
         "public://{$destination}{$basename}"
       );
@@ -325,6 +325,9 @@ class StationContentComponent extends BaseComponent {
       $file_wrapper = [(array)$file];
       $wrapped_episode->field_audio_files->set($file_wrapper);
       $wrapped_episode->save();
+
+      // delete the original file in "radio_station_rip_filepath"
+      unlink($ripped_file);
     }
   }
 
