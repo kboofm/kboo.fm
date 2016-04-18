@@ -213,6 +213,13 @@ class Helpers {
 
 
   public static function htmlToText($html) {
+    // preg_replace is used to strip out any embedded media
+    // Example:
+    //   <p>[[{"fid":"20311","view_mode":"lead_image","type":"media",
+    //   "attributes":{"height":"225","width":"300",
+    //   "class":"media-element file-lead-image"}}]]</p>
+
+    $html = preg_replace('/\[\[{.*}\]\]/', '', $html);
     $html = decode_entities($html);
     return drupal_html_to_text($html, []);
   }
