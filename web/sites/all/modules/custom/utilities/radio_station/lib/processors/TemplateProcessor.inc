@@ -30,6 +30,12 @@ class TemplateProcessor {
   public static function getTeaserSummary($entity) {
     $summary = null;
 
+    try {
+      $summary = $entity->field_teaser_summary->value();
+    } catch (EntityMetadataWrapperException $e) {
+      // duck typing
+    }
+
     if (!$summary) {
       $body = $entity->body->value();
       $summary = $body['value'];
