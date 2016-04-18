@@ -2277,108 +2277,6 @@
         "homepage": "https://www.drupal.org/project/drupal"
     },
     {
-        "name": "composer/installers",
-        "version": "v1.0.24",
-        "version_normalized": "1.0.24.0",
-        "source": {
-            "type": "git",
-            "url": "https://github.com/composer/installers.git",
-            "reference": "1cf7cc4b89d5e8549bbb7d6ab1de75da13d27988"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://api.github.com/repos/composer/installers/zipball/1cf7cc4b89d5e8549bbb7d6ab1de75da13d27988",
-            "reference": "1cf7cc4b89d5e8549bbb7d6ab1de75da13d27988",
-            "shasum": ""
-        },
-        "require": {
-            "composer-plugin-api": "^1.0"
-        },
-        "replace": {
-            "roundcube/plugin-installer": "*",
-            "shama/baton": "*"
-        },
-        "require-dev": {
-            "composer/composer": "1.0.*@dev",
-            "phpunit/phpunit": "4.1.*"
-        },
-        "time": "2016-04-05 11:42:46",
-        "type": "composer-plugin",
-        "extra": {
-            "class": "Composer\\Installers\\Plugin",
-            "branch-alias": {
-                "dev-master": "1.0-dev"
-            }
-        },
-        "installation-source": "dist",
-        "autoload": {
-            "psr-4": {
-                "Composer\\Installers\\": "src/Composer/Installers"
-            }
-        },
-        "notification-url": "https://packagist.org/downloads/",
-        "license": [
-            "MIT"
-        ],
-        "authors": [
-            {
-                "name": "Kyle Robinson Young",
-                "email": "kyle@dontkry.com",
-                "homepage": "https://github.com/shama"
-            }
-        ],
-        "description": "A multi-framework Composer library installer",
-        "homepage": "https://composer.github.io/installers/",
-        "keywords": [
-            "Craft",
-            "Dolibarr",
-            "Hurad",
-            "ImageCMS",
-            "MODX Evo",
-            "Mautic",
-            "OXID",
-            "SMF",
-            "Thelia",
-            "WolfCMS",
-            "agl",
-            "aimeos",
-            "annotatecms",
-            "bitrix",
-            "cakephp",
-            "chef",
-            "codeigniter",
-            "concrete5",
-            "croogo",
-            "dokuwiki",
-            "drupal",
-            "elgg",
-            "fuelphp",
-            "grav",
-            "installer",
-            "joomla",
-            "kohana",
-            "laravel",
-            "lithium",
-            "magento",
-            "mako",
-            "mediawiki",
-            "modulework",
-            "moodle",
-            "phpbb",
-            "piwik",
-            "ppi",
-            "puppet",
-            "roundcube",
-            "shopware",
-            "silverstripe",
-            "symfony",
-            "typo3",
-            "wordpress",
-            "zend",
-            "zikula"
-        ]
-    },
-    {
         "name": "derhasi/composer-preserve-paths",
         "version": "0.1.3",
         "version_normalized": "0.1.3.0",
@@ -2513,39 +2411,6 @@
         ],
         "description": "Enables modules to work with any entity type and to provide entities.",
         "homepage": "https://www.drupal.org/project/entity"
-    },
-    {
-        "name": "drupal/features",
-        "version": "7.2.8",
-        "version_normalized": "7.2.8.0",
-        "source": {
-            "type": "git",
-            "url": "https://git.drupal.org/project/features",
-            "reference": "095ee1b6e3b0b61cc2aebabe4b3cfc1e2407bc5d"
-        },
-        "dist": {
-            "type": "zip",
-            "url": "https://ftp.drupal.org/files/projects/features-7.x-2.8.zip",
-            "reference": null,
-            "shasum": null
-        },
-        "require": {
-            "drupal/drupal": "7.*"
-        },
-        "time": "2016-03-23 14:38:39",
-        "type": "drupal-module",
-        "extra": {
-            "branch-alias": {
-                "dev-7.x-2.x": "7.2.x-dev"
-            }
-        },
-        "installation-source": "dist",
-        "notification-url": "https://packagist.drupal-composer.org/downloads/",
-        "license": [
-            "GPL-2.0+"
-        ],
-        "description": "Provides feature management for Drupal.",
-        "homepage": "https://www.drupal.org/project/features"
     },
     {
         "name": "drupal/imce",
@@ -2835,5 +2700,173 @@
         ],
         "description": "Allows your site to be tracked by Google Analytics by adding a Javascript tracking code to every page.",
         "homepage": "https://www.drupal.org/project/google_analytics"
+    },
+    {
+        "name": "composer/installers",
+        "version": "v1.0.25",
+        "version_normalized": "1.0.25.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/composer/installers.git",
+            "reference": "36e5b5843203d7f1cf6ffb0305a97e014387bd8e"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/composer/installers/zipball/36e5b5843203d7f1cf6ffb0305a97e014387bd8e",
+            "reference": "36e5b5843203d7f1cf6ffb0305a97e014387bd8e",
+            "shasum": ""
+        },
+        "require": {
+            "composer-plugin-api": "^1.0"
+        },
+        "replace": {
+            "roundcube/plugin-installer": "*",
+            "shama/baton": "*"
+        },
+        "require-dev": {
+            "composer/composer": "1.0.*@dev",
+            "phpunit/phpunit": "4.1.*"
+        },
+        "time": "2016-04-13 19:46:30",
+        "type": "composer-plugin",
+        "extra": {
+            "class": "Composer\\Installers\\Plugin",
+            "branch-alias": {
+                "dev-master": "1.0-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Composer\\Installers\\": "src/Composer/Installers"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Kyle Robinson Young",
+                "email": "kyle@dontkry.com",
+                "homepage": "https://github.com/shama"
+            }
+        ],
+        "description": "A multi-framework Composer library installer",
+        "homepage": "https://composer.github.io/installers/",
+        "keywords": [
+            "Craft",
+            "Dolibarr",
+            "Hurad",
+            "ImageCMS",
+            "MODX Evo",
+            "Mautic",
+            "OXID",
+            "SMF",
+            "Thelia",
+            "WolfCMS",
+            "agl",
+            "aimeos",
+            "annotatecms",
+            "bitrix",
+            "cakephp",
+            "chef",
+            "codeigniter",
+            "concrete5",
+            "croogo",
+            "dokuwiki",
+            "drupal",
+            "elgg",
+            "fuelphp",
+            "grav",
+            "installer",
+            "joomla",
+            "kohana",
+            "laravel",
+            "lithium",
+            "magento",
+            "mako",
+            "mediawiki",
+            "modulework",
+            "moodle",
+            "phpbb",
+            "piwik",
+            "ppi",
+            "puppet",
+            "roundcube",
+            "shopware",
+            "silverstripe",
+            "symfony",
+            "typo3",
+            "wordpress",
+            "zend",
+            "zikula"
+        ]
+    },
+    {
+        "name": "drupal/features",
+        "version": "7.2.10",
+        "version_normalized": "7.2.10.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/features",
+            "reference": "41fd9b821b03cbdc6476428f375f16c9f8dc4185"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/features-7.x-2.10.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "time": "2016-04-18 19:27:42",
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-2.x": "7.2.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.drupal-composer.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "description": "Provides feature management for Drupal.",
+        "homepage": "https://www.drupal.org/project/features"
+    },
+    {
+        "name": "drupal/cron_debug",
+        "version": "7.1.2",
+        "version_normalized": "7.1.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://git.drupal.org/project/cron_debug",
+            "reference": "342b0a2a0b1c7192e52c8da49d8757beb6224e80"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://ftp.drupal.org/files/projects/cron_debug-7.x-1.2.zip",
+            "reference": null,
+            "shasum": null
+        },
+        "require": {
+            "drupal/drupal": "7.*"
+        },
+        "time": "2011-03-04 11:53:59",
+        "type": "drupal-module",
+        "extra": {
+            "branch-alias": {
+                "dev-7.x-1.x": "7.1.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.drupal-composer.org/downloads/",
+        "license": [
+            "GPL-2.0+"
+        ],
+        "description": "Debug and time cron hooks",
+        "homepage": "https://www.drupal.org/project/cron_debug"
     }
 ]
