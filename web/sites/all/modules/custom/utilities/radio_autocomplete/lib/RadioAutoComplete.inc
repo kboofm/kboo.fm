@@ -172,7 +172,7 @@ class RadioAutoComplete {
    */
   public static function fuzzyMatchProgramShows($string) {
     $query = new ProgramQuery();
-    $query->getShows();
+    $query->getShows(EProgramStatus::Current, EStreams::all());
     $query->searchTitle($string, EStringSearchOptions::Contains);
     $query->setLimit(10);
     return static::getMatchResults($query, 'title_field');
