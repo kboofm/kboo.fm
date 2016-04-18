@@ -49,6 +49,7 @@ class RadioCache {
 
       try {
         $stream = $entity->field_stream->value();
+        $stream = EStreams::getStreamByNid($stream->nid);
       } catch (EntityMetadataWrapperException $e) {
         // ducktyping
       }
