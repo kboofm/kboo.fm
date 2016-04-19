@@ -35,30 +35,34 @@ function radio_station_cron() {
   $stream = EStreams::One;
   $component = new StationContentComponent();
 
-  if (RadioConfig::get("generate_episodes")) {
+  if (RadioConfig::get("cron_generate_episodes")) {
     $episodes = $component->getRippingEpisodes($stream, 5);
 
-    if (RadioConfig::get("automatic_ripping")) {
+    if (RadioConfig::get("cron_automatic_ripping")) {
       $component->scheduleRippingEpisodes($episodes);
     }
   }
 
-  $component->attachNewRips();
+  if (RadioConfig::get("cron_attach_rips")) {
+    $component->attachNewRips();
+  }
 
   /*
    * Schedule cache should be invalidated if any new episode nodes were created.
    * Re-generate the cache for last week, this week, and the next 4 weeks
    */
-  $now = time();
-  $rover = Helpers::carbonize($now)
-    ->subWeeks(1);
+  if (RadioConfig::get("cron_generate_cache_schedule")) {
+    $now = time();
+    $rover = Helpers::carbonize($now)
+      ->subWeeks(1);
 
-  $component = new ScheduleComponent();
+    $component = new ScheduleComponent();
 
-  for ($i=0; $i<6; $i++) {
-    $timestamp = $rover->getTimestamp();
-    $component->getWeek($stream, "at", $timestamp);
-    $rover->addWeek();
+    for ($i = 0; $i < 6; $i++) {
+      $timestamp = $rover->getTimestamp();
+      $component->getWeek($stream, "at", $timestamp);
+      $rover->addWeek();
+    }
   }
 }
 
@@ -470,8 +474,16 @@ function radio_station_preprocess_node(&$vars) {
 
 
 function radio_station_node_presave($node) {
-  // clear cache methods only if $node matches internal critieria
+  $clearSchedule = RadioConfig::get("onsave_clear_cache_schedule");
+  $clearSidebar = RadioConfig::get("onsave_clear_cache_sidebar");
   $cache = new RadioCache();
-  $cache->clearSchedule($node);
-  $cache->clearSidebar($node);
+
+  if ($clearSchedule) {
+    $cache->clearSchedule($node);
+  }
+
+  if ($clearSidebar) {
+    $cache->clearSidebar($node);
+  }
+
 }
