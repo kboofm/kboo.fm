@@ -223,4 +223,11 @@ class Helpers {
     $html = decode_entities($html);
     return drupal_html_to_text($html, []);
   }
+
+
+  public static function getPublicFilesPath() {
+    // http://drupal.stackexchange.com/a/56488
+    $wrapper = file_stream_wrapper_get_instance_by_uri('public://');
+    return $wrapper->realpath();
+  }
 }

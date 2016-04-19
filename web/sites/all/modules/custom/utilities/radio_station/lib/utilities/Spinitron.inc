@@ -315,8 +315,7 @@ class Spinitron {
 
 
   public static function instance() {
-    $wrapper = file_stream_wrapper_get_instance_by_uri('public://');
-    $public_files = $wrapper->realpath();
+    $public_files = Helpers::getPublicFilesPath();
     $cache_path = "{$public_files}/spinitron/cache";
 
     // "userId" and "secret" are provided by Spinitron.com

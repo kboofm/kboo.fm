@@ -366,6 +366,17 @@ class StationContentComponent extends BaseComponent {
 
 
   public function scheduleRippingEpisodes($episodes) {
+    $now = time();
+    $log = new RadioLog("scheduled_rips.log");
+
+    // Purge entries scheduled older than now
+    $log->data = array_filter(
+      $log->data,
+      function ($value) use ($now) {
+        return (strtotime($value) > $now);
+      }
+    );
+
     foreach ($episodes as $episode) {
       $air_time = $episode->field_air_time->value();
 
@@ -378,12 +389,19 @@ class StationContentComponent extends BaseComponent {
         continue;
       }
 
-      $this->queueEpisodeRip($episode);
+      $episode_nid = $episode->getIdentifier();
+      if ($log->has($episode_nid)) {
+        continue;
+      }
+
+      $this->queueEpisodeRip($episode, $log);
     }
+
+    $log->save();
   }
 
 
-  private function queueEpisodeRip($episode) {
+  private function queueEpisodeRip($episode, $log) {
     /* StreamRipper options
       -l : length in seconds
       -a filename : rip to single file; timestamp if no filename
@@ -394,6 +412,7 @@ class StationContentComponent extends BaseComponent {
       --quiet : no output
     */
 
+    $episode_nid = $episode->getIdentifier();
     $recording_type = $episode->field_episode_record->value();
     $air_time = $episode->field_air_time->value();
     $date = date('ymd.Hi', $air_time['value']);
@@ -412,8 +431,10 @@ class StationContentComponent extends BaseComponent {
     $padding = 60;
     $start = $air_time['value'] - $padding;
     $length = $air_time['value2'] + $padding - $start;
+
     $atd_time = date('H:i', $start);
-    $episode_nid = $episode->getIdentifier();
+    $log->data[$episode_nid] = date("Y-m-d H:i:s", $start);
+
     $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}.mp3";
 
     $ripdir = variable_get('radio_station_rip_filepath', '/tmp');
