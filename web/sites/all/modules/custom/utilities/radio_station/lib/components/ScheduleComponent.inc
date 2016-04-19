@@ -129,23 +129,20 @@ class ScheduleComponent extends BaseComponent {
 
 
   public function getWeek($stream, $direction, $timestamp) {
-    $data = &drupal_static(__FUNCTION__);
-    if (!isset($data)) {
-      $weekBegin = $this->getWeekBegin($timestamp, $direction);
+    $weekBegin = $this->getWeekBegin($timestamp, $direction);
 
-      if (!$weekBegin) {
-        return [];
-      }
+    if (!$weekBegin) {
+      return [];
+    }
 
-      $cache_key = "radio_station_week_{$stream}_{$weekBegin}";
-      $cache_table = "cache_radio_station_schedule";
+    $cache_key = "radio_station_week_{$stream}_{$weekBegin}";
+    $cache_table = "cache_radio_station_schedule";
 
-      if ($cache = cache_get($cache_key, $cache_table)) {
-        $data = $cache->data;
-      } else {
-        $data = $this->loadWeek($stream, $direction, $timestamp);
-        cache_set($cache_key, $data, $cache_table);
-      }
+    if ($cache = cache_get($cache_key, $cache_table)) {
+      $data = $cache->data;
+    } else {
+      $data = $this->loadWeek($stream, $direction, $timestamp);
+      cache_set($cache_key, $data, $cache_table);
     }
 
     return $data;
