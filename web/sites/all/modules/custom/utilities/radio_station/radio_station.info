@@ -14,6 +14,7 @@ files[] = lib/utilities/RadioBlocks.inc
 files[] = lib/utilities/RadioCache.inc
 files[] = lib/utilities/RadioEnums.inc
 files[] = lib/utilities/RadioForms.inc
+files[] = lib/utilities/RadioLog.inc
 files[] = lib/utilities/RadioPaginator.inc
 files[] = lib/utilities/RadioRoles.inc
 files[] = lib/utilities/RadioRoutes.inc
