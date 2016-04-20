@@ -149,6 +149,27 @@ class ScheduleComponent extends BaseComponent {
   }
 
 
+  public function getWeeks(
+    $min,
+    $max,
+    $allowThisWeek = true,
+    $stream = EStreams::One
+  ) {
+
+    $now = time();
+    $rover = Helpers::carbonize($now);
+    $rover->subWeeks($min);
+    for ($i = $min; $i <= $max; $i++) {
+      if ($i == 0 && !$allowThisWeek) {
+        continue;
+      }
+
+      $timestamp = $rover->getTimestamp();
+      $this->getWeek($stream, "at", $timestamp);
+    }
+  }
+
+
   private function getWeekBegin($timestamp, $direction = "at") {
     switch ($direction) {
       case 'at':
@@ -195,4 +216,5 @@ class ScheduleComponent extends BaseComponent {
 
     return $data;
   }
+
 }

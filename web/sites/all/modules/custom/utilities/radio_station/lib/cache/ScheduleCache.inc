@@ -21,6 +21,28 @@ class ScheduleCache extends BaseCache {
   }
 
 
+  public function clearWeeks(
+    $min,
+    $max,
+    $allowThisWeek = true,
+    $stream = EStreams::One
+  ) {
+
+    $now = time();
+    $rover = Helpers::carbonize($now);
+    $rover->subWeeks($min);
+    for ($i = $min; $i <= $max; $i++) {
+      if ($i == 0 && !$allowThisWeek) {
+        continue;
+      }
+
+      $timestamp = $rover->getTimestamp();
+      $weekBegin = Helpers::weekBegin($timestamp);
+      $this->forceClear("{$stream}_{$weekBegin}");
+    }
+  }
+
+
   private function clearScheduledTimeslot($node) {
     $stream = EStreams::One;
     $entity = entity_metadata_wrapper('node', $node);
