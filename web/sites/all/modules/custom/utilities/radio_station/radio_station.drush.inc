@@ -32,7 +32,7 @@ function radio_station_drush_command() {
   ];
 
   $items['schedule-cache-clear'] = [
-    'description' => 'Clear the schedule cache',
+    'description' => 'Clear the schedule cache for the given weeks',
     'aliases' => ['sch-cc'],
     'options' => [
       'min' => 'Minimum week',
@@ -55,7 +55,7 @@ function radio_station_drush_command() {
   ];
 
   $items['schedule-cache-generate'] = [
-    'description' => 'Generate the schedule cache',
+    'description' => 'Generate the schedule cache for the given weeks',
     'aliases' => ['sch-cg'],
     'options' => [
       'min' => 'Minimum week',
@@ -72,7 +72,7 @@ function radio_station_drush_command() {
   ];
 
   $items['schedule-cache-refresh'] = [
-    'description' => 'Refresh the schedule cache',
+    'description' => 'Refresh the schedule cache for the given weeks',
     'aliases' => ['sch-cr'],
     'options' => [
       'min' => 'Minimum week',
