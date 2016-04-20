@@ -293,9 +293,51 @@ class StationContentComponent extends BaseComponent {
 
 
   public function attachNewRips() {
+    $timestamp = strtotime("-1 day");
+    $log = new RadioLog("attached_rips.log");
+    $log->purgeTimestamped($timestamp);
+
     foreach ($this->getRippedFilenames() as $rip_filepath) {
+      $log->addTimestamped(
+        "file: {$rip_filepath}"
+      );
+
       $episode_nid = $this->getEpisodeNidFromRipFilename($rip_filepath);
-      $wrapped_episode = entity_metadata_wrapper('node', $episode_nid);
+      if ((int)$episode_nid == 0) {
+        watchdog(
+          'radio_station',
+          'failed to parse episode nid from: %filename',
+          [
+            '%filename' => $rip_filepath,
+          ],
+          WATCHDOG_ALERT
+        );
+
+        $log->addTimestamped(
+          "failed to read episode_nid"
+        );
+
+        continue;
+      }
+
+      $log->addTimestamped(
+        "episode_nid: {$episode_nid}"
+      );
+
+      try {
+        $wrapped_episode = entity_metadata_wrapper('node', $episode_nid);
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        $log->addTimestamped(
+          "failed to load entity"
+        );
+
+        continue;
+      }
 
       // http://stackoverflow.com/a/5141484/2407209
       $ripped_file = (object) [
@@ -306,6 +348,11 @@ class StationContentComponent extends BaseComponent {
         'display' => 1,
       ];
 
+      $message = print_r($ripped_file, true);
+      $log->addTimestamped(
+        "ripped_file: {$message}"
+      );
+
       $destination = variable_get(
         'radio_station_rip_destination',
         'episode_audio'
@@ -315,20 +362,78 @@ class StationContentComponent extends BaseComponent {
         $destination .= '/';
       }
 
+      $log->addTimestamped(
+        "destination: {$destination}"
+      );
+
       $basename = basename($rip_filepath);
       $file = file_copy(
         $ripped_file,
         "public://{$destination}{$basename}"
       );
 
+      if ($file === false) {
+        watchdog(
+          'radio_station',
+          'file_copy failed while attempting to attach the rip: %filename',
+          [
+            '%filename' => $rip_filepath,
+          ],
+          WATCHDOG_ALERT
+        );
+
+        $log->addTimestamped(
+          "file_copy: failed"
+        );
+
+        continue;
+      } else {
+        $log->addTimestamped(
+          "file_copy: succeeded"
+        );
+      }
+
       // http://drupal.stackexchange.com/a/69545
       $file_wrapper = [(array)$file];
-      $wrapped_episode->field_audio_files->set($file_wrapper);
-      $wrapped_episode->save();
+
+      try {
+        $wrapped_episode->field_audio_files->set($file_wrapper);
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        $log->addTimestamped(
+          "failed to set field_audio_files"
+        );
+
+        continue;
+      }
+
+      try {
+        $wrapped_episode->save();
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        $log->addTimestamped(
+          "failed to save entity"
+        );
+      }
 
       // delete the original file in "radio_station_rip_filepath"
-      unlink($ripped_file);
+      $response = unlink($ripped_file);
+
+      $message = var_dump($response, true);
+      $log->addTimestamped(
+        "unlink success: {$message}"
+      );
     }
+
+    $log->save();
   }
 
 
@@ -435,7 +540,7 @@ class StationContentComponent extends BaseComponent {
     $atd_time = date('H:i', $start);
     $log->data[$episode_nid] = date("Y-m-d H:i:s", $start);
 
-    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}.mp3";
+    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}";
 
     $ripdir = variable_get('radio_station_rip_filepath', '/tmp');
     $stream = variable_get(
@@ -452,10 +557,10 @@ class StationContentComponent extends BaseComponent {
       return;
     }
 
-    $command = "$ripper {$stream} ";
-    $command .= "-l {$length} -A -a {$filename} -q -s -d {$ripdir} --quiet; ";
-    $command .= "rm {$ripdir}/{$filename}.cue";
-    $command = "echo \"{$command}\" | at {$atd_time}";
+    $sub = "$ripper {$stream} ";
+    $sub .= "-l {$length} -A -a {$filename}.mp3 -q -s -d {$ripdir} --quiet; ";
+    $sub .= "rm {$ripdir}/{$filename}.cue";
+    $command = "echo \"{$sub}\" | at {$atd_time}";
     shell_exec($command);
 
     watchdog(
