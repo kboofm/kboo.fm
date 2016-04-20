@@ -297,18 +297,19 @@ class StationContentComponent extends BaseComponent {
     $log = new RadioLog("attached_rips.log");
     $log->purgeTimestamped($timestamp);
 
-    foreach ($this->getRippedFilenames() as $rip_filepath) {
+    $filenames = $this->getRippedFilenames();
+    foreach ($filenames as $filename) {
       $log->addTimestamped(
-        "file: {$rip_filepath}"
+        "file: {$filename}"
       );
 
-      $episode_nid = $this->getEpisodeNidFromRipFilename($rip_filepath);
+      $episode_nid = $this->getEpisodeNidFromRipFilename($filename);
       if ((int)$episode_nid == 0) {
         watchdog(
           'radio_station',
           'failed to parse episode nid from: %filename',
           [
-            '%filename' => $rip_filepath,
+            '%filename' => $filename,
           ],
           WATCHDOG_ALERT
         );
@@ -342,8 +343,8 @@ class StationContentComponent extends BaseComponent {
       // http://stackoverflow.com/a/5141484/2407209
       $ripped_file = (object) [
         'uid' => 1,
-        'uri' => $rip_filepath,
-        'filemime' => file_get_mimetype($rip_filepath),
+        'uri' => $filename,
+        'filemime' => file_get_mimetype($filename),
         'status' => 1,
         'display' => 1,
       ];
@@ -366,7 +367,7 @@ class StationContentComponent extends BaseComponent {
         "destination: {$destination}"
       );
 
-      $basename = basename($rip_filepath);
+      $basename = basename($filename);
       $file = file_copy(
         $ripped_file,
         "public://{$destination}{$basename}"
@@ -377,7 +378,7 @@ class StationContentComponent extends BaseComponent {
           'radio_station',
           'file_copy failed while attempting to attach the rip: %filename',
           [
-            '%filename' => $rip_filepath,
+            '%filename' => $filename,
           ],
           WATCHDOG_ALERT
         );
@@ -425,9 +426,9 @@ class StationContentComponent extends BaseComponent {
       }
 
       // delete the original file in "radio_station_rip_filepath"
-      $response = unlink($ripped_file);
+      $response = unlink($filename);
 
-      $message = var_dump($response, true);
+      $message = var_export($response, true);
       $log->addTimestamped(
         "unlink success: {$message}"
       );
@@ -566,6 +567,7 @@ class StationContentComponent extends BaseComponent {
     watchdog(
       "radio_station",
       "Executed: {$command}",
+      [],
       WATCHDOG_INFO
     );
   }
