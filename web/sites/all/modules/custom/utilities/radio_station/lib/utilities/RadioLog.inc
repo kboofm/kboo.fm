@@ -38,4 +38,20 @@ class RadioLog {
     return isset($this->data[$key]);
   }
 
+
+  public function addTimestamped($content) {
+    $now = time();
+    $this->data[$now] = $content;
+  }
+
+
+  public function purgeTimestamped($timestamp) {
+    $this->data = array_filter(
+      $this->data,
+      function ($key) use ($timestamp) {
+        return ($key > $timestamp);
+      },
+      ARRAY_FILTER_USE_KEY
+    );
+  }
 }

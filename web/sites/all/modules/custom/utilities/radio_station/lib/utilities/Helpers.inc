@@ -230,4 +230,17 @@ class Helpers {
     $wrapper = file_stream_wrapper_get_instance_by_uri('public://');
     return $wrapper->realpath();
   }
+
+
+  public static function watchEMWException($function, $trace) {
+    watchdog(
+      'radio_station',
+      'EntityMetadataWrapper exception in %function() @trace',
+      [
+        '%function' => $function,
+        '@trace' => $trace,
+      ],
+      WATCHDOG_ERROR
+    );
+  }
 }
