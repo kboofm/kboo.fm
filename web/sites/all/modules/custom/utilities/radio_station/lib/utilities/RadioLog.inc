@@ -41,17 +41,20 @@ class RadioLog {
 
   public function addTimestamped($content) {
     $now = time();
-    $this->data[$now] = $content;
+
+    $this->data[] = [
+      'timestamp' => $now,
+      'content' => $content,
+    ];
   }
 
 
   public function purgeTimestamped($timestamp) {
     $this->data = array_filter(
       $this->data,
-      function ($key) use ($timestamp) {
-        return ($key > $timestamp);
-      },
-      ARRAY_FILTER_USE_KEY
+      function ($value) use ($timestamp) {
+        return ($value['timestamp'] > $timestamp);
+      }
     );
   }
 }
