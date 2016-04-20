@@ -493,16 +493,13 @@ function radio_station_preprocess_node(&$vars) {
 
 
 function radio_station_node_presave($node) {
-  $clearSchedule = RadioConfig::get("onsave_clear_cache_schedule");
-  $clearSidebar = RadioConfig::get("onsave_clear_cache_sidebar");
-  $cache = new RadioCache();
-
-  if ($clearSchedule) {
-    $cache->clearSchedule($node);
+  if (RadioConfig::get("onsave_clear_cache_schedule")) {
+    $cache = new ScheduleCache();
+    $cache->clear($node);
   }
 
-  if ($clearSidebar) {
-    $cache->clearSidebar($node);
+  if (RadioConfig::get("onsave_clear_cache_sidebar")) {
+    $cache = new SidebarCache();
+    $cache->clear($node);
   }
-
 }

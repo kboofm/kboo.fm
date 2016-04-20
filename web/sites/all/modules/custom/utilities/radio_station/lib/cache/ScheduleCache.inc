@@ -1,33 +1,15 @@
 <?php
 
-class RadioCache {
+class ScheduleCache extends BaseCache {
 
-  public function clearSidebar($node) {
-    if ($node->type != "station_content") {
-      return;
-    }
-
-    $cache_table = "cache_radio_station";
-    cache_clear_all("radio_station_latest_playlists", $cache_table);
-
-    $clear = false;
-    $entity = entity_metadata_wrapper('node', $node);
-    try {
-      $audio_files = $entity->field_audio_files->value();
-      if (count($audio_files) > 0) {
-        $clear = true;
-      }
-    } catch (EntityMetadataWrapperException $e) {
-      // duck typing
-    }
-
-    if ($clear) {
-      cache_clear_all("radio_station_latest_audio", $cache_table);
-    }
+  public function __construct() {
+    parent::__construct();
+    $this->table = "cache_radio_station_schedule";
+    $this->keyPrefix = "radio_station_week_";
   }
 
 
-  public function clearSchedule($node) {
+  public function clear($node) {
     $stream = EStreams::One;
     $timestamps = [];
     $types = [
@@ -82,13 +64,9 @@ class RadioCache {
       }
     }
 
-    $cache_key_prefix = "radio_station_week_{$stream}_";
-    $cache_table = "cache_radio_station_schedule";
-
     foreach ($timestamps as $timestamp) {
       $weekBegin = Helpers::weekBegin($timestamp['value']);
-      $cache_key = "{$cache_key_prefix}{$weekBegin}";
-      cache_clear_all($cache_key, $cache_table);
+      $this->forceClear("{$stream}_{$weekBegin}");
     }
   }
 }
