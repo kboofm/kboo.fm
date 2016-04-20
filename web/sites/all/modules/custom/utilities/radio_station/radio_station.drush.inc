@@ -10,6 +10,11 @@ function radio_station_drush_command() {
       'value' => 'Clears schedule cache for last week, this week, and next week',
     ],
 
+    'clear-stream' => [
+      'key' => 'drush schedule-cache-clear-stream --stream=one',
+      'value' => 'Clears schedule cache for the specified stream',
+    ],
+
     'generate' => [
       'key' => 'drush schedule-cache-generate --min=-1 --max=1',
       'value' => 'Generates schedule cache for last week, this week, and next week',
@@ -35,6 +40,17 @@ function radio_station_drush_command() {
     ],
     'examples' => [
       $examples['clear']['key'] => $examples['clear']['value'],
+    ],
+  ];
+
+  $items['schedule-cache-clear-stream'] = [
+    'description' => 'Clear the schedule cache for the given stream',
+    'aliases' => ['sch-ccs'],
+    'options' => [
+      'stream' => 'Stream',
+    ],
+    'examples' => [
+      $examples['clear-stream']['key'] => $examples['clear-stream']['value'],
     ],
   ];
 
@@ -93,7 +109,7 @@ function _radio_station_latest_playlists_cache_clear() {
 
 
 /**
- * Callback for the cache-clear-schedule-all command
+ * Callback for the schedule-cache-clear-all command
  */
 function drush_radio_station_schedule_cache_clear_all() {
   $cache = new ScheduleCache();
@@ -102,7 +118,22 @@ function drush_radio_station_schedule_cache_clear_all() {
 
 
 /**
- * Callback for the cache-clear-schedule command
+ * Callback for the schedule-cache-clear-stream command
+ */
+function drush_radio_station_schedule_cache_clear_stream() {
+  $stream = drush_get_option("stream");
+
+  if (!$stream) {
+    $stream = EStreams::One;
+  }
+
+  $cache = new ScheduleCache();
+  $cache->forceClear($stream);
+}
+
+
+/**
+ * Callback for the schedule-cache-clear command
  */
 function drush_radio_station_schedule_cache_clear() {
   $min = (int)drush_get_option("min");
