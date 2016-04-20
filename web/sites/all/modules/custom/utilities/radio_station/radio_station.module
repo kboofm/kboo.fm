@@ -63,7 +63,11 @@ function radio_station_cron() {
     0
   );
 
-  $allowThisWeek = RadioConfig::get("cron_generate_cache_schedule_this_week");
+  $allowThisWeek = RadioConfig::get(
+    "cron_generate_cache_schedule_this_week",
+    FALSE
+  );
+
   $component->getWeeks($min, $max, $allowThisWeek, $stream);
 }
 

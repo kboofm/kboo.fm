@@ -4,14 +4,21 @@
  * Implements hook_drush_command().
  */
 function radio_station_drush_command() {
-  $ccs_example = [
-    'key' => 'drush schedule-cache-clear --min=-1 --max=1',
-    'value' => 'Clears schedule cache for last week, this week, and next week',
-  ];
+  $examples = [
+    'clear' => [
+      'key' => 'drush schedule-cache-clear --min=-1 --max=1',
+      'value' => 'Clears schedule cache for last week, this week, and next week',
+    ],
 
-  $cgs_example = [
-    'key' => 'drush schedule-cache-generate --min=-1 --max=1',
-    'value' => 'Generates schedule cache for last week, this week, and next week',
+    'generate' => [
+      'key' => 'drush schedule-cache-generate --min=-1 --max=1',
+      'value' => 'Generates schedule cache for last week, this week, and next week',
+    ],
+
+    'refresh' => [
+      'key' => 'drush schedule-cache-refresh --min=-1 --max=1',
+      'value' => 'Refresh schedule cache for last week, this week, and next week',
+    ],
   ];
 
   $items['schedule-cache-clear-all'] = [
@@ -27,7 +34,7 @@ function radio_station_drush_command() {
       'max' => 'Maximum week',
     ],
     'examples' => [
-      $ccs_example['key'] => $ccs_example['value'],
+      $examples['clear']['key'] => $examples['clear']['value'],
     ],
   ];
 
@@ -39,7 +46,7 @@ function radio_station_drush_command() {
       'max' => 'Maximum week',
     ],
     'examples' => [
-      $cgs_example['key'] => $cgs_example['value'],
+      $examples['generate']['key'] => $examples['generate']['value'],
     ],
   ];
 
@@ -48,6 +55,17 @@ function radio_station_drush_command() {
     'aliases' => ['sch-cl'],
   ];
 
+  $items['schedule-cache-refresh'] = [
+    'description' => 'Refresh the schedule cache',
+    'aliases' => ['sch-cr'],
+    'options' => [
+      'min' => 'Minimum week',
+      'max' => 'Maximum week',
+    ],
+    'examples' => [
+      $examples['refresh']['key'] => $examples['refresh']['value'],
+    ],
+  ];
   return $items;
 }
 
@@ -140,4 +158,13 @@ function drush_radio_station_schedule_cache_list() {
       print "{$datetime} - {$item}" . PHP_EOL;
     }
   );
+}
+
+
+/**
+ * Callback for the cache-refresh-schedule command
+ */
+function drush_radio_station_schedule_cache_refresh() {
+  drush_radio_station_schedule_cache_clear();
+  drush_radio_station_schedule_cache_generate();
 }

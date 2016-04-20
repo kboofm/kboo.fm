@@ -158,7 +158,7 @@ class ScheduleComponent extends BaseComponent {
 
     $now = time();
     $rover = Helpers::carbonize($now);
-    $rover->subWeeks($min);
+    $rover->addWeeks($min);
     for ($i = $min; $i <= $max; $i++) {
       if ($i == 0 && !$allowThisWeek) {
         continue;
@@ -166,6 +166,7 @@ class ScheduleComponent extends BaseComponent {
 
       $timestamp = $rover->getTimestamp();
       $this->getWeek($stream, "at", $timestamp);
+      $rover->addWeek();
     }
   }
 

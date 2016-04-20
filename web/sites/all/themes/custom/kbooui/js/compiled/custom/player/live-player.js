@@ -116,9 +116,9 @@
         return true;
       };
 
-      Live.prototype.updateProgramForStream = function(key, timestamp) {
+      Live.prototype.updateProgramForStream = function(stream, timestamp) {
         var params, route;
-        route = "/api/schedule/episode/" + key + "/at/" + timestamp;
+        route = "/api/schedule/episode/" + stream + "/at/" + timestamp;
         params = {
           type: "GET",
           url: route,
