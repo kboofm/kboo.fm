@@ -10,58 +10,69 @@ class ScheduleCache extends BaseCache {
 
 
   public function clear($node) {
-    $stream = EStreams::One;
-    $timestamps = [];
-    $types = [
-      'scheduled_timeslot',
-      'station_content',
-    ];
+    switch ($node->type) {
+      case "scheduled_timeslot":
+        $this->clearScheduledTimeslot($node);
+        break;
+      case "station_content":
+        $this->clearStationContent($node);
+        break;
+    }
+  }
 
-    if (!in_array($node->type, $types)) {
+
+  private function clearScheduledTimeslot($node) {
+    $stream = EStreams::One;
+    $entity = entity_metadata_wrapper('node', $node);
+
+    try {
+      $timestamps = $entity->field_timeslot->value();
+    } catch (EntityMetadataWrapperException $e) {
       return;
     }
 
+    try {
+      $stream = $entity->field_stream->value();
+      $stream = EStreams::getStreamByNid($stream->nid);
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
+    }
+
+    foreach ($timestamps as $timestamp) {
+      $weekBegin = Helpers::weekBegin($timestamp['value']);
+      $this->forceClear("{$stream}_{$weekBegin}");
+    }
+  }
+
+
+  private function clearStationContent($node) {
+    $stream = EStreams::One;
     $entity = entity_metadata_wrapper('node', $node);
-    if ($node->type == 'scheduled_timeslot') {
-      try {
-        $timestamps = $entity->field_timeslot->value();
-      } catch (EntityMetadataWrapperException $e) {
+
+    try {
+      $timestamp = $entity->field_air_time->value();
+      if (!$timestamp) {
         return;
       }
 
-      try {
-        $stream = $entity->field_stream->value();
-        $stream = EStreams::getStreamByNid($stream->nid);
-      } catch (EntityMetadataWrapperException $e) {
-        // ducktyping
-      }
+      $timestamps = [$timestamp];
+    } catch (EntityMetadataWrapperException $e) {
+      return;
+    }
 
-    } elseif ($node->type == 'station_content') {
-      try {
-        $timestamp = $entity->field_air_time->value();
-        if (!$timestamp) {
-          return;
-        }
+    $programs = $entity->field_produced_for->value();
+    $program = array_pop($programs);
 
-        $timestamps = [$timestamp];
-      } catch (EntityMetadataWrapperException $e) {
-        return;
-      }
+    if (!$program) {
+      return;
+    }
 
-      $programs = $entity->field_produced_for->value();
-      $program = array_pop($programs);
+    $program_entity = entity_metadata_wrapper('node', $program);
 
-      if (!$program) {
-        return;
-      }
-
-      $program_entity = entity_metadata_wrapper('node', $program);
-
-      try {
-        $stream = $program_entity->field_stream->value();
-      } catch (EntityMetadataWrapperException $e) {
-        // ducktyping
-      }
+    try {
+      $stream = $program_entity->field_stream->value();
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
     }
 
     foreach ($timestamps as $timestamp) {
