@@ -87,8 +87,8 @@
       @updateProgramForStream "one", timestamp
       true
 
-    updateProgramForStream: (key, timestamp) =>
-      route = "/api/schedule/episode/#{key}/at/#{timestamp}"
+    updateProgramForStream: (stream, timestamp) =>
+      route = "/api/schedule/episode/#{stream}/at/#{timestamp}"
 
       params =
         type: "GET"

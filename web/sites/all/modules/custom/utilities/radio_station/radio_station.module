@@ -49,40 +49,26 @@ function radio_station_cron() {
 
   /*
    * Schedule cache should be invalidated if any new episode nodes were created.
-   * Re-generate the cache for last week, this week, and the next 4 weeks
+   * Re-generate the cache based on the environment configuration.
    */
-  $now = time();
-  $rover = Helpers::carbonize($now);
   $component = new ScheduleComponent();
 
-  if (RadioConfig::get("cron_generate_cache_schedule_this_week")) {
-    $timestamp = $rover->getTimestamp();
-    $component->getWeek($stream, "at", $timestamp);
-  }
-
-  $prevCount = RadioConfig::get(
+  $min = RadioConfig::get(
     "cron_generate_cache_schedule_previous_weeks",
     0
   );
 
-  $rover->subWeeks($prevCount);
-  for ($i = 0; $i < $prevCount; $i++) {
-    $timestamp = $rover->getTimestamp();
-    $component->getWeek($stream, "at", $timestamp);
-    $rover->addWeek();
-  }
-
-  $nextCount = RadioConfig::get(
+  $max = RadioConfig::get(
     "cron_generate_cache_schedule_next_weeks",
     0
   );
 
-  $rover->addWeek();
-  for ($i = 0; $i < $nextCount; $i++) {
-    $timestamp = $rover->getTimestamp();
-    $component->getWeek($stream, "at", $timestamp);
-    $rover->addWeek();
-  }
+  $allowThisWeek = RadioConfig::get(
+    "cron_generate_cache_schedule_this_week",
+    FALSE
+  );
+
+  $component->getWeeks($min, $max, $allowThisWeek, $stream);
 }
 
 
@@ -493,16 +479,13 @@ function radio_station_preprocess_node(&$vars) {
 
 
 function radio_station_node_presave($node) {
-  $clearSchedule = RadioConfig::get("onsave_clear_cache_schedule");
-  $clearSidebar = RadioConfig::get("onsave_clear_cache_sidebar");
-  $cache = new RadioCache();
-
-  if ($clearSchedule) {
-    $cache->clearSchedule($node);
+  if (RadioConfig::get("onsave_clear_cache_schedule")) {
+    $cache = new ScheduleCache();
+    $cache->clear($node);
   }
 
-  if ($clearSidebar) {
-    $cache->clearSidebar($node);
+  if (RadioConfig::get("onsave_clear_cache_sidebar")) {
+    $cache = new SidebarCache();
+    $cache->clear($node);
   }
-
 }

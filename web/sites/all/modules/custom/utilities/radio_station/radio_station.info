@@ -4,6 +4,7 @@ package = Radio - Utilities
 core = 7.x
 version = 7.x-1.0
 
+
 ; Configs
 files[] = lib/configs/RadioConfig.inc
 
@@ -11,7 +12,6 @@ files[] = lib/configs/RadioConfig.inc
 ; Utilities
 files[] = lib/utilities/RadioAssets.inc
 files[] = lib/utilities/RadioBlocks.inc
-files[] = lib/utilities/RadioCache.inc
 files[] = lib/utilities/RadioEnums.inc
 files[] = lib/utilities/RadioForms.inc
 files[] = lib/utilities/RadioLog.inc
@@ -22,6 +22,12 @@ files[] = lib/utilities/RadioSpinitron.inc
 files[] = lib/utilities/RadioTemplates.inc
 files[] = lib/utilities/Spinitron.inc
 files[] = lib/utilities/SpinitronClient.inc
+
+
+; Cache
+files[] = lib/cache/BaseCache.inc
+files[] = lib/cache/ScheduleCache.inc
+files[] = lib/cache/SidebarCache.inc
 
 
 ; Entity queries
