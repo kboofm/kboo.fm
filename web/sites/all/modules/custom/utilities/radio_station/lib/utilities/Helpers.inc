@@ -243,4 +243,10 @@ class Helpers {
       WATCHDOG_ERROR
     );
   }
+
+
+  public static function replaceExtension($filename, $new_extension) {
+    $info = pathinfo($filename);
+    return "{$info['dirname']}/{$info['filename']}.{$new_extension}";
+  }
 }

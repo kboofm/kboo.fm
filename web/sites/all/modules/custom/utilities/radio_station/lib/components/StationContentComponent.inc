@@ -273,7 +273,8 @@ class StationContentComponent extends BaseComponent {
 
     $parts = explode('.', $ripfile);
     end($parts);
-    return prev($parts);
+    $episode_nid = prev($parts);
+    return ctype_digit($episode_nid) ? (int)$episode_nid : FALSE;
   }
 
 
@@ -303,8 +304,17 @@ class StationContentComponent extends BaseComponent {
         "file: {$filename}"
       );
 
+      $cue = Helpers::replaceExtension($filename, "cue");
+      if (file_exists($cue)) {
+        $log->addTimestamped(
+          "Skipped because cue file detected, assuming the rip is in progress"
+        );
+
+        continue;
+      }
+
       $episode_nid = $this->getEpisodeNidFromRipFilename($filename);
-      if ((int)$episode_nid == 0) {
+      if ($episode_nid === FALSE) {
         watchdog(
           'radio_station',
           'failed to parse episode nid from: %filename',
@@ -584,7 +594,6 @@ class StationContentComponent extends BaseComponent {
    * Create an episode node
    *
    * @param $schedule_item
-   * @param $episode_term
    * @throws \Exception
    */
   private function createEpisode(&$schedule_item) {
