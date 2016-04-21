@@ -307,7 +307,7 @@ class StationContentComponent extends BaseComponent {
       $cue = Helpers::replaceExtension($filename, "cue");
       if (file_exists($cue)) {
         $log->addTimestamped(
-          "Skipped becuase cue file detected, assuming the rip is in progress"
+          "Skipped because cue file detected, assuming the rip is in progress"
         );
 
         continue;
@@ -594,7 +594,6 @@ class StationContentComponent extends BaseComponent {
    * Create an episode node
    *
    * @param $schedule_item
-   * @param $episode_term
    * @throws \Exception
    */
   private function createEpisode(&$schedule_item) {
