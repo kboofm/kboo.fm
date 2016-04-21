@@ -135,6 +135,10 @@ class ScheduleComponent extends BaseComponent {
       return [];
     }
 
+    if (!in_array($stream, EStreams::all())) {
+      $stream = EStreams::One;
+    }
+    
     $cache_key = "radio_station_week_{$stream}_{$weekBegin}";
     $cache_table = "cache_radio_station_schedule";
 
