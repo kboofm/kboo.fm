@@ -48,7 +48,7 @@ function radio_station_cron() {
   }
 
   /*
-   * Schedule cache should be invalidated if any new episode nodes were created.
+   * Schedule cache could be invalidated if any new episode nodes were created.
    * Re-generate the cache based on the environment configuration.
    */
   $component = new ScheduleComponent();
