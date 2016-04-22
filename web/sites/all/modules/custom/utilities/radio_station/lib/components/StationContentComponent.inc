@@ -10,10 +10,7 @@ class StationContentComponent extends BaseComponent {
     $query->getAudio();
     $query->range($start, $per_page);
     $result = $query->execute();
-
-    $nids = array_keys(
-      $this->getNodes($result)
-    );
+    $nids = $this->getNids($results);
 
     $events = array_values(
       node_load_multiple($nids)

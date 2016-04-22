@@ -43,7 +43,10 @@ class StationContentResponse extends Response {
       $target = $entity->getIdentifier();
       $title = TemplateProcessor::getTeaserTitle($entity);
     } else {
-      // Expect taxonomy term
+      // Expect path for taxonomy term podcast
+      // Url formatted as: vocabulary/term/podcast
+      // Strip off the 3rd term (podcast) from the url
+      // The remaining url can be used to access the taxonomy term
       $path = current_path();
       $path = explode("/", $path);
       array_pop($path);
