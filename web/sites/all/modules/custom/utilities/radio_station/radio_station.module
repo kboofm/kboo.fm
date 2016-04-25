@@ -390,7 +390,7 @@ function radio_station_get_program_podcast($alias) {
   }
 
   $response = new StationContentResponse();
-  $response->getPodcast($alias, "program");
+  return $response->getPodcast($alias, "program");
 }
 
 
@@ -410,7 +410,7 @@ function radio_station_get_profiles_podcast($alias) {
   }
 
   $response = new StationContentResponse();
-  $response->getPodcast($alias, "person_profile");
+  return $response->getPodcast($alias, "person_profile");
 }
 
 
@@ -420,7 +420,7 @@ function radio_station_get_genre_podcast($alias) {
   }
 
   $response = new StationContentResponse();
-  $response->getPodcast($alias, "genre");
+  return $response->getPodcast($alias, "genre");
 }
 
 
@@ -430,7 +430,7 @@ function radio_station_get_topic_podcast($alias) {
   }
 
   $response = new StationContentResponse();
-  $response->getPodcast($alias, "topic");
+  return $response->getPodcast($alias, "topic");
 }
 
 
