@@ -10,7 +10,7 @@ class StationContentComponent extends BaseComponent {
     $query->getAudio();
     $query->range($start, $per_page);
     $result = $query->execute();
-    $nids = $this->getNids($results);
+    $nids = $this->getNids($result);
 
     $events = array_values(
       node_load_multiple($nids)
@@ -479,19 +479,21 @@ class StationContentComponent extends BaseComponent {
 
 
   public function scheduleRippingEpisodes($episodes) {
-    $now = time();
+    $timestamp = strtotime("-4 hours");
     $log = new RadioLog("scheduled_rips.log");
-
-    // Purge entries scheduled older than now
-    $log->data = array_filter(
-      $log->data,
-      function ($value) use ($now) {
-        return (strtotime($value) > $now);
-      }
-    );
+    $log->purgeTimestamped($timestamp);
 
     foreach ($episodes as $episode) {
-      $air_time = $episode->field_air_time->value();
+      try {
+        $air_time = $episode->field_air_time->value();
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        continue;
+      }
 
       if (!$this->withinAnHour($air_time['value'])) {
         continue;
@@ -503,7 +505,7 @@ class StationContentComponent extends BaseComponent {
       }
 
       $episode_nid = $episode->getIdentifier();
-      if ($log->has($episode_nid)) {
+      if ($log->contains($episode_nid)) {
         continue;
       }
 
@@ -514,7 +516,7 @@ class StationContentComponent extends BaseComponent {
   }
 
 
-  private function queueEpisodeRip($episode, $log) {
+  private function queueEpisodeRip($episode, RadioLog $log) {
     /* StreamRipper options
       -l : length in seconds
       -a filename : rip to single file; timestamp if no filename
@@ -546,7 +548,7 @@ class StationContentComponent extends BaseComponent {
     $length = $air_time['value2'] + $padding - $start;
 
     $atd_time = date('H:i', $start);
-    $log->data[$episode_nid] = date("Y-m-d H:i:s", $start);
+    $log->addTimestamped($episode_nid);
 
     $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}";
 
