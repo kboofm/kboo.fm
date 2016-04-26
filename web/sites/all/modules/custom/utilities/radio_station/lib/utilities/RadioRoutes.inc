@@ -192,7 +192,7 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
-    $this->items['ProgramGenre/%/podcast'] = [
+    $this->items['genres/%/podcast'] = [
       'page callback' => 'radio_station_get_genre_podcast',
       'page arguments' => [1],
       'access arguments' => ['access content'],
@@ -206,7 +206,7 @@ class RadioRoutes {
       'type' => MENU_CALLBACK,
     ];
 
-    $this->items['PublicAffairsTopics/%/podcast'] = [
+    $this->items['topics/%/podcast'] = [
       'page callback' => 'radio_station_get_topic_podcast',
       'page arguments' => [1],
       'access arguments' => ['access content'],

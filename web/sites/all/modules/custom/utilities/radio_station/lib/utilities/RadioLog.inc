@@ -34,8 +34,15 @@ class RadioLog {
   }
 
 
-  public function has($key) {
-    return isset($this->data[$key]);
+  public function contains($content) {
+    $results = array_filter(
+      $this->data,
+      function ($value) use ($content) {
+        return ($value['content'] == $content);
+      }
+    );
+
+    return count($results) >= 1;
   }
 
 
