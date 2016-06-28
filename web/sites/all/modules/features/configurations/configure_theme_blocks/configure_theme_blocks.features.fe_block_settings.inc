@@ -44,6 +44,74 @@ function configure_theme_blocks_default_fe_block_settings() {
     'visibility' => 0,
   );
 
+  $export['block-user_login_simple'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'user_login_simple',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'anonymous user' => 1,
+    ),
+    'themes' => array(
+      'adminimal' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'adminimal',
+        'weight' => 0,
+      ),
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kbooui' => array(
+        'region' => 'sidebar',
+        'status' => 1,
+        'theme' => 'kbooui',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
+  $export['block-user_logout_simple'] = array(
+    'cache' => -1,
+    'custom' => 0,
+    'machine_name' => 'user_logout_simple',
+    'module' => 'block',
+    'node_types' => array(),
+    'pages' => '',
+    'roles' => array(
+      'authenticated user' => 2,
+    ),
+    'themes' => array(
+      'adminimal' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'adminimal',
+        'weight' => 0,
+      ),
+      'bartik' => array(
+        'region' => '',
+        'status' => 0,
+        'theme' => 'bartik',
+        'weight' => 0,
+      ),
+      'kbooui' => array(
+        'region' => 'sidebar',
+        'status' => 1,
+        'theme' => 'kbooui',
+        'weight' => 0,
+      ),
+    ),
+    'title' => '<none>',
+    'visibility' => 0,
+  );
+
   $export['comment-recent'] = array(
     'cache' => 1,
     'custom' => 0,

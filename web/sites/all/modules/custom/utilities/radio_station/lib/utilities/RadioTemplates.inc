@@ -12,6 +12,7 @@ class RadioTemplates {
 
 
   public function get() {
+    $this->addTemplate('audio');
     $this->addTemplate('audio_player');
     $this->addTemplate('blog');
     $this->addTemplate('community_events');
@@ -19,10 +20,21 @@ class RadioTemplates {
     $this->addTemplate('home');
     $this->addTemplate('listen_now');
     $this->addTemplate('news');
+    $this->addTemplate('program');
     $this->addTemplate('program_content');
     $this->addTemplate('program_content_list');
+    $this->addTemplate('program_genre');
     $this->addTemplate('program_playlists');
+    $this->addTemplate('program_podcast_link');
+    $this->addTemplate('program_retired');
+    $this->addTemplate('program_scheduled_timeslots');
+    $this->addTemplate('program_topic');
+    $this->addTemplate('program_upcoming_episodes');
+    $this->addTemplate('program_web_only');
     $this->addTemplate('schedule');
+    $this->addTemplate('sidebar_audio');
+    $this->addTemplate('sidebar_playlists');
+    $this->addTemplate('underwriters');
 
     return $this->templates;
   }

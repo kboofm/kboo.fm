@@ -2,71 +2,91 @@
   class App.Station.Carousel extends C4.Components.Base
     nextButton: ".schedule-carousel-next .schedule-trigger"
     prevButton: ".schedule-carousel-prev .schedule-trigger"
-    carousel_timestamp: ".schedule-carousel-timestamp"
+    carouselTimestamp: ".schedule-carousel-timestamp"
     $carousel: null
     $toolbar: null
+    $triggers: null
+    enabled: true
     stream: null
     type: null
     timestamp: null
 
+    init: ->
+      super()
+      @$triggers =
+        "next": $("#tabs-schedule").find ".schedule-carousel-next .schedule-trigger"
+        "prev": $("#tabs-schedule").find ".schedule-carousel-prev .schedule-trigger"
+
     bind: ->
       @bindItem "click", @nextButton, @next
       @bindItem "click", @prevButton, @prev
-      true
 
     next: (event) =>
       @change event, "next"
-      true
 
     prev: (event) =>
       @change event, "prev"
-      true
+
+    change: (event, direction) =>
+      return unless @enabled
+      @disableTriggers()
+      @getCarousel event
+      route = "/api/schedule/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
+      jQuery.get route, @renderSchedule
 
     getCarousel: (event) =>
       $button = $(event.target).parent()
       @$toolbar = $button.parent()
-      carousel_id = $button.data "carousel"
-      @$carousel = $ "##{carousel_id}"
+      carouselId = $button.data "carousel"
+      @$carousel = $ "##{carouselId}"
 
       @timestamp = @$carousel
-      .find @carousel_timestamp
-      .attr "data-timestamp"
+        .find @carouselTimestamp
+        .attr "data-timestamp"
 
       @type = @$carousel.attr "data-type"
       @stream = @$carousel.attr "data-stream"
-      @stream = encodeURIComponent @stream
-      true
 
-    change: (event, direction) =>
-      @getCarousel event
-      route = "/api/schedule/#{@type}/#{@stream}/#{direction}/#{@timestamp}"
+    disableTriggers: () ->
+      @enabled = false
 
-      @getEpisode route if @type == 'episode'
-      @getDay route if @type == 'day'
-      @getWeek route if @type == 'week'
-      true
+      @$triggers["next"]
+        .removeClass "fa-arrow-right cursor-pointer"
+        .addClass "fa-spinner fa-spin"
 
-    getEpisode: (route) =>
-      jQuery.get route, @renderEpisode
-      true
+      @$triggers["prev"]
+        .removeClass "fa-arrow-left cursor-pointer"
+        .addClass "fa-spinner fa-spin"
 
-    getDay: (route) =>
-      jQuery.get route, @renderDay
-      true
+    enableTriggers: () ->
+      @enabled = true
 
-    getWeek: (route) =>
-      jQuery.get route, @renderWeek
-      true
+      @$triggers["next"]
+        .removeClass "fa-spinner fa-spin"
+        .addClass "fa-arrow-right cursor-pointer"
+
+      @$triggers["prev"]
+        .removeClass "fa-spinner fa-spin"
+        .addClass "fa-arrow-left cursor-pointer"
 
     dataItem: (item) ->
-      data_item =
-        "title-link": item['title']
+      return {} =
+        "program":
+          "text": item['title']
+          "href": item['url']
         "formatted-date": item['start']['formatted_date']
         "formatted-time":
           "start-time": item['start']['formatted_time']
           "finish-time": item['finish']['formatted_time']
 
-      data_item
+    getDirectives: ->
+      return {} =
+        "schedule-carousel-timestamp":
+          "data-timestamp": -> "#{@timestamp}"
+        "schedule-item":
+          "title-link":
+            "text": -> @program.text
+            "href": -> @program.href
 
     renderToolbar: (start, showTime = false) =>
       datetime = start['formatted_date']
@@ -78,69 +98,67 @@
         datetime: datetime
       @$toolbar.render data
 
-    renderEpisode: (response) =>
+    renderSchedule: (response) =>
       return if response.length == 0
 
-      start = response[0]['start']
+      @renderEpisode response if @type == "episode"
+      @renderDay response if @type == "day"
+      @renderWeek response if @type == "week"
+      @enableTriggers()
+
+    renderEpisode: (response) =>
+      start = response[0]["start"]
       data =
-        timestamp: start['timestamp']
+        timestamp: start["timestamp"]
         "schedule-item": [@dataItem response[0]]
 
-      directives =
-        "schedule-carousel-timestamp":
-          "data-timestamp": -> "#{@timestamp}"
-
-      @$carousel.render data, directives
-
+      @$carousel.render data, @getDirectives()
       @renderToolbar start, true
-      true
 
     renderDay: (response) =>
-      return if response.length == 0
-
-      start = response[0]['start']
+      start = response[0]["start"]
       data =
-        timestamp: start['timestamp']
+        timestamp: start["timestamp"]
         "schedule-item": @dataItem item for item in response
 
-      directives =
-        "schedule-carousel-timestamp":
-          "data-timestamp": -> "#{@timestamp}"
+      @$carousel
+        .find ".cull"
+        .remove()
 
-      @$carousel.find('.cull').remove()
-      @$carousel.render data, directives
-
+      @$carousel.render data, @getDirectives()
       @renderToolbar start
-      true
 
     renderWeek: (response) =>
-      return if response.length == 0
+      weekStart = null
 
-      week_start = null
-      weekdays = []
-      for weekday of response
-        timestamp = response[weekday][0]['start']['timestamp']
+      for weekday, data of response
+        unless weekStart?
+          weekStart = data[0]["start"]
 
-        if not week_start
-          week_start = response[weekday][0]['start']
+        $target = @$carousel.find ".weekday-#{weekday.toLowerCase()}"
 
-        weekdata =
-          "schedule-dayofweek": weekday
-          "schedule-item": @dataItem item for item in response[weekday]
-        weekdays.push weekdata
+        $target
+          .find '.cull'
+          .remove()
 
-      container =
-        weekdays: weekdays
-        timestamp: week_start['timestamp']
+        templateData = (@dataItem item for item in data)
+
+        directives =
+          "title-link":
+            "text": -> @program.text
+            "href": -> @program.href
+
+        $target.render templateData, directives
+
+      templateData =
+        timestamp: weekStart["timestamp"]
 
       directives =
         "schedule-carousel-timestamp":
           "data-timestamp": -> "#{@timestamp}"
 
-      @$carousel.find('.cull').remove()
-      @$carousel.render container, directives
-      @renderToolbar week_start
-      true
+      @$carousel.render templateData, directives
+      @renderToolbar weekStart
 
   $ ->
     new App.Station.Carousel()

@@ -20,7 +20,7 @@
 
 <div class="row margin-top">
   <div id="<?php print $scheduled_day['id']; ?>"
-       class="col-md-12 schedule-carousel"
+       class="col-sm-12 schedule-carousel"
        data-stream="<?php print $scheduled_day['stream']; ?>"
        data-type="<?php print $scheduled_day['type']; ?>">
 
@@ -32,7 +32,7 @@
         data-bind="schedule-item">
 
       <?php foreach ($scheduled_day['data'] as $index => $schedule_item): ?>
-        <li class="list-group-item <?php if ($index > 0): ?>cull<?php endif; ?>">
+        <li class="list-group-item<?php if ($index > 0): ?> cull<?php endif; ?>">
 
           <?php
           $schedule_url = NULL;

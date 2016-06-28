@@ -2,6 +2,137 @@
 
 class StationContentComponent extends BaseComponent {
 
+  public function getAudio($page) {
+    $per_page = 10;
+    $start = ($page - 1) * $per_page;
+
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->range($start, $per_page);
+    $result = $query->execute();
+    $nids = $this->getNids($result);
+
+    $events = array_values(
+      node_load_multiple($nids)
+    );
+
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->count();
+    $total_count = $query->execute();
+
+    $paginator = new RadioPaginator();
+    $pager = $paginator->paginate($page, $total_count);
+    $pager['items'] = $events;
+    return $pager;
+  }
+
+
+  public function getAudioFeed() {
+    $query = new StationContentQuery();
+    $query->getAudio();
+    $query->range(0, 10);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  public function latestAudio($count) {
+    $cache_key = "radio_station_latest_audio";
+    $cache_table = "cache_radio_station";
+
+    $loaded = false;
+    if ($cache = cache_get($cache_key, $cache_table)) {
+      $data = $cache->data;
+
+      if ($data['requested'] >= $count) {
+        $episodes = array_slice($data['episodes'], 0, $count);
+        $loaded = true;
+      }
+    }
+
+    if (!$loaded) {
+      $query = new StationContentQuery();
+      $query->getAudio($count);
+      $result = $query->execute();
+
+      $processor = new StationContentProcessor();
+      $episodes = $processor->process(
+        $this->getNids($result)
+      );
+
+      $data = [
+        'episodes' => $episodes,
+        'requested' => $count,
+      ];
+
+      cache_set($cache_key, $data, $cache_table);
+    }
+    
+    return $episodes;
+  }
+
+
+  public function latestPlaylists($count) {
+    $cache_key = "radio_station_latest_playlists";
+    $cache_table = "cache_radio_station";
+
+    if ($cache = cache_get($cache_key, $cache_table)) {
+      $data = $cache->data;
+
+      if ($data['requested'] >= $count) {
+        $playlists = array_slice($data['playlists'], 0, $count);
+        return $playlists;
+      }
+    }
+
+    $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
+
+    $episodes = array_map(
+      function ($item) {
+        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $onair = strtotime($onair);
+
+        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $offair = strtotime($offair);
+
+        if ($offair < $onair) {
+          // If offair is the next day, then playlist date will be one day off
+          $offair = strtotime("+1 day", $offair);
+        }
+
+        $query = new StationContentQuery();
+        $query->getContentInRange($onair, $offair);
+        $result = $query->execute();
+        $nids = $this->getNids($result);
+
+        if ($nids) {
+          return $nids[0];
+        }
+        else {
+          return NULL;
+        }
+      },
+      $spinitron_data
+    );
+
+    $episodes = array_filter($episodes);
+    $episodes = array_values($episodes);
+    $episodes = array_slice($episodes, 0, $count);
+
+    $processor = new StationContentProcessor();
+    $playlists = $processor->process($episodes);
+
+    $data = [
+      'playlists' => $playlists,
+      'requested' => $count,
+    ];
+
+    cache_set($cache_key, $data, $cache_table);
+    return $playlists;
+  }
+
+
   public function getContentForProgram(
     $program_nid,
     $page = 1,
@@ -14,18 +145,14 @@ class StationContentComponent extends BaseComponent {
     $query = $query->getContentByProgram($program_nid);
     $query->range($start, $per_page);
     $result = $query->execute();
-
-    $nids = array_keys(
-      $this->getNodes($result)
-    );
+    $nids = $this->getNids($result);
 
     $episodes = array_values(
       node_load_multiple($nids)
     );
 
     $query = new StationContentQuery();
-    $query = $query->getContentByProgram($program_nid);
-    $query->range($start, $per_page);
+    $query->getContentByProgram($program_nid);
     $query->count();
     $total_count = $query->execute();
 
@@ -33,6 +160,70 @@ class StationContentComponent extends BaseComponent {
     $pager = $paginator->paginate($page, $total_count);
     $pager['items'] = $episodes;
     return $pager;
+  }
+
+
+  public function getUpcomingForProgram($program_nid, $count) {
+    $query = new StationContentQuery();
+    $query->getUpcomingByProgram($program_nid, $count);
+    $result = $query->execute();
+
+    $processor = new StationContentProcessor();
+    return $processor->processUpcoming(
+      $this->getNids($result)
+    );
+  }
+
+
+  public function getPodcast($target, $type) {
+    switch ($type) {
+      case "genre":
+        return $this->getPodcastForGenre($target);
+      case "person_profile":
+        return $this->getPodcastForProfile($target);
+      case "program":
+        return $this->getPodcastForProgram($target);
+      case "topic":
+        return $this->getPodcastForTopic($target);
+      default:
+        return [];
+    }
+  }
+
+
+  private function getPodcastForGenre($target) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByGenre($target);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getPodcastForTopic($target) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByTopic($target);
+    $result = $query->execute();
+    return $this->getNids($result);
+  }
+
+
+  private function getPodcastForProgram($target_nid) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByProgram($target_nid);
+    $result = $query->execute();
+
+    $processor = new PodcastProcessor();
+    return $processor->process(
+      $this->getNids($result)
+    );
+  }
+
+
+  private function getPodcastForProfile($target_nid) {
+    $query = new StationContentQuery();
+    $query = $query->getPodcastByProfile($target_nid);
+    $result = $query->execute();
+    return $this->getNids($result);
   }
 
 
@@ -46,12 +237,6 @@ class StationContentComponent extends BaseComponent {
   public function getRippingEpisodes($stream, $count) {
     $schedule = $this->getRippingSchedule($stream, $count);
 
-    $terms = taxonomy_get_term_by_name(
-      'Episode',
-      'station_content_types'
-    );
-    $episode_term = reset($terms);
-
     foreach ($schedule as &$schedule_item) {
       if ($schedule_item['episode']) {
         continue;
@@ -61,7 +246,7 @@ class StationContentComponent extends BaseComponent {
         continue;
       }
 
-      $this->createEpisode($schedule_item, $episode_term);
+      $this->createEpisode($schedule_item);
     }
 
     // get an array of episode nodes
@@ -85,7 +270,8 @@ class StationContentComponent extends BaseComponent {
 
     $parts = explode('.', $ripfile);
     end($parts);
-    return prev($parts);
+    $episode_nid = prev($parts);
+    return ctype_digit($episode_nid) ? (int)$episode_nid : FALSE;
   }
 
 
@@ -105,18 +291,75 @@ class StationContentComponent extends BaseComponent {
 
 
   public function attachNewRips() {
-    foreach ($this->getRippedFilenames() as $rip_filepath) {
-      $episode_nid = $this->getEpisodeNidFromRipFilename($rip_filepath);
-      $wrapped_episode = entity_metadata_wrapper('node', $episode_nid);
+    $timestamp = strtotime("-1 day");
+    $log = new RadioLog("attached_rips.log");
+    $log->purgeTimestamped($timestamp);
+
+    $filenames = $this->getRippedFilenames();
+    foreach ($filenames as $filename) {
+      $log->addTimestamped(
+        "file: {$filename}"
+      );
+
+      $cue = Helpers::replaceExtension($filename, "cue");
+      if (file_exists($cue)) {
+        $log->addTimestamped(
+          "Skipped because cue file detected, assuming the rip is in progress"
+        );
+
+        continue;
+      }
+
+      $episode_nid = $this->getEpisodeNidFromRipFilename($filename);
+      if ($episode_nid === FALSE) {
+        watchdog(
+          'radio_station',
+          'failed to parse episode nid from: %filename',
+          [
+            '%filename' => $filename,
+          ],
+          WATCHDOG_ALERT
+        );
+
+        $log->addTimestamped(
+          "failed to read episode_nid"
+        );
+
+        continue;
+      }
+
+      $log->addTimestamped(
+        "episode_nid: {$episode_nid}"
+      );
+
+      try {
+        $wrapped_episode = entity_metadata_wrapper('node', $episode_nid);
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        $log->addTimestamped(
+          "failed to load entity"
+        );
+
+        continue;
+      }
 
       // http://stackoverflow.com/a/5141484/2407209
       $ripped_file = (object) [
         'uid' => 1,
-        'uri' => $rip_filepath,
-        'filemime' => file_get_mimetype($rip_filepath),
+        'uri' => $filename,
+        'filemime' => file_get_mimetype($filename),
         'status' => 1,
         'display' => 1,
       ];
+
+      $message = print_r($ripped_file, true);
+      $log->addTimestamped(
+        "ripped_file: {$message}"
+      );
 
       $destination = variable_get(
         'radio_station_rip_destination',
@@ -127,24 +370,84 @@ class StationContentComponent extends BaseComponent {
         $destination .= '/';
       }
 
-      $basename = basename($rip_filepath);
-      $file = file_move(
+      $log->addTimestamped(
+        "destination: {$destination}"
+      );
+
+      $basename = basename($filename);
+      $file = file_copy(
         $ripped_file,
         "public://{$destination}{$basename}"
       );
 
+      if ($file === false) {
+        watchdog(
+          'radio_station',
+          'file_copy failed while attempting to attach the rip: %filename',
+          [
+            '%filename' => $filename,
+          ],
+          WATCHDOG_ALERT
+        );
+
+        $log->addTimestamped(
+          "file_copy: failed"
+        );
+
+        continue;
+      } else {
+        $log->addTimestamped(
+          "file_copy: succeeded"
+        );
+      }
+
       // http://drupal.stackexchange.com/a/69545
       $file_wrapper = [(array)$file];
-      $wrapped_episode->field_audio_files->set($file_wrapper);
-      $wrapped_episode->save();
+
+      try {
+        $wrapped_episode->field_audio_files->set($file_wrapper);
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        $log->addTimestamped(
+          "failed to set field_audio_files"
+        );
+
+        continue;
+      }
+
+      try {
+        $wrapped_episode->save();
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        $log->addTimestamped(
+          "failed to save entity"
+        );
+      }
+
+      // delete the original file in "radio_station_rip_filepath"
+      $response = unlink($filename);
+
+      $message = var_export($response, true);
+      $log->addTimestamped(
+        "unlink success: {$message}"
+      );
     }
+
+    $log->save();
   }
 
 
   private function getEpisodesToCull() {
     $now_minus_twoweeks = strtotime('-2 weeks', time());
     $query = new StationContentQuery();
-    $query->type('Episode');
     $query->olderThan($now_minus_twoweeks);
     $query->hasAudio();
     $result = $query->execute();
@@ -176,24 +479,44 @@ class StationContentComponent extends BaseComponent {
 
 
   public function scheduleRippingEpisodes($episodes) {
+    $timestamp = strtotime("-4 hours");
+    $log = new RadioLog("scheduled_rips.log");
+    $log->purgeTimestamped($timestamp);
+
     foreach ($episodes as $episode) {
-      $air_time = $episode->field_air_time->value();
+      try {
+        $air_time = $episode->field_air_time->value();
+      } catch (EntityMetadataWrapperException $e) {
+        Helpers::watchEMWException(
+          __FUNCTION__,
+          $e->getTraceAsString()
+        );
+
+        continue;
+      }
 
       if (!$this->withinAnHour($air_time['value'])) {
         continue;
       }
 
       $recording_type = $episode->field_episode_record->value();
-      if ($recording_type == EArchiveTypes::NEVER) {
+      if ($recording_type == EArchiveTypes::Never) {
         continue;
       }
 
-      $this->queueEpisodeRip($episode);
+      $episode_nid = $episode->getIdentifier();
+      if ($log->contains($episode_nid)) {
+        continue;
+      }
+
+      $this->queueEpisodeRip($episode, $log);
     }
+
+    $log->save();
   }
 
 
-  private function queueEpisodeRip($episode) {
+  private function queueEpisodeRip($episode, RadioLog $log) {
     /* StreamRipper options
       -l : length in seconds
       -a filename : rip to single file; timestamp if no filename
@@ -204,6 +527,7 @@ class StationContentComponent extends BaseComponent {
       --quiet : no output
     */
 
+    $episode_nid = $episode->getIdentifier();
     $recording_type = $episode->field_episode_record->value();
     $air_time = $episode->field_air_time->value();
     $date = date('ymd.Hi', $air_time['value']);
@@ -222,9 +546,11 @@ class StationContentComponent extends BaseComponent {
     $padding = 60;
     $start = $air_time['value'] - $padding;
     $length = $air_time['value2'] + $padding - $start;
+
     $atd_time = date('H:i', $start);
-    $episode_nid = $episode->getIdentifier();
-    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}.mp3";
+    $log->addTimestamped($episode_nid);
+
+    $filename = "kboo_episode.{$recording_type}.{$date}.{$program_nid}.{$episode_nid}";
 
     $ripdir = variable_get('radio_station_rip_filepath', '/tmp');
     $stream = variable_get(
@@ -241,23 +567,16 @@ class StationContentComponent extends BaseComponent {
       return;
     }
 
-    $temporary = ($recording_type == EArchiveTypes::TEMPORARY);
-    $rip_length = (5 * 3600) + ($padding * 2);
-    $length_check = ($length < $rip_length);
-
-    if ($temporary && $length_check) {
-      $length = $rip_length;
-    }
-
-    $command = "$ripper {$stream}";
-    $command .= "-l {$length} -A -a {$filename} -q -s -d {$ripdir} --quiet";
-    $command .= "; rm {$ripdir}/{$filename}.cue";
-    $command = "echo \"{$command}\" | at {$atd_time}";
+    $sub = "$ripper {$stream} ";
+    $sub .= "-l {$length} -A -a {$filename}.mp3 -q -s -d {$ripdir} --quiet; ";
+    $sub .= "rm {$ripdir}/{$filename}.cue";
+    $command = "echo \"{$sub}\" | at {$atd_time}";
     shell_exec($command);
 
     watchdog(
       "radio_station",
       "Executed: {$command}",
+      [],
       WATCHDOG_INFO
     );
   }
@@ -274,10 +593,9 @@ class StationContentComponent extends BaseComponent {
    * Create an episode node
    *
    * @param $schedule_item
-   * @param $episode_term
    * @throws \Exception
    */
-  private function createEpisode(&$schedule_item, $episode_term) {
+  private function createEpisode(&$schedule_item) {
     $program = $schedule_item['timeslot_program'];
     $date = date('m/d/y', $schedule_item['start']);
 
@@ -293,11 +611,6 @@ class StationContentComponent extends BaseComponent {
     $node->status = 1;
     $node->active = 1;
     $node->promote = 0;
-
-    // field_station_content
-    $node->field_station_content_type[$lang][] = [
-      'tid' => $episode_term->tid
-    ];
 
 
     // field_air_time
@@ -350,6 +663,7 @@ class StationContentComponent extends BaseComponent {
     $now = time();
     $end = strtotime("+25 hours", $now);
     $schedule = [];
+    $timeslots = [];
 
     $query = new ScheduledTimeslotQuery();
     $query->getRange($stream, $now, $end);
@@ -360,38 +674,49 @@ class StationContentComponent extends BaseComponent {
     }
 
     foreach ($result['node'] as $nid => $item) {
-      $wrapped = entity_metadata_wrapper('node', $nid);
-      $timeslots = $wrapped->field_timeslot->value();
+      $entity = entity_metadata_wrapper('node', $nid);
+      $entity_timeslots = $entity->field_timeslot->value();
 
-      foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] <= $now) {
-          continue;
-        }
+      $entity_timeslots = array_map(
+        function ($timeslot) use ($entity, $now, $end) {
+          if ($timeslot['value'] <= $now || $timeslot['value'] >= $end) {
+            return false;
+          }
 
-        $schedule[] = $this->buildScheduleItem($wrapped, $timeslot);
-      }
+          $timeslot['entity'] = $entity;
+          return $timeslot;
+        },
+        $entity_timeslots
+      );
+
+      $entity_timeslots = array_filter($entity_timeslots);
+      $timeslots = array_merge($timeslots, $entity_timeslots);
     }
 
     usort(
-      $schedule,
+      $timeslots,
       function ($a, $b) {
-        return $a['start'] - $b['start'];
+        return $a['value'] - $b['value'];
       }
     );
 
-    return array_slice($schedule, 0, $count);
+    $timeslots = array_slice($timeslots, 0, $count);
+
+    $schedule = array_map(
+      function ($timeslot) {
+        $entity = $timeslot['entity'];
+        return $this->buildScheduleItem($entity, $timeslot);
+      },
+      $timeslots
+    );
+
+    return $schedule;
   }
 
 
-  /**
-   * Check if episode exists for a timeslot
-   *
-   * @param $timeslot
-   * @return bool
-   */
   private function getEpisode($timeslot) {
     $query = new StationContentQuery();
-    $query->getEpisode(
+    $query->getContent(
       $timeslot['value'],
       $timeslot['value2']
     );
@@ -407,21 +732,6 @@ class StationContentComponent extends BaseComponent {
 
 
   /**
-   * Get a program for a timeslot
-   *
-   * @param $wrapped_scheduled_timeslot
-   * @return null
-   */
-  private function getTimeslotProgram($wrapped_scheduled_timeslot) {
-    try {
-      return $wrapped_scheduled_timeslot->field_show;
-    } catch (EntityMetadataWrapperException $e) {
-      return NULL;
-    }
-  }
-
-
-  /**
    * Build schedule item array
    *
    * @param $wrapped_scheduled_timeslot
@@ -433,7 +743,11 @@ class StationContentComponent extends BaseComponent {
     $episode = $this->getEpisode($timeslot);
 
     if (!$episode) {
-      $program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
+      try {
+        $program = $wrapped_scheduled_timeslot->field_show;
+      } catch (EntityMetadataWrapperException $e) {
+        // ducktyping
+      }
     }
 
     $schedule_item = [

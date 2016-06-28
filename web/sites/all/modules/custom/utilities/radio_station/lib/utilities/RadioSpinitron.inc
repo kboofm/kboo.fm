@@ -32,11 +32,42 @@ class RadioSpinitron {
   }
 
 
-  public static function getPlaylists($params) {
+  public static function getLatestPlaylists($count) {
+    $date = date("Y-m-d", time());
+
     $connection = RadioSpinitron::getConnection();
-    $playlist =  $connection->getPlaylistInfo(1);
-    RadioSpinitron::includeSongs($playlist);
-    return [$playlist];
+    $playlists = $connection->getPlaylistsByDate($date, 7);
+
+    if (!$playlists) {
+      return [];
+    }
+
+    return array_slice($playlists, 0, $count);
+  }
+
+
+  public static function getLatestSongs($count = null) {
+    if (!$count) {
+      $count = 99;
+    }
+
+    $connection = RadioSpinitron::getConnection();
+    $songs = $connection->getSongs(null, $count);
+
+    $songs = array_map(
+      function ($item) {
+        $date = $item['Date'];
+        $time = $item['Timestamp'];
+        $datetime = "{$date} {$time}";
+        $timestamp = strtotime($datetime);
+        $item['Date'] = date("m/j", $timestamp);
+        $item['Timestamp'] = date("g:ia", $timestamp);
+        return $item;
+      },
+      $songs
+    );
+
+    return $songs;
   }
 
 
@@ -167,31 +198,5 @@ class RadioSpinitron {
     }
 
     return $playlists;
-  }
-
-
-  public static function eligible($node) {
-    if (!$node) {
-      return false;
-    }
-
-    $wrapped_node = entity_metadata_wrapper('node', $node);
-    $type = $wrapped_node->field_station_content_type->value();
-
-    $terms = taxonomy_get_term_by_name(
-      'Episode',
-      'station_content_types'
-    );
-    $episode_term = reset($terms);
-
-    if (!isset($type->tid)) {
-      return false;
-    }
-
-    if (!isset($episode_term->tid)) {
-      return false;
-    }
-
-    return ($type->tid == $episode_term->tid);
   }
 }

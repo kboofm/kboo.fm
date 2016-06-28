@@ -29,51 +29,6 @@ class RadioAssets {
   }
 
 
-  private function matchSearchRoutes($search_type) {
-    $routes = array_filter(
-      $this->routes,
-      function ($item) use ($search_type) {
-        if ($item['search_type'] == $search_type) {
-          return $item;
-        }
-
-        return false;
-      }
-    );
-
-    return $routes;
-  }
-
-
-  private function checkEquals() {
-    $routes = $this->matchSearchRoutes(EStringSearchOptions::Equals);
-
-    array_walk(
-      $routes,
-      function ($item) {
-        if ($item['path'] == $this->current_route) {
-          call_user_func($item['callback']);
-        }
-      }
-    );
-  }
-
-
-
-  private function checkStartswith() {
-    $routes = $this->matchSearchRoutes(EStringSearchOptions::StartsWith);
-
-    array_walk(
-      $routes,
-      function ($item) {
-        if (Helpers::startsWith($this->current_route, $item['path'])) {
-          call_user_func($item['callback']);
-        }
-      }
-    );
-  }
-
-
   public function add() {
     $this->checkEquals();
     $this->checkStartswith();
@@ -81,7 +36,6 @@ class RadioAssets {
 
 
   private function routeProgramPlaylists() {
-    $this->addDatePicker();
     $this->addJs("js/compiled/custom/station/playlists.js");
   }
 
@@ -137,6 +91,51 @@ class RadioAssets {
         'weight' => 9999,
         'group' => JS_THEME,
       ]
+    );
+  }
+
+
+  private function matchSearchRoutes($search_type) {
+    $routes = array_filter(
+      $this->routes,
+      function ($item) use ($search_type) {
+        if ($item['search_type'] == $search_type) {
+          return $item;
+        }
+
+        return false;
+      }
+    );
+
+    return $routes;
+  }
+
+
+  private function checkEquals() {
+    $routes = $this->matchSearchRoutes(EStringSearchOptions::Equals);
+
+    array_walk(
+      $routes,
+      function ($item) {
+        if ($item['path'] == $this->current_route) {
+          call_user_func($item['callback']);
+        }
+      }
+    );
+  }
+
+
+
+  private function checkStartswith() {
+    $routes = $this->matchSearchRoutes(EStringSearchOptions::StartsWith);
+
+    array_walk(
+      $routes,
+      function ($item) {
+        if (Helpers::startsWith($this->current_route, $item['path'])) {
+          call_user_func($item['callback']);
+        }
+      }
     );
   }
 }

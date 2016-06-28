@@ -91,7 +91,7 @@ function content_type_program_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 7,
+        'weight' => 8,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -156,7 +156,7 @@ function content_type_program_field_default_field_instances() {
           'file_view_mode' => 'default',
         ),
         'type' => 'file_rendered',
-        'weight' => 8,
+        'weight' => 9,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -214,7 +214,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 2,
+      'weight' => 3,
     ),
   );
 
@@ -303,7 +303,7 @@ function content_type_program_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 12,
+        'weight' => 13,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -391,7 +391,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 22,
+        'weight' => 23,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -443,7 +443,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 25,
+        'weight' => 26,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -475,7 +475,7 @@ function content_type_program_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => -1,
+      'weight' => 0,
     ),
   );
 
@@ -492,7 +492,7 @@ function content_type_program_field_default_field_instances() {
           'text' => 'Download [file:name]',
         ),
         'type' => 'file_download_link',
-        'weight' => 10,
+        'weight' => 11,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -583,7 +583,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 14,
+        'weight' => 15,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -651,7 +651,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'multiselect',
-      'weight' => 7,
+      'weight' => 8,
     ),
   );
 
@@ -724,7 +724,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 3,
+      'weight' => 4,
     ),
   );
 
@@ -742,7 +742,7 @@ function content_type_program_field_default_field_instances() {
           'image_style' => 'default_lead_1x',
         ),
         'type' => 'image',
-        'weight' => 4,
+        'weight' => 5,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -804,7 +804,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 0,
+      'weight' => 1,
     ),
   );
 
@@ -820,7 +820,7 @@ function content_type_program_field_default_field_instances() {
         'module' => 'link',
         'settings' => array(),
         'type' => 'link_default',
-        'weight' => 11,
+        'weight' => 12,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -896,7 +896,7 @@ function content_type_program_field_default_field_instances() {
           'image_style' => 'default_more_1x',
         ),
         'type' => 'image',
-        'weight' => 5,
+        'weight' => 6,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -958,7 +958,7 @@ function content_type_program_field_default_field_instances() {
         ),
       ),
       'type' => 'media_generic',
-      'weight' => 1,
+      'weight' => 2,
     ),
   );
 
@@ -973,7 +973,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 20,
+        'weight' => 21,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1006,7 +1006,7 @@ function content_type_program_field_default_field_instances() {
       'module' => 'options',
       'settings' => array(),
       'type' => 'options_select',
-      'weight' => 8,
+      'weight' => 9,
     ),
   );
 
@@ -1022,11 +1022,11 @@ function content_type_program_field_default_field_instances() {
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
+        'label' => 'inline',
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 26,
+        'weight' => 2,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1127,7 +1127,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 2,
+        'weight' => 3,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1156,7 +1156,7 @@ function content_type_program_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1170,7 +1170,60 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 5,
+      'weight' => 6,
+    ),
+  );
+
+  // Exported field_instance: 'node-program-field_program_status'.
+  $field_instances['node-program-field_program_status'] = array(
+    'bundle' => 'program',
+    'default_value' => array(
+      0 => array(
+        'value' => 0,
+      ),
+    ),
+    'deleted' => 0,
+    'description' => '',
+    'display' => array(
+      'default' => array(
+        'label' => 'above',
+        'module' => 'list',
+        'settings' => array(),
+        'type' => 'list_default',
+        'weight' => 27,
+      ),
+      'search_index' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'search_result' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+      'teaser' => array(
+        'label' => 'above',
+        'settings' => array(),
+        'type' => 'hidden',
+        'weight' => 0,
+      ),
+    ),
+    'entity_type' => 'node',
+    'field_name' => 'field_program_status',
+    'label' => 'Program status',
+    'required' => 1,
+    'settings' => array(
+      'user_register_form' => FALSE,
+    ),
+    'widget' => array(
+      'active' => 1,
+      'module' => 'options',
+      'settings' => array(),
+      'type' => 'options_select',
+      'weight' => -1,
     ),
   );
 
@@ -1185,7 +1238,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 23,
+        'weight' => 24,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1232,7 +1285,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 21,
+        'weight' => 22,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1308,7 +1361,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'ul',
         ),
         'type' => 'textformatter_list',
-        'weight' => 18,
+        'weight' => 19,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1375,7 +1428,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 17,
+        'weight' => 18,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1448,7 +1501,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 16,
+        'weight' => 17,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1521,7 +1574,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 15,
+        'weight' => 16,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1580,7 +1633,7 @@ function content_type_program_field_default_field_instances() {
         'module' => 'text',
         'settings' => array(),
         'type' => 'text_default',
-        'weight' => 6,
+        'weight' => 7,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1648,7 +1701,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 3,
+        'weight' => 4,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1709,7 +1762,7 @@ function content_type_program_field_default_field_instances() {
           'link' => FALSE,
         ),
         'type' => 'entityreference_label',
-        'weight' => 19,
+        'weight' => 20,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1746,7 +1799,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 4,
+      'weight' => 5,
     ),
   );
 
@@ -1777,7 +1830,7 @@ function content_type_program_field_default_field_instances() {
           'textformatter_type' => 'comma',
         ),
         'type' => 'textformatter_list',
-        'weight' => 13,
+        'weight' => 14,
       ),
       'search_index' => array(
         'label' => 'hidden',
@@ -1845,7 +1898,7 @@ function content_type_program_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'multiselect',
-      'weight' => 6,
+      'weight' => 7,
     ),
   );
 
@@ -1862,7 +1915,7 @@ function content_type_program_field_default_field_instances() {
           'file_view_mode' => 'default',
         ),
         'type' => 'file_rendered',
-        'weight' => 9,
+        'weight' => 10,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1935,7 +1988,7 @@ function content_type_program_field_default_field_instances() {
         'label' => 'above',
         'settings' => array(),
         'type' => 'hidden',
-        'weight' => 24,
+        'weight' => 25,
       ),
       'search_index' => array(
         'label' => 'above',
@@ -1995,8 +2048,9 @@ function content_type_program_field_default_field_instances() {
   t('More Images');
   t('Parent section');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Program Type');
+  t('Program status');
   t('Published date');
   t('Related content');
   t('Related organization(s)');

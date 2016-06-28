@@ -4,15 +4,30 @@ package = Radio - Utilities
 core = 7.x
 version = 7.x-1.0
 
+
+; Configs
+files[] = lib/configs/RadioConfig.inc
+
+
 ; Utilities
 files[] = lib/utilities/RadioAssets.inc
+files[] = lib/utilities/RadioBlocks.inc
 files[] = lib/utilities/RadioEnums.inc
+files[] = lib/utilities/RadioForms.inc
+files[] = lib/utilities/RadioLog.inc
 files[] = lib/utilities/RadioPaginator.inc
+files[] = lib/utilities/RadioRoles.inc
 files[] = lib/utilities/RadioRoutes.inc
 files[] = lib/utilities/RadioSpinitron.inc
 files[] = lib/utilities/RadioTemplates.inc
 files[] = lib/utilities/Spinitron.inc
 files[] = lib/utilities/SpinitronClient.inc
+
+
+; Cache
+files[] = lib/cache/BaseCache.inc
+files[] = lib/cache/ScheduleCache.inc
+files[] = lib/cache/SidebarCache.inc
 
 
 ; Entity queries
@@ -34,7 +49,10 @@ files[] = lib/processors/TemplateProcessor.inc
 files[] = lib/processors/EventsProcessor.inc
 files[] = lib/processors/ListProcessor.inc
 files[] = lib/processors/NodeTeaserProcessor.inc
+files[] = lib/processors/PodcastProcessor.inc
+files[] = lib/processors/ProgramProcessor.inc
 files[] = lib/processors/ScheduleProcessor.inc
+files[] = lib/processors/StationContentProcessor.inc
 
 
 ; UI Components
@@ -45,6 +63,7 @@ files[] = lib/components/HomeComponent.inc
 files[] = lib/components/NewsComponent.inc
 files[] = lib/components/OrganizationComponent.inc
 files[] = lib/components/ProfilesComponent.inc
+files[] = lib/components/ProgramsComponent.inc
 files[] = lib/components/ScheduleComponent.inc
 files[] = lib/components/StationContentComponent.inc
 
@@ -56,8 +75,11 @@ files[] = lib/responses/BlogResponse.inc
 files[] = lib/responses/EventsResponse.inc
 files[] = lib/responses/HomeResponse.inc
 files[] = lib/responses/NewsResponse.inc
+files[] = lib/responses/OrganizationResponse.inc
 files[] = lib/responses/PlayerResponse.inc
 files[] = lib/responses/ProfilesResponse.inc
 files[] = lib/responses/ProgramsResponse.inc
 files[] = lib/responses/ProgramsPlaylistsResponse.inc
+files[] = lib/responses/RobotsResponse.inc
 files[] = lib/responses/ScheduleResponse.inc
+files[] = lib/responses/StationContentResponse.inc

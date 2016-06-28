@@ -14,6 +14,23 @@ class ProfilesResponse extends Response {
   }
 
 
+  public function getPodcast($profile_alias) {
+    $entity = Response::getEntityFromAlias(
+      $profile_alias,
+      "person_profile"
+    );
+
+    if (!$entity) {
+      return MENU_NOT_FOUND;
+    }
+
+    $this->template_name = 'radio_template_profiles_podcast';
+    $profile_nid = $entity->getIdentifier();
+    $component = new StationContentComponent();
+    $nids = $component->getPodcastForProfile($profile_nid);
+    node_feed($nids);
+  }
+
   public function getShowHosts() {
     $this->template_name = 'radio_template_programs_show_hosts';
     $this->readParams();

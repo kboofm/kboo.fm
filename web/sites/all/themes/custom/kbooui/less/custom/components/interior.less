@@ -1,14 +1,29 @@
 #main-body {
   background-color: fade(@white, 85%);
   padding: @pad @pad-md;
+  @media (min-width: @screen-sm-min) {
+    width: 72%;
+  }  
 } 
+
+hr {
+  border-top-color: @light-blue;
+}
+
+.label {
+  color: @gray-dark;
+}
 
 .node {
   .node-images {
     float: right;
+    max-width: 300px;
+    margin-left: @margin-sm;
 
     @media (max-width: @screen-sm-max) {
       float: none;
+      max-width: 100%;
+      margin-left: 0px;
     }
   }
 
@@ -53,4 +68,150 @@
 
   .field-label-inline .field-items {
   }
+
+  &.node-webform {
+    .form-item {
+      margin-bottom: @margin;
+    }
+
+    .webform-component-fieldset {
+      border: none;
+      background-color: @gray-lighter;
+
+      .panel-heading,
+      .help-block {
+        border: none;
+        font-family: @headings-font-family;
+        background-color: @gray-lighter;
+        color: @gray;
+        margin-bottom: @margin-sm;
+        font-size: 16px;
+
+        .panel-title,
+        .help-block {
+          border-bottom: 2px solid @gray;
+          padding-bottom: @pad-sm;
+        }
+      }
+    }
+  }
+
+  .book-navigation {
+    .page-links {
+      padding: @pad-lg 0px @pad-xl;
+
+      a {
+        &.page-up {
+          padding: 0 @pad-xl;
+        }
+      }
+    }
+  }
 }  
+
+.node-unpublished,
+.comment-unpublished {
+  background: @lighter-red url(../images/unpublished.gif) no-repeat 50% 50px;
+}
+
+#webform-components-form {
+  .form-type-textfield {
+    margin-left: @margin-md;
+  }
+}
+
+.field-label-inline.clearfix:after,
+div.addressfield-container-inline::after {
+  clear: left;
+}
+
+.radio, 
+.checkbox {
+  margin-top: -1px;
+}
+
+.radio input[type="radio"], 
+.radio-inline input[type="radio"], 
+.checkbox input[type="checkbox"], 
+.checkbox-inline input[type="checkbox"] {
+  margin-left: 0px;
+}
+
+.playlists {
+  @media
+  only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px)  {
+
+    table, thead, tbody, th, td, tr {
+      display: block;
+    }
+
+    thead tr {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+    }
+
+    tr { 
+      border: 1px solid #ccc; 
+    }
+
+    td {
+      border: none;
+      border-bottom: 1px solid #eee;
+      position: relative;
+      padding-left: 50% !important;
+      white-space: -o-pre-wrap; 
+      word-wrap: break-word;
+      white-space: pre-wrap; 
+      white-space: -moz-pre-wrap; 
+      white-space: -pre-wrap;
+
+      &:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+      }
+
+      &:nth-of-type(1):before {
+        content: "Artist"; 
+      }
+      
+      &:nth-of-type(2):before {
+        content: "Title"; 
+      }
+      
+      &:nth-of-type(3):before {
+        content: "Album";
+      }
+      
+      &:nth-of-type(4):before {
+        content: "Date";
+      }
+      
+      &:nth-of-type(5):before {
+        content: "Time";
+      }
+    }  
+  }
+
+  /* Smartphones (portrait and landscape) ----------- */
+  @media only screen
+  and (min-device-width : 320px)
+  and (max-device-width : 480px) {
+    body {
+      padding: 0;
+      margin: 0;
+      width: 320px; }
+    }
+
+  /* iPads (portrait and landscape) ----------- */
+  @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+    body {
+      width: 495px;
+    }
+  }
+}

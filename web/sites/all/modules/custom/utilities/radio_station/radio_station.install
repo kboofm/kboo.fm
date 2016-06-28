@@ -30,3 +30,170 @@ function radio_station_update_7100() {
     ->execute();
 }
 
+
+/**
+ * Changes timezone handling from "date" to "site"
+ */
+function radio_station_update_7101() {
+  $field_name = "field_air_time";
+
+  $data = db_select("field_config", "fc")
+    ->condition("fc.field_name", $field_name, "=")
+    ->fields("fc", ["data"])
+    ->execute()
+    ->fetchField();
+
+  $data = unserialize($data);
+  $data['settings']['tz_handling'] = "site";
+  $data = serialize($data);
+
+  db_update("field_config")
+    ->fields(["data" => $data,])
+    ->condition("field_name", $field_name, "=")
+    ->execute();
+}
+
+
+/**
+ * Delete all station content images
+ */
+function radio_station_update_7102() {
+  $query = db_select('node', 'n');
+  $query->distinct();
+  $query->fields('n', ['nid']);
+
+  $query->join(
+    "field_data_field_lead_image",
+    "fli",
+    "n.nid = fli.entity_id and n.vid = fli.revision_id"
+  );
+
+  $query->leftJoin(
+    "field_data_field_more_images",
+    "fmi",
+    "n.nid = fmi.entity_id and n.vid = fmi.revision_id"
+  );
+
+  $query->condition("n.type", "station_content", "=");
+  $query->orderBy("nid");
+  $results = $query->execute();
+
+  $count = $results->rowCount() - 1;
+  foreach ($results as $index => $n) {
+    print "{$index}/{$count}..." . PHP_EOL;
+
+    $changed = FALSE;
+    $entity = entity_metadata_wrapper('node', $n->nid);
+
+    try {
+      $image_file = $entity->field_lead_image->file->value();
+
+      if ($image_file) {
+        file_delete($image_file);
+        $entity->field_lead_image->set(NULL);
+        $changed = TRUE;
+      }
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
+    }
+
+    try {
+      $more_images = $entity->field_more_images->value();
+
+      foreach ($more_images as $index => $image) {
+        $image_file = entity_load_single('file', $image['fid']);
+        file_delete($image_file);
+      }
+
+      $entity->field_more_images->set([]);
+      $changed = TRUE;
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
+    }
+
+    if ($changed) {
+      $entity->save();
+    }
+  }
+}
+
+
+/**
+ * Create custom cache table for schedule data
+ */
+function radio_station_update_7103() {
+  $table = "cache_radio_station_schedule";
+
+  $schema[$table] = drupal_get_schema_unprocessed(
+    'system',
+    'cache'
+  );
+
+  db_create_table(
+    $table,
+    $schema[$table]
+  );
+}
+
+
+/**
+ * Create custom cache table for generic radio station data
+ */
+function radio_station_update_7104() {
+  $table = "cache_radio_station";
+
+  $schema[$table] = drupal_get_schema_unprocessed(
+    'system',
+    'cache'
+  );
+
+  db_create_table(
+    $table,
+    $schema[$table]
+  );
+}
+
+
+/**
+ * Set all program nodes to status "Current"
+ */
+function radio_station_update_7105() {
+  $query = db_select('node', 'n');
+  $query->fields('n', ['nid']);
+
+  $query->condition("n.type", "program", "=");
+  $query->orderBy("nid");
+  $results = $query->execute();
+
+  $stream = Helpers::getStreamNid(EStreams::One);
+  $count = $results->rowCount() - 1;
+  foreach ($results as $index => $n) {
+    print "{$index}/{$count}..." . PHP_EOL;
+
+    $entity = entity_metadata_wrapper('node', $n->nid);
+    $entity->field_program_status->set(EProgramStatus::Current);
+    $entity->field_streams->set([$stream]);
+    $entity->save();
+  }
+}
+
+
+/**
+ * Delete field_station_content_type and it's instance
+ */
+function radio_station_update_7106() {
+  $field_name = "field_station_content_type";
+
+  $instance = field_info_instance(
+    "node",
+    $field_name,
+    "station_content"
+  );
+
+  if ($instance) {
+    field_delete_instance($instance, true);
+  }
+
+  field_delete_field($field_name);
+  field_purge_batch(1);
+}

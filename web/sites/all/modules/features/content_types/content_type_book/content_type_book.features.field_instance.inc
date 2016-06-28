@@ -108,8 +108,8 @@ function content_type_book_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
+      'file_directory' => 'audio/book',
+      'file_extensions' => 'mp3 m4a ogg oga',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),
@@ -121,13 +121,13 @@ function content_type_book_field_default_field_instances() {
           'feed' => 0,
           'http' => 0,
           'https' => 0,
-          'oembed' => 0,
+          'oembed' => 'oembed',
           'public' => 'public',
         ),
         'allowed_types' => array(
-          'audio' => 0,
+          'audio' => 'audio',
           'document' => 0,
-          'image' => 'image',
+          'image' => 0,
           'video' => 0,
         ),
         'browser_plugins' => array(
@@ -418,7 +418,7 @@ function content_type_book_field_default_field_instances() {
         'allowed_types' => array(
           'audio' => 0,
           'document' => 0,
-          'image' => 'image',
+          'image' => 0,
           'video' => 0,
         ),
         'browser_plugins' => array(
@@ -635,7 +635,7 @@ function content_type_book_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => '',
+      'file_directory' => 'images/lead/book',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -651,7 +651,7 @@ function content_type_book_field_default_field_instances() {
           'feed' => 0,
           'http' => 0,
           'https' => 0,
-          'oembed' => 0,
+          'oembed' => 'oembed',
           'public' => 'public',
         ),
         'allowed_types' => array(
@@ -717,7 +717,7 @@ function content_type_book_field_default_field_instances() {
         'configurable_class' => 0,
         'configurable_title' => 0,
         'rel' => '',
-        'target' => 'user',
+        'target' => 'default',
         'title' => '',
       ),
       'display' => array(
@@ -726,8 +726,8 @@ function content_type_book_field_default_field_instances() {
       'enable_tokens' => 0,
       'linkit' => array(
         'button_text' => 'Search',
-        'enable' => 0,
-        'profile' => '',
+        'enable' => 1,
+        'profile' => 'content_for_link_fields',
       ),
       'rel_remove' => 'default',
       'title' => 'optional',
@@ -789,7 +789,7 @@ function content_type_book_field_default_field_instances() {
     'settings' => array(
       'alt_field' => 0,
       'default_image' => 0,
-      'file_directory' => '',
+      'file_directory' => 'images/more/book',
       'file_extensions' => 'png gif jpg jpeg',
       'max_filesize' => '',
       'max_resolution' => '',
@@ -805,7 +805,7 @@ function content_type_book_field_default_field_instances() {
           'feed' => 0,
           'http' => 0,
           'https' => 0,
-          'oembed' => 0,
+          'oembed' => 'oembed',
           'public' => 'public',
         ),
         'allowed_types' => array(
@@ -878,11 +878,7 @@ function content_type_book_field_default_field_instances() {
   // Exported field_instance: 'node-book-field_produced_by'.
   $field_instances['node-book-field_produced_by'] = array(
     'bundle' => 'book',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1021,7 +1017,7 @@ function content_type_book_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1605,8 +1601,8 @@ function content_type_book_field_default_field_instances() {
     'required' => 0,
     'settings' => array(
       'description_field' => 0,
-      'file_directory' => '',
-      'file_extensions' => 'txt',
+      'file_directory' => 'videos/book',
+      'file_extensions' => 'mov mp4 m4v mpeg avi ogv weba webm',
       'max_filesize' => '',
       'user_register_form' => FALSE,
     ),
@@ -1618,14 +1614,14 @@ function content_type_book_field_default_field_instances() {
           'feed' => 0,
           'http' => 0,
           'https' => 0,
-          'oembed' => 0,
+          'oembed' => 'oembed',
           'public' => 'public',
         ),
         'allowed_types' => array(
           'audio' => 0,
           'document' => 0,
-          'image' => 'image',
-          'video' => 0,
+          'image' => 0,
+          'video' => 'video',
         ),
         'browser_plugins' => array(
           'media_default--media_browser_1' => 0,
@@ -1709,7 +1705,7 @@ function content_type_book_field_default_field_instances() {
   t('More Images');
   t('Parent section');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Published date');
   t('Related content');
   t('Related organization(s)');

@@ -727,7 +727,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 21,
+      'weight' => 20,
     ),
   );
 
@@ -1238,23 +1238,9 @@ function content_type_person_profile_field_default_field_instances() {
     'display' => array(
       'default' => array(
         'label' => 'inline',
-        'module' => 'textformatter',
-        'settings' => array(
-          'textformatter_class' => 'textformatter-list',
-          'textformatter_comma_and' => 0,
-          'textformatter_comma_full_stop' => 0,
-          'textformatter_comma_override' => 0,
-          'textformatter_comma_tag' => 'span',
-          'textformatter_contrib' => array(
-            'entityreference_link' => 1,
-          ),
-          'textformatter_separator_custom' => '',
-          'textformatter_separator_custom_class' => 'textformatter-separator',
-          'textformatter_separator_custom_tag' => 'span',
-          'textformatter_term_plain' => 0,
-          'textformatter_type' => 'comma',
-        ),
-        'type' => 'textformatter_list',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
         'weight' => 2,
       ),
       'search_index' => array(
@@ -1287,18 +1273,51 @@ function content_type_person_profile_field_default_field_instances() {
     'label' => 'Produced by',
     'required' => 0,
     'settings' => array(
+      'better_formats' => array(
+        'allowed_formats' => array(
+          'filtered_html' => 'filtered_html',
+          'full_html' => 'full_html',
+          'full_html_no_wysiwyg' => 'full_html_no_wysiwyg',
+          'full_html_simple_wysiwyg' => 'full_html_simple_wysiwyg',
+          'plain_text' => 'plain_text',
+        ),
+        'allowed_formats_toggle' => 0,
+        'default_order_toggle' => 0,
+        'default_order_wrapper' => array(
+          'formats' => array(
+            'filtered_html' => array(
+              'weight' => -7,
+            ),
+            'full_html' => array(
+              'weight' => -10,
+            ),
+            'full_html_no_wysiwyg' => array(
+              'weight' => -8,
+            ),
+            'full_html_simple_wysiwyg' => array(
+              'weight' => -9,
+            ),
+            'plain_text' => array(
+              'weight' => -6,
+            ),
+          ),
+        ),
+      ),
+      'linkit' => array(
+        'button_text' => 'Search',
+        'enable' => 0,
+        'profile' => '',
+      ),
       'text_processing' => 0,
       'user_register_form' => FALSE,
     ),
     'widget' => array(
       'active' => 1,
-      'module' => 'entityreference',
+      'module' => 'text',
       'settings' => array(
-        'match_operator' => 'CONTAINS',
-        'path' => '',
         'size' => 60,
       ),
-      'type' => 'entityreference_autocomplete',
+      'type' => 'text_textfield',
       'weight' => 22,
     ),
   );
@@ -1358,7 +1377,7 @@ function content_type_person_profile_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1372,7 +1391,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 23,
+      'weight' => 21,
     ),
   );
 
@@ -2007,7 +2026,7 @@ function content_type_person_profile_field_default_field_instances() {
         'size' => 60,
       ),
       'type' => 'entityreference_autocomplete',
-      'weight' => 24,
+      'weight' => 23,
     ),
   );
 
@@ -2590,7 +2609,7 @@ function content_type_person_profile_field_default_field_instances() {
   t('Name');
   t('Parent section');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Profile Name');
   t('Published date');
   t('Related content');

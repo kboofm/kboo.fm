@@ -1,47 +1,81 @@
 .navbar {
   border: none;
-  height: 85px;
   position: relative;
+  height: 85px;
+
+  @media (min-width: @screen-sm-min) {
+    height: 95px;
+  }
 
   &.navbar-default {
     background-color: @brand-info;
-    border-bottom: 3px solid @white;
+    border-bottom: 3px solid @gray-lighter;
+
+    @media (min-width: @screen-sm-min) {
+      padding-left: 0px;
+    }
 
     .logo.navbar-btn {
       margin-top: 0px;
       margin-bottom: @margin-xs;
+
+      @media (min-width: @screen-sm-min) {
+        margin-top: @margin-xs;
+      }
     }
   }
 
   .btn {
     border-radius: 0px;
-    background-color: @brand-danger;
+    background-color: @red;
     color: @brand-warning;
 
     &:hover {
-      background-color: darken(@brand-danger, 10%);
+      background-color: darken(@red, 5%);
     }
   }
 
   .on-air {
     position: absolute;
-    left: 340px;
-    top: 10px;
+    left: 330px;
+    top: 20px;
+    width: 40%;
     margin: 0px;
+
+    @media (max-width: @screen-xs-max) {
+      left: 205px;
+      top: 52px;
+    }
+
+    @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+      left: 430px;
+    }
+
+    a {
+      color: @brand-warning;
+    }
   }
 
   .listen-now-btn {
     position: absolute;
-    left: 220px;
+    left: 205px;
+    top: 10px;
+    text-transform: uppercase;
   }
 
   .donate-btn {
     position: absolute;
     right: 20px;
-    top: 0px;
+    top: 10px;
 
-    @media (max-width: @screen-md-max) {
+    @media (max-width: @screen-sm-max) {
       display: none;
     }
+  }
+
+  .donate-btn-mobile {
+    position: absolute;
+    top: 13px;
+    left: 335px;
   }
 }

@@ -30,7 +30,7 @@ class Helpers {
 
 
   public static function timezone() {
-    return variable_get('date_default_timezone', 'America/Chicago');
+    return variable_get('date_default_timezone', 'America/Los_Angeles');
   }
 
 
@@ -113,18 +113,26 @@ class Helpers {
 
 
   public static function weekBeforeBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->subWeek()
-      ->modify('last Sunday')
+    $date = Helpers::carbonize($timestamp);
+
+    if ($date->dayOfWeek != Carbon::SUNDAY) {
+      $date->subWeek();
+    }
+
+    return $date->modify("last Sunday")
       ->startOfDay()
       ->getTimestamp();
   }
 
 
   public static function weekBegin($timestamp) {
-    return Helpers::carbonize($timestamp)
-      ->modify('last Sunday')
-      ->startOfDay()
+    $date = Helpers::carbonize($timestamp);
+
+    if ($date->dayOfWeek != Carbon::SUNDAY) {
+      $date->modify('last Sunday');
+    }
+
+    return $date->startOfDay()
       ->getTimestamp();
   }
 
@@ -142,6 +150,16 @@ class Helpers {
   }
 
 
+  public static function dayOfWeek($timestamp) {
+    $day_of_week = Helpers::toCarbonString(
+      'l',
+      $timestamp
+    );
+
+    return strtolower($day_of_week);
+  }
+
+
   public static function printif($array, $key) {
     if (isset($array[$key])) {
       print $array[$key];
@@ -149,17 +167,17 @@ class Helpers {
   }
 
 
-  public static function streamName($stream) {
-    $match = in_array(
-      strtolower($stream),
-      ['stream1', 'stream 1']
-    );
-
-    if ($match || $stream == 1) {
-      return EStreams::One;
+  public static function getStreamNid($stream) {
+    // If $stream is a number, then assume it is the stream nid
+    if (is_numeric($stream)) {
+      return (int)$stream;
     }
 
-    return EStreams::Two;
+    if (!in_array($stream, EStreams::all())) {
+      return NULL;
+    }
+
+    return variable_get("radio_station_stream_{$stream}_nid");
   }
 
 
@@ -191,5 +209,44 @@ class Helpers {
     );
 
     return ($pos === true) ? "https://" : "http://";
+  }
+
+
+  public static function htmlToText($html) {
+    // preg_replace is used to strip out any embedded media
+    // Example:
+    //   <p>[[{"fid":"20311","view_mode":"lead_image","type":"media",
+    //   "attributes":{"height":"225","width":"300",
+    //   "class":"media-element file-lead-image"}}]]</p>
+
+    $html = preg_replace('/\[\[{.*}\]\]/', '', $html);
+    $html = decode_entities($html);
+    return drupal_html_to_text($html, []);
+  }
+
+
+  public static function getPublicFilesPath() {
+    // http://drupal.stackexchange.com/a/56488
+    $wrapper = file_stream_wrapper_get_instance_by_uri('public://');
+    return $wrapper->realpath();
+  }
+
+
+  public static function watchEMWException($function, $trace) {
+    watchdog(
+      'radio_station',
+      'EntityMetadataWrapper exception in %function() @trace',
+      [
+        '%function' => $function,
+        '@trace' => $trace,
+      ],
+      WATCHDOG_ERROR
+    );
+  }
+
+
+  public static function replaceExtension($filename, $new_extension) {
+    $info = pathinfo($filename);
+    return "{$info['dirname']}/{$info['filename']}.{$new_extension}";
   }
 }

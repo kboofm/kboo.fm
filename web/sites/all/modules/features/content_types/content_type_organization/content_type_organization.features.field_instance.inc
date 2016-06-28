@@ -1246,11 +1246,7 @@ function content_type_organization_field_default_field_instances() {
   // Exported field_instance: 'node-organization-field_produced_by'.
   $field_instances['node-organization-field_produced_by'] = array(
     'bundle' => 'organization',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
@@ -1389,7 +1385,7 @@ function content_type_organization_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -2133,7 +2129,7 @@ function content_type_organization_field_default_field_instances() {
   t('Parent section');
   t('Phone');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Published date');
   t('Related content');
   t('Related organization(s)');

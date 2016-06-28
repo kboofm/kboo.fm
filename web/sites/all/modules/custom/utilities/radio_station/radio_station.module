@@ -2,7 +2,6 @@
 require_once __DIR__ . '/lib/utilities/RadioEnums.inc';
 require_once __DIR__ . '/lib/utilities/Helpers.inc';
 
-
 function printif($array, $key) {
   if (isset($array[$key])) {
     print $array[$key];
@@ -33,11 +32,43 @@ function radio_station_menu() {
  * Implements hook_cron().
  */
 function radio_station_cron() {
+  $stream = EStreams::One;
   $component = new StationContentComponent();
-  $episodes = $component->getRippingEpisodes(EStreams::One, 5);
-  $component->scheduleRippingEpisodes($episodes);
-  $component->attachNewRips();
-  $component->cullArchive();
+
+  if (RadioConfig::get("cron_generate_episodes")) {
+    $episodes = $component->getRippingEpisodes($stream, 5);
+
+    if (RadioConfig::get("cron_automatic_ripping")) {
+      $component->scheduleRippingEpisodes($episodes);
+    }
+  }
+
+  if (RadioConfig::get("cron_attach_rips")) {
+    $component->attachNewRips();
+  }
+
+  /*
+   * Schedule cache could be invalidated if any new episode nodes were created.
+   * Re-generate the cache based on the environment configuration.
+   */
+  $component = new ScheduleComponent();
+
+  $min = RadioConfig::get(
+    "cron_generate_cache_schedule_previous_weeks",
+    0
+  );
+
+  $max = RadioConfig::get(
+    "cron_generate_cache_schedule_next_weeks",
+    0
+  );
+
+  $allowThisWeek = RadioConfig::get(
+    "cron_generate_cache_schedule_this_week",
+    FALSE
+  );
+
+  $component->getWeeks($min, $max, $allowThisWeek, $stream);
 }
 
 
@@ -47,6 +78,35 @@ function radio_station_cron() {
 function radio_station_theme() {
   $templates = new RadioTemplates();
   return $templates->get();
+}
+
+
+/**
+ * Implements hook_block_info().
+ */
+function radio_station_block_info() {
+  $blocks = new RadioBlocks();
+  return $blocks->get();
+}
+
+
+/**
+ * Implements hook_block_view().
+ *
+ * @param string $delta
+ * @return array
+ */
+function radio_station_block_view($delta = '') {
+  $blocks = new RadioBlocks();
+  return $blocks->view($delta);
+}
+
+
+/**
+ * Implements hook_flush_caches().
+ */
+function radio_station_flush_caches() {
+  return ['cache_radio_station'];
 }
 
 
@@ -74,16 +134,12 @@ function radio_station_query_alter(QueryAlterableInterface $query) {
 
 
 function radio_station_user_has_role(array $roles) {
-  global $user;
+  return RadioRoles::hasAny($roles, true);
+}
 
-  if ($user->uid == 1) {
-    return true;
-  }
 
-  $user_roles = array_values($user->roles);
-  $check = array_intersect($roles, $user_roles);
-  $has_role = !empty($check);
-  return $has_role;
+function radio_station_streams_form($form, &$form_state) {
+  return RadioForms::getStreams($form);
 }
 
 
@@ -106,61 +162,183 @@ function radio_station_get_week($stream, $direction, $timestamp) {
 
 
 function radio_station_get_playlists() {
-  $params = Helpers::getQueryParameters();
-  $data = RadioSpinitron::getPlaylists($params);
+  $data = RadioSpinitron::getLatestSongs();
   drupal_json_output($data);
 }
 
 
+function radio_station_get_robots() {
+  $response = new RobotsResponse();
+  $response->get();
+}
+
+
 function radio_station_get_schedule() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new ScheduleResponse();
   return $response->getCalendar();
 }
 
 
 function radio_station_get_community_events() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new EventsResponse();
   return $response->getUpcomingCommunity();
 }
 
 
 function radio_station_get_news() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new NewsResponse();
   return $response->get();
 }
 
 
 function radio_station_get_listen_now() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new PlayerResponse();
   return $response->get();
 }
 
 
+function radio_station_get_audio() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getAudio();
+}
+
+
+function radio_station_get_audio_feed() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  $response->getAudioFeed();
+}
+
+
+function radio_station_get_underwriters() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new OrganizationResponse();
+  return $response->getSponsors();
+}
+
+
 function radio_station_get_blog() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new BlogResponse();
   return $response->get();
 }
 
 
 function radio_station_get_home() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new HomeResponse();
   return $response->get();
 }
 
 
-function radio_station_get_program_content($program_alias) {
-  $response = new ProgramsResponse();
-  return $response->getContent($program_alias);
+function radio_station_get_home_feed() {
+  $response = new HomeResponse();
+  return $response->getFeed();
 }
 
 
-function radio_station_get_program_content_title($program_alias) {
-  $title = ProgramsResponse::getTitle($program_alias);
+function radio_station_get_program() {
+  if (arg(1)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getCurrentShows();
+}
+
+
+function radio_station_get_program_retired() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getRetiredShows();
+}
+
+
+function radio_station_get_program_web_only() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getWebOnlyShows();
+}
+
+
+function radio_station_get_program_genre() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getGenres();
+}
+
+
+function radio_station_get_program_topic() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getTopics();
+}
+
+
+function radio_station_get_program_content($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new ProgramsResponse();
+  return $response->getContent($alias);
+}
+
+
+function radio_station_get_program_content_title($alias) {
+  $title = Response::getTitleFromAlias($alias, "program");
   return "Latest Content for {$title}";
 }
 
 
-function radio_station_preprocess_radio_template_program_content_list(&$vars) {
+function radio_station_preprocess_radio_template_program_content_list(
+  &$vars
+) {
+
   $node = menu_get_object();
   $component = new StationContentComponent();
   $pager = $component->getContentForProgram($node->nid, 1, 3);
@@ -177,27 +355,119 @@ function radio_station_preprocess_radio_template_program_content_list(&$vars) {
 }
 
 
+function radio_station_preprocess_radio_template_program_upcoming_episodes(
+  &$vars
+) {
+
+  $node = menu_get_object();
+  $component = new StationContentComponent();
+  $episodes = $component->getUpcomingForProgram($node->nid, 3);
+  $vars['upcoming'] = $episodes;
+}
+
+
+function radio_station_preprocess_radio_template_program_scheduled_timeslots(
+  &$vars
+) {
+
+  $node = menu_get_object();
+  $component = new ScheduleComponent();
+  $timeslots = $component->getTimeslotsForProgram($node->nid);
+  $vars['timeslots'] = $timeslots;
+}
+
+
+function radio_station_preprocess_radio_template_program_podcast_link(
+  &$vars
+) {
+  $vars['podcast_url'] = request_path();
+}
+
+
+function radio_station_get_program_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getPodcast($alias, "program");
+}
+
+
 function radio_station_get_program_playlists() {
+  if (arg(2)) {
+    return MENU_NOT_FOUND;
+  }
+
   $response = new ProgramsPlaylistResponse();
   return $response->get();
+}
+
+
+function radio_station_get_profiles_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getPodcast($alias, "person_profile");
+}
+
+
+function radio_station_get_genre_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getPodcast($alias, "genre");
+}
+
+
+function radio_station_get_topic_podcast($alias) {
+  if (arg(3)) {
+    return MENU_NOT_FOUND;
+  }
+
+  $response = new StationContentResponse();
+  return $response->getPodcast($alias, "topic");
 }
 
 
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
   $entity = entity_metadata_wrapper('node', $node);
-  $audio_files = $entity->field_audio_files->value();
+
+  try {
+    $audio_files = $entity->field_audio_files->value();
+  } catch (EntityMetadataWrapperException $e) {
+    $audio_files = [];
+  }
+
+  try {
+    $record = $entity->field_episode_record->value();
+  } catch (EntityMetadataWrapperException $e) {
+    $record = EArchiveTypes::Never;
+  }
+
+  $allow_download = ($record == EArchiveTypes::Permanent);
+
   foreach ($audio_files as &$audio_file) {
     $audio_file['filepath'] = file_create_url($audio_file['uri']);
   }
+
   $vars['audio_files'] = $audio_files;
+  $vars['allow_download'] = $allow_download;
 
   $assets = new RadioAssets();
   $assets->audioPlayer();
 }
 
 
-function radio_station_preprocess_radio_template_episode_playlists(&$vars) {
+function radio_station_preprocess_radio_template_episode_playlists(
+  &$vars
+) {
+
   $node = menu_get_object();
   $vars['playlists'] = RadioSpinitron::getEpisodePlaylist($node);
 }
@@ -207,3 +477,15 @@ function radio_station_preprocess_node(&$vars) {
   NodeTeaserProcessor::preprocess($vars);
 }
 
+
+function radio_station_node_presave($node) {
+  if (RadioConfig::get("onsave_clear_cache_schedule")) {
+    $cache = new ScheduleCache();
+    $cache->clear($node);
+  }
+
+  if (RadioConfig::get("onsave_clear_cache_sidebar")) {
+    $cache = new SidebarCache();
+    $cache->clear($node);
+  }
+}

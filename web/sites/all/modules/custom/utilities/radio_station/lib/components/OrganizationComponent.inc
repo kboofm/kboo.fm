@@ -21,7 +21,22 @@ class OrganizationComponent extends BaseComponent {
   }
 
 
-  public function venues($options, $page = 1) {
+  public function getSponsors() {
+    $query = new OrganizationQuery();
+    $query->getSponsors();
+    $result = $query->execute();
+
+    $nids = array_keys(
+      $this->getNodes($result)
+    );
+
+    return array_values(
+      node_load_multiple($nids)
+    );
+  }
+
+
+  public function getVenues($options, $page = 1) {
     $per_page = 50;
     $start = ($page - 1) * $per_page;
 

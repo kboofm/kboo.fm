@@ -26,6 +26,9 @@ abstract class BaseRegistration {
       'source_connection' => 'legacy',
       'source_database' => MigrationSettings::database(),
       'source_version' => 6,
+      'source_options' => [
+        'track_changes' => TRUE,
+      ],
     ];
   }
 

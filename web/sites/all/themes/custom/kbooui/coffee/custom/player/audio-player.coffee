@@ -20,6 +20,7 @@
         wmode: "window",
         smoothPlayBar: true,
         keyEnabled: true
+        remainingDuration: true
 
         ready: ->
           $(@).jPlayer "setMedia", {mp3: endpoint}

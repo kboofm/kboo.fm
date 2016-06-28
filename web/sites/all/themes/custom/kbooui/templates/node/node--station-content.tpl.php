@@ -28,11 +28,7 @@
   </div>
 
 
-  <?php if (RadioSpinitron::eligible($node)): ?>
-    <div class="margin-vertical-lg">
-      <?php print theme('spinitron_playlist'); ?>
-    </div>
-  <?php endif; ?>
+  <?php print theme('radio_template_episode_playlists'); ?>
 
 
   <?php print render($content['links']); ?>

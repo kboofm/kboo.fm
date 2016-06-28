@@ -12,10 +12,6 @@
         this.renderOnAir = bind(this.renderOnAir, this);
         this.renderHeader = bind(this.renderHeader, this);
         this.refresh = bind(this.refresh, this);
-        this.buildQuery = bind(this.buildQuery, this);
-        this.onSubmit = bind(this.onSubmit, this);
-        this.onFormSubmit = bind(this.onFormSubmit, this);
-        this.bind = bind(this.bind, this);
         this.init = bind(this.init, this);
         return Playlists.__super__.constructor.apply(this, arguments);
       }
@@ -24,51 +20,20 @@
 
       Playlists.prototype.route = "/api/playlists";
 
-      Playlists.prototype.submit = "#btn-submit";
-
-      Playlists.prototype.fields = {
-        artist: "#id-artist",
-        $artist: null
-      };
+      Playlists.prototype.interval = 5;
 
       Playlists.prototype.init = function() {
         Playlists.__super__.init.call(this);
         this.$el = $(".playlists");
-        this.fields.$artist = $(this.fields.artist);
+        this.interval = this.interval * 60 * 1000;
         this.renderHeader();
         C4.Utilities.Timer.delay(this.refresh, 1000, "playlists_init");
+        C4.Utilities.Timer.repeat(this.refresh, this.interval, "playlists_update");
         return true;
-      };
-
-      Playlists.prototype.bind = function() {
-        this.bindItem("click", this.submit, this.onSubmit);
-        this.bindItem("submit", this.form, this.onFormSubmit);
-        return true;
-      };
-
-      Playlists.prototype.onFormSubmit = function(event) {
-        event.preventDefault();
-        return true;
-      };
-
-      Playlists.prototype.onSubmit = function(event) {
-        event.preventDefault();
-        this.refresh();
-        return true;
-      };
-
-      Playlists.prototype.buildQuery = function() {
-        var artist, query;
-        artist = this.fields.$artist.val();
-        query = "artist=" + artist;
-        return encodeURIComponent(query);
       };
 
       Playlists.prototype.refresh = function() {
-        var query, queryRoute;
-        query = this.buildQuery();
-        queryRoute = this.route + "?" + query;
-        jQuery.get(queryRoute, this.renderOnAir);
+        jQuery.get(this.route, this.renderOnAir);
         return true;
       };
 
@@ -82,6 +47,8 @@
           }, {
             col: "Album"
           }, {
+            col: "Date"
+          }, {
             col: "Time"
           }
         ];
@@ -90,23 +57,20 @@
       };
 
       Playlists.prototype.renderOnAir = function(response) {
-        var i, j, len, len1, playlist, ref, template_data, track;
+        var i, len, template_data, track;
         if (response.length === 0) {
           return;
         }
         template_data = [];
         for (i = 0, len = response.length; i < len; i++) {
-          playlist = response[i];
-          ref = playlist["Songs"];
-          for (j = 0, len1 = ref.length; j < len1; j++) {
-            track = ref[j];
-            template_data.push({
-              artist: track["ArtistName"],
-              title: track["SongName"],
-              album: track["DiskName"],
-              time: track["Timestamp"]
-            });
-          }
+          track = response[i];
+          template_data.push({
+            artist: track["ArtistName"],
+            title: track["SongName"],
+            album: track["DiskName"],
+            date: track["Date"],
+            time: track["Timestamp"]
+          });
         }
         this.$el.find("tbody").render(template_data);
         template_data = {

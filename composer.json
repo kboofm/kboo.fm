@@ -4,7 +4,7 @@
 
   "repositories": [{
     "type": "composer",
-    "url": "http://packagist.drupal-composer.org"
+    "url": "https://packagist.drupal-composer.org"
   }],
 
   "minimum-stability": "dev",
@@ -14,7 +14,7 @@
     "composer/installers": "~1.0",
     "derhasi/composer-preserve-paths": "0.1.*",
     "cweagans/composer-patches": "~1.0",
-    "drupal/drupal": "7.41",
+    "drupal/drupal": "7.43",
     "drupal/acquia_connector": "7.2.*",
     "drupal/ad": "7.1.*",
     "drupal/addressfield": "7.1.*",
@@ -30,8 +30,10 @@
     "drupal/cdn": "7.2.*",
     "drupal/content_access": "7.1.*",
     "drupal/ckeditor": "7.1.x-dev",
+    "drupal/cron_debug": "7.1.*",
     "drupal/ctools": "7.1.*",
     "drupal/date": "7.2.*",
+    "drupal/devel": "7.1.*",
     "drupal/diff": "7.3.*",
     "drupal/email": "7.1.*",
     "drupal/entity": "7.1.*",
@@ -43,6 +45,7 @@
     "drupal/file_entity": "7.2.*",
     "drupal/fontyourface": "7.2.*",
     "drupal/globalredirect": "7.1.*",
+    "drupal/google_analytics": "7.2.*",
     "drupal/imce": "7.1.*",
     "drupal/imce_wysiwyg": "7.1.*",
     "drupal/legal": "7.1.*",
@@ -59,7 +62,6 @@
     "drupal/mollom": "7.2.*",
     "drupal/multiselect": "7.1.*",
     "drupal/name": "7.1.*",
-    "drupal/node_breadcrumb": "7.1.*",
     "drupal/node_clone": "7.1.*",
     "drupal/node_export": "7.3.*",
     "drupal/pathauto": "7.1.*",
@@ -72,6 +74,7 @@
     "drupal/reroute_email": "7.1.*",
     "drupal/search_restrict": "7.1.*",
     "drupal/sharethis": "7.2.*",
+    "drupal/simpleads": "7.1.*",
     "drupal/station": "7.2.*",
     "drupal/strongarm": "7.2.*",
     "drupal/telephone": "7.1.*",
@@ -126,6 +129,9 @@
       },
       "drupal/pathauto": {
        "Add drush support": "https://www.drupal.org/files/pathauto-add-drush-support-867578-42.patch"
+      },
+      "drupal/file_entity": {
+        "Fix unsupported operand types": "https://www.drupal.org/files/issues/file_entity_update-2375595-18_0.patch"
       }
     }
   }

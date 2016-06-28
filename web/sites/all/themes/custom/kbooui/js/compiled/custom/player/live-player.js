@@ -36,7 +36,6 @@
         one: {
           route: "http://live.kboo.fm:8000/high",
           title: "KBOO",
-          nodeTitle: "stream 1",
           programLabel: "",
           programDefault: "",
           program: null,
@@ -117,10 +116,9 @@
         return true;
       };
 
-      Live.prototype.updateProgramForStream = function(key, timestamp) {
-        var nodeTitle, params, route;
-        nodeTitle = this.streams[key].nodeTitle;
-        route = "/api/schedule/episode/" + nodeTitle + "/at/" + timestamp;
+      Live.prototype.updateProgramForStream = function(stream, timestamp) {
+        var params, route;
+        route = "/api/schedule/episode/" + stream + "/at/" + timestamp;
         params = {
           type: "GET",
           url: route,

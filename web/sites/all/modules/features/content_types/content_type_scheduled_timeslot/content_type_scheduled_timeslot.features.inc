@@ -19,7 +19,7 @@ function content_type_scheduled_timeslot_ctools_plugin_api($module = NULL, $api 
 function content_type_scheduled_timeslot_node_info() {
   $items = array(
     'scheduled_timeslot' => array(
-      'name' => t('Scheduled Timeslot'),
+      'name' => t('Program Timeslot'),
       'base' => 'node_content',
       'description' => t('Timeslots for station schedule'),
       'has_title' => '1',

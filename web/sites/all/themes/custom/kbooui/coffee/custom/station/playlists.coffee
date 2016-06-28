@@ -2,44 +2,20 @@
   class App.Station.Playlists extends C4.Components.Base
     $el: null
     route: "/api/playlists"
-    submit: "#btn-submit"
-    fields:
-      artist: "#id-artist"
-      $artist: null
+    interval: 5 # in minutes
 
     init: =>
       super()
       @$el = $ ".playlists"
-      @fields.$artist = $ @fields.artist
+      @interval = @interval * 60 * 1000
 
       @renderHeader()
       C4.Utilities.Timer.delay @refresh, 1000, "playlists_init"
+      C4.Utilities.Timer.repeat @refresh, @interval, "playlists_update"
       true
-
-    bind: =>
-      @bindItem "click", @submit, @onSubmit
-      @bindItem "submit", @form, @onFormSubmit
-      true
-
-    onFormSubmit: (event) =>
-      event.preventDefault()
-      true
-
-    onSubmit: (event) =>
-      event.preventDefault()
-      @refresh()
-      true
-
-    buildQuery: =>
-      artist = @fields.$artist.val()
-      query = "artist=#{artist}"
-      encodeURIComponent query
 
     refresh: =>
-      query = @buildQuery()
-      queryRoute = "#{@route}?#{query}"
-
-      jQuery.get queryRoute, @renderOnAir
+      jQuery.get @route, @renderOnAir
       true
 
     renderHeader: =>
@@ -49,6 +25,8 @@
           col: "Title"
         ,
           col: "Album"
+        ,
+          col: "Date"
         ,
           col: "Time"
       ]
@@ -60,12 +38,12 @@
       return if response.length == 0
 
       template_data = []
-      for playlist in response
-        for track in playlist["Songs"]
+      for track in response
           template_data.push
             artist: track["ArtistName"]
             title: track["SongName"]
             album: track["DiskName"]
+            date: track["Date"]
             time: track["Timestamp"]
 
       @$el.find("tbody").render template_data

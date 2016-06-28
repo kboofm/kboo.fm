@@ -1,13 +1,138 @@
 ul.navbar-nav {
-  margin-top: @margin-lg+5px;
+  margin-top: 55px;
   border-top: 2px solid @brand-primary;
   margin-left: @margin;
+
+  .open {
+    a {
+      background-color: @brand-info;
+    }
+  }
 
   > li {
     > a {
       font-weight: bold;
       text-transform: uppercase;
       font-size: 16px;
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-md-max) {
+        padding: 7px;
+      }  
+
+      @media (min-width: @screen-sm-min) and (max-width: @screen-sm-max) {
+        font-size: 13px;
+      }
+    }
+
+    .dropdown-menu {
+      background-color: @brand-info;
+      border: none;
+
+      li {
+        a {
+          color: @brand-primary;
+          background-color: @brand-info;
+
+          &:hover {
+            background-color: darken(@brand-info, 5%);
+          }
+        }
+      }
     }
   }  
 }  
+
+@media (max-width: @screen-xs-max) {
+  .navbar-default .navbar-toggle {
+    border: none;
+    border-radius: 0px;
+    margin-right: 0px;
+    position: absolute;
+    top: 0px;
+    right: 20px;
+
+    &:hover,
+    &:active,
+    &:focus {
+      background-color: darken(@brand-info, 5%);
+    }
+
+    .icon-bar {
+      background-color: @brand-primary;
+      border-radius: 0px;
+      width: 30px;
+      height: 3px;
+      margin-bottom: @margin-xs;
+    }
+  }
+
+  .navbar-collapse {
+    position: relative;
+    top: -5px;
+    right: -20px;
+
+    ul.navbar-nav {
+      margin-top: 0px;
+      background-color: @brand-info;
+      border: none;
+      -webkit-box-shadow: -3px 4px 10px 0px rgba(0,0,0,0.75);
+      -moz-box-shadow: -3px 4px 10px 0px rgba(0,0,0,0.75);
+      box-shadow: -3px 4px 10px 0px rgba(0,0,0,0.75);
+      margin-bottom: @margin;
+    }
+  }
+}
+
+@media (max-width: 525px) {
+  .navbar {
+    height: 52px;
+
+    .logo {
+      img {
+        width: 90px;
+        position: relative;
+        left: -10px;
+      }
+    }  
+
+    .on-air {
+      display: none;
+    }
+
+    .listen-now-btn {
+      left: 110px;
+      top: 2px;
+      display: none;
+    }
+
+    .listen-icon {
+      display: block;
+      position: absolute;
+      left: 110px;
+      top: 2px;
+      width: 32px;
+
+      img {
+        position: relative;
+        top: -2px;
+      }
+    }
+
+    .donate-btn-mobile {
+      top: 5px;
+      left: 146px;
+    }
+  }
+
+  .navbar-default {
+    .navbar-toggle {
+      right: 5px;
+    }
+  }
+}
+
+@media (min-width: 525px) {
+  .listen-icon {
+    display: none;
+  }
+}

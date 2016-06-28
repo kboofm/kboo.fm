@@ -9,25 +9,39 @@ class ScheduleProcessor extends TemplateProcessor {
       $wrapped_node = entity_metadata_wrapper('node', $nid);
       $timeslots = $wrapped_node->field_timeslot->value();
 
-      foreach ($timeslots as $timeslot) {
-        if ($when == 'after' && $timeslot['value'] <= $timestamp) {
-          continue;
-        } else if ($when == 'before' && $timeslot['value'] >= $timestamp) {
-          continue;
-        }
+      $timeslots = array_filter(
+        $timeslots,
+        function ($timeslot) use ($when, $timestamp) {
+          if ($when == 'after' && $timeslot['value'] <= $timestamp) {
+            return false;
+          } else if ($when == 'before' && $timeslot['value'] >= $timestamp) {
+            return false;
+          }
 
-        $schedule_item = $this->buildScheduleItem($wrapped_node, $timeslot);
-        if ($schedule_item) {
-          $schedule[] = $schedule_item;
+          return true;
         }
+      );
+
+      $direction = ($when == 'after') ? 'ASC' : 'DESC';
+      $this->sortByStartTime($timeslots, $direction);
+
+      if ($count) {
+        $timeslots = array_slice($timeslots, 0, $count);
       }
-    }
 
-    $direction = ($when == 'after') ? 'ASC' : 'DESC';
-    $this->sortByStartTime($schedule, $direction);
+      $new_schedule = array_map(
+        function ($timeslot) use ($wrapped_node) {
+          return $this->buildScheduleItem($wrapped_node, $timeslot);
+        },
+        $timeslots
+      );
 
-    if ($count) {
-      $schedule = array_slice($schedule, 0, $count);
+      $new_schedule = array_filter($new_schedule);
+
+      $schedule = array_merge(
+        $schedule,
+        $new_schedule
+      );
     }
 
     return $schedule;
@@ -41,31 +55,38 @@ class ScheduleProcessor extends TemplateProcessor {
       $wrapped = entity_metadata_wrapper('node', $nid);
       $timeslots = $wrapped->field_timeslot->value();
 
-      foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] < $start) {
-          continue;
-        }
-
-        if ($timeslot['value'] > $end) {
-          continue;
-        }
-
-        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
-        if ($schedule_item) {
-          if ($groupByDay) {
-            $day_of_week = Helpers::toCarbonString(
-              'l',
-              $timeslot['value']
-            );
-
-            if (!isset($schedule[$day_of_week])) {
-              $schedule[$day_of_week] = [];
-            }
-
-            $schedule[$day_of_week][] = $schedule_item;
-          } else {
-            $schedule[] = $schedule_item;
+      $timeslots = array_filter(
+        $timeslots,
+        function ($timeslot) use ($start, $end) {
+          if ($timeslot['value'] < $start) {
+            return false;
+          } else if ($timeslot['value'] > $end) {
+            return false;
           }
+
+          return true;
+        }
+      );
+
+      foreach ($timeslots as $timeslot) {
+        $schedule_item = $this->buildScheduleItem($wrapped, $timeslot);
+
+        if (!$schedule_item) {
+          continue;
+        }
+
+        if ($groupByDay) {
+          $day_of_week = Helpers::dayOfWeek(
+            $timeslot["value"]
+          );
+
+          if (!isset($schedule[$day_of_week])) {
+            $schedule[$day_of_week] = [];
+          }
+
+          $schedule[$day_of_week][] = $schedule_item;
+        } else {
+          $schedule[] = $schedule_item;
         }
       }
     }
@@ -82,107 +103,28 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
-  public function processRangeCalendar($dataset, $start, $end) {
-    $default_item = [
-      'overlapped' => false,
-      'title' => 'Off Air',
-      'length' => 1,
-    ];
-
-    $days_of_week = [
-      'Monday',
-      'Tuesday',
-      'Wednesday',
-      'Thursday',
-      'Friday',
-      'Saturday',
-      'Sunday',
-    ];
-
-    $days = [
-      'days' => array_fill_keys($days_of_week, $default_item)
-    ];
-
-    $hours = [
-      '12am', '1am', '2am', '3am', '4am', '5am',
-      '6am', '7am', '8am', '9am', '10am', '11am',
-      '12pm', '1pm', '2pm', '3pm', '4pm', '5pm',
-      '6pm', '7pm', '8pm', '9pm', '10pm', '11pm',
-    ];
-
-    $schedule = array_fill_keys($hours, $days);
-
-    foreach ($dataset as $nid => $item) {
-      $wrapped = entity_metadata_wrapper('node', $nid);
-      $timeslots = $wrapped->field_timeslot->value();
-
-      foreach ($timeslots as $timeslot) {
-        if ($timeslot['value'] < $start) {
-          continue;
-        }
-
-        if ($timeslot['value'] > $end) {
-          continue;
-        }
-
-        $hour = Helpers::toCarbonString(
-          'ga',
-          $timeslot['value']
-        );
-
-        if (!isset($schedule[$hour]['days'])) {
-          $schedule[$hour]['days'] = [];
-        }
-
-        $day_of_week = Helpers::toCarbonString(
-          'l',
-          $timeslot['value']
-        );
-
-        $schedule_item = $this->buildCalendarItem(
-          $wrapped,
-          $timeslot
-        );
-
-        $schedule[$hour]['days'][$day_of_week] = $schedule_item;
-
-        if ($schedule_item['length'] > 1) {
-          $current = array_search($hour, $hours);
-          $current_dow = array_search($day_of_week, $days_of_week);
-
-          $next_dow = $current_dow + 1;
-          $next_dow = ($next_dow > count($days_of_week) - 1) ? 0 : $next_dow;
-
-          $over = $schedule_item['length'] - 1;
-          $range = range(1, $over);
-
-          foreach ($range as $index => $value) {
-            $next = $current + $value;
-            $dow = $current_dow;
-
-            if ($next > count($hours) - 1) {
-              $next = $next - count($hours);
-              $dow = $next_dow;
-            }
-
-            $dow = $days_of_week[$dow];
-            $next_hour = $hours[$next];
-            $schedule[$next_hour]['days'][$dow]['overlapped'] = true;
-          }
-        }
-      }
-    }
-
-    return $schedule;
-  }
-
-
-  private function sortByStartTime(&$schedule_items, $direction = 'ASC') {
+  private function sortByStartTime(&$items, $direction = 'ASC') {
     usort(
-      $schedule_items,
+      $items,
       function ($a, $b) use ($direction) {
-        $left = $a['start']['timestamp'];
-        $right = $b['start']['timestamp'];
+        /*
+         * $a and $b can be either a $timelot or a $schedule_item.
+         *
+         * A $timelot will be defined as:
+         *   $a['value']
+         *
+         * A $schedule_item will be defined as:
+         *   $a['start']['timestamp']
+         *
+         * Yes, this could be done cleaner, but time is not currently allotted.
+         */
+        if (isset($a['value'])) {
+          $left = $a['value'];
+          $right = $b['value'];
+        } else {
+          $left = $a['start']['timestamp'];
+          $right = $b['start']['timestamp'];
+        }
 
         if ($direction == 'ASC') {
           return ($left < $right) ? -1 : 1;
@@ -191,29 +133,6 @@ class ScheduleProcessor extends TemplateProcessor {
         }
       }
     );
-  }
-
-
-  /**
-   * Process first item in dataset
-   * @param $dataset
-   * @return null
-   */
-  public function processNow($dataset) {
-    $now = time();
-    reset($dataset);
-    $nid = key($dataset);
-
-    $wrapped = entity_metadata_wrapper('node', $nid);
-    $timeslots = $wrapped->field_timeslot->value();
-
-    foreach ($timeslots as $timeslot) {
-      if ($timeslot['value'] <= $now && $timeslot['value2'] >= $now) {
-        return $this->buildScheduleItem($wrapped, $timeslot);
-      }
-    }
-
-    return NULL;
   }
 
 
@@ -247,7 +166,7 @@ class ScheduleProcessor extends TemplateProcessor {
 
   private function getEpisode($timeslot) {
     $query = new StationContentQuery();
-    $query->getEpisode(
+    $query->getContent(
       $timeslot['value'],
       $timeslot['value2']
     );
@@ -316,32 +235,6 @@ class ScheduleProcessor extends TemplateProcessor {
   }
 
 
-  private function buildCalendarItem($wrapped_scheduled_timeslot, $timeslot) {
-    $wrapped_episode = $this->getEpisode($timeslot);
-    $timeslot_program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
-    $episode_program = $this->getEpisodeProgram($wrapped_episode);
-
-    if (!$timeslot_program && !$episode_program) {
-      return NULL;
-    }
-
-
-    $title = $this->getScheduleTitle($timeslot_program, $episode_program);
-    $url = $this->getScheduleUrl($timeslot_program, $wrapped_episode);
-    $length = $timeslot['value2'] - $timeslot['value'];
-    $length = $length / 3600;
-
-    $schedule_item = [
-      'title' => $title,
-      'url' => $url,
-      'length' => $length,
-      'overlapped' => false,
-    ];
-
-    return $schedule_item;
-  }
-
-
   private function buildScheduleItem($wrapped_scheduled_timeslot, $timeslot) {
     $wrapped_episode = $this->getEpisode($timeslot);
     $timeslot_program = $this->getTimeslotProgram($wrapped_scheduled_timeslot);
@@ -399,5 +292,52 @@ class ScheduleProcessor extends TemplateProcessor {
     ];
 
     return $schedule_item;
+  }
+
+
+  public function processForProgram($nodes) {
+    $now = time();
+    $results = [];
+
+    foreach ($nodes as $nid => $item) {
+      $entity = entity_metadata_wrapper('node', $nid);
+      $stream = $entity->field_stream->value();
+      $timeslots = $entity->field_timeslot->value();
+
+      $key = null;
+      foreach ($timeslots as $index => $timeslot) {
+        if ($timeslot['value'] >= $now) {
+          $key = $index;
+          break;
+        }
+      }
+
+      if (is_null($key)) {
+        continue;
+      }
+
+      $timeslot = $timeslots[$key];
+
+      // Example rrule
+      // RRULE:FREQ=DAILY;INTERVAL=1;COUNT=99;WKST=SU
+      $rrule = $timeslot['rrule'];
+      $rrule = explode(":", $rrule);
+      $rrule = $rrule[1];
+      $rrule = explode(";", $rrule);
+      $rrule = $rrule[0];
+      $rrule = explode("=", $rrule);
+      $frequency = $rrule[1];
+
+      $schedule_item = [
+        'stream' => $stream->title,
+        'starttime' => $timeslot['value'],
+        'endtime' => $timeslot['value2'],
+        'frequency' => $frequency,
+      ];
+
+      $results[] = $schedule_item;
+    }
+
+    return $results;
   }
 }

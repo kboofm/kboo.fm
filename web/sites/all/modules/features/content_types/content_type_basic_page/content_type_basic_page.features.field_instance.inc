@@ -949,23 +949,15 @@ function content_type_basic_page_field_default_field_instances() {
   // Exported field_instance: 'node-basic_page-field_produced_by'.
   $field_instances['node-basic_page-field_produced_by'] = array(
     'bundle' => 'basic_page',
-    'default_value' => array(
-      0 => array(
-        'value' => 'KBOO',
-      ),
-    ),
+    'default_value' => NULL,
     'deleted' => 0,
     'description' => '',
     'display' => array(
       'default' => array(
-        'label' => 'above',
-        'module' => 'title',
-        'settings' => array(
-          'title_class' => '',
-          'title_link' => '',
-          'title_style' => '',
-        ),
-        'type' => 'title_linked',
+        'label' => 'inline',
+        'module' => 'text',
+        'settings' => array(),
+        'type' => 'text_default',
         'weight' => 2,
       ),
       'search_index' => array(
@@ -1096,7 +1088,7 @@ function content_type_basic_page_field_default_field_instances() {
     ),
     'entity_type' => 'node',
     'field_name' => 'field_produced_for',
-    'label' => 'Produced for',
+    'label' => 'Produced for (Program name)',
     'required' => 0,
     'settings' => array(
       'user_register_form' => FALSE,
@@ -1827,7 +1819,7 @@ function content_type_basic_page_field_default_field_instances() {
   t('More Images');
   t('Parent section');
   t('Produced by');
-  t('Produced for');
+  t('Produced for (Program name)');
   t('Published date');
   t('Related content');
   t('Related organization(s)');

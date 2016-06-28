@@ -19,25 +19,25 @@ function configure_user_accounts_user_default_roles() {
   // Exported role: Admin - Site Administrator.
   $roles['Admin - Site Administrator'] = array(
     'name' => 'Admin - Site Administrator',
-    'weight' => 6,
+    'weight' => 21,
   );
 
   // Exported role: Author - Page.
   $roles['Author - Page'] = array(
     'name' => 'Author - Page',
-    'weight' => 15,
+    'weight' => 22,
   );
 
   // Exported role: Author - Program.
   $roles['Author - Program'] = array(
     'name' => 'Author - Program',
-    'weight' => 20,
+    'weight' => 24,
   );
 
   // Exported role: Staff.
   $roles['Staff'] = array(
     'name' => 'Staff',
-    'weight' => 10,
+    'weight' => 23,
   );
 
   return $roles;

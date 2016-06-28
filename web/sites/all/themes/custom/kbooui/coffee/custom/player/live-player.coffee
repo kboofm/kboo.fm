@@ -11,7 +11,6 @@
       one:
         route: "http://live.kboo.fm:8000/high"
         title: "KBOO"
-        nodeTitle: "stream 1"
         programLabel: ""
         programDefault: ""
         program: null
@@ -88,9 +87,8 @@
       @updateProgramForStream "one", timestamp
       true
 
-    updateProgramForStream: (key, timestamp) =>
-      nodeTitle = @streams[key].nodeTitle
-      route = "/api/schedule/episode/#{nodeTitle}/at/#{timestamp}"
+    updateProgramForStream: (stream, timestamp) =>
+      route = "/api/schedule/episode/#{stream}/at/#{timestamp}"
 
       params =
         type: "GET"

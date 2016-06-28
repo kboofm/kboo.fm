@@ -47,7 +47,7 @@ class NodeQuery extends EntityFieldQuery {
 
 
   public function isPromoted() {
-    $this->entityCondition('promote', 1, '=');
+    $this->propertyCondition('promote', 1, '=');
   }
 
 
@@ -56,12 +56,12 @@ class NodeQuery extends EntityFieldQuery {
   }
 
 
-  protected function sortByTitle() {
+  public function sortByTitle() {
     $this->fieldOrderBy('title_field', 'value');
   }
 
 
-  protected function sortByPromotedSticky() {
+  public function sortByPromotedSticky() {
     $this->propertyOrderBy('promote', 'DESC');
     $this->propertyOrderBy('sticky', 'DESC');
   }
