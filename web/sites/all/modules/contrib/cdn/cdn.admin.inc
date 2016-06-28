@@ -96,9 +96,12 @@ function cdn_admin_details_form($form, &$form_state) {
   $form['settings'][CDN_BASIC_MAPPING_VARIABLE] = array(
     '#type'          => 'textarea',
     '#title'         => t('CDN mapping'),
-    '#description'   => _cdn_help('admin-details-mode-pull-cdn-mapping') . t("Define which files are mapped to which CDN."),
+    '#description'   => _cdn_help('admin-details-mode-pull-cdn-mapping') . t("Define which files are mapped to which CDN. (To learn about how to define more advanced set-ups, install the Advanced Help module.)"),
     '#size'          => 35,
     '#default_value' => variable_get(CDN_BASIC_MAPPING_VARIABLE, ''),
+    '#attributes' => array(
+      'placeholder' => '//my-cdn.com|.css .js .jpg .jpeg .png',
+    ),
     '#states' => array(
       'visible' => array(
         ':input[name="' . CDN_MODE_VARIABLE . '"]' => array('value' => CDN_MODE_BASIC),
