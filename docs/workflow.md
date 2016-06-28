@@ -44,12 +44,25 @@ Now push everything up
 $: git push --all
 $: git push --tags
 
-ssh in to server
+## Updating Staging
+
+ssh in to server with kboo user
+
+$ cd /var/www/vhosts/dev.kboo.fm
+$ git fetch
+$ git checkout 2015-12-29
+
+then run Drupal update db (if needed) and clear cache
+$: drush @kboo.d7.dev updatedb
+$: drush @kboo.d7.dev cc all
+
+## Updating Production
+
+ssh in to server  with kboo user
 
 $ cd /var/www/vhosts2/migrate.kboo.fm
 $ git fetch
 $ git checkout 2015-12-29
-$ exit
 
 then run Drupal update db (if needed) and clear cache
 $: drush @kboo.d7.prod updatedb
