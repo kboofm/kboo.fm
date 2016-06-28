@@ -3,3 +3,5 @@ description = "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain t
 core        = 7.x
 package     = User interface
 configure   = admin/config/content/ckeditor
+
+files[] = tests/ckeditor.test

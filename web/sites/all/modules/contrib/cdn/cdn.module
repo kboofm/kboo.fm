@@ -264,7 +264,7 @@ function cdn_css_alter(&$css) {
     }
     // Handle $type = 'file' and 'external'.
     elseif (!cdn_check_file($key)) {
-      $javascript[$key]['preprocess'] = FALSE;
+      $css[$key]['preprocess'] = FALSE;
     }
   }
 }
@@ -350,7 +350,7 @@ function cdn_menu() {
   );
 
   // Origin Pull mode's Far Future expiration support.
-  $items['cdn/farfuture/%/%/%/%menu_tail'] = array(
+  $items['cdn/farfuture/%/%/%menu_tail'] = array(
     'title'            => 'Download a far futured file',
     'access callback'  => TRUE,
     'page callback'    => 'cdn_basic_farfuture_download',
@@ -496,7 +496,7 @@ function cdn_html_head_alter(&$head_elements) {
     // Enable prefetching.
     $head_elements['cdn_dns_prefetch_meta'] = array(
       '#type' => 'html_tag',
-      '#tag' => 'link',
+      '#tag' => 'meta',
       '#attributes' => array(
         'http-equiv' => 'x-dns-prefetch-control',
         'content'    => 'on',

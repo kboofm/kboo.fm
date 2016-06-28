@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c4d9db205ecf39a6729c44b22e3c1d55",
-    "content-hash": "c8d5706dfd5b8240fa0ea49ea5be2bdf",
+    "hash": "a78d31ea9443ee77cd03c53c29aa94ba",
+    "content-hash": "16422a5435f6d76198eef5ca32fdab74",
     "packages": [
         {
             "name": "composer/installers",
@@ -109,20 +109,20 @@
         },
         {
             "name": "cweagans/composer-patches",
-            "version": "1.4.0",
+            "version": "1.5.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cweagans/composer-patches.git",
-                "reference": "0d75c63b6de66144517a1da9084422b78c2ff251"
+                "reference": "8de7c73b2eae217f4e7028d7262ff2330aa4b4e8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/0d75c63b6de66144517a1da9084422b78c2ff251",
-                "reference": "0d75c63b6de66144517a1da9084422b78c2ff251",
+                "url": "https://api.github.com/repos/cweagans/composer-patches/zipball/8de7c73b2eae217f4e7028d7262ff2330aa4b4e8",
+                "reference": "8de7c73b2eae217f4e7028d7262ff2330aa4b4e8",
                 "shasum": ""
             },
             "require": {
-                "composer-plugin-api": "~1.0",
+                "composer-plugin-api": "^1.0",
                 "php": ">=5.3.0"
             },
             "require-dev": {
@@ -149,7 +149,7 @@
                 }
             ],
             "description": "Provides a way to patch Composer packages.",
-            "time": "2016-02-29 03:45:02"
+            "time": "2016-03-28 18:54:21"
         },
         {
             "name": "derhasi/composer-preserve-paths",
@@ -205,15 +205,15 @@
         },
         {
             "name": "drupal/acquia_connector",
-            "version": "7.2.16",
+            "version": "7.2.17",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/acquia_connector",
-                "reference": "b443080fb63236bf19b328659f4721b1aa927928"
+                "reference": "e43c357a1e95281ee73830e301f486f776da6425"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/acquia_connector-7.x-2.16.zip",
+                "url": "https://ftp.drupal.org/files/projects/acquia_connector-7.x-2.17.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -237,9 +237,13 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Allows Drupal to securely communicate with Acquia Insight, and checks for updates to Acquia Drupal.",
-            "homepage": "https://www.drupal.org/project/acquia_connector"
+            "homepage": "https://www.drupal.org/project/acquia_connector",
+            "time": "2016-05-06 12:39:37"
         },
         {
             "name": "drupal/ad",
@@ -289,8 +293,7 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "An advertising system for Drupal powered websites.",
-            "homepage": "https://www.drupal.org/project/ad",
-            "time": "2015-09-18 11:43:15"
+            "homepage": "https://www.drupal.org/project/ad"
         },
         {
             "name": "drupal/addressfield",
@@ -596,15 +599,15 @@
         },
         {
             "name": "drupal/cdn",
-            "version": "7.2.7",
+            "version": "7.2.8",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/cdn",
-                "reference": "c486f04af89bc9b6e1909e71072a5f05bb091fcd"
+                "reference": "445b6cd624453e7c15b197635dc6d7c567a7364a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/cdn-7.x-2.7.zip",
+                "url": "https://ftp.drupal.org/files/projects/cdn-7.x-2.8.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -617,9 +620,13 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Integrates your site with a CDN, through altering file URLs.",
-            "homepage": "https://www.drupal.org/project/cdn"
+            "homepage": "https://www.drupal.org/project/cdn",
+            "time": "2016-04-19 11:18:25"
         },
         {
             "name": "drupal/ckeditor",
@@ -627,13 +634,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/ckeditor",
-                "reference": "2c5caca8a0188f93eae437faa70c57a735820482"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/ckeditor-7.x-1.17.zip",
-                "reference": null,
-                "shasum": null
+                "reference": "3657990d71eba79225f01df860adaab84e66f554"
             },
             "require": {
                 "drupal/drupal": "7.*"
@@ -644,10 +645,13 @@
                     "dev-7.x-1.x": "7.1.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Enables CKEditor (WYSIWYG HTML editor) for use instead of plain text fields.",
             "homepage": "https://www.drupal.org/project/ckeditor",
-            "time": "2015-11-30 15:46:08"
+            "time": "2016-06-19 22:18:17"
         },
         {
             "name": "drupal/content_access",
@@ -867,15 +871,15 @@
         },
         {
             "name": "drupal/drupal",
-            "version": "7.43.0",
+            "version": "7.44.0",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/drupal",
-                "reference": "c136d1347b9b92145590cb1f84cc02a695d721fe"
+                "reference": "ab70cdc176d20a461937797d7ce04a27c9bfc18b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/drupal-7.43.zip",
+                "url": "https://ftp.drupal.org/files/projects/drupal-7.44.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -964,9 +968,13 @@
                     "dev-7.x-": "7.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Handles general site configuration for administrators.",
-            "homepage": "https://www.drupal.org/project/drupal"
+            "homepage": "https://www.drupal.org/project/drupal",
+            "time": "2016-06-15 20:05:31"
         },
         {
             "name": "drupal/email",
@@ -1195,15 +1203,15 @@
         },
         {
             "name": "drupal/file_entity",
-            "version": "7.2.0-beta2",
+            "version": "7.2.0-beta3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/file_entity",
-                "reference": "812dc896a258837017166fdd8d2fb381c0433001"
+                "reference": "dabd0be57ee07423e2a5dcc0228d20c41689dd44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/file_entity-7.x-2.0-beta2.zip",
+                "url": "https://ftp.drupal.org/files/projects/file_entity-7.x-2.0-beta3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1212,7 +1220,7 @@
                 "drupal/drupal": "7.*",
                 "drupal/field": "7.*",
                 "drupal/file": "7.*",
-                "drupal/system": ">=7.9.0"
+                "drupal/system": ">=7.33.0"
             },
             "type": "drupal-module",
             "extra": {
@@ -1229,7 +1237,7 @@
             ],
             "description": "Extends Drupal file entities to be fieldable and viewable.",
             "homepage": "https://www.drupal.org/project/file_entity",
-            "time": "2015-07-14 17:00:36"
+            "time": "2016-05-28 19:25:37"
         },
         {
             "name": "drupal/fontyourface",
@@ -1303,15 +1311,15 @@
         },
         {
             "name": "drupal/google_analytics",
-            "version": "7.2.1",
+            "version": "7.2.2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/google_analytics",
-                "reference": "996debb416c1e1893fa34e438ad7d52367a21397"
+                "reference": "14543818d1c41838f962c5e1ed441fa167e8b51a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/google_analytics-7.x-2.1.zip",
+                "url": "https://ftp.drupal.org/files/projects/google_analytics-7.x-2.2.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1333,7 +1341,7 @@
             ],
             "description": "Allows your site to be tracked by Google Analytics by adding a Javascript tracking code to every page.",
             "homepage": "https://www.drupal.org/project/google_analytics",
-            "time": "2014-11-29 10:01:19"
+            "time": "2016-04-16 11:58:24"
         },
         {
             "name": "drupal/imce",
@@ -1449,15 +1457,15 @@
         },
         {
             "name": "drupal/libraries",
-            "version": "7.2.2",
+            "version": "7.2.3",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/libraries",
-                "reference": "744cd04d1c78a08d10b511f67904f0839baf94ec"
+                "reference": "943761c08b01c76574ec6b2a6f6cd8ce19fe4987"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/libraries-7.x-2.2.zip",
+                "url": "https://ftp.drupal.org/files/projects/libraries-7.x-2.3.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1471,8 +1479,13 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Allows version-dependent and shared usage of external libraries."
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
+            "description": "Allows version-dependent and shared usage of external libraries.",
+            "homepage": "https://www.drupal.org/project/libraries",
+            "time": "2016-05-12 17:50:14"
         },
         {
             "name": "drupal/link",
@@ -1568,15 +1581,15 @@
         },
         {
             "name": "drupal/media",
-            "version": "7.2.0-beta1",
+            "version": "7.2.0-beta2",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/media",
-                "reference": "19a155b1a78f18355dc9a2a614524178816be2cc"
+                "reference": "f3863132406a94f4507ce718d46991fb869c4406"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/media-7.x-2.0-beta1.zip",
+                "url": "https://ftp.drupal.org/files/projects/media-7.x-2.0-beta2.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1605,9 +1618,13 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Provides the core Media API",
-            "homepage": "https://www.drupal.org/project/media"
+            "homepage": "https://www.drupal.org/project/media",
+            "time": "2016-05-30 23:47:08"
         },
         {
             "name": "drupal/media_oembed",
@@ -1643,15 +1660,15 @@
         },
         {
             "name": "drupal/metatag",
-            "version": "7.1.14",
+            "version": "7.1.16",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/metatag",
-                "reference": "f105cdd29c4224205018645dbeaf52d4272a8c1f"
+                "reference": "be2bebea01c02da3a17683bc923bf2b20f921629"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.14.zip",
+                "url": "https://ftp.drupal.org/files/projects/metatag-7.x-1.16.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -1700,7 +1717,7 @@
             ],
             "description": "Adds support and an API to implement meta tags.",
             "homepage": "https://www.drupal.org/project/metatag",
-            "time": "2016-04-02 14:23:17"
+            "time": "2016-06-03 17:04:14"
         },
         {
             "name": "drupal/migrate",
@@ -1810,8 +1827,7 @@
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Allows modules that operate on access grants to work together in the expected way.",
-            "time": "2013-11-06 11:37:28"
+            "description": "Allows modules that operate on access grants to work together in the expected way."
         },
         {
             "name": "drupal/mollom",
@@ -2062,15 +2078,15 @@
         },
         {
             "name": "drupal/recaptcha",
-            "version": "7.2.0",
+            "version": "7.2.1",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/recaptcha",
-                "reference": "9f43b9b19786118a8be2f3830bc611435f51e027"
+                "reference": "f87e7c0d799cb416c47a08edab69e2d2987f8806"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/recaptcha-7.x-2.0.zip",
+                "url": "https://ftp.drupal.org/files/projects/recaptcha-7.x-2.1.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -2084,9 +2100,13 @@
                     "dev-7.x-2.x": "7.2.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Protect your website from spam and abuse while letting real people pass through with ease.",
-            "homepage": "https://www.drupal.org/project/recaptcha"
+            "homepage": "https://www.drupal.org/project/recaptcha",
+            "time": "2015-11-21 00:25:37"
         },
         {
             "name": "drupal/redirect",
@@ -2329,8 +2349,7 @@
                 }
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
-            "description": "Core of station module for running an internet radio station.",
-            "time": "2012-09-24 14:39:02"
+            "description": "Core of station module for running an internet radio station."
         },
         {
             "name": "drupal/strongarm",
@@ -2579,15 +2598,15 @@
         },
         {
             "name": "drupal/views",
-            "version": "7.3.13",
+            "version": "7.3.14",
             "source": {
                 "type": "git",
                 "url": "https://git.drupal.org/project/views",
-                "reference": "5c2bfc9638e3e78023d1efb754b79d4ac994d0c6"
+                "reference": "485b697082cf2ec42cc596eed952daa6f61e8012"
             },
             "dist": {
                 "type": "zip",
-                "url": "http://ftp.drupal.org/files/projects/views-7.x-3.13.zip",
+                "url": "https://ftp.drupal.org/files/projects/views-7.x-3.14.zip",
                 "reference": null,
                 "shasum": null
             },
@@ -2604,9 +2623,13 @@
                     "dev-7.x-3.x": "7.3.x-dev"
                 }
             },
-            "notification-url": "http://packagist.drupal-composer.org/downloads/",
+            "notification-url": "https://packagist.drupal-composer.org/downloads/",
+            "license": [
+                "GPL-2.0+"
+            ],
             "description": "Create customized lists and queries from your database.",
-            "homepage": "https://www.drupal.org/project/views"
+            "homepage": "https://www.drupal.org/project/views",
+            "time": "2016-06-15 19:37:02"
         },
         {
             "name": "drupal/views_bulk_operations",
@@ -2695,8 +2718,7 @@
             },
             "notification-url": "http://packagist.drupal-composer.org/downloads/",
             "description": "Add a bootstrap layout container type element to Webform.",
-            "homepage": "https://www.drupal.org/project/webform_bt_layout",
-            "time": "2015-03-31 15:28:32"
+            "homepage": "https://www.drupal.org/project/webform_bt_layout"
         },
         {
             "name": "drupal/wysiwyg",
