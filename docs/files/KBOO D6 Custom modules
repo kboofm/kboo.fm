@@ -1,0 +1,27 @@
+Here is a basic overview of the custom modules in the default/modules/kboo dir (there is no other documentation, only what's in the files).
+
+Membership - this contains some code for the acceptance of donations on the site.  The former membership director wanted a very specific form and flow here, I would expect that it can be simplified. There is an initial form created using the webform module, and the code enhances that form and ties it into the ubercart payment processor.
+
+The other modules were forked off a drupal project called Station (https://www.drupal.org/project/station) - it was originally forked from the 5.x branch, so they are quite different now, especially in the scheduling.
+
+Playlist - Creates a custom node type for show playlists; main tricky thing here is the compound field entry and the ajax lookup of previous entries in those fields in the tracks listing.
+
+Program - Creates a custom program node type for each show in the KBOO schedule. Gives edit access to DJs associated with a show, and has a show-specific contact form. Also provides a tabbed display for other nodes associated with the program (like playlists, episodes).
+
+Schedule - Three inter-connected modules control the scheduling and display of KBOO shows. Unlike most radio stations, the KBOO schedule is complex and varies significantly week to week - there are even some shows that only air if there's a 5th occurrence of a day in a month. The overall flow is like this: 
+
+    A schedule_timeslot node is created for a regularly scheduled program. It has a start and end time, and one or more days of the week and weeks of the month. It is possible to have multiple timeslots per program (e.g one for Mondays at 4am and another for Wednesdays at 2pm), but it should NOT be possible to have overlapping timeslots.
+
+    A schedule_episode is a single instance of a show at a specific time (e.g. March 1, 2015 from 1-2pm). This node type can have images, audio and descriptive content relating to that particular episode, and is associated with a program. Before the show airs, it can be used to promote the show, and after airing it can have audio or reference content from the show (more on that later). An episode may not conform to the planned timeslot - that's how a special one-time broadcast would be listed. There should NOT be any overlapping episodes, but start and end times may not match the timeslots.
+
+    The schedule_display module builds the on-air/upcoming block and the full schedule listing (http://kboo.fm/schedule). To build a schedule for a certain time period, the preference is given to specific episode entries, but if there is no episode for a given time, the timeslot info is used (with the general information from the program node about the show).
+
+
+There is a cron job that handles processing for episodes. It looks at a window for the next several hours, and does the following:
+
+    If there is a timeslot but no episode created, it will create an episode based on the timeslot information.
+    If the show is airing within the hour, it will use AT to schedule streamripper to capture a file. 
+    If the streamripper is done recording, it will attach the file to the episode.
+    If the file is a 'temporary' recording, it will be removed from the episode after two weeks.
+
+I've worked out a new system of using the aircheck files (raw half-hour dumps that were previously unavailable to me). It would be more efficient, remove the crappy use of the AT command, and take away some of the load on the server. It's never been implemented, because every time I clear a few hours to work on that system, I find something wrong that needs to be fixed first and winds up chewing up all my time. It's been a while since anyone maintained the KBOO server and site properly, and it shows - it really is a high-touch system that should have dedicated maintenance.
