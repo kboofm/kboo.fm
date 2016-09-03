@@ -3,3 +3,9 @@ Custom theme KBOOui - files located
 
 Radio station module templates
 /var/www/vhosts2/migrate.kboo.fm/web/sites/all/modules/custom/utilities/radio_station/templates
+
+pre-processing done by these scripts:
+/var/www/vhosts2/migrate.kboo.fm/web/sites/all/modules/custom/utilities/radio_station/lib/processors
+
+queries used to render display of content:
+/var/www/vhosts2/migrate.kboo.fm/web/sites/all/modules/custom/utilities/radio_station/lib/queries
