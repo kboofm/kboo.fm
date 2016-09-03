@@ -110,7 +110,7 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getPodcastByProgram($target_nid) {
+  public function getPodcastByProgram($target_nid, $count = NULL) {
     $this->fieldCondition(
       "field_produced_for",
       "target_id",
@@ -127,6 +127,11 @@ class StationContentQuery extends NodeQuery {
 
     $this->fieldOrderBy('field_air_time', 'value', 'DESC');
     $this->addTag("radio_NodeQuery_orderByPublicationDateOrCreated");
+
+    if ($count) {
+      $this->setLimit($count);
+    }
+    
     return $this;
   }
 

@@ -68,7 +68,7 @@ class StationContentComponent extends BaseComponent {
 
       cache_set($cache_key, $data, $cache_table);
     }
-    
+
     return $episodes;
   }
 
@@ -208,8 +208,9 @@ class StationContentComponent extends BaseComponent {
 
 
   private function getPodcastForProgram($target_nid) {
+    $count = 10;
     $query = new StationContentQuery();
-    $query = $query->getPodcastByProgram($target_nid);
+    $query = $query->getPodcastByProgram($target_nid, $count);
     $result = $query->execute();
 
     $processor = new PodcastProcessor();
