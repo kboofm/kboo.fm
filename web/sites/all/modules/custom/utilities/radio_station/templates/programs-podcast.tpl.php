@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:itunes="http://www.itunes.com/dtds/podcast-1.0.dtd" xmlns:atom="http://www.w3.org/2005/Atom">
 
   <?php $station_name = "KBOO Community Radio"; $station_email = "podcast@kboo.org";?>
@@ -7,20 +7,13 @@
     <title><?php print $program['title']; ?></title>
     <atom:link href="<?php print $program['podcast_url']; ?>" rel="self" type="application/rss+xml"/>
     <link><?php print $program['url']; ?></link>
+<description>KBOO Radio is a community-powered station in Portland Oregon</description>
     <language>en-us</language>
     <copyright>&#x2117; &amp; &#xA9; <?php print date('Y') . " " . $station_name; ?></copyright>
-    <itunes:owner>
-      <itunes:name><?php print $station_name; ?></itunes:name>
-    </itunes:owner>
-    <itunes:category text="Public Radio">
-      <itunes:category text="Public Radio" />
-    </itunes:category>
-    <itunes:explicit><?php print $program['explicit']; ?></itunes:explicit>
-    <itunes:image>
-      <url><?php print $program['image']; ?></url>
-      <title><?php print $program['title']; ?></title>
-      <link><?php print $program['url']; ?></link>
-    </itunes:image>
+    <itunes:owner><itunes:email><?php print $station_email; ?></itunes:email></itunes:owner>
+    <itunes:category text="News &amp; Politics"></itunes:category>
+    <itunes:image href="http://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+    <itunes:explicit>yes</itunes:explicit>
 
     <?php foreach ($items as $item): ?>
       <item>
@@ -34,7 +27,7 @@
 
         <itunes:summary><?php print $item['summary']; ?></itunes:summary>
 
-        <itunes:image href="<?php print $item['image']; ?>" />
+        <itunes:image href="http://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
 
         <enclosure url="<?php print $item['audio_file']; ?>" length="<?php print $item['duration']; ?>" type="audio/mpeg"/>
 
