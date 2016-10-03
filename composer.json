@@ -35,6 +35,7 @@
     "drupal/date": "7.2.*",
     "drupal/devel": "7.1.*",
     "drupal/diff": "7.3.*",
+    "drupal/drupal": "7.44",
     "drupal/email": "7.1.*",
     "drupal/entity": "7.1.*",
     "drupal/entity_embed": "7.1.*",

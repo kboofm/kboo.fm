@@ -41,6 +41,17 @@ function media_oembed_media_oembed_response_alter(&$response) {
     }
   }
 
+  // Instagram rich responses are images that should be re-cast as image files.
+  if ($response['type'] == 'rich' && $response['provider'] == 'default:instagram') {
+    $response['mime_type'] = 'image/oembed';
+  }
+
+  // Podbean rich responses are audio players that should be re-cast as audio
+  // files.
+  if ($response['type'] == 'rich' && $response['provider'] == 'default:podbean') {
+    $response['mime_type'] = 'audio/oembed';
+  }
+
   // Spotify rich responses are audio players that should be re-cast as audio
   // files.
   if ($response['type'] == 'rich' && $response['provider'] == 'default:spotify') {
