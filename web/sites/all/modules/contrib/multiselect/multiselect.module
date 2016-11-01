@@ -241,34 +241,34 @@ function _multiselect_build_widget_code($options, $items, $element, $required = 
   // Add selected items to the array first
   if (is_array($items)) {
     foreach ($items as $key => $value) {
-      if (is_array($value['value']) && array_key_exists('value', $value['value'])) { // Field collections have them nested.
+      if (isset($value['value']['value'])) { // Field collections have them nested.
         $selected_options[$value['value']['value']] = $value['value']['value'];
       }
-      elseif (is_array($value['value']) && array_key_exists('tid', $value['value'])) { // Field collections have them nested. Taxonomy
+      elseif (isset($value['value']['tid'])) { // Field collections have them nested. Taxonomy
         $selected_options[$value['value']['tid']] = $value['value']['tid'];
       }
-      elseif (is_array($value['value']) && array_key_exists('nid', $value['value'])) { // Field collections have them nested. Node ref
+      elseif (isset($value['value']['nid'])) { // Field collections have them nested. Node ref
         $selected_options[$value['value']['nid']] = $value['value']['nid'];
       }
-      elseif (is_array($value['value']) && array_key_exists('uid', $value['value'])) { // Field collections have them nested. User ref
+      elseif (isset($value['value']['uid'])) { // Field collections have them nested. User ref
         $selected_options[$value['value']['uid']] = $value['value']['uid'];
       }
-      elseif (is_array($value) && array_key_exists('value', $value)) { // With CCK, it's an array.
+      elseif (isset($value['value'])) { // With CCK, it's an array.
         $selected_options[$value['value']] = $value['value'];
       }
-      elseif (is_array($value) && array_key_exists('tid', $value)) { // With CCK, it's an array. Taxonomy
+      elseif (isset($value['tid'])) { // With CCK, it's an array. Taxonomy
         $selected_options[$value['tid']] = $value['tid'];
       }
-      elseif (is_array($value) && array_key_exists('nid', $value)) { // With CCK, it's an array. Node ref
+      elseif (isset($value['nid'])) { // With CCK, it's an array. Node ref
         $selected_options[$value['nid']] = $value['nid'];
       }
-      elseif (is_array($value) && array_key_exists('uid', $value)) { // With CCK, it's an array. User ref
+      elseif (isset($value['uid'])) { // With CCK, it's an array. User ref
         $selected_options[$value['uid']] = $value['uid'];
       }
-      elseif (is_array($value) && array_key_exists('target_id', $value)) { // Handle Entity Reference.
+      elseif (isset($value['target_id'])) { // Handle Entity Reference.
         $selected_options[$value['target_id']] = $value['target_id'];
       }
-      elseif (array_key_exists($value, $options)) { // With FAPI, it's not.
+      elseif (isset($options[$value])) { // With FAPI, it's not.
         $selected_options[$value] = $options[$value];
       }
     }
