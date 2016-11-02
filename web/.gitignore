@@ -6,4 +6,4 @@ sites/*/files
 sites/*/private
 
 # Ignore composer vendor folder
-../vendor/*
+../vendor/composer/*
