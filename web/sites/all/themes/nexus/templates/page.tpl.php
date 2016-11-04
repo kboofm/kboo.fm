@@ -97,8 +97,9 @@
         </nav>
       </div>
     </div>
-*/ ?>
-	<div class="slideshowareatitle"><h1>KBOO 2016 Report</h1></div>
+*/
+?>
+	<div class="slideshowareatitle"><h1><a href="/2016report">KBOO 2016 Report</a></h1></div>
   </header>
 
 
