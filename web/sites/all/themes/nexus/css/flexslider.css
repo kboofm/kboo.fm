@@ -167,9 +167,16 @@ img
 	z-index: 10;
 }
 
-header#masthead
+.page-2016report header#masthead,
+.page-2016report header#masthead a
 {
 	color: #fff;
+}
+
+header#masthead,
+header#masthead a
+{
+	color: #000;
 	z-index: 10;
 	font-family: serif;
 	display: block;
