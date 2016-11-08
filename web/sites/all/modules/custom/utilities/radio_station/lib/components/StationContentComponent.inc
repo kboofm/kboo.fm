@@ -51,7 +51,6 @@ class StationContentComponent extends BaseComponent {
       }
     }
 
-$loaded = FALSE;
     if (!$loaded) {
       $query = new StationContentQuery();
       $query->getAudio($count);
