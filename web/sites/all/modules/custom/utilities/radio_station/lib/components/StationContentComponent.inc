@@ -51,9 +51,11 @@ class StationContentComponent extends BaseComponent {
       }
     }
 
+$loaded = FALSE;
     if (!$loaded) {
       $query = new StationContentQuery();
       $query->getAudio($count);
+      $query->getContentInRange(strtotime('-2 years'), strtotime('now'));
       $result = $query->execute();
 
       $processor = new StationContentProcessor();
