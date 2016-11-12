@@ -341,7 +341,20 @@ function radio_station_preprocess_radio_template_program_content_list(
 
   $node = menu_get_object();
   $component = new StationContentComponent();
-  $pager = $component->getContentForProgram($node->nid, 1, 3);
+
+  #in effect skips over program-content-list.tpl.php but uses ProgramsResponse, seemingly redundant
+  #except that it provides a pager, to render our list.  See templates/program-content-list.tpl.php
+  #and /lib/responses/ProgramsResponse.inc
+  $p = drupal_get_path_alias();
+  $p = explode('/', $p);
+  $alias = $p[1];
+
+  $response = new ProgramsResponse();
+  $pager = $response->getContent($alias);
+  $vars['already_rendered'] = TRUE;
+
+  #this was the original pager, which fed a list to the template for rendering.
+#  $pager = $component->getContentForProgram($node->nid, 1, 3);
   $vars['pager'] = $pager;
 
   $vars['program'] = [
