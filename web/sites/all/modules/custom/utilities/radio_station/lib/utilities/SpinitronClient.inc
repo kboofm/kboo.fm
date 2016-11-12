@@ -154,6 +154,7 @@ class SpinPapiClient
             'StartHour' => 'h',
             'UserID' => 'u',
             'Num' => 'n',
+            'EndDate' => 'e',
         );
     }
 
