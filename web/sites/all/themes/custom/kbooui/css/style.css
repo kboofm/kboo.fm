@@ -7710,3 +7710,9 @@ h1.page-header {
 .cursor-pointer {
   cursor: pointer;
 }
+
+.page-node.node-type-program .content .field-name-field-hosted-by .field-label,
+.page-node.node-type-program .content .field-name-field-hosted-by .field-items
+{
+	float: none;
+}
