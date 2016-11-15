@@ -15,6 +15,7 @@ function kbooui_preprocess_search_result(&$variables) {
   $variables['info'] = '';
 }
 
+/*
 function kbooui_preprocess_html(&$variables)
 {
 	$cpv = views_get_page_view();
@@ -27,7 +28,9 @@ function kbooui_preprocess_html(&$variables)
 		$variables['theme_hook_suggestions'][] = 'html__notheme';
 	}
 }
+*/
 
+/*
 function kbooui_preprocess_page(&$variables)
 {
   // Move some variables to the top level for themer convenience and template cleanliness.
@@ -80,3 +83,4 @@ function kbooui_preprocess_page(&$variables)
 		$variables['theme_hook_suggestions'][] = 'page__notheme';
 	}
 }
+*/
