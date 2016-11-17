@@ -28,7 +28,29 @@
   </div>
 
 
-  <?php print theme('radio_template_episode_playlists'); ?>
+<?php
+	$ppl = TRUE;
+	if(isset($variables['field_produced_for'][0]['target_id']))
+	{
+		$pf = $variables['field_produced_for'][0]['target_id'];
+		$pf = node_load($pf);
+		if(isset($pf->field_streams['und'][0]['target_id']))
+		{
+			$stream = $pf->field_streams['und'][0]['target_id'];
+			#49107 is bootwo / podcasts
+			#44648 is kboo stream 1
+			#hardcoded now as these are our only choices
+			if($stream == 49107)
+			{
+				$ppl = FALSE;
+			}
+		}
+	}
+	if($ppl)
+	{
+		print theme('radio_template_episode_playlists');
+	}
+?>
 
 
   <?php print render($content['links']); ?>
