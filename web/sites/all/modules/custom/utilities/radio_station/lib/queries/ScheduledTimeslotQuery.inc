@@ -82,10 +82,15 @@ class ScheduledTimeslotQuery extends NodeQuery {
   }
 
 
-  public function getAnyAt($stream, array $timestamps) {
+  public function getAnyAt($stream, array $timestamps, $now = 0) {
+    if($now === 0)
+    {
+	$now = time();
+    }
     $this->addTag('radio_ScheduledTimeslotQuery_modifyGetAnyAt');
     NodeQuery::addParam('timestamps', $timestamps);
     $this->whereStream($stream);
+    $this->timeslotIsAfter($now);
     return $this;
   }
 
