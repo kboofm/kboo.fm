@@ -2631,6 +2631,7 @@ input[type="search"] {
 .checkbox label {
   min-height: 20px;
   padding-left: 20px;
+  margin-left: 20px;
   margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
@@ -7127,6 +7128,10 @@ div.addressfield-container-inline::after,
 .checkbox input[type="checkbox"],
 .checkbox-inline input[type="checkbox"] {
   margin-left: 0px;
+}
+.checkbox label.control-label input[type="checkbox"]
+{
+  margin-left: -20px;
 }
 .playlists {
   /* Smartphones (portrait and landscape) ----------- */
