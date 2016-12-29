@@ -21,7 +21,7 @@
 
       ListenNow.prototype.maxHeight = 840;
 
-      ListenNow.prototype.popupParams = "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes";
+      ListenNow.prototype.popupParams = "toolbar=yes,location=no,directories=no,status=no,menubar=yes,scrollbars=yes";
 
       ListenNow.prototype.bind = function() {
         this.bindItem('click', this.button, this.onClick);
