@@ -2,12 +2,16 @@
 
 class StationContentComponent extends BaseComponent {
 
-  public function getAudio($page) {
+  public function getAudio($page, $future = TRUE) {
     $per_page = 10;
     $start = ($page - 1) * $per_page;
 
     $query = new StationContentQuery();
     $query->getAudio();
+    if(!$future)
+    {
+      $query->getContentInRange(strtotime('-2 years'), strtotime('now'));
+    }
     $query->range($start, $per_page);
     $result = $query->execute();
     $nids = $this->getNids($result);
