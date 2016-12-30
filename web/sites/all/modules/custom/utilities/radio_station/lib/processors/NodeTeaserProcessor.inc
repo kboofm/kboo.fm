@@ -45,6 +45,7 @@ class NodeTeaserProcessor extends TemplateProcessor {
       $ends_different_day = false;
     }
 
+
     $node_teaser = [
       'title' => NodeTeaserProcessor::getTeaserTitle($entity),
       'summary' => NodeTeaserProcessor::getTeaserSummary($entity),
@@ -54,6 +55,14 @@ class NodeTeaserProcessor extends TemplateProcessor {
       'image' => $image,
       'ends_different_day' => $ends_different_day,
     ];
+
+    if($node->type == 'station_content' && !empty($node->field_audio_files))
+    {
+      $n = node_view($node);
+      $af = $n['field_audio_files'];
+      #$audio_files = field_view_field('node', $node, 'field_audio_files', 'full');
+      $node_teaser['audio_files'] = $af;
+    }
 
     $vars['node_teaser'] = $node_teaser;
     $vars['theme_hook_suggestions'][] = "node__teaser";

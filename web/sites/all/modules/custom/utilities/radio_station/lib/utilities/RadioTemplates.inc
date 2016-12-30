@@ -20,6 +20,7 @@ class RadioTemplates {
     $this->addTemplate('home');
     $this->addTemplate('listen_now');
     $this->addTemplate('news');
+    $this->addTemplate('profile_content_list');
     $this->addTemplate('program');
     $this->addTemplate('program_content');
     $this->addTemplate('program_content_list');

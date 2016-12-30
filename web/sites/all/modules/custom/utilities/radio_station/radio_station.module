@@ -371,7 +371,6 @@ function radio_station_preprocess_radio_template_program_content_list(
 function radio_station_preprocess_radio_template_profile_content_list(
   &$vars
 ) {
-
   $node = menu_get_object();
 
   #in effect skips over program-content-list.tpl.php but uses ProgramsResponse, seemingly redundant
@@ -481,7 +480,14 @@ function radio_station_get_topic_podcast($alias) {
 
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
-  $entity = entity_metadata_wrapper('node', $node);
+  if($node->type == 'person_profile' && isset($vars['audio_files_source']))
+  {
+    $entity = entity_metadata_wrapper('node', $vars['audio_files_source']);
+  }
+  else
+  {
+    $entity = entity_metadata_wrapper('node', $node);
+  }
 
   try {
     $audio_files = $entity->field_audio_files->value();

@@ -1,19 +1,18 @@
 <?php foreach ($audio_files as $index => $audio_file): ?>
-
   <script type="text/javascript">
    jQuery(document).ready(function () {
-     new App.Player.Audio("#station-audio-wrapper-<?php print $index; ?>");
+     new App.Player.Audio("#station-audio-wrapper-<?php print $audio_file['fid']; ?>");
     });
   </script>
 
 
-  <div id="station-audio-wrapper-<?php print $index; ?>" class="station-audio-player">
+  <div id="station-audio-wrapper-<?php print $audio_file['fid']; ?>" class="station-audio-player">
     <div class="jp-jplayer"
          data-endpoint="<?php print $audio_file['filepath']; ?>">
     </div>
 
 
-    <div id="station-audio-container-<?php print $index; ?>"
+    <div id="station-audio-container-<?php print $audio_file['fid']; ?>"
          class="jp-audio">
 
       <div class="jp-type-single">
