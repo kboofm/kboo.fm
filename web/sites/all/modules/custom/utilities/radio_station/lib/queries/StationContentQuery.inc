@@ -135,6 +135,17 @@ class StationContentQuery extends NodeQuery {
     return $this;
   }
 
+  public function getContentByHost($hp_id) {
+    $this->fieldCondition(
+      "field_hosted_by",
+      "target_id",
+      $hp_id,
+      "="
+    );
+
+    $this->fieldOrderBy("field_air_time", "value", "DESC");
+    return $this;
+  }
 
   public function getPodcastByProfile($target_nid) {
     $this->fieldCondition(

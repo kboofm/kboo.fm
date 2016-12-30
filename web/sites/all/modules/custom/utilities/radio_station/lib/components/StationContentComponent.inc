@@ -167,6 +167,35 @@ class StationContentComponent extends BaseComponent {
     return $pager;
   }
 
+  public function getContentForHost(
+    $hp_nid, #host profile nid
+    $page = 1,
+    $per_page = 10
+  ) {
+
+    $start = ($page - 1) * $per_page;
+
+    $query = new StationContentQuery();
+    $query->getContentByHost($hp_nid);
+    $query->range($start, $per_page);
+    $result = $query->execute();
+    $nids = $this->getNids($result);
+
+    $episodes = array_values(
+      node_load_multiple($nids)
+    );
+
+    $query = new StationContentQuery();
+    $query->getContentByHost($hp_nid);
+    $query->count();
+    $total_count = $query->execute();
+
+    $paginator = new RadioPaginator();
+    $pager = $paginator->paginate($page, $total_count);
+    $pager['items'] = $episodes;
+    return $pager;
+  }
+
 
   public function getUpcomingForProgram($program_nid, $count) {
     $query = new StationContentQuery();

@@ -340,7 +340,7 @@ function radio_station_preprocess_radio_template_program_content_list(
 ) {
 
   $node = menu_get_object();
-  $component = new StationContentComponent();
+#  $component = new StationContentComponent();
 
   #in effect skips over program-content-list.tpl.php but uses ProgramsResponse, seemingly redundant
   #except that it provides a pager, to render our list.  See templates/program-content-list.tpl.php
@@ -360,6 +360,38 @@ function radio_station_preprocess_radio_template_program_content_list(
   $vars['program'] = [
     'title' => $node->title,
   ];
+
+  if (count($pager['items']) > 0) {
+    $program_url = TemplateProcessor::getEntityUrl($node);
+    $vars['content_url'] = "$program_url/content";
+  }
+}
+
+
+function radio_station_preprocess_radio_template_profile_content_list(
+  &$vars
+) {
+
+  $node = menu_get_object();
+
+  #in effect skips over program-content-list.tpl.php but uses ProgramsResponse, seemingly redundant
+  #except that it provides a pager, to render our list.  See templates/program-content-list.tpl.php
+  #and /lib/responses/ProgramsResponse.inc
+  $p = $_GET['q'];
+  $p = explode('/', $p);
+  $nid = $p[1];
+
+  $response = new ProgramsResponse();
+  $pager = $response->getHostContent($nid);
+  $vars['already_rendered'] = TRUE;
+
+  $vars['pager'] = $pager;
+
+  #irrelevant
+  $vars['program'] = [
+    'title' => $node->title,
+  ];
+
 
   if (count($pager['items']) > 0) {
     $program_url = TemplateProcessor::getEntityUrl($node);
