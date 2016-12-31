@@ -85,7 +85,7 @@ endif;
 	#nested is here and audio files are here
 	#tell the field tpl that we have a nested audio situation -- ie we have to pass the audio source 
 	#to the preprocessor
-	if($variables['elements']['#nested_audio'])
+	if(isset($variables['elements']['#nested_audio']) && $variables['elements']['#nested_audio'])
 	{
 		$node_teaser['audio_files']['#nested_audio'] = TRUE;
 	}

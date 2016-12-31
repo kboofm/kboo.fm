@@ -480,7 +480,8 @@ function radio_station_get_topic_podcast($alias) {
 
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
-  if($node->type == 'person_profile' && isset($vars['audio_files_source']))
+  if((isset($vars['audio_files_source']) && isset($node) && is_object($node)) && ($node->type == 'person_profile' ||
+	$node->type == 'program'))
   {
     $entity = entity_metadata_wrapper('node', $vars['audio_files_source']);
   }

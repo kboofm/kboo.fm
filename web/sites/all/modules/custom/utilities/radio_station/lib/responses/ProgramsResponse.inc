@@ -22,6 +22,7 @@ class ProgramsResponse extends Response {
 
     $data = [
       'pager' => $pager,
+      'nested_audio' => TRUE,
     ];
     $this->addTemplateData($data);
     return $this->renderHtml();
