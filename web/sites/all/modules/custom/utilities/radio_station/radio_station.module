@@ -106,7 +106,7 @@ function radio_station_block_view($delta = '') {
  * Implements hook_flush_caches().
  */
 function radio_station_flush_caches() {
-  return ['cache_radio_station'];
+  return ['cache_radio_station', 'cache_radio_station_schedule'];
 }
 
 
