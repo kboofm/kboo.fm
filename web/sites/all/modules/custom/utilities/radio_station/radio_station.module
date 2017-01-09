@@ -485,6 +485,10 @@ function radio_station_preprocess_radio_template_audio_player(&$vars) {
   {
     $entity = entity_metadata_wrapper('node', $vars['audio_files_source']);
   }
+  else if(isset($vars['audio_files_source']) && $_GET['q'] == 'audio')
+  {
+    $entity = entity_metadata_wrapper('node', $vars['audio_files_source']);
+  }
   else
   {
     $entity = entity_metadata_wrapper('node', $node);

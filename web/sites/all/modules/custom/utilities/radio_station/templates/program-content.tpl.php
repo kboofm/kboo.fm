@@ -4,7 +4,7 @@
   foreach ($pager['items'] as $index => $item):
     $view = node_view($item, 'teaser');
     #this is set in $data in ProgramsResponse
-    if($variables['nested_audio'])
+    if(isset($variables['nested_audio']) && $variables['nested_audio'])
     {
       $view['#nested_audio'] = TRUE;
     }
