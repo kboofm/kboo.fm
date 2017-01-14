@@ -54,6 +54,15 @@ class RadioSpinitron {
     $connection = RadioSpinitron::getConnection();
     $songs = $connection->getSongs(null, $count);
 
+	$programs = array();
+	foreach($songs as $song)
+	{
+		if(!array_key_exists($song['ShowID'], $programs))
+		{
+			$show = $connection->getShowInfo($song['ShowID']);
+			$programs[$song['ShowID']] = $show['ShowName'];
+		}
+	}
     $songs = array_map(
       function ($item) {
         $date = $item['Date'];
@@ -66,6 +75,22 @@ class RadioSpinitron {
       },
       $songs
     );
+	$active_prog = NULL;
+	$dummy = array('SongID'=>'', 'Sequence'=>'', 'PlaylistID'=>'', 'ShowID'=>'', 'Date'=>'');
+	$dummies = array();
+	foreach($songs as $key=>$song)
+	{
+		if(!is_null($active_prog) && $active_prog != $song['ShowID'])
+		{
+			$dummies[] = $key;
+		}
+		$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
+		$active_prog = $song['ShowID'];
+	}
+	foreach($dummies as $k => $dumbspot)
+	{
+		array_splice($songs, $dumbspot+$k, 0, array($dummy));
+	}
 
     return $songs;
   }
@@ -117,6 +142,7 @@ class RadioSpinitron {
         return ($start >= $onair && $end <= $offair);
       }
     );
+
 
     foreach ($playlists as &$playlist) {
       RadioSpinitron::includeSongs($playlist);

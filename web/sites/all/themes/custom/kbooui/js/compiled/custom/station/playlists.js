@@ -41,6 +41,8 @@
         var template_data;
         template_data = [
           {
+            col: "Program"
+          }, {
             col: "Artist"
           }, {
             col: "Title"
@@ -65,6 +67,7 @@
         for (i = 0, len = response.length; i < len; i++) {
           track = response[i];
           template_data.push({
+            program: track["ProgramName"],
             artist: track["ArtistName"],
             title: track["SongName"],
             album: track["DiskName"],

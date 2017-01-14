@@ -10,6 +10,7 @@
 
       <tbody>
         <tr>
+          <td data-bind="program"></td>
           <td data-bind="artist"></td>
           <td data-bind="title"></td>
           <td data-bind="album"></td>
