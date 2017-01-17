@@ -7723,3 +7723,11 @@ h1.page-header {
 {
 	float: none;
 }
+
+.playlists table caption
+{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #555;
+  font-size: 1.3em;
+}

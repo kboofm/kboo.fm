@@ -46,6 +46,26 @@ class RadioSpinitron {
   }
 
 
+  public static function getLatestSongsTitles($count = null) {
+    if (!$count) {
+      $count = 99;
+    }
+
+    $connection = RadioSpinitron::getConnection();
+    $songs = $connection->getSongs(null, $count);
+	$programs = array();
+	foreach($songs as $song)
+	{
+		if(!array_key_exists($song['ShowID'], $programs))
+		{
+			$show = $connection->getShowInfo($song['ShowID']);
+			$programs[$song['ShowID']] = $show['ShowName'];
+		}
+	}
+    return $programs;
+
+  }
+
   public static function getLatestSongs($count = null) {
     if (!$count) {
       $count = 99;
@@ -80,16 +100,18 @@ class RadioSpinitron {
 	$dummies = array();
 	foreach($songs as $key=>$song)
 	{
-		if(!is_null($active_prog) && $active_prog != $song['ShowID'])
+		if(is_null($active_prog) || $active_prog != $song['ShowID'])
 		{
-			$dummies[] = $key;
+			$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID']);
+			$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
 		}
-		$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
 		$active_prog = $song['ShowID'];
 	}
 	foreach($dummies as $k => $dumbspot)
 	{
-		array_splice($songs, $dumbspot+$k, 0, array($dummy));
+		$dummy['thisprog'] = $dumbspot[1];
+		$dummy['thisprogid'] = $dumbspot[2];
+		array_splice($songs, $dumbspot[0]+$k, 0, array($dummy));
 	}
 
     return $songs;
