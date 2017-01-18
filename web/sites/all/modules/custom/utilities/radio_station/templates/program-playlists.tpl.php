@@ -8,8 +8,8 @@ $r = new RadioSpinitron();
 $progs = $r->getLatestSongsTitles();
 foreach($progs as $key=>$prog):
 ?>
+    <h3 class="over-table"><a href="<?php print "/" . drupal_get_path_alias("node/" . $prog[1]); ?>"><?php print $prog[0]; ?></a></h3>
     <table class="table table-striped table-condensed table-<?php print $key; ?>">
-      <caption data-bind="prog-<?php print $key; ?>"></caption>
       <thead>
         <tr>
           <th data-bind="col"></th>

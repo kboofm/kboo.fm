@@ -361,7 +361,7 @@ function radio_station_preprocess_radio_template_program_content_list(
     'title' => $node->title,
   ];
 
-  if (count($pager['items']) > 0) {
+  if (isset($pager['items']) && count($pager['items']) > 0) {
     $program_url = TemplateProcessor::getEntityUrl($node);
     $vars['content_url'] = "$program_url/content";
   }

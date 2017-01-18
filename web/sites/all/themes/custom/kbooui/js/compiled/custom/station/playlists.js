@@ -64,7 +64,7 @@
         }
         template_data = [];
         for (i = 0, len = response.length; i < len; i++) {
-	  var curkey, curprog;
+	  var curkey, curprog, curnid;
           track = response[i];
 	  if(typeof(track.thisprog) != 'undefined')
 	  {
@@ -78,11 +78,9 @@
 			template_data = [];
 		}
 
-		var titleobj = {};
 		curprog = track.thisprog;
 		curkey = track.thisprogid;
-		titleobj["prog-" + curkey] = curprog;
-		this.$el.find("table.table-"+curkey).render(titleobj);
+		curnid = track.thisprognid;
 		continue;
 	  }
 

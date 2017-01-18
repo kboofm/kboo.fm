@@ -59,7 +59,15 @@ class RadioSpinitron {
 		if(!array_key_exists($song['ShowID'], $programs))
 		{
 			$show = $connection->getShowInfo($song['ShowID']);
-			$programs[$song['ShowID']] = $show['ShowName'];
+
+			$nq = new NodeQuery();
+			$nq->EntityCondition('bundle', 'program');
+    			$nq->SearchTitle($show['ShowName']);
+			$res = $nq->execute();
+			$res = $res['node'];
+			$res = current($res);
+			$res = $res->nid;
+			$programs[$song['ShowID']] = array($show['ShowName'], $res);
 		}
 	}
     return $programs;
@@ -102,7 +110,14 @@ class RadioSpinitron {
 	{
 		if(is_null($active_prog) || $active_prog != $song['ShowID'])
 		{
-			$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID']);
+			$nq = new NodeQuery();
+			$nq->EntityCondition('bundle', 'program');
+    			$nq->SearchTitle($programs[$song['ShowID']]);
+			$res = $nq->execute();
+			$res = $res['node'];
+			$res = current($res);
+			$res = $res->nid;
+			$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID'], $res);
 			$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
 		}
 		$active_prog = $song['ShowID'];
@@ -111,6 +126,7 @@ class RadioSpinitron {
 	{
 		$dummy['thisprog'] = $dumbspot[1];
 		$dummy['thisprogid'] = $dumbspot[2];
+		$dummy['thisprognid'] = $dumbspot[3];
 		array_splice($songs, $dumbspot[0]+$k, 0, array($dummy));
 	}
 
