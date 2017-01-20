@@ -64,10 +64,13 @@ class RadioSpinitron {
 			$nq->EntityCondition('bundle', 'program');
     			$nq->SearchTitle($show['ShowName']);
 			$res = $nq->execute();
-			$res = $res['node'];
-			$res = current($res);
-			$res = $res->nid;
-			$programs[$song['ShowID']] = array($show['ShowName'], $res);
+			if(isset($res['node']))
+			{
+				$res = $res['node'];
+				$res = current($res);
+				$res = $res->nid;
+				$programs[$song['ShowID']] = array($show['ShowName'], $res);
+			}
 		}
 	}
     return $programs;
