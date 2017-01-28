@@ -77,7 +77,17 @@ class RadioSpinitron {
 
   }
 
-  public static function getLatestSongs($count = null) {
+  public static function sortSongsbyAirDate($songa, $songb)
+  {
+	if($songa['Timestamp'] == $songb['Timestamp'])
+	{
+		return 0;
+	}
+	return $songa['Timestamp'] < $songb['Timestamp'] ? -1 : 1;
+  }
+
+
+  public static function getLatestSongs($count = null, $sort = NULL) {
     if (!$count) {
       $count = 99;
     }
@@ -85,6 +95,7 @@ class RadioSpinitron {
     $connection = RadioSpinitron::getConnection();
     $songs = $connection->getSongs(null, $count);
 
+	usort($songs, 'RadioSpinitron::sortSongsbyAirDate');
 	$programs = array();
 	foreach($songs as $song)
 	{
@@ -117,11 +128,14 @@ class RadioSpinitron {
 			$nq->EntityCondition('bundle', 'program');
     			$nq->SearchTitle($programs[$song['ShowID']]);
 			$res = $nq->execute();
-			$res = $res['node'];
-			$res = current($res);
-			$res = $res->nid;
-			$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID'], $res);
-			$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
+			if(!empty($res))
+			{
+				$res = $res['node'];
+				$res = current($res);
+				$res = $res->nid;
+				$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID'], $res);
+				$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
+			}
 		}
 		$active_prog = $song['ShowID'];
 	}
