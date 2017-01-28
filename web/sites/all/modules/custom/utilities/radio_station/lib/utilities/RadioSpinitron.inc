@@ -46,6 +46,34 @@ class RadioSpinitron {
   }
 
 
+  public static function getProgNodeByTitle($title)
+  {
+	#this is a workaround for titles like "Swing 'n Country" that are in spinitron as 'Swing & Country"
+	$srch = trim($title);
+	$nq = new NodeQuery();
+	$nq->EntityCondition('bundle', 'program');
+	$nq->SearchTitle($srch);
+	$res = $nq->execute();
+	while(!isset($res['node']) && strlen($srch) > 0)
+	{
+		$srch = explode(' ', $srch);
+		array_pop($srch);
+		$srch = implode(' ', $srch);
+		$nq = new NodeQuery();
+		$nq->EntityCondition('bundle', 'program');
+		$nq->SearchTitle($srch);
+		$res = $nq->execute();
+	}
+	if(isset($res['node']))
+	{
+		$res = $res['node'];
+		$res = current($res);
+		$res = $res->nid;
+		return $res;
+	}
+	return NULL;
+  }
+
   public static function getLatestSongsTitles($count = null) {
     if (!$count) {
       $count = 99;
@@ -53,6 +81,7 @@ class RadioSpinitron {
 
     $connection = RadioSpinitron::getConnection();
     $songs = $connection->getSongs(null, $count);
+	usort($songs, 'RadioSpinitron::sortSongsbyAirDate');
 	$programs = array();
 	foreach($songs as $song)
 	{
@@ -60,15 +89,9 @@ class RadioSpinitron {
 		{
 			$show = $connection->getShowInfo($song['ShowID']);
 
-			$nq = new NodeQuery();
-			$nq->EntityCondition('bundle', 'program');
-    			$nq->SearchTitle($show['ShowName']);
-			$res = $nq->execute();
-			if(isset($res['node']))
+			$res = RadioSpinitron::getProgNodeByTitle($show['ShowName']);
+			if(isset($res))
 			{
-				$res = $res['node'];
-				$res = current($res);
-				$res = $res->nid;
 				$programs[$song['ShowID']] = array($show['ShowName'], $res);
 			}
 		}
@@ -124,10 +147,7 @@ class RadioSpinitron {
 	{
 		if(is_null($active_prog) || $active_prog != $song['ShowID'])
 		{
-			$nq = new NodeQuery();
-			$nq->EntityCondition('bundle', 'program');
-    			$nq->SearchTitle($programs[$song['ShowID']]);
-			$res = $nq->execute();
+			$res = RadioSpinitron::getProgNodeByTitle($programs[$song['ShowID']]);
 			if(!empty($res))
 			{
 				$res = $res['node'];
@@ -146,7 +166,6 @@ class RadioSpinitron {
 		$dummy['thisprognid'] = $dumbspot[3];
 		array_splice($songs, $dumbspot[0]+$k, 0, array($dummy));
 	}
-
     return $songs;
   }
 
