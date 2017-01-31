@@ -7731,3 +7731,8 @@ h1.page-header {
   color: #555;
   font-size: 1.3em;
 }
+
+li.container
+{
+	list-style-type: none;
+}
