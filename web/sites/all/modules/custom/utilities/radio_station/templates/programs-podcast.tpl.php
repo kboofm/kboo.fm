@@ -21,7 +21,7 @@
 
         <link><?php print $item['url']; ?></link>
 
-        <pubDate><?php print $item['published_date']; ?></pubDate>
+        <pubDate><?php print $item['other_pubdate']; ?></pubDate>
 
         <itunes:author><?php print $station_name ?></itunes:author>
 

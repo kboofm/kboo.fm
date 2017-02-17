@@ -109,6 +109,16 @@ class TemplateProcessor {
     );
   }
 
+  public static function getOtherPubDate($entity, $format) {
+    try {
+      $published_date = $entity->field_published_date->value();
+      $published_date = Helpers::toCarbonString($format, $published_date);
+    } catch (EntityMetadataWrapperException $e) {
+      $published_date = null;
+    }
+
+    return $published_date;
+  }
 
   public static function getPublishedDate($entity, $format) {
     try {

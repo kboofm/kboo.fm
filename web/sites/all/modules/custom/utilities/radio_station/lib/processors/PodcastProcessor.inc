@@ -68,6 +68,8 @@ class PodcastProcessor extends TemplateProcessor {
         "D, d M Y H:i:s O"
       );
 
+      $otherpubdate = NodeTeaserProcessor::getOtherPubDate($entity, "D, d M Y H:i:s O");
+
       $audio_file = null;
       try {
         $audio_files = $entity->field_audio_files->value();
@@ -103,6 +105,7 @@ class PodcastProcessor extends TemplateProcessor {
         'title' => $this->getTeaserTitle($entity),
         'image' => $image,
         'published_date' => $published_date,
+        'other_pubdate' => $otherpubdate,
         'audio_file' => $audio_file,
         'duration' => $audio['filesize'],
         'subtitle' => $subtitle,
