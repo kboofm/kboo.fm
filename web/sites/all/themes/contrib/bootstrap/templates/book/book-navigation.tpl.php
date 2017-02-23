@@ -31,6 +31,18 @@
  * @ingroup templates
  */
 ?>
+<?php
+	$j = menu_get_object();
+	if(isset($j->nid) && $j->nid == 819)
+	{
+		$maxricursione = variable_get('booktree_deep', 5) + 2;
+		$trimval = variable_get('booktree_trim', 35);
+		$str = booktree_mostra_figli($j->book['mlid'], $j->nid, $j->title, 1, $maxricursione, $trimval, $j->book['mlid']);
+		print $str;
+	}
+	else
+	{
+?>
 <?php if ($tree || $has_links): ?>
   <div id="book-navigation-<?php print $book_id; ?>" class="book-navigation">
     <?php print $tree; ?>
@@ -51,3 +63,6 @@
 
   </div>
 <?php endif; ?>
+<?php
+	}
+?>
