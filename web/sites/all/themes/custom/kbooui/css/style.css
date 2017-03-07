@@ -7131,7 +7131,8 @@ div.addressfield-container-inline::after,
 }
 .checkbox label.control-label input[type="checkbox"],
 #edit-submitted-beloved-community label.control-label input[type="radio"],
-#edit-submitted-primarily-serving-primary-focus label.control-label input[type="radio"]
+#edit-submitted-primarily-serving-primary-focus label.control-label input[type="radio"],
+#edit-submitted-category label.control-label input[type="radio"]
 {
   margin-left: -20px;
 }
