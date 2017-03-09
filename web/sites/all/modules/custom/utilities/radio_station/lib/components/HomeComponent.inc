@@ -30,7 +30,7 @@ class HomeComponent extends BaseComponent {
     $query->isPromoted();
     $query->propertyOrderBy('sticky', 'DESC');
     $query->addTag('radio_HomeComponent_orderBy');
-    $query->setLimit(10);
+    $query->setLimit(25);
     return $query;
   }
 
