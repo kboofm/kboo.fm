@@ -47,7 +47,7 @@
   <div id="book-navigation-<?php print $book_id; ?>" class="book-navigation">
     <?php print $tree; ?>
 
-    <?php if ($has_links): ?>
+    <?php if (FALSE && $has_links): ?>
     <ul class="pager clearfix">
       <?php if ($prev_url): ?>
         <li class="previous"><a href="<?php print $prev_url; ?>" class="page-previous" title="<?php print t('Go to previous page'); ?>"><?php print t('‹ ') . $prev_title; ?></a></li>
