@@ -656,7 +656,8 @@ class StationContentComponent extends BaseComponent {
 
     // field_published date
     $node->field_published_date[$lang][] = [
-      'value' => date('Y-m-d H:i:s', $schedule_item['start'] + 8*60*60)
+      //'value' => date('Y-m-d H:i:s', $schedule_item['start'] + 8*60*60)
+      'value' => gmdate('Y-m-d H:i:s', $schedule_item['start'])
     ];
 
     // field_produced_for
