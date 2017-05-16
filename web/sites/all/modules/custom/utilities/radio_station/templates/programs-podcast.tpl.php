@@ -4,13 +4,14 @@
   <?php $station_name = "KBOO Community Radio"; $station_email = "podcast@kboo.org";?>
 
   <channel>
-    <title><?php print $program['title']; ?></title>
+    <title>KBOO <?php print $program['title']; ?></title>
     <atom:link href="<?php print $program['podcast_url']; ?>" rel="self" type="application/rss+xml"/>
     <link><?php print $program['url']; ?></link>
 <description>KBOO Radio is a community-powered station in Portland Oregon</description>
     <language>en-us</language>
     <copyright>&#x2117; &amp; &#xA9; <?php print date('Y') . " " . $station_name; ?></copyright>
     <itunes:owner><itunes:email><?php print $station_email; ?></itunes:email></itunes:owner>
+    <itunes:author>KBOO Radio</itunes:author>
     <itunes:category text="News &amp; Politics"></itunes:category>
     <itunes:image href="http://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
     <itunes:explicit>yes</itunes:explicit>
