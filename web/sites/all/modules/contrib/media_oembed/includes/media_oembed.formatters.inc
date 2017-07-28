@@ -62,7 +62,8 @@ function media_oembed_file_formatter_oembed_settings($form, &$form_state, $setti
 function media_oembed_file_formatter_oembed_view($file, $display, $langcode) {
   $scheme = file_uri_scheme($file->uri);
 
-  if ($scheme == 'oembed') {
+  // WYSIWYG does not yet support non-images inside a running editor instance.
+  if ($scheme == 'oembed' && empty($file->override['wysiwyg'])) {
     $element = array(
       '#theme' => 'media_oembed',
       '#uri' => $file->uri,

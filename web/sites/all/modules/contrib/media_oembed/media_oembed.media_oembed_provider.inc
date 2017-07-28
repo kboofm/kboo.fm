@@ -100,11 +100,15 @@ https://ifttt.com/recipes/*';
   $provider->name = 'instagram';
   $provider->admin_title = 'Instagram';
   $provider->admin_description = 'Instagram is an online photo-sharing, video-sharing and social networking service that enables its users to take pictures and videos, apply digital filters to them, and share them on a variety of social networking services, such as Facebook, Twitter, Tumblr and Flickr.';
-  $provider->endpoint = 'http://api.instagram.com/oembed';
+  $provider->endpoint = 'https://api.instagram.com/oembed';
   $provider->scheme = 'http://instagram.com/p/*
 https://instagram.com/p/*
+http://www.instagram.com/p/*
+https://www.instagram.com/p/*
 http://instagr.am/p/*
-https://instagr.am/p/*';
+https://instagr.am/p/*
+http://www.instagr.am/p/*
+https://www.instagr.am/p/*';
   $providers['instagram'] = $provider;
 
   $provider = new stdClass();
@@ -128,6 +132,20 @@ https://www.nfb.ca/film/*';
   $provider->scheme = 'http://*
 https://*';
   $providers['noembed'] = $provider;
+
+  $provider = new stdClass();
+  $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */
+  $provider->api_version = 1;
+  $provider->name = 'podbean';
+  $provider->admin_title = 'Podbean';
+  $provider->admin_description = 'A better way to discover and play all your favorite podcasts anywhere, anytime.';
+  $provider->endpoint = 'https://www.podbean.com/media/oembed/';
+  $provider->scheme = 'http://www.podbean.com/media/share/*
+https://www.podbean.com/media/share/*
+http://www.podbean.com/media/player/*
+https://www.podbean.com/media/player/*
+';
+  $providers['podbean'] = $provider;
 
   $provider = new stdClass();
   $provider->disabled = FALSE; /* Edit this to true to make a default provider disabled initially */

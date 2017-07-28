@@ -81,6 +81,19 @@ endif;
       </div>
     <?php endif; ?>
 
+<?php
+	#nested is here and audio files are here
+	#tell the field tpl that we have a nested audio situation -- ie we have to pass the audio source 
+	#to the preprocessor
+	if(isset($variables['elements']['#nested_audio']) && $variables['elements']['#nested_audio'])
+	{
+		$node_teaser['audio_files']['#nested_audio'] = TRUE;
+	}
+	if(isset($node_teaser['audio_files']))
+	{
+		print render($node_teaser['audio_files']);
+	}
+?>
 
     <div class="teaser-summary">
       <?php print $node_teaser["summary"]; ?>

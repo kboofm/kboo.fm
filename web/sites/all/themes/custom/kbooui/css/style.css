@@ -2631,6 +2631,7 @@ input[type="search"] {
 .checkbox label {
   min-height: 20px;
   padding-left: 20px;
+  margin-left: 20px;
   margin-bottom: 0;
   font-weight: normal;
   cursor: pointer;
@@ -7128,6 +7129,13 @@ div.addressfield-container-inline::after,
 .checkbox-inline input[type="checkbox"] {
   margin-left: 0px;
 }
+.checkbox label.control-label input[type="checkbox"],
+#edit-submitted-beloved-community label.control-label input[type="radio"],
+#edit-submitted-primarily-serving-primary-focus label.control-label input[type="radio"],
+#edit-submitted-category label.control-label input[type="radio"]
+{
+  margin-left: -20px;
+}
 .playlists {
   /* Smartphones (portrait and landscape) ----------- */
   /* iPads (portrait and landscape) ----------- */
@@ -7709,4 +7717,23 @@ h1.page-header {
 }
 .cursor-pointer {
   cursor: pointer;
+}
+
+.page-node.node-type-program .content .field-name-field-hosted-by .field-label,
+.page-node.node-type-program .content .field-name-field-hosted-by .field-items
+{
+	float: none;
+}
+
+.playlists table caption
+{
+  padding-top: 12px;
+  padding-bottom: 12px;
+  color: #555;
+  font-size: 1.3em;
+}
+
+li.container
+{
+	list-style-type: none;
 }

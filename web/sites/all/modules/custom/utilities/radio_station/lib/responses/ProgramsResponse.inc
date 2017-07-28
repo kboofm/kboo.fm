@@ -22,6 +22,31 @@ class ProgramsResponse extends Response {
 
     $data = [
       'pager' => $pager,
+      'nested_audio' => TRUE,
+    ];
+    $this->addTemplateData($data);
+    return $this->renderHtml();
+  }
+
+  public function getHostContent($host_profile) {
+    $node = node_load($host_profile);
+    $entity = entity_metadata_wrapper('node', $node);
+
+    if (!$entity) {
+      return MENU_NOT_FOUND;
+    }
+
+    $this->template_name = 'radio_template_program_content';
+    $this->readParams();
+    $page = $this->getParam('page', 1);
+
+    $hp_id = $entity->getIdentifier();
+    $component = new StationContentComponent();
+    $pager = $component->getContentForHost($hp_id, $page);
+
+    $data = [
+      'pager' => $pager,
+      'nested_audio' => TRUE,
     ];
     $this->addTemplateData($data);
     return $this->renderHtml();

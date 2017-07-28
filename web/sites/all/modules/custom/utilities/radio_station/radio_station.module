@@ -106,7 +106,7 @@ function radio_station_block_view($delta = '') {
  * Implements hook_flush_caches().
  */
 function radio_station_flush_caches() {
-  return ['cache_radio_station'];
+  return ['cache_radio_station', 'cache_radio_station_schedule'];
 }
 
 
@@ -340,13 +340,57 @@ function radio_station_preprocess_radio_template_program_content_list(
 ) {
 
   $node = menu_get_object();
-  $component = new StationContentComponent();
-  $pager = $component->getContentForProgram($node->nid, 1, 3);
+#  $component = new StationContentComponent();
+
+  #in effect skips over program-content-list.tpl.php but uses ProgramsResponse, seemingly redundant
+  #except that it provides a pager, to render our list.  See templates/program-content-list.tpl.php
+  #and /lib/responses/ProgramsResponse.inc
+  $p = drupal_get_path_alias();
+  $p = explode('/', $p);
+  $alias = $p[1];
+
+  $response = new ProgramsResponse();
+  $pager = $response->getContent($alias);
+  $vars['already_rendered'] = TRUE;
+
+  #this was the original pager, which fed a list to the template for rendering.
+#  $pager = $component->getContentForProgram($node->nid, 1, 3);
   $vars['pager'] = $pager;
 
   $vars['program'] = [
     'title' => $node->title,
   ];
+
+  if (isset($pager['items']) && count($pager['items']) > 0) {
+    $program_url = TemplateProcessor::getEntityUrl($node);
+    $vars['content_url'] = "$program_url/content";
+  }
+}
+
+
+function radio_station_preprocess_radio_template_profile_content_list(
+  &$vars
+) {
+  $node = menu_get_object();
+
+  #in effect skips over program-content-list.tpl.php but uses ProgramsResponse, seemingly redundant
+  #except that it provides a pager, to render our list.  See templates/program-content-list.tpl.php
+  #and /lib/responses/ProgramsResponse.inc
+  $p = $_GET['q'];
+  $p = explode('/', $p);
+  $nid = $p[1];
+
+  $response = new ProgramsResponse();
+  $pager = $response->getHostContent($nid);
+  $vars['already_rendered'] = TRUE;
+
+  $vars['pager'] = $pager;
+
+  #irrelevant
+  $vars['program'] = [
+    'title' => $node->title,
+  ];
+
 
   if (count($pager['items']) > 0) {
     $program_url = TemplateProcessor::getEntityUrl($node);
@@ -436,7 +480,19 @@ function radio_station_get_topic_podcast($alias) {
 
 function radio_station_preprocess_radio_template_audio_player(&$vars) {
   $node = menu_get_object();
-  $entity = entity_metadata_wrapper('node', $node);
+  if((isset($vars['audio_files_source']) && isset($node) && is_object($node)) && ($node->type == 'person_profile' ||
+	$node->type == 'program'))
+  {
+    $entity = entity_metadata_wrapper('node', $vars['audio_files_source']);
+  }
+  else if(isset($vars['audio_files_source']) && $_GET['q'] == 'audio')
+  {
+    $entity = entity_metadata_wrapper('node', $vars['audio_files_source']);
+  }
+  else
+  {
+    $entity = entity_metadata_wrapper('node', $node);
+  }
 
   try {
     $audio_files = $entity->field_audio_files->value();

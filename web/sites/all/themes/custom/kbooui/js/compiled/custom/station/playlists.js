@@ -58,25 +58,47 @@
 
       Playlists.prototype.renderOnAir = function(response) {
         var i, len, template_data, track;
+	
         if (response.length === 0) {
           return;
         }
         template_data = [];
         for (i = 0, len = response.length; i < len; i++) {
+	  var curkey, curprog, curnid;
           track = response[i];
-          template_data.push({
-            artist: track["ArtistName"],
-            title: track["SongName"],
-            album: track["DiskName"],
-            date: track["Date"],
-            time: track["Timestamp"]
-          });
+	  if(typeof(track.thisprog) != 'undefined')
+	  {
+		if(typeof(curkey) != 'undefined')
+		{
+			this.$el.find("table.table-"+curkey + " tbody").render(template_data);
+			template_data = {
+			  throbber: ""
+			};
+			this.$el.render(template_data);
+			template_data = [];
+		}
+
+		curprog = track.thisprog;
+		curkey = track.thisprogid;
+		curnid = track.thisprognid;
+		continue;
+	  }
+
+	  var thisobj = {};
+	  thisobj["artist-"+curkey] = track["ArtistName"];
+	  thisobj["title-"+curkey] = track["SongName"];
+	  thisobj["album-"+curkey] = track["DiskName"];
+	  thisobj["date-"+curkey] = track["Date"];
+	  thisobj["time-"+curkey] = track["Timestamp"];
+          template_data.push(thisobj);
         }
-        this.$el.find("tbody").render(template_data);
+	this.$el.find("table.table-"+curkey + " tbody").render(template_data);
         template_data = {
           throbber: ""
         };
         this.$el.render(template_data);
+	template_data = [];
+
         return true;
       };
 

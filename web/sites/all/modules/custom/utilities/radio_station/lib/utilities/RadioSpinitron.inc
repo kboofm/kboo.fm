@@ -46,7 +46,71 @@ class RadioSpinitron {
   }
 
 
-  public static function getLatestSongs($count = null) {
+  public static function getProgNodeByTitle($title)
+  {
+	#this is a workaround for titles like "Swing 'n Country" that are in spinitron as 'Swing & Country"
+	$srch = trim($title);
+	$nq = new NodeQuery();
+	$nq->EntityCondition('bundle', 'program');
+	$nq->SearchTitle($srch);
+	$res = $nq->execute();
+	while(!isset($res['node']) && strlen($srch) > 0)
+	{
+		$srch = explode(' ', $srch);
+		array_pop($srch);
+		$srch = implode(' ', $srch);
+		$nq = new NodeQuery();
+		$nq->EntityCondition('bundle', 'program');
+		$nq->SearchTitle($srch);
+		$res = $nq->execute();
+	}
+	if(isset($res['node']))
+	{
+		$res = $res['node'];
+		$res = current($res);
+		$res = $res->nid;
+		return $res;
+	}
+	return NULL;
+  }
+
+  public static function getLatestSongsTitles($count = null) {
+    if (!$count) {
+      $count = 99;
+    }
+
+    $connection = RadioSpinitron::getConnection();
+    $songs = $connection->getSongs(null, $count);
+	usort($songs, 'RadioSpinitron::sortSongsbyAirDate');
+	$programs = array();
+	foreach($songs as $song)
+	{
+		if(!array_key_exists($song['ShowID'], $programs))
+		{
+			$show = $connection->getShowInfo($song['ShowID']);
+
+			$res = RadioSpinitron::getProgNodeByTitle($show['ShowName']);
+			if(isset($res))
+			{
+				$programs[$song['ShowID']] = array($show['ShowName'], $res);
+			}
+		}
+	}
+    return $programs;
+
+  }
+
+  public static function sortSongsbyAirDate($songa, $songb)
+  {
+	if($songa['Timestamp'] == $songb['Timestamp'])
+	{
+		return 0;
+	}
+	return $songa['Timestamp'] < $songb['Timestamp'] ? -1 : 1;
+  }
+
+
+  public static function getLatestSongs($count = null, $sort = NULL) {
     if (!$count) {
       $count = 99;
     }
@@ -54,6 +118,16 @@ class RadioSpinitron {
     $connection = RadioSpinitron::getConnection();
     $songs = $connection->getSongs(null, $count);
 
+	usort($songs, 'RadioSpinitron::sortSongsbyAirDate');
+	$programs = array();
+	foreach($songs as $song)
+	{
+		if(!array_key_exists($song['ShowID'], $programs))
+		{
+			$show = $connection->getShowInfo($song['ShowID']);
+			$programs[$song['ShowID']] = $show['ShowName'];
+		}
+	}
     $songs = array_map(
       function ($item) {
         $date = $item['Date'];
@@ -66,7 +140,32 @@ class RadioSpinitron {
       },
       $songs
     );
-
+	$active_prog = NULL;
+	$dummy = array('SongID'=>'', 'Sequence'=>'', 'PlaylistID'=>'', 'ShowID'=>'', 'Date'=>'');
+	$dummies = array();
+	foreach($songs as $key=>$song)
+	{
+		if(is_null($active_prog) || $active_prog != $song['ShowID'])
+		{
+			$res = RadioSpinitron::getProgNodeByTitle($programs[$song['ShowID']]);
+			if(!empty($res))
+			{
+				$res = $res['node'];
+				$res = current($res);
+				$res = $res->nid;
+				$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID'], $res);
+				$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
+			}
+		}
+		$active_prog = $song['ShowID'];
+	}
+	foreach($dummies as $k => $dumbspot)
+	{
+		$dummy['thisprog'] = $dumbspot[1];
+		$dummy['thisprogid'] = $dumbspot[2];
+		$dummy['thisprognid'] = $dumbspot[3];
+		array_splice($songs, $dumbspot[0]+$k, 0, array($dummy));
+	}
     return $songs;
   }
 
@@ -117,6 +216,7 @@ class RadioSpinitron {
         return ($start >= $onair && $end <= $offair);
       }
     );
+
 
     foreach ($playlists as &$playlist) {
       RadioSpinitron::includeSongs($playlist);

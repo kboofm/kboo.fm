@@ -23,7 +23,13 @@ class ScheduledTimeslotContentType {
     }
 
     $result = $query->execute();
-
+	if(!empty($result['node']))
+	{
+		foreach($result['node'] as $res)
+		{
+			drupal_set_message('Node <a href="/node/' . $res->nid . '">' . $res->nid . '</a> is already scheduled in that timeslot.', 'warning');
+		}
+	}
     return !empty($result);
   }
 }

@@ -1,0 +1,5 @@
+name = KBOO Program Episode or Audio form automated value switcher
+description = KBOO Program Episode or Audio form automated value switcher
+package = KBOO - Utilities
+core = 7.x
+version = 7.x-1.0

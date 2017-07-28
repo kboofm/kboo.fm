@@ -3,7 +3,7 @@
     button: ".launch-player"
     maxWidth: 768
     maxHeight: 840
-    popupParams: "toolbar=no,location=no,directories=no,status=no,menubar=no,scrollbars=yes"
+    popupParams: "toolbar=yes,location=no,directories=no,status=no,menubar=yes,scrollbars=yes"
 
     bind: ->
       @bindItem 'click', @button, @onClick

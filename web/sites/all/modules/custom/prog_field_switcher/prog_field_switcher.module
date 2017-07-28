@@ -1,0 +1,16 @@
+<?php
+
+function prog_field_switcher_form_alter($form, $form_state, $form_id)
+{
+	if($form_id == 'station_content_node_form')
+	{
+		$form['#attached']['js'][] = array(
+			'type' => 'file',
+			'data' => drupal_get_path('module', 'prog_field_switcher') . '/script.js',
+		);
+		drupal_process_attached($form);
+	}
+}
+
+
+?>

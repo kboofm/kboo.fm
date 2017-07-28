@@ -2,12 +2,16 @@
 
 class StationContentComponent extends BaseComponent {
 
-  public function getAudio($page) {
+  public function getAudio($page, $future = TRUE) {
     $per_page = 10;
     $start = ($page - 1) * $per_page;
 
     $query = new StationContentQuery();
     $query->getAudio();
+    if(!$future)
+    {
+      $query->getContentInRange(strtotime('-2 years'), strtotime('now'));
+    }
     $query->range($start, $per_page);
     $result = $query->execute();
     $nids = $this->getNids($result);
@@ -54,6 +58,7 @@ class StationContentComponent extends BaseComponent {
     if (!$loaded) {
       $query = new StationContentQuery();
       $query->getAudio($count);
+      $query->getContentInRange(strtotime('-2 years'), strtotime('now'));
       $result = $query->execute();
 
       $processor = new StationContentProcessor();
@@ -68,7 +73,7 @@ class StationContentComponent extends BaseComponent {
 
       cache_set($cache_key, $data, $cache_table);
     }
-    
+
     return $episodes;
   }
 
@@ -162,6 +167,35 @@ class StationContentComponent extends BaseComponent {
     return $pager;
   }
 
+  public function getContentForHost(
+    $hp_nid, #host profile nid
+    $page = 1,
+    $per_page = 10
+  ) {
+
+    $start = ($page - 1) * $per_page;
+
+    $query = new StationContentQuery();
+    $query->getContentByHost($hp_nid);
+    $query->range($start, $per_page);
+    $result = $query->execute();
+    $nids = $this->getNids($result);
+
+    $episodes = array_values(
+      node_load_multiple($nids)
+    );
+
+    $query = new StationContentQuery();
+    $query->getContentByHost($hp_nid);
+    $query->count();
+    $total_count = $query->execute();
+
+    $paginator = new RadioPaginator();
+    $pager = $paginator->paginate($page, $total_count);
+    $pager['items'] = $episodes;
+    return $pager;
+  }
+
 
   public function getUpcomingForProgram($program_nid, $count) {
     $query = new StationContentQuery();
@@ -208,8 +242,9 @@ class StationContentComponent extends BaseComponent {
 
 
   private function getPodcastForProgram($target_nid) {
+    $count = 10;
     $query = new StationContentQuery();
-    $query = $query->getPodcastByProgram($target_nid);
+    $query = $query->getPodcastByProgram($target_nid, $count);
     $result = $query->execute();
 
     $processor = new PodcastProcessor();
@@ -619,6 +654,11 @@ class StationContentComponent extends BaseComponent {
       'value2' => $schedule_item['finish'],
     ];
 
+    // field_published date
+    $node->field_published_date[$lang][] = [
+      //'value' => date('Y-m-d H:i:s', $schedule_item['start'] + 8*60*60)
+      'value' => gmdate('Y-m-d H:i:s', $schedule_item['start'])
+    ];
 
     // field_produced_for
     $node->field_produced_for[$lang][] = [

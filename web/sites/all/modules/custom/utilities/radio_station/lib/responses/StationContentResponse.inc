@@ -8,10 +8,11 @@ class StationContentResponse extends Response {
     $page = $this->getParam('page', 1);
 
     $component = new StationContentComponent();
-    $pager = $component->getAudio($page);
+    $pager = $component->getAudio($page, FALSE);
 
     $data = [
       'pager' => $pager,
+      'nested_audio' => TRUE,
     ];
     $this->addTemplateData($data);
     return $this->renderHtml();
