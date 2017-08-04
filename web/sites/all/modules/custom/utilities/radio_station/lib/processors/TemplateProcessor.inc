@@ -111,8 +111,17 @@ class TemplateProcessor {
 
   public static function getOtherPubDate($entity, $format) {
     try {
-      $published_date = $entity->field_published_date->value();
-      $published_date = Helpers::toCarbonString($format, $published_date);
+	if(empty($entity->field_published_date->value()))
+	{
+		$j = $entity->field_air_time->value();
+		$published_date = $j['value'];
+		$published_date = Helpers::toCarbonString($format, $published_date);
+	}
+	else
+	{
+		$published_date = $entity->field_published_date->value();
+		$published_date = Helpers::toCarbonString($format, $published_date);
+	}
     } catch (EntityMetadataWrapperException $e) {
       $published_date = null;
     }
