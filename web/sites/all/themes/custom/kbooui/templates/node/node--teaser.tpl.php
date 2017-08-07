@@ -59,7 +59,7 @@ endif;
               $node_teaser['endtime']
             );
 
-            print " - {$end_day} at {$end_day}";
+            print " - {$end_day} at {$end_time}";
 
           elseif ($start_time != $end_time):
             print " - {$end_time}";
