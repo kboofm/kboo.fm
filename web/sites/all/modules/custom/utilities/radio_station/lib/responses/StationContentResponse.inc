@@ -82,7 +82,6 @@ class StationContentResponse extends Response {
 
     $component = new StationContentComponent();
     $response = $component->getPodcast($target, $type);
-dpm($response);
 
     if ($type == "program") {
       $this->template_name = 'radio_template_programs_podcast';
