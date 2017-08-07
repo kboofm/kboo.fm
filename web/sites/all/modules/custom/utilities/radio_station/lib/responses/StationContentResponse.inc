@@ -22,7 +22,13 @@ class StationContentResponse extends Response {
   public function getAudioFeed() {
     $component = new StationContentComponent();
     $nids = $component->getAudioFeed();
-    node_feed($nids);
+
+	$processor = new PodcastProcessor();
+	$rss = $processor->process($nids);
+    $this->template_name = 'radio_template_programs_podcast';
+    $this->addTemplateData($rss);
+    $this->renderRss();
+#    node_feed($nids);
   }
 
 
@@ -76,6 +82,7 @@ class StationContentResponse extends Response {
 
     $component = new StationContentComponent();
     $response = $component->getPodcast($target, $type);
+dpm($response);
 
     if ($type == "program") {
       $this->template_name = 'radio_template_programs_podcast';
