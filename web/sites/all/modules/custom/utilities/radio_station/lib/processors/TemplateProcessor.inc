@@ -93,6 +93,7 @@ class TemplateProcessor {
       image_style_create_derivative(
         image_style_load($style),
         $image->uri,
+//	image_style_path($style, $image->uri)
         $styled_uri
       );
     }
