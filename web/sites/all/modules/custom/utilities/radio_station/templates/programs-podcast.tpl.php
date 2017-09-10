@@ -13,7 +13,7 @@
     <itunes:owner><itunes:email><?php print $station_email; ?></itunes:email></itunes:owner>
     <itunes:author>KBOO Radio</itunes:author>
     <itunes:category text="News &amp; Politics"></itunes:category>
-    <itunes:image href="http://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+    <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
     <itunes:explicit>yes</itunes:explicit>
 
     <?php foreach ($items as $item): ?>
@@ -28,7 +28,7 @@
 
         <itunes:summary><?php print $item['summary']; ?></itunes:summary>
 
-        <itunes:image href="http://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+        <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
 
         <enclosure url="<?php print $item['audio_file']; ?>" length="<?php print $item['duration']; ?>" type="audio/mpeg"/>
 
