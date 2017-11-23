@@ -68,7 +68,59 @@ class StationContentProcessor extends TemplateProcessor {
         'summary' => $summary,
       ];
     }
-
     return $episodes;
   }
+
+  public function processUpcomingSlot ($nids) {
+    $episodes = [];
+
+    foreach ($nids as $nid) {
+      $entity = entity_metadata_wrapper('node', $nid);
+
+      try {
+        $timeslot = $entity->field_timeslot->value();
+	foreach($timeslot as $slot)
+	{
+		if($slot['value'] < time())
+		{
+			continue;
+		}
+		else
+		{
+			$starttime = $slot['value'];
+			$endtime = $slot['value2'];
+			break;
+		}
+	}
+        $ymd_format = 'Y-m-d';
+        $start_day = Helpers::toCarbonString($ymd_format, $starttime);
+        $end_day = Helpers::toCarbonString($ymd_format, $endtime);
+        $ends_different_day = ($start_day != $end_day);
+      } catch (EntityMetadataWrapperException $e) {
+        $starttime = "";
+        $endtime = "";
+        $ends_different_day = false;
+      }
+
+/*
+      try {
+        $summary = $entity->field_short_description->value();
+        $summary = check_plain($summary);
+      } catch (EntityMetadataWrapperException $e) {
+        $summary = "";
+      }
+*/
+
+      $unwrapped = $entity->value();
+      $episodes[] = [
+#        'title' => $this->getTeaserTitle($entity),
+        'starttime' => $starttime,
+        'endtime' => $endtime,
+#        'ends_different_day' => $ends_different_day,
+#        'summary' => $summary,
+      ];
+    }
+    return $episodes;
+  }
+
 }

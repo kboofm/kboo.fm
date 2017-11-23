@@ -167,4 +167,28 @@ class ScheduledTimeslotQuery extends NodeQuery {
 
     $query->orderBy("{$timeslot_table}.{$timeslot_field}", $direction);
   }
+
+  public function getUpcomingByProgram($program_nid, $count = 1) {
+    $this->fieldCondition(
+      "field_timeslot",
+      "value",
+      time(),
+      ">"
+    );
+
+    $this->fieldCondition(
+      "field_show",
+      "target_id",
+      $program_nid,
+      "="
+    );
+
+    if ($count) {
+      $this->setLimit($count);
+    }
+
+    $this->fieldOrderBy("field_timeslot", "value", "ASC");
+    return $this;
+  }
+
 }

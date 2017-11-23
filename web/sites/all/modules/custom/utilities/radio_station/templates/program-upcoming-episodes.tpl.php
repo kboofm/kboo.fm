@@ -19,7 +19,9 @@ endif;
     <?php foreach ($upcoming as $index => $item): ?>
       <?php if ($item["starttime"]): ?>
         <div>
+	<?php if(isset($item['url'])): ?>
           <a href="<?php print $item["url"]; ?>">
+	<?php endif; ?>
             Airs at:
 
             <?php
@@ -52,7 +54,9 @@ endif;
               print " - {$end_time}";
             endif;
           ?>
+	<?php if(isset($item['url'])): ?>
           </a>
+	<?php endif; ?>
         </div>
       <?php endif; ?>
 

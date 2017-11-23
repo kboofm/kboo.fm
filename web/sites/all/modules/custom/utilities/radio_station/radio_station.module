@@ -229,7 +229,7 @@ function radio_station_get_audio_feed() {
   }
 
   $response = new StationContentResponse();
-  $response->getAudioFeed();
+  $response->getAudioFeed(TRUE); #true is for publiconly
 }
 
 

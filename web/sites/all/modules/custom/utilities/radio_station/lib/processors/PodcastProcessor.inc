@@ -51,6 +51,7 @@ class PodcastProcessor extends TemplateProcessor {
     $program = null;
     $items = [];
 
+	$channel_explicit = FALSE;
     foreach ($nids as $nid) {
       $entity = entity_metadata_wrapper('node', $nid);
 
@@ -100,6 +101,13 @@ class PodcastProcessor extends TemplateProcessor {
       $unwrapped = $entity->value();
       $entity_url = $this->getEntityUrl($unwrapped, 'node', true);
 
+	$explicit = $entity->field_explicit->value();
+	$explicit = isset($explicit) ? $explicit : 'yes';
+	if($explicit == 'yes')
+	{
+		$channel_explicit = TRUE;
+	}
+
       $items[] = [
         'url' => $entity_url,
         'title' => $this->getTeaserTitle($entity),
@@ -111,12 +119,14 @@ class PodcastProcessor extends TemplateProcessor {
         'subtitle' => $subtitle,
         'summary' => $summary,
         'description' => $description,
+        'explicit' => $explicit,
       ];
     }
 
     return [
       'program' => $program,
       'items' => $items,
+      'channel_explicit' => $channel_explicit,
     ];
   }
 }

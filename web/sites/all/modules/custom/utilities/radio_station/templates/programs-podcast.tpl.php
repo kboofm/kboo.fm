@@ -14,7 +14,7 @@
     <itunes:author>KBOO Radio</itunes:author>
     <itunes:category text="News &amp; Politics"></itunes:category>
     <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
-    <itunes:explicit>yes</itunes:explicit>
+    <itunes:explicit><?php print ($channel_explicit ? 'yes' : 'no'); ?></itunes:explicit>
 
     <?php foreach ($items as $item): ?>
       <item>
@@ -29,6 +29,8 @@
         <itunes:summary><?php print $item['summary']; ?></itunes:summary>
 
         <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+
+	<itunes:explicit><?php print $item['explicit']; ?></itunes:explicit>
 
         <enclosure url="<?php print $item['audio_file']; ?>" length="<?php print $item['duration']; ?>" type="audio/mpeg"/>
 

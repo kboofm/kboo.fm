@@ -32,9 +32,9 @@ class StationContentComponent extends BaseComponent {
   }
 
 
-  public function getAudioFeed() {
+  public function getAudioFeed($publiconly = FALSE) {
     $query = new StationContentQuery();
-    $query->getAudio();
+    $query->getAudio(null, $publiconly);
     $query->range(0, 10);
     $result = $query->execute();
     return $this->getNids($result);
@@ -202,6 +202,16 @@ class StationContentComponent extends BaseComponent {
     $query->getUpcomingByProgram($program_nid, $count);
     $result = $query->execute();
 
+	if(empty($this->getNids($result)))
+	{
+		#then no episodes created, so we need to search timeslots
+		$q = new ScheduledTimeslotQuery();
+		$q->getUpcomingByProgram($program_nid, 1);
+		$result = $q->execute();
+		$processor = new StationContentProcessor();
+		$ret = $processor->processUpcomingSlot($this->getNids($result));
+		return $ret;
+	}
     $processor = new StationContentProcessor();
     return $processor->processUpcoming(
       $this->getNids($result)
