@@ -19,9 +19,9 @@ class StationContentResponse extends Response {
   }
 
 
-  public function getAudioFeed() {
+  public function getAudioFeed($publiconly = FALSE) {
     $component = new StationContentComponent();
-    $nids = $component->getAudioFeed();
+    $nids = $component->getAudioFeed($publiconly);
 
 	$processor = new PodcastProcessor();
 	$rss = $processor->process($nids);
