@@ -280,6 +280,7 @@ function _date_repeat_calc($rrule, $start, $end, $exceptions, $timezone, $additi
         foreach ($direction_days as $day) {
           // Find the BYDAY date in the current month.
           if ($rrule['FREQ'] == 'MONTHLY') {
+            $current_day->errors = array();
             $current_day = date_repeat_set_month_day($current_day, $day['day'], $day['direction_count'], $day['direction'], $timezone, $modify_time);
           }
           else {
@@ -499,6 +500,9 @@ function date_repeat_add_dates(&$days, $current_day, $start_date, $end_date, $ex
       return FALSE;
     }
   }
+  if(!empty($current_day->errors)) {
+    return FALSE;
+  }
   // Don't add a day if it is already saved so we don't throw the count off.
   if (in_array($formatted, $days)) {
     return TRUE;
@@ -568,6 +572,7 @@ function date_repeat_set_month_day($date_in, $day, $count = 1, $direction = '+',
       return $date;
     }
   }
+  $date_in->errors[] = TRUE;
   return $date_in;
 }
 
