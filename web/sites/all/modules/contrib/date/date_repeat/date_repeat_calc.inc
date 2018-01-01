@@ -500,7 +500,7 @@ function date_repeat_add_dates(&$days, $current_day, $start_date, $end_date, $ex
       return FALSE;
     }
   }
-  if(!empty($current_day->errors)) {
+  if (!empty($current_day->errors)) {
     return FALSE;
   }
   // Don't add a day if it is already saved so we don't throw the count off.
