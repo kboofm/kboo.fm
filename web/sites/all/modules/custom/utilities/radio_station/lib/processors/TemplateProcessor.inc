@@ -87,7 +87,7 @@ class TemplateProcessor {
     $style = 'default_lead_1x',
     $absolute = false
 ) {
-    //$styled_uri = image_style_url($style, $image->uri);
+    $styled_uri = image_style_url($style, $image->uri);
 
     if (!file_exists($styled_uri)) {
       image_style_create_derivative(
