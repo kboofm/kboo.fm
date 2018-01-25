@@ -87,21 +87,40 @@ class TemplateProcessor {
     $style = 'default_lead_1x',
     $absolute = false
 ) {
-    $styled_uri = image_style_url($style, $image->uri);
+    //$styled_uri = image_style_url($style, $image->uri);
+    $k = parse_url($image->uri);
+    if($k['scheme'] != 'public')
+    {
+	//then we need to download it
+	$tmpfile = file_get_contents($image->uri);
+	$fname = explode('?', $image->filename);
+	$fname = $fname[0];
+	$tmpfile = file_save_data($tmpfile, 'public://' . $fname, FILE_EXISTS_RENAME);
+	$image->filename = $tmpfile->filename;
+	$tmp = $image->uri;
+	$image->uri = $tmpfile->uri;
+	$tmpfile->uri = $tmp;
+	$image->filemime = $tmpfile->filemime;
+	$image->filesize = $tmpfile->filesize;
+	//delete the temp file
+	file_delete($tmpfile);
+	//update the original with the downloaded one
+	file_save($image);
+    }
+    $styled_uri = image_style_path($style, $image->uri);
 
     if (!file_exists($styled_uri)) {
       image_style_create_derivative(
         image_style_load($style),
         $image->uri,
-	image_style_path($style, $image->uri)
-        //$styled_uri
+        $styled_uri
       );
     }
 
     file_create_url($styled_uri);
 
     if ($absolute) {
-      return $styled_uri;
+      return image_style_url($style, $image->uri);
     }
 
     return parse_url(

@@ -42,7 +42,7 @@ endif;
 
             print "{$start_day} at {$start_time}";
 
-            if ($item['ends_different_day']):
+            if (isset($item['ends_different_day']) && $item['ends_different_day']):
               $end_day = Helpers::toCarbonString(
                 $formats['date'],
                 $item['endtime']
@@ -62,7 +62,7 @@ endif;
 
 
       <div>
-        <?php print $item['summary']; ?>
+        <?php if(isset($item['summary'])) { print $item['summary']; } ?>
       </div>
 
 
