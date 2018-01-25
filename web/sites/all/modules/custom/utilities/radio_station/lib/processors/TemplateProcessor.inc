@@ -117,7 +117,7 @@ class TemplateProcessor {
       );
     }
 
-    file_create_url($styled_uri);
+    $styled_uri = file_create_url($styled_uri);
 
     if ($absolute) {
       return image_style_url($style, $image->uri);
