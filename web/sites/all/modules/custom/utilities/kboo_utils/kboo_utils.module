@@ -1,0 +1,72 @@
+<?php
+
+function kboo_utils_menu()
+{
+	$items = array(
+		'kboo/eafixer' => array(
+			'page callback' => 'kboo_utils_eafixer',
+			'access callback' => 'kboo_utils_perm',
+		),
+	);
+	return $items;
+}
+
+function kboo_utils_eafixer()
+{
+	$path = variable_get('file_public_path', conf_path() . '/files');
+	$path = DRUPAL_ROOT . '/' . $path . '/episode_audio';
+	$files = array();
+	if ($handle = opendir($path))
+	{
+		while (false !== ($entry = readdir($handle)))
+		{
+			if($entry == '.' || $entry == '..')
+			{
+				continue;
+			}
+			$files[] = $entry;
+		}
+
+		closedir($handle);
+	}
+	foreach($files as $file)
+	{
+		if(kboo_utils_chkfile($file))
+		{
+			continue;
+		}
+		else
+		{
+			$dest_uri = 'public://episode_audio/' . $file;
+			$sfile = file_save((object)array(
+				'filename' => $file,
+				'uri' => $dest_uri,
+				'status' => FILE_STATUS_PERMANENT,
+				'filemime' => file_get_mimetype($dest_uri),
+			));
+		}
+	}
+	return '';
+}
+
+function kboo_utils_chkfile($filename)
+{
+	$q = db_query("select * from file_managed where filename like ':s'", array(':s' => $filename));
+	if($r = $q->fetchObject())
+	{
+		return TRUE;
+	}
+	return false;
+}
+
+function kboo_utils_perm()
+{
+	global $user;
+	if($user->uid == 1 || $user->uid == 5872 || $user->uid == 88)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+
