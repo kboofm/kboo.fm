@@ -29,9 +29,15 @@ function kboo_utils_eafixer()
 
 		closedir($handle);
 	}
+	$allfiles = array();
+	$q = db_query("select distinct filename from file_managed");
+	while($r = $q->fetchObject())
+	{
+		$allfiles[] = $r->filename;
+	}
 	foreach($files as $file)
 	{
-		if(kboo_utils_chkfile($file))
+		if(in_array($file, $allfiles))
 		{
 			continue;
 		}
