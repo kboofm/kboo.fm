@@ -30,7 +30,7 @@ function kboo_utils_eafixer()
 		closedir($handle);
 	}
 	$allfiles = array();
-	$q = db_query("select distinct filename from file_managed");
+	$q = db_query("select distinct filename from file_managed where filename like '%.mp3'");
 	while($r = $q->fetchObject())
 	{
 		$allfiles[] = $r->filename;
@@ -41,15 +41,22 @@ function kboo_utils_eafixer()
 		{
 			continue;
 		}
-		else
+		else if(substr($file, -3) == 'mp3')
 		{
+			$q2 = db_query("select * from file_managed where uri like :s", array(':s' => '%' . $file . '%'));
+			if($r2 = $q2->fetchObject())
+			{
+				continue;
+			}
 			$dest_uri = 'public://episode_audio/' . $file;
 			$sfile = file_save((object)array(
 				'filename' => $file,
 				'uri' => $dest_uri,
 				'status' => FILE_STATUS_PERMANENT,
-				'filemime' => file_get_mimetype($dest_uri),
+				'filemime' => 'audio/mpeg',
+				'type' => 'audio',
 			));
+//dpm($sfile);
 		}
 	}
 	return '';
