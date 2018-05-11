@@ -59,7 +59,7 @@ class NodeTeaserProcessor extends TemplateProcessor {
     if($node->type == 'station_content' && !empty($node->field_audio_files))
     {
       $n = node_view($node);
-      $af = $n['field_audio_files'];
+      $af = isset($n['field_audio_files']) ? $n['field_audio_files'] : '';
       #$audio_files = field_view_field('node', $node, 'field_audio_files', 'full');
       $node_teaser['audio_files'] = $af;
     }
