@@ -43,7 +43,8 @@ $count = count($playlists) - 1;
     </table>
 
     <ul class="list-group visible-xs">
-      <?php foreach ($playlist['Songs'] as $song): ?>
+      <?php if(isset($playlist['Songs']) && is_array($playlist['Songs'])):
+	foreach ($playlist['Songs'] as $song): ?>
         <li class="list-group-item">
 
           <?php foreach($song_column_map as $human => $machine): ?>
@@ -63,7 +64,7 @@ $count = count($playlists) - 1;
           <?php endforeach; ?>
 
         </li>
-      <?php endforeach; ?>
+      <?php endforeach; endif; ?>
     </ul>
 
 
