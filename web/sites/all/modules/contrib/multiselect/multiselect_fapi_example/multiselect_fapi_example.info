@@ -5,9 +5,9 @@ core = "7.x"
 version = VERSION
 
 files[] = multiselect_fapi_example.module
-; Information added by Drupal.org packaging script on 2016-07-21
-version = "7.x-1.12"
+; Information added by Drupal.org packaging script on 2017-12-07
+version = "7.x-1.13"
 core = "7.x"
 project = "multiselect"
-datestamp = "1469113740"
+datestamp = "1512663211"
 
