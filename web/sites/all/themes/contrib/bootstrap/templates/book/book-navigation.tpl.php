@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Default theme implementation to navigate books.
@@ -31,18 +32,6 @@
  * @ingroup templates
  */
 ?>
-<?php
-	$j = menu_get_object();
-	if(isset($j->nid) && $j->nid == 819)
-	{
-		$maxricursione = variable_get('booktree_deep', 5) + 2;
-		$trimval = variable_get('booktree_trim', 35);
-		$str = booktree_mostra_figli($j->book['mlid'], $j->nid, $j->title, 1, $maxricursione, $trimval, $j->book['mlid']);
-		print $str;
-	}
-	else
-	{
-?>
 <?php if ($tree || $has_links): ?>
   <div id="book-navigation-<?php print $book_id; ?>" class="book-navigation">
     <?php print $tree; ?>
@@ -50,19 +39,16 @@
     <?php if ($has_links): ?>
     <ul class="pager clearfix">
       <?php if ($prev_url): ?>
-        <li class="previous"><a href="<?php print $prev_url; ?>" class="page-previous" title="<?php print t('Go to previous page'); ?>"><?php print t('‹ ') . $prev_title; ?></a></li>
+        <li class="previous"><a href="<?php print $prev_url; ?>" class="page-previous" title="<?php print t('Go to previous page'); ?>"><?php print t('‹ @label', array('@label' => $prev_title)); ?></a></li>
       <?php endif; ?>
       <?php if ($parent_url): ?>
         <li><a href="<?php print $parent_url; ?>" class="page-up" title="<?php print t('Go to parent page'); ?>"><?php print t('up'); ?></a></li>
       <?php endif; ?>
       <?php if ($next_url): ?>
-        <li class="next"><a href="<?php print $next_url; ?>" class="page-next" title="<?php print t('Go to next page'); ?>"><?php print $next_title . t(' ›'); ?></a></li>
+        <li class="next"><a href="<?php print $next_url; ?>" class="page-next" title="<?php print t('Go to next page'); ?>"><?php print t('@label ›', array('@label' => $next_title)); ?></a></li>
       <?php endif; ?>
     </ul>
     <?php endif; ?>
 
   </div>
 <?php endif; ?>
-<?php
-	}
-?>
