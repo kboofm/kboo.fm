@@ -11,6 +11,61 @@ function kboo_utils_menu()
 	return $items;
 }
 
+#this ideally will add files to episodes in the restored episodes, april 9-may 22rd or so, 2018
+#doing in a cron so i can manually run it, then discard.  I'll keep the code around but rename it
+#be sure to re-enable radio_station cron
+function __kboo_utils___c_ron()
+{
+	$stream = EStreams::One;
+	$scc = new StationContentComponent();
+	$episodes = $scc->getRippingEpisodes($stream, 100);
+	foreach($episodes as $key=>$episode)
+	{
+#kboo_episode.1.180409.0200.3886.64707.mp3 is for episode airing on 4/9/18 at 2am
+
+
+#eg:
+//kboo_episode.1.170201.0530.3959.55613.mp3
+		unset($airtime);
+		unset($airdate);
+		unset($fname);
+		if(empty($episode->field_audio_files->value()))
+		{
+			$airtime = $episode->field_air_time->value();
+			$airtime = $airtime['value'];
+			$airdate = date('ymd', $airtime);
+			$airtime = date('Hi', $airtime);
+			$fname = 'kboo_episode.1.' . $airdate . '.' . $airtime . '.';
+#		dpm($episode->nid->value());
+
+			$hits = FALSE;
+			$items = array();
+			$q = db_query("select * from file_managed where filename like :s", array(':s' => db_like($fname) . '%'));
+			while($r = $q->fetchObject())
+			{
+				$hits = TRUE;
+#dpm($r, 'search res');
+				unset($file);
+				$file = file_load($r->fid);
+#dpm($file, 'file');
+				$file = (array) $file;
+				$file['display'] = 1;
+				$items[] = $file;
+			}
+			if($hits)
+			{
+				$episode->field_audio_files->set($items);
+				entity_save('node', $episode);
+			}
+			
+#		dpm($fname);
+#		dpm($episode->field_air_time->value());
+#		dpm($episode->field_audio_files->value());
+		}
+	}
+return;
+}
+
 function kboo_utils_eafixer()
 {
 	$path = variable_get('file_public_path', conf_path() . '/files');
@@ -26,7 +81,6 @@ function kboo_utils_eafixer()
 			}
 			$files[] = $entry;
 		}
-
 		closedir($handle);
 	}
 	$allfiles = array();
