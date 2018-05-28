@@ -616,6 +616,10 @@ class StationContentComponent extends BaseComponent {
     $sub .= "-l {$length} -A -a {$filename}.mp3 -q -s -d {$ripdir} --quiet; ";
     $sub .= "rm {$ripdir}/{$filename}.cue";
     $command = "echo \"{$sub}\" | at {$atd_time}";
+#dpm($command, 'command');
+#$command .= ' 2>&1';
+#$j =    shell_exec($command);
+#dpm($j, 'shell exec');
     shell_exec($command);
 
     watchdog(

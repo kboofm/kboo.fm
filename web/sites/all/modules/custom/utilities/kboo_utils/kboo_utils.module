@@ -14,7 +14,7 @@ function kboo_utils_menu()
 #this ideally will add files to episodes in the restored episodes, april 9-may 22rd or so, 2018
 #doing in a cron so i can manually run it, then discard.  I'll keep the code around but rename it
 #be sure to re-enable radio_station cron
-function __kboo_utils___c_ron()
+function ___kboo_utils_cron()
 {
 	$stream = EStreams::One;
 	$scc = new StationContentComponent();
@@ -35,7 +35,13 @@ function __kboo_utils___c_ron()
 			$airtime = $airtime['value'];
 			$airdate = date('ymd', $airtime);
 			$airtime = date('Hi', $airtime);
-			$fname = 'kboo_episode.1.' . $airdate . '.' . $airtime . '.';
+
+			$prog = $episode->field_produced_for->value();
+			$prog = entity_metadata_wrapper('node', current($prog)->nid);
+dpm($prog->getIdentifier(), 'prog');
+			$numprefix = $prog->field_episode_record->value();
+dpm($numprefix, 'numprefix');
+			$fname = 'kboo_episode.' . $numprefix . '.' . $airdate . '.' . $airtime . '.';
 #		dpm($episode->nid->value());
 
 			$hits = FALSE;
@@ -63,7 +69,7 @@ function __kboo_utils___c_ron()
 #		dpm($episode->field_audio_files->value());
 		}
 	}
-return;
+	return;
 }
 
 function kboo_utils_eafixer()
