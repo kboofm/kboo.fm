@@ -7737,3 +7737,17 @@ li.container
 {
 	list-style-type: none;
 }
+
+/*
+	make the admin menu white on black
+*/
+
+.slicknav_menu
+{
+	background-color: #000;
+}
+
+.slicknav_menu span, .slicknav_menu a
+{
+	color: #fff;
+}

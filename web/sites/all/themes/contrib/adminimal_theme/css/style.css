@@ -3055,3 +3055,17 @@ body.adminimal-skin-alternative.adminimal-theme.page-admin-structure-features #e
 .fpa-container .dummy-checkbox {
   display: none !important;
 }
+
+/*
+	make the admin menu white on black
+*/
+
+.slicknav_menu
+{
+	background-color: #000;
+}
+
+.slicknav_menu span, .slicknav_menu a
+{
+	color: #fff;
+}
