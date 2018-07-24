@@ -4,7 +4,17 @@
   <?php $station_name = "KBOO Community Radio"; $station_email = "podcast@kboo.org";?>
 
   <channel>
-    <title>KBOO <?php /*print $program['title'];*/ ?>Community Radio</title>
+	<?php
+		if(current_path() == 'audio/feed'):
+	?>
+		<title>KBOO <?php /*print $program['title'];*/ ?>Community Radio</title>
+	<?php
+		else:
+	?>
+		<title><?php print $program['title'];?></title> 
+	<?php
+		endif;
+	?>
     <atom:link href="<?php print $program['podcast_url']; ?>" rel="self" type="application/rss+xml"/>
     <link><?php print $program['url']; ?></link>
 <description>KBOO Radio is a community-powered station in Portland Oregon</description>

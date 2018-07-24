@@ -55,9 +55,12 @@ class PodcastProcessor extends TemplateProcessor {
     foreach ($nids as $nid) {
       $entity = entity_metadata_wrapper('node', $nid);
 
+/*
       if (!$program) {
         $program = $this->processProgram($entity);
       }
+*/
+      $program = $this->processProgram($entity);
 
       $image = $this->getTeaserImage($entity);
       if ($image) {
@@ -124,8 +127,7 @@ class PodcastProcessor extends TemplateProcessor {
     }
 
     return [
-      'program' => $program,
-      'items' => $items,
+      'program' => $program, 'items' => $items,
       'channel_explicit' => $channel_explicit,
     ];
   }
