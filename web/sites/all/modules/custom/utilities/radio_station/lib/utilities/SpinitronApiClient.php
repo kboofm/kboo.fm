@@ -8,16 +8,16 @@ class SpinitronApiClient
      * @var array Cache expiration time per endpoint
      */
     protected static $cacheTimeout = [
-/*
         'personas' => 900,
         'shows' => 900,
         'playlists' => 300,
         'spins' => 30,
-*/
+/*
         'personas' => 1,
         'shows' => 1,
         'playlists' => 1,
         'spins' => 1,
+*/
     ];
 
     private $apiKey;

@@ -12,7 +12,7 @@ class RadioSpinitron2 {
 
 
   private static function includeSongs(&$playlist) {
-    $playlistID = $playlist['PlaylistID'];
+    $playlistID = $playlist['id'];
     $connection = RadioSpinitron2::getConnection();
     $playlist['Songs'] = $connection->getSongs($playlistID);
   }
@@ -32,11 +32,20 @@ class RadioSpinitron2 {
 
 
   public static function getLatestPlaylists($count = 10) {
-    $date = date(DATE_ISO8601, time());
+/*
+print_r('<pre>');
+print_r($count);
+print_r($date);
+print_r('</pre>');
+*/
+    $date = date(DATE_ISO8601);
 
     $connection = RadioSpinitron2::getConnection();
-    $playlists = $connection->getPlaylistsByDate($date, 7, $count);
+    $playlists = $connection->getPlaylistsByDate($date, $count);
 
+#print_r('<pre>');
+#print_r($date);
+#print_r('</pre>');
     if (!$playlists) {
       return [];
     }
@@ -89,7 +98,8 @@ class RadioSpinitron2 {
 		if(!array_key_exists($pl['show_id'], $programs))
 		{
 			$show = $connection->getShowInfo($pl['show_id']);
-			$programs[$pl['show_id']] = array($show['title'], $show);
+			$prognid = RadioSpinitron2::getProgNodeByTitle($show['title']);
+			$programs[$pl['show_id']] = array($show['title'], $show, $prognid);
 		}
 	}
 	return $programs;
@@ -106,13 +116,13 @@ class RadioSpinitron2 {
 
 
   public static function getLatestSongs($count = 99, $sort = NULL) {
-//ie spins
+	//ie spins
 	$date = date(DATE_ISO8601);
 	$connection = RadioSpinitron2::getConnection();
 	
 	$songs = $connection->getSongs(null, $count);
 
-	usort($episodes, 'RadioSpinitron2::sortSongsbyAirDate');
+	usort($songs, 'RadioSpinitron2::sortSongsbyAirDate');
 	//in spinitron api v2:
 	//a "playlist" is an episode, matches to program by "show_id"
 	//a show is a program
@@ -125,12 +135,12 @@ class RadioSpinitron2 {
 	foreach($songs as $k=>$song)
 	{
 		$pl = $connection->getPlayListInfo($song['playlist_id']);
+		$show = $connection->getShowInfo($pl['show_id']);
 		$songs[$k]['show_id'] = $pl['show_id'];
+		$songs[$k]['show_title'] = $show['title'];
 		if(!array_key_exists($pl['show_id'], $programs))
 		{
-			$show = $connection->getShowInfo($pl['show_id']);
 			$programs[$pl['show_id']] = $show['title'];
-			$songs[$k]['show_id'] = $show['title'];
 		}
 	}
 	//need Artist, Title, Album, Date, Time
@@ -141,47 +151,42 @@ class RadioSpinitron2 {
         $item['Timestamp'] = date("g:ia", $date);
         $item['Time'] = date("g:ia", $date);
 	$item['ShowID'] = $item['show_id'];
-#	$item['PlaylistID'] = $item['id'];
 	$item['Title'] = $item['song'];
 	$item['SongName'] = $item['song'];
 	$item['Artist'] = $item['artist'];
 	$item['ArtistName'] = $item['artist'];
 	$item['Album'] = $item['release'];
 	$item['DiskName'] = $item['release'];
-#	$item['thisprog'] = $item['show_id'];
-#	$item['thisprogid'] = $item['show_id'];
         return $item;
       },
       $songs
     );
-#dpm($songs, 'songsaltered');
 	$active_prog = NULL;
 	$dummy = array('SongID'=>'', 'Sequence'=>'', 'PlaylistID'=>'', 'ShowID'=>'', 'Date'=>'', 'Title'=>'', 'Album'=>'', 'Artist'=>'');
 	$dummies = array();
 	foreach($songs as $key=>$song)
 	{
-		if(is_null($active_prog) || $active_prog != $song['ShowID'])
+		if(is_null($active_prog) || $active_prog != $song['show_id'])
 		{
-			$res = RadioSpinitron2::getProgNodeByTitle($programs[$song['ShowID']]);
+			$res = RadioSpinitron2::getProgNodeByTitle($programs[$song['show_id']]);
 			if(!empty($res))
 			{
-				$res = $res['node'];
-				$res = current($res);
-				$res = $res->nid;
-				$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID'], $res);
-				$song[$key]['ProgramName'] = $programs[$song['ShowID']];
+				#$res = $res['node'];
+				#$res = current($res);
+				#$res = $res->nid;
+				$dummies[] = array($key, $programs[$song['show_id']], $song['show_id'], $res);
+				$songs[$key]['show_title'] = $programs[$song['show_id']];
 			}
 		}
-		$active_prog = $song['ShowID'];
+		$active_prog = $song['show_id'];
 	}
 	foreach($dummies as $k => $dumbspot)
 	{
 		$dummy['thisprog'] = $dumbspot[1];
 		$dummy['thisprogid'] = $dumbspot[2];
 		$dummy['thisprognid'] = $dumbspot[3];
-		array_splice($song, $dumbspot[0]+$k, 0, array($dummy));
+		array_splice($songs, $dumbspot[0]+$k, 0, array($dummy));
 	}
-#dpm($songs, 'songstoreturn');
     return $songs;
   }
 
@@ -204,8 +209,8 @@ class RadioSpinitron2 {
     $field_air_time = $wrapped_node->field_air_time->value();
 
     $connection = RadioSpinitron2::getConnection();
-    $date = date('Y-m-d', $field_air_time['value']);
-    $playlists = $connection->getPlaylistsByDate($date);
+    $date = date(DATE_ISO8601, $field_air_time['value']);
+    $playlists = $connection->getPlaylistsByDate($date, 10);
 
     if (!$playlists) {
       return [];
@@ -218,10 +223,12 @@ class RadioSpinitron2 {
         $start = $field_air_time['value'];
         $end = $field_air_time['value2'];
 
-        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        #$onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $onair = "{$item['start']}";
         $onair = strtotime($onair);
 
-        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        #$offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $offair = "{$item['end']}";
         $offair = strtotime($offair);
 
         if ($offair < $onair) {

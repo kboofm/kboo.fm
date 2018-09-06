@@ -120,13 +120,9 @@ class Spinitron2 {
    * @throws SpinPapiException on error response if $this->onError is 'throw'
    */
   protected function runQuery($query, $fetch = false) {
-#dpm('in runquery');
-#dpm($query, 'query');
     $endpoint = $query['method'];
     unset($query['endpoint']);
 
-#dpm($endpoint, 'ep');
-#dpm($query, 'q');
 	if($fetch)
 	{
 		$response = $this->getClient()->fetch($endpoint, $query['id']);
@@ -135,7 +131,6 @@ class Spinitron2 {
 	{
 		$response = $this->getClient()->search($endpoint, $query);
 	}
-#dpm($response, 'response1');
 
     if (!$fetch && isset($response['items'])) {
       return $response['items'];
@@ -192,15 +187,8 @@ class Spinitron2 {
    * @return array
    * @throws \SpinPapiException
    */
-  public function getSongs($playlistId = NULL, $num = NULL) {
-#dpm('in getsongs');
-#dpm($playlistId, 'plid');
-#dpm($num, 'num');
+  public function getSongs($playlistId = NULL, $num = 99) {
 	$parms = array('method' => 'spins');
-	if(empty($num))
-	{
-		$num = 99;
-	}
 	$parms['count'] = $num;
 	if(!empty($playlistId))
 	{
@@ -259,7 +247,7 @@ all dates in new api are datetimes
 YYYY-MM-DDTHH:MM:SS which is defined as DATE_ISO8601
 
    */
-  public function getPlaylistsByDate($date, $count, $ndays = NULL) {
+  public function getPlaylistsByDate($date, $count = 10, $showid = NULL, $ndays = NULL) {
 	$start = '';
 	if(isset($ndays))
 	{
@@ -269,9 +257,10 @@ YYYY-MM-DDTHH:MM:SS which is defined as DATE_ISO8601
     return $this->runQuery(
       [
         'method' => 'playlists',
-        'start' => $start,
-        'end' => $date,
 	'count' => $count,
+        'end' => $date,
+	'show_id' => $showid,
+        'start' => $start,
       ]
     );
   }
@@ -285,13 +274,13 @@ YYYY-MM-DDTHH:MM:SS which is defined as DATE_ISO8601
   public function getPlaylistsByShow($showId) {
     return $this->runQuery(
       [
-        'method' => 'getPlaylistsInfo',
+        'method' => 'playlists',
         'UserID' => NULL,
         'ShowID' => $showId,
         'NDays' => NULL,
         'EndDate' => NULL,
         'Num' => 99,
-      ]
+      ], true
     );
   }
 
