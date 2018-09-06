@@ -8,15 +8,16 @@ class SpinitronApiClient
      * @var array Cache expiration time per endpoint
      */
     protected static $cacheTimeout = [
+/*
         'personas' => 900,
         'shows' => 900,
         'playlists' => 300,
         'spins' => 30,
-        /*'personas' => 1,
+*/
+        'personas' => 1,
         'shows' => 1,
         'playlists' => 1,
         'spins' => 1,
-*/
     ];
 
     private $apiKey;
@@ -117,6 +118,8 @@ class SpinitronApiClient
         ]);
 #dpm($url, 'url');
         $fullUrl = $this->apiBaseUrl . $url;
+#dpm($fullUrl);
+/*
 	if(strpos($fullUrl, '?') === FALSE)
 	{
 		//then we're not doing a query...
@@ -126,15 +129,33 @@ class SpinitronApiClient
 	{
 		$fullUrl .= '&access-token=' . $this->apiKey;
 	}
+*/
 
 #dpm($fullUrl, 'fullurl');
 //	$stream = drupal_http_request($fullUrl, ['headers'=>['header'=>'Authorization: Bearer ' . $this->apiKey, 'User-Agent'=>'Mozilla/5.0 Spinitron v2 API client']]);
+	$c = curl_init();
+	curl_setopt($c, CURLOPT_HTTPHEADER, array('Authorization: Bearer ' . $this->apiKey));
+	curl_setopt($c, CURLOPT_USERAGENT, 'Mozilla/5.0 Spinitron v2 API client');
+	curl_setopt($c, CURLOPT_RETURNTRANSFER, true);
+	curl_setopt($c, CURLOPT_URL, $fullUrl);
+	$res = curl_exec($c);
+	curl_close($c);
+        if ($res === false) {
+            throw new Exception('Error requesting ' . $fullUrl . ': cUrl call failed', true);
+        }
+	return $res;
+
+	
+
+
+/*
         $stream = fopen($fullUrl, 'rb', false, $context);
         if ($stream === false) {
             throw new Exception('Error opening stream for ' . $fullUrl . ' with context ' . $context);
         }
 
         $response = stream_get_contents($stream);
+*/
         if ($response === false) {
             throw new Exception('Error requesting ' . $fullUrl . ': ' . var_export(stream_get_meta_data($stream), true));
         }

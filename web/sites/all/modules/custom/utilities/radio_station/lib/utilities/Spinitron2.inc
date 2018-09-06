@@ -1,6 +1,6 @@
 <?php
 
-class SpinPapiException extends Exception {}
+#class SpinPapiException extends Exception {}
 
 
 class Spinitron2 {
@@ -122,7 +122,7 @@ class Spinitron2 {
   protected function runQuery($query, $fetch = false) {
 #dpm('in runquery');
 #dpm($query, 'query');
-    $endpoint = $query['endpoint'];
+    $endpoint = $query['method'];
     unset($query['endpoint']);
 
 #dpm($endpoint, 'ep');
@@ -196,7 +196,7 @@ class Spinitron2 {
 #dpm('in getsongs');
 #dpm($playlistId, 'plid');
 #dpm($num, 'num');
-	$parms = array('endpoint' => 'playlists');
+	$parms = array('method' => 'spins');
 	if(empty($num))
 	{
 		$num = 99;
@@ -221,7 +221,8 @@ class Spinitron2 {
   public function getCurrentPlaylist() {
     $current_id = $this->runQuery(
       [
-        'method' => 'getCurrentPlaylist',
+        'method' => 'playlists',
+	'end' => date(DATE_ISO8601),
       ]
     );
 
@@ -241,9 +242,9 @@ class Spinitron2 {
   public function getPlaylistInfo($playlistId = NULL) {
     return $this->runQuery(
       [
-        'method' => 'getPlaylistInfo',
-        'PlaylistID' => $playlistId,
-      ]
+        'method' => 'playlists',
+        'id' => $playlistId,
+      ], true
     );
   }
 
@@ -252,16 +253,25 @@ class Spinitron2 {
    * Wrapper for SpinPapi getPlaylistsInfo method.
    *
    * @see SpinPapi API Specification https://bitbucket.org/spinitron/documentation
+
+https://spinitron.github.io/v2api/#/ for api v2
+all dates in new api are datetimes
+YYYY-MM-DDTHH:MM:SS which is defined as DATE_ISO8601
+
    */
-  public function getPlaylistsByDate($date, $ndays = 1) {
+  public function getPlaylistsByDate($date, $count, $ndays = NULL) {
+	$start = '';
+	if(isset($ndays))
+	{
+		$start = strtotime($date) - $ndays*24*60*60; 
+		$start = date(DATE_ISO8601, $start);
+	}
     return $this->runQuery(
       [
-        'method' => 'getPlaylistsInfo',
-        'UserID' => NULL,
-        'ShowID' => NULL,
-        'NDays' => $ndays,
-        'EndDate' => $date,
-        'Num' => NULL,
+        'method' => 'playlists',
+        'start' => $start,
+        'end' => $date,
+	'count' => $count,
       ]
     );
   }
@@ -318,7 +328,7 @@ class Spinitron2 {
     return $this->runQuery(
       [
         'id' => $showId,
-	'endpoint' => 'shows'
+	'method' => 'shows'
       ], true
     );
   }

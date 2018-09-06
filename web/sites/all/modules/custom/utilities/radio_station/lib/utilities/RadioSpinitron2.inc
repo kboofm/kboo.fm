@@ -31,11 +31,11 @@ class RadioSpinitron2 {
   }
 
 
-  public static function getLatestPlaylists($count) {
-    $date = date("Y-m-d", time());
+  public static function getLatestPlaylists($count = 10) {
+    $date = date(DATE_ISO8601, time());
 
     $connection = RadioSpinitron2::getConnection();
-    $playlists = $connection->getPlaylistsByDate($date, 7);
+    $playlists = $connection->getPlaylistsByDate($date, 7, $count);
 
     if (!$playlists) {
       return [];
@@ -73,13 +73,10 @@ class RadioSpinitron2 {
 	return NULL;
   }
 
-  public static function getLatestSongsTitles($count = null) {
-    if (!$count) {
-      $count = 99;
-    }
+  public static function getLatestSongsTitles($count = 99) {
 
-    $connection = RadioSpinitron2::getConnection();
-    $songs = $connection->getSongs(null, $count);
+	$connection = RadioSpinitron2::getConnection();
+	$songs = $connection->getSongs(null, $count);
 	usort($songs, 'RadioSpinitron2::sortSongsbyAirDate');
 	//in spinitron api v2:
 	//a "playlist" is an episode, matches to program by "show_id"
@@ -88,19 +85,14 @@ class RadioSpinitron2 {
 	$programs = array();
 	foreach($songs as $song)
 	{
-		if(!array_key_exists($song['show_id'], $programs))
+		$pl = $connection->getPlayListInfo($song['playlist_id']);
+		if(!array_key_exists($pl['show_id'], $programs))
 		{
-			$show = $connection->getShowInfo($song['show_id']);
-
-			$res = RadioSpinitron2::getProgNodeByTitle($show['title']);
-			if(isset($res))
-			{
-				$programs[$song['show_id']] = array($show['title'], $res);
-			}
+			$show = $connection->getShowInfo($pl['show_id']);
+			$programs[$pl['show_id']] = array($show['title'], $show);
 		}
 	}
-#dpm($programs, 'programs');
-    return $programs;
+	return $programs;
   }
 
   public static function sortSongsbyAirDate($songa, $songb)
@@ -113,46 +105,51 @@ class RadioSpinitron2 {
   }
 
 
-  public static function getLatestSongs($count = null, $sort = NULL) {
-    if (!$count) {
-      $count = 99;
-    }
+  public static function getLatestSongs($count = 99, $sort = NULL) {
+//ie spins
+	$date = date(DATE_ISO8601);
+	$connection = RadioSpinitron2::getConnection();
+	
+	$songs = $connection->getSongs(null, $count);
 
-    $connection = RadioSpinitron2::getConnection();
-    $songs = $connection->getSongs(null, $count);
-#dpm($songs, 'songs');
-	usort($songs, 'RadioSpinitron2::sortSongsbyAirDate');
+	usort($episodes, 'RadioSpinitron2::sortSongsbyAirDate');
 	//in spinitron api v2:
 	//a "playlist" is an episode, matches to program by "show_id"
 	//a show is a program
 	//a spin is the actual thing played during an episode
-	//$songs below is an array containing episodes ie spinitron playlists
+
+	//songs is spins.  a spin only has a playlist_id reference, so we have to indirectly
+	//get to show_id to get the program name ie show & showid
 	$programs = array();
-	foreach($songs as $song)
+	$pls = array(); //playlists
+	foreach($songs as $k=>$song)
 	{
-		if(!array_key_exists($song['show_id'], $programs))
+		$pl = $connection->getPlayListInfo($song['playlist_id']);
+		$songs[$k]['show_id'] = $pl['show_id'];
+		if(!array_key_exists($pl['show_id'], $programs))
 		{
-			$show = $connection->getShowInfo($song['show_id']);
-#dpm($show, 'showinfo');
-			$programs[$song['show_id']] = $show['title'];
+			$show = $connection->getShowInfo($pl['show_id']);
+			$programs[$pl['show_id']] = $show['title'];
+			$songs[$k]['show_id'] = $show['title'];
 		}
 	}
-#dpm($songs, 'songsorig');
 	//need Artist, Title, Album, Date, Time
     $songs = array_map(
       function ($item) {
-        $date = strtotime($item['start']); //format is YYYY-MM-DDTHH:MM:SS+OOOO
+        $date = strtotime($item['start']); //format is DATE_ISO8601
         $item['Date'] = date("m/j", $date);
         $item['Timestamp'] = date("g:ia", $date);
         $item['Time'] = date("g:ia", $date);
 	$item['ShowID'] = $item['show_id'];
-	$item['PlaylistID'] = $item['id'];
-	$item['Title'] = $item['title'];
-	$item['SongName'] = $item['title'];
-	$item['Artist'] = 'test artist';
-	$item['ArtistName'] = 'test artist';
-	$item['Album'] = 'test album';
-	$item['DiskName'] = 'test album';
+#	$item['PlaylistID'] = $item['id'];
+	$item['Title'] = $item['song'];
+	$item['SongName'] = $item['song'];
+	$item['Artist'] = $item['artist'];
+	$item['ArtistName'] = $item['artist'];
+	$item['Album'] = $item['release'];
+	$item['DiskName'] = $item['release'];
+#	$item['thisprog'] = $item['show_id'];
+#	$item['thisprogid'] = $item['show_id'];
         return $item;
       },
       $songs
@@ -172,7 +169,7 @@ class RadioSpinitron2 {
 				$res = current($res);
 				$res = $res->nid;
 				$dummies[] = array($key, $programs[$song['ShowID']], $song['ShowID'], $res);
-				$songs[$key]['ProgramName'] = $programs[$song['ShowID']];
+				$song[$key]['ProgramName'] = $programs[$song['ShowID']];
 			}
 		}
 		$active_prog = $song['ShowID'];
@@ -182,7 +179,7 @@ class RadioSpinitron2 {
 		$dummy['thisprog'] = $dumbspot[1];
 		$dummy['thisprogid'] = $dumbspot[2];
 		$dummy['thisprognid'] = $dumbspot[3];
-		array_splice($songs, $dumbspot[0]+$k, 0, array($dummy));
+		array_splice($song, $dumbspot[0]+$k, 0, array($dummy));
 	}
 #dpm($songs, 'songstoreturn');
     return $songs;
