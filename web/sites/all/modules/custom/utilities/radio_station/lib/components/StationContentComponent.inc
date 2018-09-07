@@ -91,14 +91,16 @@ class StationContentComponent extends BaseComponent {
       }
     }
 
-    $spinitron_data = RadioSpinitron::getLatestPlaylists($count);
+    $spinitron_data = RadioSpinitron2::getLatestPlaylists($count);
 
     $episodes = array_map(
       function ($item) {
-        $onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        #$onair = "{$item['PlaylistDate']} {$item['OnairTime']}";
+        $onair = "{$item['start']}";
         $onair = strtotime($onair);
 
-        $offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        #$offair = "{$item['PlaylistDate']} {$item['OffairTime']}";
+        $offair = "{$item['end']}";
         $offair = strtotime($offair);
 
         if ($offair < $onair) {
@@ -716,6 +718,8 @@ class StationContentComponent extends BaseComponent {
   private function getRippingSchedule($stream, $count) {
     $now = time();
     $end = strtotime("+25 hours", $now);
+#    $now = strtotime('April 9, 2018');
+#    $end = strtotime('May 23, 2018');
     $schedule = [];
     $timeslots = [];
 

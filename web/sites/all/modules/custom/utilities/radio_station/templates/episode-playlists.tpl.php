@@ -4,11 +4,11 @@ if (!isset($playlists)):
 endif;
 
 $song_column_map = [
-  'Time' => 'Timestamp',
-  'Artist' => 'ArtistName',
-  'Song' => 'SongName',
-  'Album' => 'DiskName',
-  'Label' => 'LabelName',
+  'Time' => 'start_time',
+  'Artist' => 'artist',
+  'Song' => 'song',
+  'Album' => 'release',
+  'Label' => 'label',
 ];
 
 $count = count($playlists) - 1;
@@ -30,7 +30,11 @@ $count = count($playlists) - 1;
       </thead>
 
       <tbody>
-      <?php foreach ($playlist['Songs'] as $song): ?>
+      <?php foreach ($playlist['Songs'] as $skey=>$song):
+		//first fix the time format
+		#$playlists[$index]['Songs'][$skey]['start_time'] = date('g:i', strtotime($song['start']));
+		$song['start_time'] = date('g:i', strtotime($song['start']));
+	?>
         <tr>
           <?php foreach ($song_column_map as $machine): ?>
             <td>
