@@ -18,7 +18,7 @@
 
       Playlists.prototype.$el = null;
 
-      Playlists.prototype.route = "/api/playlists";
+      Playlists.prototype.route = "/api2/playlists";
 
       Playlists.prototype.interval = 5;
 
