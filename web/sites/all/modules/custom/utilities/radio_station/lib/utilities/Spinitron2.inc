@@ -261,7 +261,6 @@ YYYY-MM-DDTHH:MM:SS which is defined as DATE_ISO8601
         'end' => $date,
 	'show_id' => $showid,
         'start' => $start,
-	'sort' => 'DESC',
       ]
     );
 	usort($q, function($a, $b) {return ($a->start > $b->start) ? 1:-1;});

@@ -15,6 +15,7 @@ class RadioSpinitron2 {
     $playlistID = $playlist['id'];
     $connection = RadioSpinitron2::getConnection();
     $playlist['Songs'] = $connection->getSongs($playlistID);
+	usort($playlist['Songs'], function($a, $b){return ($a['start'] > $b['start']) ? 1:-1;});
   }
 
 
@@ -211,6 +212,7 @@ print_r('</pre>');
     $connection = RadioSpinitron2::getConnection();
     $date = date(DATE_ISO8601, $field_air_time['value']);
     $playlists = $connection->getPlaylistsByDate($date, 10);
+dpm($playlists, 'pl');
 
     if (!$playlists) {
       return [];
