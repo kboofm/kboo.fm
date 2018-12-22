@@ -81,7 +81,7 @@ function bootstrap_table(array $variables) {
   $responsive = $variables['responsive'];
 
   // Add sticky headers, if applicable.
-  if (is_array($header) && count($header) && $sticky) {
+  if (count($header) && $sticky) {
     drupal_add_js('misc/tableheader.js');
     // Add 'sticky-enabled' class to the table to identify it for JS.
     // This is needed to target tables constructed by this function.
@@ -101,7 +101,7 @@ function bootstrap_table(array $variables) {
   }
 
   // Format the table columns:
-  if (!empty($colgroups)) {
+  if (count($colgroups)) {
     foreach ($colgroups as $number => $colgroup) {
       $attributes = array();
 
@@ -136,7 +136,7 @@ function bootstrap_table(array $variables) {
   }
 
   // Add the 'empty' row message if available.
-  if (empty($rows) && !empty($empty)) {
+  if (!count($rows) && $empty) {
     $header_count = 0;
     foreach ($header as $header_cell) {
       if (is_array($header_cell)) {
@@ -156,7 +156,7 @@ function bootstrap_table(array $variables) {
   }
 
   // Format the table header:
-  if (!empty($header)) {
+  if (count($header)) {
     $ts = tablesort_init($header);
     // HTML requires that the thead tag has tr tags in it followed by tbody
     // tags. Using ternary operator to check and see if we have any rows.
@@ -174,7 +174,7 @@ function bootstrap_table(array $variables) {
   }
 
   // Format the table rows:
-  if (!empty($rows)) {
+  if (count($rows)) {
     $output .= "<tbody>\n";
     foreach ($rows as $row) {
       // Check if we're dealing with a simple or complex row.
@@ -205,7 +205,7 @@ function bootstrap_table(array $variables) {
   }
 
   // Format the table footer:
-  if (!empty($footer)) {
+  if (count($footer)) {
     $output .= "<tfoot>\n";
     foreach ($footer as $row) {
       // Check if we're dealing with a simple or complex row.

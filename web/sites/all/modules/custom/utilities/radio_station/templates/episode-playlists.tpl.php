@@ -33,7 +33,9 @@ $count = count($playlists) - 1;
       <?php foreach ($playlist['Songs'] as $skey=>$song):
 		//first fix the time format
 		#$playlists[$index]['Songs'][$skey]['start_time'] = date('g:i', strtotime($song['start']));
-		$song['start_time'] = date('g:i', strtotime($song['start']));
+		//fix for the +/- hours, which strtotime doesn't detect
+		$adjust = substr($song['start'], -5);
+		$song['start_time'] = date('g:i', strtotime($song['start'] . ' ' . $adjust . ' hours'));
 	?>
         <tr>
           <?php foreach ($song_column_map as $machine): ?>
