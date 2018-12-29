@@ -263,7 +263,7 @@ YYYY-MM-DDTHH:MM:SS which is defined as DATE_ISO8601
         'start' => $start,
       ]
     );
-	usort($q, function($a, $b) {return ($a->start > $b->start) ? 1:-1;});
+	usort($q, function($a, $b) {return ($a['start'] > $b['start']) ? 1:-1;});
 	return $q;
   }
 
