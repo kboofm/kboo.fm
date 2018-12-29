@@ -36,6 +36,7 @@ $count = count($playlists) - 1;
 		//fix for the +/- hours, which strtotime doesn't detect
 		$adjust = substr($song['start'], -5);
 		$song['start_time'] = date('g:i', strtotime($song['start'] . ' ' . $adjust . ' hours'));
+		$playlist['Songs'][$skey]['start_time'] = date('g:i', strtotime($song['start'] . ' ' . $adjust . ' hours'));
 	?>
         <tr>
           <?php foreach ($song_column_map as $machine): ?>
@@ -50,6 +51,7 @@ $count = count($playlists) - 1;
 
     <ul class="list-group visible-xs">
       <?php if(isset($playlist['Songs']) && is_array($playlist['Songs'])):
+
 	foreach ($playlist['Songs'] as $song): ?>
         <li class="list-group-item">
 
