@@ -1,11 +1,11 @@
 <?php
 
 class HomeResponse extends Response {
-  public function get() {
+  public function get($lang) {
     $this->template_name = 'radio_template_home';
 
     $component = new HomeComponent();
-    $items = $component->latest();
+    $items = $component->latest($lang);
 
     $data = [
       'items' => $items,
@@ -16,9 +16,9 @@ class HomeResponse extends Response {
   }
 
 
-  public function getFeed() {
+  public function getFeed($lang) {
     $component = new HomeComponent();
-    $nids = $component->latestFeed();
+    $nids = $component->latestFeed($lang);
 
     $channel = [
       'title' => "KBOO - Community Radio for Portland and beyond",

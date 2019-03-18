@@ -161,6 +161,10 @@ function radio_station_get_week($stream, $direction, $timestamp) {
 }
 
 
+function radio_station_get_playlists2() {
+  $data = RadioSpinitron2::getLatestSongs();
+  drupal_json_output($data);
+}
 function radio_station_get_playlists() {
   $data = RadioSpinitron::getLatestSongs();
   drupal_json_output($data);
@@ -258,14 +262,16 @@ function radio_station_get_home() {
     return MENU_NOT_FOUND;
   }
 
+	global $language;
+	$lang = $language->language;
   $response = new HomeResponse();
-  return $response->get();
+  return $response->get($lang);
 }
 
 
 function radio_station_get_home_feed() {
   $response = new HomeResponse();
-  return $response->getFeed();
+  return $response->getFeed($lang);
 }
 
 
@@ -525,7 +531,7 @@ function radio_station_preprocess_radio_template_episode_playlists(
 ) {
 
   $node = menu_get_object();
-  $vars['playlists'] = RadioSpinitron::getEpisodePlaylist($node);
+  $vars['playlists'] = RadioSpinitron2::getEpisodePlaylist($node);
 }
 
 

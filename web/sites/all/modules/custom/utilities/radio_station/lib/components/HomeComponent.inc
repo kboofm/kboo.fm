@@ -2,8 +2,8 @@
 
 class HomeComponent extends BaseComponent {
 
-  public function latest() {
-    $query = $this->getHomeQuery();
+  public function latest($lang = 'und') {
+    $query = $this->getHomeQuery($lang);
     $result = $query->execute();
 
     $nids = array_keys(
@@ -18,16 +18,20 @@ class HomeComponent extends BaseComponent {
   }
 
 
-  public function latestFeed() {
-    $query = $this->getHomeQuery();
+  public function latestFeed($lang) {
+    $query = $this->getHomeQuery($lang);
     $result = $query->execute();
     return $this->getNids($result);
   }
 
 
-  private function getHomeQuery() {
+  private function getHomeQuery($lang) {
     $query = new NodeQuery();
     $query->isPromoted();
+    if($lang != 'en' && $lang != 'und')
+    {
+	$query->setLanguage($lang);
+    }
     $query->propertyOrderBy('sticky', 'DESC');
     $query->addTag('radio_HomeComponent_orderBy');
     $query->setLimit(25);
