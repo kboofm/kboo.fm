@@ -178,8 +178,13 @@ class StationContentQuery extends NodeQuery {
   }
 
 
-  public function getAudio($count = null, $publiconly = FALSE) {
+  public function getAudio($count = null, $publiconly = FALSE, $lang = 'en') {
     $this->hasAudio();
+	if($lang == 'und')
+	{
+		$lang = 'en';
+	}
+	$this->setLanguage($lang);
 
     if ($count) {
       $this->setLimit($count);
