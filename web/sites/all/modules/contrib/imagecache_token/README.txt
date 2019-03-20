@@ -22,11 +22,24 @@ controlled via the settings page:
 All image fields are automatically supported.
 
 
-Gotchas
+Known problems
 ------------------------------------------------------------------------------
-I've observed that after you create new image style it might not appear
-immediately in available tokens list. If this is a case, you will need to reset
-cache on the Performance page.
+After creating new image style it might not appear immediately in available
+tokens list. To resolve this try reseting the cache on the Performance page or
+using Drush.
+
+A known problem with the Token module can result in a timeout attempting to load
+the token browser if there are a lot of entity types and/or fields on the site.
+The problem is most notable when using the Entity Token module part of the
+Entity API module, which is required when using the Commerce system. There is no
+current fix for the problem, though there are some workarounds available:
+* Even if the token browser is unresponsive, the tokens themselves will still
+  work, so experiment with manually creating the tokens.
+* Use the Token Tweaks module to limit how many levels of the token tree will
+  be displayed:
+  https://www.drupal.org/project/token_tweaks
+* Collaborate on fixing the problem in the Token module:
+  https://www.drupal.org/node/1334456
 
 
 Credits / Contact
