@@ -38,7 +38,8 @@
 
         <itunes:summary><?php print $item['summary']; ?></itunes:summary>
 
-        <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+        <?php /*<itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />*/ ?>
+        <itunes:image href="<?php print $item['image']; ?>" />
 
 	<itunes:explicit><?php print $item['explicit']; ?></itunes:explicit>
 
