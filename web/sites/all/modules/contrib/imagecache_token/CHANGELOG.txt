@@ -1,3 +1,8 @@
+Imagecache_Token 7.x-1.0, 2019-04-11
+------------------------------------
+#2544084 by Chris Matthews, DamienMcKenna: Update documentation.
+
+
 Imagecache_Token 7.x-1.0-rc3, 2019-02-16
 ----------------------------------------
 #2853037 by monstrfolk, DamienMcKenna: Rewrite logic of tokens to improve
