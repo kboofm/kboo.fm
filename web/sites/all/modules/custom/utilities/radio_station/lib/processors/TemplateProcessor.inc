@@ -26,6 +26,23 @@ class TemplateProcessor {
     return $image;
   }
 
+  public static function getProgramTeaserImage($entity) {
+    $image = null;
+	if($entity->field_produced_for[0]->value() !== FALSE)
+	{
+		$program = $entity->field_produced_for[0]->value(); 
+		$program = entity_metadata_wrapper('node', $program->nid);
+	}
+
+    try {
+      $image = $program->field_lead_image->file->value();
+    } catch (EntityMetadataWrapperException $e) {
+      // ducktyping
+    }
+
+    return $image;
+  }
+
 
   public static function getTeaserSummary($entity) {
     $summary = null;
