@@ -1,0 +1,6 @@
+name = KBOO ArchiveSpace Importer
+description = KBOO Archive Importer
+package = KBOO - Utilities
+core = 7.x
+version = 7.x-1.0
+
