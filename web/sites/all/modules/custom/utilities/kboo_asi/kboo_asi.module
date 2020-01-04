@@ -7,6 +7,10 @@ function kboo_asi_menu()
 			'page callback' => 'kboo_asi_working',
 			'access callback' => 'kboo_asi_perm',
 		),
+		'kboo/asi/test' => array(
+			'page callback' => 'kboo_asi_db_uptodate',
+			'access callback' => 'kboo_asi_perm',
+		),
 	);
 	return $items;
 }
@@ -14,6 +18,109 @@ function kboo_asi_menu()
 function ___kboo_asi_cron()
 {
 	return;
+}
+
+function kboo_asi_db_uptodate()
+{
+	//downloader downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	//filename convention is: bitnami_resourcespace201911242325.zip
+	$path = '/var/www/vhosts/test.kboo.fm/rs_dls';
+	$files = scandir($path);
+	$hits = array();
+	foreach($files as $file)
+	{
+		if(substr($file, 0, 21) == 'bitnami_resourcespace')
+		{
+			$hits[] = $file;
+		}
+	}
+	$today = date('Ymd', time() - 24*60*60);
+	$dels = array();
+	$live = array();
+	foreach($hits as $hit)
+	{
+		$datestr = substr($hit, 21, 8);
+		if($datestr != $today)
+		{
+			$dels[] = $hit;
+		}
+		else
+		{
+			$live[] = $hit;
+		}
+	}
+	if(!empty($live))
+	{
+		//then we have one dated yesterday, so we are up to date
+		//import it?
+		return TRUE;
+	}
+	else
+	{
+		//we're not, so return false
+		return 'current db is old';
+	}
+dpm($dels);
+	return '';
+}
+
+function kboo_asi_get_as_db($drush = FALSE)
+{
+	//this downloads the database from the archive server
+	$ftp_keys = file_get_contents(DRUPAL_ROOT . '/../ftp_login');
+	list($ftp_host, $ftp_user, $ftp_pass) = explode("\n", $ftp_keys);
+	$mysql_grab = file_get_contents(DRUPAL_ROOT . '/../ftp_mysql_getter');
+	$mysql_grab = str_replace('$HOST', $ftp_host, $mysql_grab);
+	$mysql_grab = str_replace('$USER', $ftp_user, $mysql_grab);
+	$mysql_grab = str_replace('$PASSWORD', $ftp_pass, $mysql_grab);
+	$datestr = date('Ymd', time() - 24*60*60); //yesterday's backup
+	$mysql_grab = str_replace('YYYYMMDD', $datestr, $mysql_grab);
+	$output = array();
+	$result = 0;
+	exec($mysql_grab, $output, $result);
+	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	if($drush)
+	{
+print_r($result);
+		return 'Downloaded';
+	}
+	else
+	{
+		return TRUE;
+	}
+}
+
+function kboo_asi_import_as_db($drush = FALSE)
+{
+	//this imports the most recently downloaded db to the archivespace working db
+	$mysql_login = file_get_contents(DRUPAL_ROOT . '/../mysql_login');
+	list($mysql_db, $mysql_user, $mysql_pass) = explode("\n", $mysql_login);
+
+	$mysql_file = 'bitnami_resourcespaceYYYYMMDD2325.zip';
+	$datestr = date('Ymd', time() - 24*60*60); //yesterday's backup
+	$mysql_file = str_replace('YYYYMMDD', $datestr, $mysql_file);
+	$mysql_file = DRUPAL_ROOT . '/../rs_dls/' . $mysql_file;
+
+	$mysql_clean_file = __DIR__ . '/mysql_clean';
+	$mysql_clean_command = 'sed \'s/<DBASE>/' . $mysql_db . '/\' ' . $mysql_clean_file . ' | mysql -u ' . $mysql_user . ' -p' . $mysql_pass . ' -D ' . $mysql_db;
+	$cl_output = '';
+	$cl_res = 0;
+	exec($mysql_clean_command, $cl_output, $cl_res);
+
+	$output = '';
+	$mysql_command = 'unzip -p ' . $mysql_file . ' | sed \'s/bitnami_resourcespace/kboo_arcspace/\' | mysql -u ' . $mysql_user . ' -p' . $mysql_pass . ' -D ' . $mysql_db;
+	$res = 0;
+	exec($mysql_command, $output, $res);
+	if($drush)
+	{
+print_r($cl_res);
+print_r($res);
+		return 'Success';
+	}
+	else
+	{
+		return TRUE;
+	}
 }
 
 function kboo_asi_working()
@@ -44,16 +151,21 @@ function kboo_asi_working()
 	db_set_active('default');
 dpm($resources[15715], 'resource 15715');
 $j = kboo_asi_get_keywords(15715);
+$out = 'keywords: <br>' . print_r($j, TRUE);
 dpm($j, 'keywords on it');
 $j = kboo_asi_get_rdata(15715);
+$out .= 'resource data:<br>' . print_r($j, TRUE);
 dpm($j, 'resource data on it');
 $j = kboo_asi_get_files(15715);
+$out .= 'files: <br>' . print_r($j, TRUE);
 dpm($j, 'files on it');
+return '<pre>' . $out . '</pre>';
 	return '';
 }
 
 function kboo_asi_get_rdata($ref)
 {
+	//grabs resource data
 	$keys = kboo_asi_get_keys();
 	db_set_active('archive');
 	$data = array();
@@ -82,6 +194,7 @@ function kboo_asi_get_rdata($ref)
 
 function kboo_asi_get_files($ref)
 {
+	//grabs files referenced by resource
 	db_set_active('archive');
 	$files = array();
 	$q = db_query('select * from resource_alt_files where resource=:r and file_extension=:ext', array(':r' => $ref, ':ext' => 'mp3'));
@@ -104,6 +217,7 @@ function kboo_asi_get_files($ref)
 
 function kboo_asi_get_keywords($ref)
 {
+	//grabs keywords associated with a resource
 	$keys = kboo_asi_get_keys();
 	db_set_active('archive');
 	$keywords = array();
@@ -145,12 +259,13 @@ function kboo_asi_get_keys()
 
 function kboo_asi_perm()
 {
+return TRUE;
 	global $user;
 	if($user->uid == 1 || /*$user->uid == 5872 || */$user->uid == 88)
 	{
-		return 1;
+		return TRUE;
 	}
-	return 0;
+	return FALSE;
 }
 
 
