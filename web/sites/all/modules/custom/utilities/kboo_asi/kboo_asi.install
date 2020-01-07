@@ -1,0 +1,48 @@
+<?
+
+function kboo_asi_install()
+{
+}
+
+function kboo_asi_uninstall()
+{
+}
+
+function kboo_asi_schema()
+{
+	$schema['kboo_asi_res'] = array(
+		'description' => 'Table containing list of KBOO resources from ArchiveSpace server.',
+		'fields' => array(
+			'ref' => array(
+				'description' => 'Primary identifier from the ArchiveSpace DB.',
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => TRUE,
+			),
+			'asdate' => array(
+				'description' => 'Update date of the source resource in the ArchiveSpace DB.',
+				'type' => 'datetime',
+				'mysql_type' => 'datetime',
+				'not null' => TRUE,
+			),
+			'drdate' => array(
+				'description' => 'Update date of the drupal node mapped from the ArchiveSpace resource.',
+				'type' => 'datetime',
+				'mysql_type' => 'datetime',
+			),
+			'nid' => array(
+				'description' => 'Drupal node id of node mapped from the ArchiveSpace resource.',
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => FALSE,
+			),
+		),
+		'primary key' => array(
+			'ref',
+		),
+	);
+	return $schema;
+}
+
+
+?>

@@ -8,7 +8,7 @@ function kboo_asi_menu()
 			'access callback' => 'kboo_asi_perm',
 		),
 		'kboo/asi/test' => array(
-			'page callback' => 'kboo_asi_db_uptodate',
+			'page callback' => 'kboo_asi_test_wrapper',
 			'access callback' => 'kboo_asi_perm',
 		),
 	);
@@ -20,10 +20,29 @@ function ___kboo_asi_cron()
 	return;
 }
 
-function kboo_asi_db_uptodate()
+function kboo_asi_test_wrapper()
 {
+	$out = FALSE;
+	if(!kboo_asi_db_uptodate(TRUE, FALSE))
+	{
+		$out .= kboo_asi_get_as_db() ? "Got db" : "failed download";
+		$out .= kboo_asi_import_as_db() ? "<br>Imported db" : "<BR>Failed import";
+	}
+	return $out;
+}
+ 
+function kboo_asi_db_uptodate($del=FALSE, $verbose = TRUE)
+{
+	//parameters:
+	//	$del if true, will delete old db zips
+	//	$verbose for text output; else will return TRUE/FALSE for db check; T/F return
+	//		has no relation to deletion of old files
+
 	//downloader downloads to /var/www/vhosts/test.kboo.fm/rs_dls
 	//filename convention is: bitnami_resourcespace201911242325.zip
+	//ie: bitnami_resourcespaceYYYYMMDD2325.zip ...  2325 must be the time the archive runs
+
+	//this is where we download the archive zip from the archive server
 	$path = '/var/www/vhosts/test.kboo.fm/rs_dls';
 	$files = scandir($path);
 	$hits = array();
@@ -35,6 +54,8 @@ function kboo_asi_db_uptodate()
 		}
 	}
 	$today = date('Ymd', time() - 24*60*60);
+
+	//separate old from current
 	$dels = array();
 	$live = array();
 	foreach($hits as $hit)
@@ -49,19 +70,43 @@ function kboo_asi_db_uptodate()
 			$live[] = $hit;
 		}
 	}
+
+	$out = '';
+	if($del)
+	{
+		foreach($dels as $del)
+		{
+			$res = unlink($path . '/' . $del);
+			if($res)
+			{
+				$out .= "<br>Deleted: " . $del;
+			}
+		}
+	}
+
 	if(!empty($live))
 	{
 		//then we have one dated yesterday, so we are up to date
-		//import it?
-		return TRUE;
+		if(!$verbose)
+		{
+			return TRUE;
+		}
+		else
+		{
+			$out .= "<br>We have an up to date db.";
+		}
 	}
 	else
 	{
 		//we're not, so return false
-		return 'current db is old';
+		$out .= "<br>Current db out of date.";
+		if(!$verbose)
+		{
+			return FALSE;
+		}
 	}
 dpm($dels);
-	return '';
+	return $out;
 }
 
 function kboo_asi_get_as_db($drush = FALSE)
@@ -92,7 +137,7 @@ print_r($result);
 
 function kboo_asi_import_as_db($drush = FALSE)
 {
-	//this imports the most recently downloaded db to the archivespace working db
+	//this imports the db dated yesterday (assuming it exists!) to the archivespace working db
 	$mysql_login = file_get_contents(DRUPAL_ROOT . '/../mysql_login');
 	list($mysql_db, $mysql_user, $mysql_pass) = explode("\n", $mysql_login);
 
@@ -165,7 +210,7 @@ return '<pre>' . $out . '</pre>';
 
 function kboo_asi_get_rdata($ref)
 {
-	//grabs resource data
+	//grabs resource data for one resource id'd by $ref
 	$keys = kboo_asi_get_keys();
 	db_set_active('archive');
 	$data = array();
@@ -189,7 +234,6 @@ function kboo_asi_get_rdata($ref)
 	}
 	db_set_active('default');
 	return $data;
-
 }
 
 function kboo_asi_get_files($ref)
