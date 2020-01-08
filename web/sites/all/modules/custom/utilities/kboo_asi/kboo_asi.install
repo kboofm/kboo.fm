@@ -1,4 +1,4 @@
-<?
+<?php
 
 function kboo_asi_install()
 {
@@ -10,10 +10,10 @@ function kboo_asi_uninstall()
 
 function kboo_asi_schema()
 {
-	$schema['kboo_asi_res'] = array(
+	$schema['kboo_asi_resource'] = array(
 		'description' => 'Table containing list of KBOO resources from ArchiveSpace server.',
 		'fields' => array(
-			'ref' => array(
+			'res' => array(
 				'description' => 'Primary identifier from the ArchiveSpace DB.',
 				'type' => 'int',
 				'unsigned' => TRUE,
@@ -38,11 +38,9 @@ function kboo_asi_schema()
 			),
 		),
 		'primary key' => array(
-			'ref',
+			'res',
 		),
 	);
 	return $schema;
 }
 
-
-?>

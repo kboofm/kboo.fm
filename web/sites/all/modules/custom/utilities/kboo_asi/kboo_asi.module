@@ -22,152 +22,48 @@ function ___kboo_asi_cron()
 
 function kboo_asi_test_wrapper()
 {
-	$out = FALSE;
+	$out = '';
+	//make sure db up to date and imported
 	if(!kboo_asi_db_uptodate(TRUE, FALSE))
 	{
 		$out .= kboo_asi_get_as_db() ? "Got db" : "failed download";
 		$out .= kboo_asi_import_as_db() ? "<br>Imported db" : "<BR>Failed import";
 	}
+
+$j = variable_get('kboo_asi_edit_max_ref', 0);
+dpm($j);
+
+	//make sure updates to nodes logged in drupal db in kboo_asi_resource table
+
+	//this runs about 7-8 times before timeout.  not difficult to initially populate w/o messing with drupal batch
+	$count = 1;
+	while(kboo_asi_populate_res_log())
+	{
+		$out .= "<br>Ran populate log script $count times.";
+		$count++;
+	}
+
+	//compare values in kboo_asi_resource table to determine which nodes need created or updated
+	//first handle creation.
+	$count = 1;
+	while(kboo_asi_check_no_nodes())
+	{
+		$out .= "<br>Ran populate new node script $count times.";
+		$count++;
+	}
+
+	//second handle updates
+	//kboo_asi_check_updated_nodes();
+	$count = 1;
+	while(kboo_asi_check_updated_nodes())
+	{
+		$out .= "<br>Ran populate new node script $count times.";
+		$count++;
+	}
+
 	return $out;
 }
  
-function kboo_asi_db_uptodate($del=FALSE, $verbose = TRUE)
-{
-	//parameters:
-	//	$del if true, will delete old db zips
-	//	$verbose for text output; else will return TRUE/FALSE for db check; T/F return
-	//		has no relation to deletion of old files
-
-	//downloader downloads to /var/www/vhosts/test.kboo.fm/rs_dls
-	//filename convention is: bitnami_resourcespace201911242325.zip
-	//ie: bitnami_resourcespaceYYYYMMDD2325.zip ...  2325 must be the time the archive runs
-
-	//this is where we download the archive zip from the archive server
-	$path = '/var/www/vhosts/test.kboo.fm/rs_dls';
-	$files = scandir($path);
-	$hits = array();
-	foreach($files as $file)
-	{
-		if(substr($file, 0, 21) == 'bitnami_resourcespace')
-		{
-			$hits[] = $file;
-		}
-	}
-	$today = date('Ymd', time() - 24*60*60);
-
-	//separate old from current
-	$dels = array();
-	$live = array();
-	foreach($hits as $hit)
-	{
-		$datestr = substr($hit, 21, 8);
-		if($datestr != $today)
-		{
-			$dels[] = $hit;
-		}
-		else
-		{
-			$live[] = $hit;
-		}
-	}
-
-	$out = '';
-	if($del)
-	{
-		foreach($dels as $del)
-		{
-			$res = unlink($path . '/' . $del);
-			if($res)
-			{
-				$out .= "<br>Deleted: " . $del;
-			}
-		}
-	}
-
-	if(!empty($live))
-	{
-		//then we have one dated yesterday, so we are up to date
-		if(!$verbose)
-		{
-			return TRUE;
-		}
-		else
-		{
-			$out .= "<br>We have an up to date db.";
-		}
-	}
-	else
-	{
-		//we're not, so return false
-		$out .= "<br>Current db out of date.";
-		if(!$verbose)
-		{
-			return FALSE;
-		}
-	}
-dpm($dels);
-	return $out;
-}
-
-function kboo_asi_get_as_db($drush = FALSE)
-{
-	//this downloads the database from the archive server
-	$ftp_keys = file_get_contents(DRUPAL_ROOT . '/../ftp_login');
-	list($ftp_host, $ftp_user, $ftp_pass) = explode("\n", $ftp_keys);
-	$mysql_grab = file_get_contents(DRUPAL_ROOT . '/../ftp_mysql_getter');
-	$mysql_grab = str_replace('$HOST', $ftp_host, $mysql_grab);
-	$mysql_grab = str_replace('$USER', $ftp_user, $mysql_grab);
-	$mysql_grab = str_replace('$PASSWORD', $ftp_pass, $mysql_grab);
-	$datestr = date('Ymd', time() - 24*60*60); //yesterday's backup
-	$mysql_grab = str_replace('YYYYMMDD', $datestr, $mysql_grab);
-	$output = array();
-	$result = 0;
-	exec($mysql_grab, $output, $result);
-	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
-	if($drush)
-	{
-print_r($result);
-		return 'Downloaded';
-	}
-	else
-	{
-		return TRUE;
-	}
-}
-
-function kboo_asi_import_as_db($drush = FALSE)
-{
-	//this imports the db dated yesterday (assuming it exists!) to the archivespace working db
-	$mysql_login = file_get_contents(DRUPAL_ROOT . '/../mysql_login');
-	list($mysql_db, $mysql_user, $mysql_pass) = explode("\n", $mysql_login);
-
-	$mysql_file = 'bitnami_resourcespaceYYYYMMDD2325.zip';
-	$datestr = date('Ymd', time() - 24*60*60); //yesterday's backup
-	$mysql_file = str_replace('YYYYMMDD', $datestr, $mysql_file);
-	$mysql_file = DRUPAL_ROOT . '/../rs_dls/' . $mysql_file;
-
-	$mysql_clean_file = __DIR__ . '/mysql_clean';
-	$mysql_clean_command = 'sed \'s/<DBASE>/' . $mysql_db . '/\' ' . $mysql_clean_file . ' | mysql -u ' . $mysql_user . ' -p' . $mysql_pass . ' -D ' . $mysql_db;
-	$cl_output = '';
-	$cl_res = 0;
-	exec($mysql_clean_command, $cl_output, $cl_res);
-
-	$output = '';
-	$mysql_command = 'unzip -p ' . $mysql_file . ' | sed \'s/bitnami_resourcespace/kboo_arcspace/\' | mysql -u ' . $mysql_user . ' -p' . $mysql_pass . ' -D ' . $mysql_db;
-	$res = 0;
-	exec($mysql_command, $output, $res);
-	if($drush)
-	{
-print_r($cl_res);
-print_r($res);
-		return 'Success';
-	}
-	else
-	{
-		return TRUE;
-	}
-}
-
 function kboo_asi_working()
 {
 	//all audio resources have type 4
@@ -206,99 +102,6 @@ $out .= 'files: <br>' . print_r($j, TRUE);
 dpm($j, 'files on it');
 return '<pre>' . $out . '</pre>';
 	return '';
-}
-
-function kboo_asi_get_rdata($ref)
-{
-	//grabs resource data for one resource id'd by $ref
-	$keys = kboo_asi_get_keys();
-	db_set_active('archive');
-	$data = array();
-	$q = db_query('select * from resource_data where resource=:r', array(':r' => $ref));
-	while($r = $q->fetchObject())
-	{
-		$val = $r->value;
-		if(substr($val, 0, 1) == ',')
-		{
-			$val = substr($val, 1);
-		}
-		$val = trim($val);
-		if(!isset($keys[$r->resource_type_field]))
-		{
-			$data['unknown label'][] = $val;
-		}
-		else
-		{
-			$data[$keys[$r->resource_type_field]['title']] = $val;
-		}
-	}
-	db_set_active('default');
-	return $data;
-}
-
-function kboo_asi_get_files($ref)
-{
-	//grabs files referenced by resource
-	db_set_active('archive');
-	$files = array();
-	$q = db_query('select * from resource_alt_files where resource=:r and file_extension=:ext', array(':r' => $ref, ':ext' => 'mp3'));
-	while($r = $q->fetchObject())
-	{
-		$files[] = $r->file_name;
-	}
-	db_set_active('default');
-	return $files;
-	#
-	# of interest:
-	# 	if filename is of type kboo_CS then file in cassette
-	# 	if filename is of type kboo_CD then file in cd directory
-	# 	if filename is of type kboo_D then file in dat directory
-	# 	if filename is of type kboo_M then file in minidisc directory
-	# 	if filename is of type kboo_<number> then file in openreel directory
-	#	
-	#	all are subdirs of __final
-}
-
-function kboo_asi_get_keywords($ref)
-{
-	//grabs keywords associated with a resource
-	$keys = kboo_asi_get_keys();
-	db_set_active('archive');
-	$keywords = array();
-	$q = db_query('select * from resource_keyword as rk left join keyword as k on rk.keyword=k.ref where rk.resource=:r', array(':r' => $ref));
-	while($r = $q->fetchObject())
-	{
-		if(!isset($keys[$r->resource_type_field]))
-		{
-			$keywords['unknown label'][] = $r->keyword;
-		}
-		else
-		{
-			$keywords[$keys[$r->resource_type_field]['title']][$r->position] = $r->keyword;
-		}
-	}
-	db_set_active('default');
-	return $keywords;
-}
-
-function kboo_asi_get_keys()
-{
-	//grab field keys
-	$keys = variable_get('kboo_as_field_keys', array());
-	if(TRUE)//if(!isset($keys['stamp']) || $keys['stamp'] + 24*60*60 < time())
-	{
-		//then it's more than a day old so we fetch new values
-		db_set_active('archive');
-		$q = db_query('select ref, name, title from resource_type_field order by ref asc');
-		while($r = $q->fetchObject())
-		{
-			$keys[$r->ref] = array('name' => $r->name, 'title' => $r->title);
-		}
-		$keys = array('stamp' => time(), 'keys' => $keys);
-		db_set_active('default');
-		variable_set('kboo_as_field_keys', $keys);
-	}
-	return $keys['keys'];
 }
 
 function kboo_asi_perm()
