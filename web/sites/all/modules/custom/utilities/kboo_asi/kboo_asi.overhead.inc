@@ -29,7 +29,7 @@ function kboo_asi_check_no_nodes()
 {
 	//find resources that have no drupal node
 	$nonodes = array();
-	$q = db_query("select * from kboo_asi_resource where nid is empty limit 100");
+	$q = db_query("select * from kboo_asi_resource where nid is null order by res desc limit 100");
 	while($r = $q->fetchObject())
 	{
 		$nonodes[] = $r->res;
@@ -46,6 +46,7 @@ function kboo_asi_check_no_nodes()
 		{
 			db_query("update kboo_asi_resource set nid=:nid, drdate=:ddate where res=:res", array(':nid' => $node_info['id'], ':ddate'=>$node_info['ddate'], ':res' => $nonode));
 		}
+break;
 	}
 	return TRUE;
 }

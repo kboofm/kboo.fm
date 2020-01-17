@@ -1,5 +1,8 @@
 <?php
 
+require_once('kboo_asi.inc');
+require_once('kboo_asi.overhead.inc');
+
 function kboo_asi_menu()
 {
 	$items = array(
@@ -27,7 +30,9 @@ function kboo_asi_test_wrapper()
 	if(!kboo_asi_db_uptodate(TRUE, FALSE))
 	{
 		$out .= kboo_asi_get_as_db() ? "Got db" : "failed download";
+dpm('to that');
 		$out .= kboo_asi_import_as_db() ? "<br>Imported db" : "<BR>Failed import";
+dpm('to this');
 	}
 
 $j = variable_get('kboo_asi_edit_max_ref', 0);
@@ -36,6 +41,7 @@ dpm($j);
 	//make sure updates to nodes logged in drupal db in kboo_asi_resource table
 
 	//this runs about 7-8 times before timeout.  not difficult to initially populate w/o messing with drupal batch
+dpm('foobar');
 	$count = 1;
 	while(kboo_asi_populate_res_log())
 	{
@@ -43,6 +49,7 @@ dpm($j);
 		$count++;
 	}
 
+dpm('baz');
 	//compare values in kboo_asi_resource table to determine which nodes need created or updated
 	//first handle creation.
 	$count = 1;
@@ -50,8 +57,10 @@ dpm($j);
 	{
 		$out .= "<br>Ran populate new node script $count times.";
 		$count++;
+break;
 	}
 
+/*
 	//second handle updates
 	//kboo_asi_check_updated_nodes();
 	$count = 1;
@@ -60,6 +69,7 @@ dpm($j);
 		$out .= "<br>Ran populate new node script $count times.";
 		$count++;
 	}
+*/
 
 	return $out;
 }
