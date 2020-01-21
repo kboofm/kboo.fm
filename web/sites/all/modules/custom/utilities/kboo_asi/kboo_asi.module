@@ -53,12 +53,16 @@ dpm('baz');
 	//compare values in kboo_asi_resource table to determine which nodes need created or updated
 	//first handle creation.
 	$count = 1;
+
+	$foo = kboo_asi_no_nodes_batch();
+/*
 	while(kboo_asi_check_no_nodes())
 	{
 		$out .= "<br>Ran populate new node script $count times.";
 		$count++;
 break;
 	}
+*/
 
 /*
 	//second handle updates

@@ -25,11 +25,57 @@ function kboo_asi_check_updated_nodes()
 	return TRUE;
 }
 
-function kboo_asi_check_no_nodes()
+function kboo_asi_no_nodes_batch()
 {
+	$count = db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField();
+dpm($count, 'count');
+	//we do 100 per run
+	$runs = ceil($count/100);
+	$ops = array();
+	for($i=0; $i<$runs; $i++)
+	{
+		$ops[] = array('kboo_asi_check_no_nodes', array());
+	}
+	$batch = array(
+		'operations' => $ops,
+		'finished' => 'kboo_asi_no_nodes_batch_finish',
+		'progress_message' => t('Processed @current of @total.'),
+		'error_message' => t('Batch encountered an error.'),
+	);
+dpm($ops);
+	batch_set($batch);
+	batch_process('/admin/content');
+}
+
+function kboo_asi_no_nodes_batch_finish($success, $results, $operations)
+{
+	if($success)
+	{
+		$msg = t('@count items processed', array('@count' => count($results)));
+		$msg .= theme('item_list', array('items' => $results));
+		drupal_set_message($msg);
+	}
+	else
+	{
+		$error_operation = reset($operations);
+		$msg = t('Error occurred while processing %e_op with arguments @args', array('%e_op' => $error_operation[0], '@args' => print_r($error_operation[1], TRUE)));
+		drupal_set_message($msg, 'error');
+	}
+}
+
+function kboo_asi_check_no_nodes(&$context)
+{
+	if(!isset($context['sandbox']['progress']))
+	{
+		$context['sandbox']['progress'] = 0;
+		$context['sandbox']['current_node'] = 0;
+		$context['sandbox']['max'] = db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField();
+	}
+
+
 	//find resources that have no drupal node
 	$nonodes = array();
-	$q = db_query("select * from kboo_asi_resource where nid is null order by res desc limit 100");
+	$q = db_query("select * from kboo_asi_resource where nid is null order by res asc limit 100");
 	while($r = $q->fetchObject())
 	{
 		$nonodes[] = $r->res;
@@ -44,9 +90,15 @@ function kboo_asi_check_no_nodes()
 	{
 		if($node_info = kboo_asi_import_resource($nonode))
 		{
-			db_query("update kboo_asi_resource set nid=:nid, drdate=:ddate where res=:res", array(':nid' => $node_info['id'], ':ddate'=>$node_info['ddate'], ':res' => $nonode));
+			db_query("update kboo_asi_resource set nid=:nid, drdate=:ddate where res=:res", array(':nid' => $node_info[0], ':ddate'=>$node_info[1], ':res' => $nonode));
 		}
-break;
+		$context['results'][] = $node_info[0];
+		$context['sandbox']['progress']++;
+		$context['sandbox']['current_node'] = $node_info[0];
+	}
+	if($context['sandbox']['progress'] != $context['sandbox']['max'])
+	{
+		$context['finished'] = $context['sandbox']['progress'] / $context['sandbox']['max'];
 	}
 	return TRUE;
 }
@@ -64,7 +116,7 @@ function kboo_asi_populate_res_log()
 	$ref_count = variable_get("kboo_asi_edit_max_ref", 0);
 	$current_refs = array();
 	db_set_active('archive');
-	$q = db_query('select ref, resource, date from resource_log where ref > :d order by ref asc limit 5000', array(':d' => $ref_count));
+	$q = db_query('select rl.ref, rl.resource, rl.date from resource_log as rl inner join resource as r on rl.resource=r.ref where rl.ref > :d order by rl.ref asc limit 5000', array(':d' => $ref_count));
 	while($r = $q->fetchObject())
 	{
 		$current_refs[] = array($r->resource, $r->date, $r->ref);

@@ -9,6 +9,11 @@ function kboo_asi_import_resource($res)
 	$data = array();
 	//grab all the data we need from resource space db for this resource.
 	$res_rdata = kboo_asi_get_rdata($res);
+	if($res_rdata === FALSE)
+	{
+		$q = db_query("delete from kboo_asi_resource where res=:r", array(':r'=>$res));
+		return FALSE;
+	}
  	//$res_rdata has 'Date' key pointing to string 'YYYY-MM-DD' maps to air date
 	//	'Contributor' key to string 'Firstname Lastname' maps to hosted by
 	//	'Program Name' key to string program name; if empty choose 'Treasures from the KBOO Archives', maps to Program
@@ -16,13 +21,12 @@ function kboo_asi_import_resource($res)
 	//	'Written notes on casing' to body/episode description
 	//	'Item Title' to title, presumably
 
-dpm($res_rdata, 'rdata');
+#dpm($res_rdata, 'rdata');
 	$n = new stdClass();
 	$n->type = 'station_content';
 	node_object_prepare($n);
 	$n->uid = 1;
 	$n->title = $res_rdata['Item Title'];
-dpm($n, 'n here');
 	$n->language = 'en';
 	$n->status = 1;
 	$n->promote = 0;
@@ -34,12 +38,10 @@ dpm($n, 'n here');
 	if(empty($res_rdata['Program Name']))
 	{
 		$progname = 'Treasures from the KBOO Archives';
-dpm($progname, 'progname here');
 	}
 	else
 	{
 		$progname = $res_rdata['Program Name'];
-dpm($progname, 'progname there');
 	}
 	$n->field_produced_for['und'][0]['target_id'] = kboo_asi_program_lookup($progname);
 
@@ -59,8 +61,8 @@ dpm($progname, 'progname there');
 
 
 	node_submit($n);
-dpm($n, 'submitted episode node');
 	node_save($n);
+#dpm($n, 'saved node');
 /*
 //kboo_asi_get_keywords($res);
 $out = 'keywords: <br>' . print_r($j, TRUE);
@@ -77,7 +79,7 @@ $out .= 'files: <br>' . print_r($j, TRUE);
 
 function kboo_asi_program_lookup($progname)
 {
-dpm($progname, 'progname');
+#dpm($progname, 'progname');
 	$q = db_query("select * from node where type='program' and title like :s", array(':s' => $progname));
 	if($r = $q->fetchObject())
 	{
@@ -115,7 +117,7 @@ dpm($progname, 'progname');
 		);
 		$n->title_original = $progname;
 		node_submit($n);
-dpm($n, 'submitted program node');
+#dpm($n, 'submitted program node');
 		node_save($n);
 		return $n->nid;
 	}
@@ -131,7 +133,7 @@ function kboo_asi_host_lookup($hostname)
 	}
 	else
 	{
-dpm($hostname, 'hostname');
+#dpm($hostname, 'hostname');
 		//create it.
 		$n = new stdClass();
 		$n->type = 'person_profile';
@@ -158,7 +160,7 @@ dpm($hostname, 'hostname');
 		);
 		$n->title_original = $hostname;
 		node_submit($n);
-dpm($n, 'submitted person node');
+#dpm($n, 'submitted person node');
 		node_save($n);
 		return $n->nid;
 	}
@@ -189,8 +191,12 @@ function kboo_asi_get_rdata($ref)
 		}
 	}
 	db_set_active('default');
-dpm($ref, 'ref in get rdata');
-dpm($data, 'in get rdata');
+#dpm($ref, 'ref in get rdata');
+#dpm($data, 'in get rdata');
+	if(empty($data))
+	{
+		return FALSE;
+	}
 	return $data;
 }
 
