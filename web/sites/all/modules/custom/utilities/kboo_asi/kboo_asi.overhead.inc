@@ -4,7 +4,7 @@
 function kboo_asi_check_updated_nodes()
 {
 	//checking our table for resources updated since our node update or creation
-	$q = db_query("select * from kboo_asi_resource where asdate > drdate limit 100");
+	$q = db_query("select * from kboo_asi_resource where asdate > drdate limit 50");
 	while($r = $q->fetchObject())
 	{
 		$upnodes[] = $r->res;
@@ -29,8 +29,8 @@ function kboo_asi_no_nodes_batch()
 {
 	$count = db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField();
 dpm($count, 'count');
-	//we do 100 per run
-	$runs = ceil($count/100);
+	//we do 50 per run
+	$runs = ceil($count/50);
 	$ops = array();
 	for($i=0; $i<$runs; $i++)
 	{
@@ -69,13 +69,13 @@ function kboo_asi_check_no_nodes(&$context)
 	{
 		$context['sandbox']['progress'] = 0;
 		$context['sandbox']['current_node'] = 0;
-		$context['sandbox']['max'] = db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField();
+		$context['sandbox']['max'] = ceil(db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField()/50);
 	}
 
 
 	//find resources that have no drupal node
 	$nonodes = array();
-	$q = db_query("select * from kboo_asi_resource where nid is null order by res asc limit 100");
+	$q = db_query("select * from kboo_asi_resource where nid is null order by res asc limit 50");
 	while($r = $q->fetchObject())
 	{
 		$nonodes[] = $r->res;
@@ -83,6 +83,7 @@ function kboo_asi_check_no_nodes(&$context)
 
 	if(count($nonodes) == 0)
 	{
+dpm('returning false b/c no nodes');
 		return FALSE;
 	}
 
@@ -95,6 +96,7 @@ function kboo_asi_check_no_nodes(&$context)
 		$context['results'][] = $node_info[0];
 		$context['sandbox']['progress']++;
 		$context['sandbox']['current_node'] = $node_info[0];
+		$context['message'] = "Completed node " . $nonode;
 	}
 	if($context['sandbox']['progress'] != $context['sandbox']['max'])
 	{

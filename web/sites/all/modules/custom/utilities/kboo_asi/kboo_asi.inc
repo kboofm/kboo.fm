@@ -60,6 +60,54 @@ function kboo_asi_import_resource($res)
 	$n->body['en'][0]['value'] = $res_rdata['Written notes on casing'];
 
 
+	$files = kboo_asi_get_files($ref);
+
+/*
+$file = file_save_upload('document', array(
+    'file_validate_extensions' => array('txt doc'), // Validate extensions.
+));
+if ($file) {
+// Move the file, into the Drupal file system
+if ($file = file_move($file, 'public://')) {
+  $file->status = FILE_STATUS_PERMANENT;
+ // $file->file_display = 1;
+  $file = file_save($file);
+  //set the extra values needed to make node_save work
+  $file->display = 1;
+  $file->description = "";
+} else {
+  $output = t('Failed to write the uploaded file the site\'s file folder.');
+}       
+ } else {
+$output = t('No file was uploaded.');
+ }
+$node->field...[und][0] = (array)$file;
+
+//file will go in field_audio_files
+
+$file_temp = file_get_contents('public://someimage.jpg');
+
+// Saves a file to the specified destination and creates a database entry.
+$file_temp = file_save_data($file_temp, 'public://' . 'someimage.jpg', FILE_EXISTS_RENAME);
+
+$node->field_page_image = array(
+  'und' => array(
+    0 => array(
+      'fid' => $file_temp->fid,
+      'filename' => $file_temp->filename,
+      'filemime' => $file_temp->filemime,
+      'uid' => 1,
+      'uri' => $file_temp->uri,
+      'status' => 1,
+      'display' => 1
+    )
+  )
+);
+
+
+
+*/
+
 	node_submit($n);
 	node_save($n);
 #dpm($n, 'saved node');
