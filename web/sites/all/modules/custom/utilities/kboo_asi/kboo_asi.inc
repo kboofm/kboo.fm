@@ -26,7 +26,16 @@ function kboo_asi_import_resource($res)
 	$n->type = 'station_content';
 	node_object_prepare($n);
 	$n->uid = 1;
-	$n->title = $res_rdata['Item Title'];
+	if(strlen($res_rdata['Item Title']) > 255)
+	{
+		$n->title = substr($res_rdata['Item Title'], 0, 255);
+		$title = $res_rdata['Item Title'] . "\n\n";
+	}
+	else
+	{
+		$n->title = $res_rdata['Item Title'];
+		$title = '';
+	}
 	$n->language = 'en';
 	$n->status = 1;
 	$n->promote = 0;
@@ -56,11 +65,13 @@ function kboo_asi_import_resource($res)
 	$n->field_produced_by['und'][0]['value'] = $publisher;
 	$n->field_produced_by['en'][0]['value'] = $publisher;
 
-	$n->body['und'][0]['value'] = $res_rdata['Written notes on casing'];
-	$n->body['en'][0]['value'] = $res_rdata['Written notes on casing'];
+	$n->body['und'][0]['value'] = $title . $res_rdata['Written notes on casing'];
+	$n->body['en'][0]['value'] = $title . $res_rdata['Written notes on casing'];
 
 
-	$files = kboo_asi_get_files($ref);
+	$files = kboo_asi_get_files($res);
+#these will have to be queued because it could take a while to download and this won't work in normal batch
+#function kboo_asi_get_as_file($path, $file)
 
 /*
 $file = file_save_upload('document', array(
@@ -108,6 +119,7 @@ $node->field_page_image = array(
 
 */
 
+#dpm($n);
 	node_submit($n);
 	node_save($n);
 #dpm($n, 'saved node');
@@ -128,7 +140,8 @@ $out .= 'files: <br>' . print_r($j, TRUE);
 function kboo_asi_program_lookup($progname)
 {
 #dpm($progname, 'progname');
-	$q = db_query("select * from node where type='program' and title like :s", array(':s' => $progname));
+	$progname_trunc = substr($progname, 0, 255);
+	$q = db_query("select * from node where type='program' and title like :s", array(':s' => $progname_trunc));
 	if($r = $q->fetchObject())
 	{
 		return $r->nid;
@@ -140,7 +153,7 @@ function kboo_asi_program_lookup($progname)
 		$n->type = 'program';
 		node_object_prepare($n);
 		$n->uid = 1;
-		$n->title = $progname;
+		$n->title = $progname_trunc;
 		$n->language = 'en';
 		$n->status = 1;
 		$n->promote = 0;
@@ -156,14 +169,19 @@ function kboo_asi_program_lookup($progname)
 			'format' => null,
 			'safe_value' => 'KBOO',
 		);
+		if(strlen($progname) > 255)
+		{
+			$n->body['und'][0]['value'] = $progname;
+			$n->body['en'][0]['value'] = $progname;
+		}
 		$n->field_program_status['und'][0]['value'] = 0; //current
 		$n->field_substitute['und'][0]['value'] = 0;
 		$n->title_field['en'][0] = array(
-			'value' => $progname,
+			'value' => $progname_trunc,
 			'format' => null,
-			'safe_value' => $progname,
+			'safe_value' => $progname_trunc,
 		);
-		$n->title_original = $progname;
+		#?$n->title_original = $progname;
 		node_submit($n);
 #dpm($n, 'submitted program node');
 		node_save($n);
@@ -174,7 +192,8 @@ function kboo_asi_program_lookup($progname)
 
 function kboo_asi_host_lookup($hostname)
 {
-	$q = db_query("select * from node where type='person_profile' and title like :s", array(':s' => $hostname));
+	$hostname_trunc = substr($hostname, 0, 255);
+	$q = db_query("select * from node where type='person_profile' and title like :s", array(':s' => $hostname_trunc));
 	if($r = $q->fetchObject())
 	{
 		return $r->nid;
@@ -187,7 +206,7 @@ function kboo_asi_host_lookup($hostname)
 		$n->type = 'person_profile';
 		node_object_prepare($n);
 		$n->uid = 1;
-		$n->title = $hostname;
+		$n->title = $hostname_trunc;
 		$n->language = 'en';
 		$n->status = 1;
 		$n->promote = 0;
@@ -199,14 +218,19 @@ function kboo_asi_host_lookup($hostname)
 			'timezone_db' => 'UTC',
 			'date_type' => 'datetime',
 		);
+		if(strlen($hostname) > 255)
+		{
+			$n->body['und'][0]['value'] = $hostname;
+			$n->body['en'][0]['value'] = $hostname;
+		}
 		$n->field_show_host_status['und'][0]['value'] = 1;
 		$n->field_substitute['und'][0]['value'] = 0;
 		$n->title_field['en'][0] = array(
-			'value' => $hostname,
+			'value' => $hostname_trunc,
 			'format' => null,
-			'safe_value' => $hostname,
+			'safe_value' => $hostname_trunc,
 		);
-		$n->title_original = $hostname;
+		#?$n->title_original = $hostname_trunc;
 		node_submit($n);
 #dpm($n, 'submitted person node');
 		node_save($n);
@@ -256,7 +280,38 @@ function kboo_asi_get_files($ref)
 	$q = db_query('select * from resource_alt_files where resource=:r and file_extension=:ext', array(':r' => $ref, ':ext' => 'mp3'));
 	while($r = $q->fetchObject())
 	{
-		$files[] = $r->file_name;
+		$pref = substr($r->file_name, 0, 7);
+		#build path
+		if(substr($pref, 0, 5) != 'kboo_')
+		{
+			#then not a known path; skip the file
+			continue;
+		}
+		else
+		{
+			$path = '/_final/';
+			if(substr($pref, 5, 2) == 'CS')
+			{
+				$path .= 'cassette';
+			}
+			else if(substr($pref, 5, 2) == 'CD')
+			{
+				$path .= 'cd';
+			}
+			else if(substr($pref, 5, 1) == 'D')
+			{
+				$path .= 'dat';
+			}
+			else if(substr($pref, 5, 1) == 'M')
+			{
+				$path .= 'minidisc';
+			}
+			else if(is_numeric(substr($pref, 5, 1)))
+			{
+				$path .= 'openreel';
+			}
+		}
+		$files[] = array('name' => $r->file_name, 'path' => $path);
 	}
 	db_set_active('default');
 	return $files;

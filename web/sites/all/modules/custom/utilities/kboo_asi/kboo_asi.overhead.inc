@@ -4,7 +4,7 @@
 function kboo_asi_check_updated_nodes()
 {
 	//checking our table for resources updated since our node update or creation
-	$q = db_query("select * from kboo_asi_resource where asdate > drdate limit 50");
+	$q = db_query("select * from kboo_asi_resource where asdate > drdate limit 30");
 	while($r = $q->fetchObject())
 	{
 		$upnodes[] = $r->res;
@@ -29,8 +29,8 @@ function kboo_asi_no_nodes_batch()
 {
 	$count = db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField();
 dpm($count, 'count');
-	//we do 50 per run
-	$runs = ceil($count/50);
+	//we do 30 per run
+	$runs = ceil($count/30);
 	$ops = array();
 	for($i=0; $i<$runs; $i++)
 	{
@@ -42,7 +42,7 @@ dpm($count, 'count');
 		'progress_message' => t('Processed @current of @total.'),
 		'error_message' => t('Batch encountered an error.'),
 	);
-dpm($ops);
+#dpm($ops);
 	batch_set($batch);
 	batch_process('/admin/content');
 }
@@ -69,13 +69,13 @@ function kboo_asi_check_no_nodes(&$context)
 	{
 		$context['sandbox']['progress'] = 0;
 		$context['sandbox']['current_node'] = 0;
-		$context['sandbox']['max'] = ceil(db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField()/50);
+		$context['sandbox']['max'] = ceil(db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField()/30);
 	}
 
 
 	//find resources that have no drupal node
 	$nonodes = array();
-	$q = db_query("select * from kboo_asi_resource where nid is null order by res asc limit 50");
+	$q = db_query("select * from kboo_asi_resource where nid is null order by res asc limit 30");
 	while($r = $q->fetchObject())
 	{
 		$nonodes[] = $r->res;
@@ -214,6 +214,24 @@ function kboo_asi_db_uptodate($del=FALSE, $verbose = TRUE)
 		}
 	}
 	return $out;
+}
+
+function kboo_asi_get_as_file($path, $file)
+{
+	//this downloads the argument file from the archive server
+	$ftp_keys = file_get_contents(DRUPAL_ROOT . '/../ftp_login');
+	list($ftp_host, $ftp_user, $ftp_pass) = explode("\n", $ftp_keys);
+	$filegrab = file_get_contents(DRUPAL_ROOT . '/../ftp_getter_template');
+	$filegrab = str_replace('$HOST', $ftp_host, $filegrab);
+	$filegrab = str_replace('$USER', $ftp_user, $filegrab);
+	$filegrab = str_replace('$PASSWORD', $ftp_pass, $filegrab);
+	$filegrab = str_replace('<DIR>', $path, $filegrab);
+	$filegrab = str_replace('<file>', $file, $filegrab);
+	$output = array();
+	$result = 0;
+	exec($filegrab, $output, $result);
+	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	return TRUE;
 }
 
 function kboo_asi_get_as_db($drush = FALSE)

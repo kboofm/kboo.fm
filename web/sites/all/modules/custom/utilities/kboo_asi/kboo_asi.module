@@ -14,6 +14,10 @@ function kboo_asi_menu()
 			'page callback' => 'kboo_asi_test_wrapper',
 			'access callback' => 'kboo_asi_perm',
 		),
+		'kboo/asi/test2' => array(
+			'page callback' => 'kboo_asi_test_wrapper_foo',
+			'access callback' => 'kboo_asi_perm',
+		),
 	);
 	return $items;
 }
@@ -21,6 +25,14 @@ function kboo_asi_menu()
 function ___kboo_asi_cron()
 {
 	return;
+}
+
+function kboo_asi_test_wrapper_foo()
+{
+	$out = '';
+	$foo = array();
+	kboo_asi_check_no_nodes($foo);
+	return $out;
 }
 
 function kboo_asi_test_wrapper()
