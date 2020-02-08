@@ -28,7 +28,7 @@ function kboo_asi_check_updated_nodes()
 function kboo_asi_no_nodes_batch()
 {
 	$count = db_query("select count(*) as count from kboo_asi_resource where nid is null")->fetchField();
-dpm($count, 'count');
+#dpm($count, 'count');
 	//we do 30 per run
 	$runs = ceil($count/30);
 	$ops = array();
@@ -48,6 +48,22 @@ dpm($count, 'count');
 }
 
 function kboo_asi_no_nodes_batch_finish($success, $results, $operations)
+{
+	if($success)
+	{
+		$msg = t('@count items processed', array('@count' => count($results)));
+		$msg .= theme('item_list', array('items' => $results));
+		drupal_set_message($msg);
+	}
+	else
+	{
+		$error_operation = reset($operations);
+		$msg = t('Error occurred while processing %e_op with arguments @args', array('%e_op' => $error_operation[0], '@args' => print_r($error_operation[1], TRUE)));
+		drupal_set_message($msg, 'error');
+	}
+}
+
+function kboo_asi_proc_filequeue_batch_finish($success, $results, $operations)
 {
 	if($success)
 	{
@@ -231,7 +247,14 @@ function kboo_asi_get_as_file($path, $file)
 	$result = 0;
 	exec($filegrab, $output, $result);
 	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
-	return TRUE;
+	if(file_exists(DRUPAL_ROOT . '/../rs_dls/' . $file))
+	{
+		return TRUE;
+	}
+	else
+	{
+		return FALSE;
+	}
 }
 
 function kboo_asi_get_as_db($drush = FALSE)

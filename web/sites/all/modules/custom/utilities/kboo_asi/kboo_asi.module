@@ -18,6 +18,10 @@ function kboo_asi_menu()
 			'page callback' => 'kboo_asi_test_wrapper_foo',
 			'access callback' => 'kboo_asi_perm',
 		),
+		'kboo/asi/proc_filequeue' => array(
+			'page callback' => 'kboo_asi_proc_filequeue',
+			'access callback' => 'kboo_asi_perm',
+		),
 	);
 	return $items;
 }
@@ -31,7 +35,8 @@ function kboo_asi_test_wrapper_foo()
 {
 	$out = '';
 	$foo = array();
-	kboo_asi_check_no_nodes($foo);
+#	kboo_asi_check_no_nodes($foo);
+$j = kboo_asi_get_files(15715);
 	return $out;
 }
 
