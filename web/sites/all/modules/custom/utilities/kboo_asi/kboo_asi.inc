@@ -89,61 +89,48 @@ function kboo_asi_import_resource($res, $update = FALSE)
 
 	if(isset($res_rdata['Date']))
 	{
-		$dparts = explode('-', $res_rdata['Date']);
-		if(count($dparts) == 3)
+		if(strpos($res_rdata['Date'], '/') !== FALSE)
 		{
-			$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . ' 12:00');
-			if($airdate->format('U') >= 0)
-			{
-				$n->field_air_time['und'][0]['value'] = $airdate->format('U');
-			}
-			else
-			{
-				$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
-			}
-		}
-		else if(count($dparts) == 2)
-		{
-			$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01' . ' 12:00');
-			if($airdate->format('U') >= 0)
-			{
-				$n->field_air_time['und'][0]['value'] = $airdate->format('U');
-			}
-			else
-			{
-				$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
-			}
+			$airdate = kboo_asi_grab_date_from_kw($res);
 		}
 		else
 		{
-			if(strlen($res_rdata['Date']) == 4) // then assume a year
+			$dparts = explode('-', $res_rdata['Date']);
+			if(count($dparts) == 3)
 			{
-				$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01-01' . ' 12:00');
-				$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+				$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . ' 12:00');
+				if($airdate->format('U') >= 0)
+				{
+					$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+				}
+				else
+				{
+					$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
+				}
+			}
+			else if(count($dparts) == 2)
+			{
+				$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01' . ' 12:00');
+				if($airdate->format('U') >= 0)
+				{
+					$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+				}
+				else
+				{
+					$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
+				}
 			}
 			else
 			{
-				//try to grab it from the keywords
-				$kw = kboo_asi_get_keywords($res);
-				if(isset($kw['Date']))
+				if(strlen($res_rdata['Date']) == 4) // then assume a year
 				{
-					$dstr = '';
-					switch(count($kw['Date']))
-					{
-						case 1:
-							$dstr .= $kw['Date'][0] . '-01-01';
-							break;
-						case 2:
-							$dstr .= $kw['Date'][0] . '-' . $kw['Date'][1] . '-01';
-							break;
-						case 3:
-							$dstr .= $kw['Date'][0] . '-' . $kw['Date'][1] . '-' . $kw['Date'][2];
-							break;
-					}
-					if(!empty($dstr))
-					{
-						$airdate = DateTime::createFromFormat('Y-m-d G:i', $dstr['Date'] . ' 12:00');
-					}
+					$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01-01' . ' 12:00');
+					$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+				}
+				else
+				{
+					//try to grab it from the keywords
+					$airdate = kboo_asi_grab_date_from_kw($res);
 				}
 			}
 		}
@@ -216,6 +203,49 @@ function kboo_asi_import_resource($res, $update = FALSE)
 	}
 
 	return array($n->nid, date('Y-m-d G:i:s'));
+}
+
+function kboo_asi_grab_date_from_kw($res)
+{
+	$kw = kboo_asi_get_keywords($res);
+	if(isset($kw['Date']))
+	{
+		$dstr = '';
+		switch(count($kw['Date']))
+		{
+			case 1:
+				$dstr .= $kw['Date'][0] . '-01-01';
+				break;
+			case 2:
+				$dstr .= $kw['Date'][0] . '-' . $kw['Date'][1] . '-01';
+				break;
+			case 3:
+				if(strlen($kw['Date'][0]) == 4) //then 0 is year, format is YYYY-x-x
+				{
+					$dstr .= $kw['Date'][0] . '-' . $kw['Date'][1] . '-' . $kw['Date'][2];
+				}
+				else if(strlen($kw['Date'][2]) == 4) //then 2 is year, format is x-x-YYYY
+				{
+					$dstr .= $kw['Date'][2] . '-' . $kw['Date'][1] . '-' . $kw['Date'][0];
+				}
+				else
+				{
+					//no idea, check size
+					$ar = array($kw['Date'][0], $kw['Date'][1], $kw['Date'][2]);
+					sort($ar);
+					$yr = array_pop($ar);
+					$day = array_pop($ar);
+					$mo = array_pop($ar);
+					$dstr .= $yr .'-' . $mo . '-' . $day;
+				}
+				break;
+		}
+		if(!empty($dstr))
+		{
+			$airdate = DateTime::createFromFormat('Y-m-d G:i', $dstr . ' 12:00');
+		}
+	}
+	return $airdate;
 }
 
 function kboo_asi_proc_filequeue()

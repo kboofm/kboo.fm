@@ -91,7 +91,7 @@ function kboo_asi_working()
 	$resources = array();
 	$fkeys = kboo_asi_get_keys();
 	db_set_active('archive');
-$testres = 15596;
+$testres = 18589;
 	$q = db_query('select * from resource where resource_type = 4 and ref=:r order by ref asc limit 20', array(':r'=>$testres));
 	while($r = $q->fetchObject())
 	{
@@ -120,11 +120,19 @@ $j = kboo_asi_get_rdata($testres);
 $out .= 'resource data:<br>' . print_r($j, TRUE);
 dpm($j, 'resource data on it');
 
+if(strpos($j['Date'], '/') !== FALSE)
+{
+dpm('in here');
+	$airdate = kboo_asi_grab_date_from_kw($testres);
+}
+else
+{
+	$airdate = DateTime::createFromFormat('Y-m-d G:i', $j['Date'] . ' 12:00');
+}
 
-			$airdate = DateTime::createFromFormat('Y-m-d G:i', $j['Date'] . ' 12:00');
-dpm($airdate);
+dpm($airdate, 'airdate');
 			$n = $airdate->format('U');
-dpm($n);
+dpm($n, 'formatted');
 
 $j = kboo_asi_get_files($testres);
 $out .= 'files: <br>' . print_r($j, TRUE);

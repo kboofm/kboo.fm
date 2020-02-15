@@ -30,8 +30,8 @@ function kboo_asi_check_updated_nodes()
 function kboo_asi_update_nodes_batch()
 {
 	$count = db_query("select count(*) as count from kboo_asi_resource where asdate > drdate")->fetchField();
-	//we do 30 per run
-	$runs = ceil($count/15);
+	//we do 10 per run
+	$runs = ceil($count/10);
 	$ops = array();
 	for($i=0; $i<$runs; $i++)
 	{
@@ -167,13 +167,13 @@ function kboo_asi_check_updated_nodes(&$context)
 	{
 		$context['sandbox']['progress'] = 0;
 		$context['sandbox']['current_node'] = 0;
-		$context['sandbox']['max'] = ceil(db_query("select count(*) as count from kboo_asi_resource where asdate > drdate")->fetchField()/15);
+		$context['sandbox']['max'] = ceil(db_query("select count(*) as count from kboo_asi_resource where asdate > drdate")->fetchField()/10);
 	}
 
 
 	//find resources that need update
 	$nonodes = array();
-	$q = db_query("select * from kboo_asi_resource where asdate > drdate order by res asc limit 15");
+	$q = db_query("select * from kboo_asi_resource where asdate > drdate order by res asc limit 10");
 	while($r = $q->fetchObject())
 	{
 		$upnodes[] = $r->res;
