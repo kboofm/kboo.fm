@@ -1,0 +1,3 @@
+create rs_dls in directory above webroot, having owner:group such that webserver can read & write it
+include the files in /misc in directory above webroot with usernames, ip, db name, passwords
+readable only by webserver user

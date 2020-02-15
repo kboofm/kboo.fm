@@ -1,0 +1,11 @@
+#!/bin/bash
+#bitnami_resourcespaceYYYYMMDD2325.zip
+cd ../rs_dls
+ftp -inv $HOST <<EOT
+user $USER $PASSWORD
+cd mysql_backup
+bin
+get bitnami_resourcespaceYYYYMMDD2325.zip
+bye
+EOT
+chmod 660 ./bitnami_resourcespaceYYYYMMDD2325.zip
