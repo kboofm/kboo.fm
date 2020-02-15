@@ -90,8 +90,9 @@ function kboo_asi_working()
 	//all audio resources have type 4
 	$resources = array();
 	$fkeys = kboo_asi_get_keys();
+#dpm($fkeys, 'fkeys');
 	db_set_active('archive');
-$testres = 18589;
+$testres = 21179;
 	$q = db_query('select * from resource where resource_type = 4 and ref=:r order by ref asc limit 20', array(':r'=>$testres));
 	while($r = $q->fetchObject())
 	{
@@ -112,7 +113,7 @@ $testres = 18589;
 		$resources[$r->ref] = $resource;
 	}
 	db_set_active('default');
-dpm($resources[$testres], 'resource ' . $testres);
+#dpm($resources[$testres], 'resource ' . $testres);
 $j = kboo_asi_get_keywords($testres);
 $out = 'keywords: <br>' . print_r($j, TRUE);
 dpm($j, 'keywords on it');
@@ -120,18 +121,9 @@ $j = kboo_asi_get_rdata($testres);
 $out .= 'resource data:<br>' . print_r($j, TRUE);
 dpm($j, 'resource data on it');
 
-if(strpos($j['Date'], '/') !== FALSE)
-{
-dpm('in here');
-	$airdate = kboo_asi_grab_date_from_kw($testres);
-}
-else
-{
-	$airdate = DateTime::createFromFormat('Y-m-d G:i', $j['Date'] . ' 12:00');
-}
-
+$airdate = kboo_asi_grab_airdate($j['Date'], $res);
 dpm($airdate, 'airdate');
-			$n = $airdate->format('U');
+#			$n = $airdate->format('U');
 dpm($n, 'formatted');
 
 $j = kboo_asi_get_files($testres);

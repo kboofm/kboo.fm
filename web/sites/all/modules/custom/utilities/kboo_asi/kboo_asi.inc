@@ -48,7 +48,7 @@ function kboo_asi_import_resource($res, $update = FALSE)
 		$n->title = $res_rdata['Item Title'];
 		$title = '';
 	}
-		
+
 	//these two are entity references, so we look up the nid of the target label
 	if(isset($res_rdata['Contributor']))
 	{
@@ -87,102 +87,58 @@ function kboo_asi_import_resource($res, $update = FALSE)
 	$n->body['und'][0]['value'] = $title . $body;
 	$n->body['en'][0]['value'] = $title . $body;
 
-	if(isset($res_rdata['Date']))
+	$airdate = kboo_asi_grab_airdate($res_rdata['Date'], $res);
+
+	if(!empty($airdate))
 	{
-		if(strpos($res_rdata['Date'], '/') !== FALSE)
-		{
-			$airdate = kboo_asi_grab_date_from_kw($res);
-		}
-		else
-		{
-			$dparts = explode('-', $res_rdata['Date']);
-			if(count($dparts) == 3)
-			{
-				$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . ' 12:00');
-				if($airdate->format('U') >= 0)
-				{
-					$n->field_air_time['und'][0]['value'] = $airdate->format('U');
-				}
-				else
-				{
-					$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
-				}
-			}
-			else if(count($dparts) == 2)
-			{
-				$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01' . ' 12:00');
-				if($airdate->format('U') >= 0)
-				{
-					$n->field_air_time['und'][0]['value'] = $airdate->format('U');
-				}
-				else
-				{
-					$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
-				}
-			}
-			else
-			{
-				if(strlen($res_rdata['Date']) == 4) // then assume a year
-				{
-					$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01-01' . ' 12:00');
-					$n->field_air_time['und'][0]['value'] = $airdate->format('U');
-				}
-				else
-				{
-					//try to grab it from the keywords
-					$airdate = kboo_asi_grab_date_from_kw($res);
-				}
-			}
-		}
 		if($airdate->format('U') >= 0)
 		{
+			$using_timestamp = TRUE;
 			$n->field_air_time['und'][0]['value'] = $airdate->format('U');
 		}
 		else
 		{
+			$using_timestamp = FALSE;
 			$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
 		}
 
-		if(isset($airdate))
+		if(isset($res_rdata['Duration Physical']))
 		{
-			if(isset($res_rdata['Duration Physical']))
+			$duration = $res_rdata['Duration Physical'];
+			$durparts = explode(':', $duration);
+			//this handles at least one with "-05" as a duration element.
+			foreach($durparts as $dk=>$dp)
 			{
-				$duration = $res_rdata['Duration Physical'];
-				$durparts = explode(':', $duration);
-				//this handles at least one with "-05" as a duration element.
-				foreach($durparts as $dk=>$dp)
+				if(!is_int($dp))
 				{
-					if(!is_int($dp))
-					{
-						$durparts[$dk] = abs((int)$dp);
-					}
+					$durparts[$dk] = abs((int)$dp);
 				}
-				if(count($durparts) == 2)
-				{
-					$airdate->add(new DateInterval('PT' . $durparts[0] . 'M' . $durparts[1] . 'S'));
-				}
-				else
-				{
-					$airdate->add(new DateInterval('PT' . $durparts[0] . 'H' . $durparts[1] . 'M' . $durparts[2] . 'S'));
-				}
+			}
+			if(count($durparts) == 2)
+			{
+				$airdate->add(new DateInterval('PT' . $durparts[0] . 'M' . $durparts[1] . 'S'));
 			}
 			else
 			{
-				$durparts = array(1, 0, 0);
+				$airdate->add(new DateInterval('PT' . $durparts[0] . 'H' . $durparts[1] . 'M' . $durparts[2] . 'S'));
 			}
-
-			if($airdate->format('U') >= 0)
-			{
-				$n->field_air_time['und'][0]['value2'] = $airdate->format('U');
-			}
-			else
-			{
-				$n->field_air_time_old['und'][0]['value2'] = $airdate->format('Y-m-d G:i');
-			}
-			$n->field_air_time['und'][0]['timezone'] = 'America/Los_Angeles';
-			$n->field_air_time['und'][0]['timezone_db'] = 'UTC';
-			$n->field_air_time['und'][0]['timezone_db'] = 'datestamp';
 		}
+		else
+		{
+			$durparts = array(1, 0, 0);
+		}
+
+		if($using_timestamp)
+		{
+			$n->field_air_time['und'][0]['value2'] = $airdate->format('U');
+		}
+		else
+		{
+			$n->field_air_time_old['und'][0]['value2'] = $airdate->format('Y-m-d G:i');
+		}
+		$n->field_air_time['und'][0]['timezone'] = 'America/Los_Angeles';
+		$n->field_air_time['und'][0]['timezone_db'] = 'UTC';
+		$n->field_air_time['und'][0]['timezone_db'] = 'datestamp';
 	}
 
 	node_submit($n);
@@ -203,6 +159,77 @@ function kboo_asi_import_resource($res, $update = FALSE)
 	}
 
 	return array($n->nid, date('Y-m-d G:i:s'));
+}
+
+function kboo_asi_grab_airdate($date, $res)
+{
+	if(empty(trim($date)))
+	{
+		return kboo_asi_grab_date_from_kw($res);
+	}
+
+	if(strpos($date, '/') !== FALSE)
+	{
+		//then we have slashes, try from kw  (this is specifically because of those resources
+		//looking like this.  not necessarily because the algorithm is better
+		$airdate = kboo_asi_grab_date_from_kw($res);
+	}
+	else
+	{
+		if(is_numeric($date)) //then we have a number w/ no delimiter eg YYYYMMDD
+		{
+			if(strlen($date) == 8)
+			{
+				//then we're dealing with YYYYMMDD
+				$dparts = array(substr($date, 0, 4), substr($date, 4, 2), substr($date, 6, 2));
+			}
+			else if(strlen($date) == 6)
+			{
+				//then we're dealing with YYYYMM
+				$dparts = array(substr($date, 0, 4), substr($date, 4, 2), '01');
+			}
+			else
+			{
+				//then we're dealing with YYYY or YY
+				if(strlen($date) == 4)
+				{
+					$dparts = array($date, '01', '01');
+				}
+				else
+				{
+					$yr = $date > 20 ? '19' . $date : '20' . $date;
+					$dparts = array($yr, '01', '01');
+				}
+			}
+		}
+		else //we expect delimiter '-'
+		{
+			$dparts = explode('-', $date);
+		}
+
+		//now we have dparts
+		if(count($dparts) == 3)
+		{
+			$airdate = DateTime::createFromFormat('Y-m-d G:i', $dparts[0] . '-' . $dparts[1] . '-' .  $dparts[2] . ' 12:00');
+		}
+		else if(count($dparts) == 2)
+		{
+			$airdate = DateTime::createFromFormat('Y-m-d G:i', $dparts[0] . '-' . $dparts[1] . '-01' . ' 12:00');
+		}
+		else //dparts is only one... ie string situation.  shouldn't get here logically because of is_numeric check above 
+		{
+			if(strlen($date) == 4) // then assume a year
+			{
+				$airdate = DateTime::createFromFormat('Y-m-d G:i', $date . '-01-01' . ' 12:00');
+			}
+			else
+			{
+				//try to grab it from the keywords
+				$airdate = kboo_asi_grab_date_from_kw($res);
+			}
+		}
+	}
+	return $airdate;
 }
 
 function kboo_asi_grab_date_from_kw($res)
@@ -639,17 +666,24 @@ function kboo_asi_get_keywords($ref)
 function kboo_asi_get_keys()
 {
 	//grab field keys
+$j = fopen('/tmp/foobar', 'a');
+fwrite($j, "got into get keys\n");
+fclose($j);
 	$keys = variable_get('kboo_as_field_keys', array());
 	if(TRUE)//if(!isset($keys['stamp']) || $keys['stamp'] + 24*60*60 < time())
 	{
+		$fkeys = array();
 		//then it's more than a day old so we fetch new values
 		db_set_active('archive');
 		$q = db_query('select ref, name, title from resource_type_field order by ref asc');
 		while($r = $q->fetchObject())
 		{
-			$keys[$r->ref] = array('name' => $r->name, 'title' => $r->title);
+			$fkeys[$r->ref] = array('name' => $r->name, 'title' => $r->title);
 		}
-		$keys = array('stamp' => time(), 'keys' => $keys);
+		$keys = array('stamp' => time(), 'keys' => $fkeys);
+$j = fopen('/tmp/foobar', 'a');
+fwrite($j, "keys are: " . print_r($keys, TRUE) . "\n");
+fclose($j);
 		db_set_active('default');
 		variable_set('kboo_as_field_keys', $keys);
 	}
