@@ -1,6 +1,6 @@
 <?php
 
-function kboo_asi_import_resource($res)
+function kboo_asi_import_resource($res, $update = FALSE)
 {
 	//here's the meat.  must return an array containing node id and date of update.  check format of that date.
 	//argument is a resource id from archive space.  not a node id
@@ -22,10 +22,22 @@ function kboo_asi_import_resource($res)
 	//	'Item Title' to title, presumably
 
 #dpm($res_rdata, 'rdata');
-	$n = new stdClass();
-	$n->type = 'station_content';
-	node_object_prepare($n);
-	$n->uid = 1;
+	if($update)
+	{
+		$nid = db_query("select nid from kboo_asi_resource where res=:r", array(':r' => $res))->fetchObject()->nid;
+		$n = node_load($nid);
+	}
+	else
+	{
+		$n = new stdClass();
+		$n->type = 'station_content';
+		node_object_prepare($n);
+		$n->uid = 1;
+		$n->language = 'en';
+		$n->status = 1;
+		$n->promote = 0;
+		$n->revision = 0;
+	}
 	if(strlen($res_rdata['Item Title']) > 255)
 	{
 		$n->title = substr($res_rdata['Item Title'], 0, 255);
@@ -36,13 +48,12 @@ function kboo_asi_import_resource($res)
 		$n->title = $res_rdata['Item Title'];
 		$title = '';
 	}
-	$n->language = 'en';
-	$n->status = 1;
-	$n->promote = 0;
-	$n->revision = 0;
-
+		
 	//these two are entity references, so we look up the nid of the target label
-	$n->field_hosted_by['und'][0]['target_id'] = kboo_asi_host_lookup($res_rdata['Contributor']);
+	if(isset($res_rdata['Contributor']))
+	{
+		$n->field_hosted_by['und'][0]['target_id'] = kboo_asi_host_lookup($res_rdata['Contributor']);
+	}
 
 	if(empty($res_rdata['Program Name']))
 	{
@@ -76,6 +87,117 @@ function kboo_asi_import_resource($res)
 	$n->body['und'][0]['value'] = $title . $body;
 	$n->body['en'][0]['value'] = $title . $body;
 
+	if(isset($res_rdata['Date']))
+	{
+		$dparts = explode('-', $res_rdata['Date']);
+		if(count($dparts) == 3)
+		{
+			$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . ' 12:00');
+			if($airdate->format('U') >= 0)
+			{
+				$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+			}
+			else
+			{
+				$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
+			}
+		}
+		else if(count($dparts) == 2)
+		{
+			$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01' . ' 12:00');
+			if($airdate->format('U') >= 0)
+			{
+				$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+			}
+			else
+			{
+				$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
+			}
+		}
+		else
+		{
+			if(strlen($res_rdata['Date']) == 4) // then assume a year
+			{
+				$airdate = DateTime::createFromFormat('Y-m-d G:i', $res_rdata['Date'] . '-01-01' . ' 12:00');
+				$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+			}
+			else
+			{
+				//try to grab it from the keywords
+				$kw = kboo_asi_get_keywords($res);
+				if(isset($kw['Date']))
+				{
+					$dstr = '';
+					switch(count($kw['Date']))
+					{
+						case 1:
+							$dstr .= $kw['Date'][0] . '-01-01';
+							break;
+						case 2:
+							$dstr .= $kw['Date'][0] . '-' . $kw['Date'][1] . '-01';
+							break;
+						case 3:
+							$dstr .= $kw['Date'][0] . '-' . $kw['Date'][1] . '-' . $kw['Date'][2];
+							break;
+					}
+					if(!empty($dstr))
+					{
+						$airdate = DateTime::createFromFormat('Y-m-d G:i', $dstr['Date'] . ' 12:00');
+					}
+				}
+			}
+		}
+		if($airdate->format('U') >= 0)
+		{
+			$n->field_air_time['und'][0]['value'] = $airdate->format('U');
+		}
+		else
+		{
+			$n->field_air_time_old['und'][0]['value'] = $airdate->format('Y-m-d G:i');
+		}
+
+		if(isset($airdate))
+		{
+			if(isset($res_rdata['Duration Physical']))
+			{
+				$duration = $res_rdata['Duration Physical'];
+				$durparts = explode(':', $duration);
+				//this handles at least one with "-05" as a duration element.
+				foreach($durparts as $dk=>$dp)
+				{
+					if(!is_int($dp))
+					{
+						$durparts[$dk] = abs((int)$dp);
+					}
+				}
+				if(count($durparts) == 2)
+				{
+					$airdate->add(new DateInterval('PT' . $durparts[0] . 'M' . $durparts[1] . 'S'));
+				}
+				else
+				{
+					$airdate->add(new DateInterval('PT' . $durparts[0] . 'H' . $durparts[1] . 'M' . $durparts[2] . 'S'));
+				}
+			}
+			else
+			{
+				$durparts = array(1, 0, 0);
+			}
+
+			if($airdate->format('U') >= 0)
+			{
+				$n->field_air_time['und'][0]['value2'] = $airdate->format('U');
+			}
+			else
+			{
+				$n->field_air_time_old['und'][0]['value2'] = $airdate->format('Y-m-d G:i');
+			}
+			$n->field_air_time['und'][0]['timezone'] = 'America/Los_Angeles';
+			$n->field_air_time['und'][0]['timezone_db'] = 'UTC';
+			$n->field_air_time['und'][0]['timezone_db'] = 'datestamp';
+		}
+	}
+
 	node_submit($n);
 	node_save($n);
 
@@ -93,7 +215,7 @@ function kboo_asi_import_resource($res)
 		$q = db_insert('kboo_asi_res_files')->fields(array('res'=>$res, 'nid'=>$n->nid, 'filename'=>$file['name'], 'filepath'=>$file['path']))->execute();
 	}
 
-	return array($n->nid, date('Y-m-d H:i:s'));
+	return array($n->nid, date('Y-m-d G:i:s'));
 }
 
 function kboo_asi_proc_filequeue()

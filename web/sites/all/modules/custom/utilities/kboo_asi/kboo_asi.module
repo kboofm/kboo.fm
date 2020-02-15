@@ -18,6 +18,14 @@ function kboo_asi_menu()
 			'page callback' => 'kboo_asi_test_wrapper_foo',
 			'access callback' => 'kboo_asi_perm',
 		),
+		'kboo/asi/import_nonode' => array(
+			'page callback' => 'kboo_asi_import_nonode',
+			'access callback' => 'kboo_asi_perm',
+		),
+		'kboo/asi/import_updates' => array(
+			'page callback' => 'kboo_asi_import_updates',
+			'access callback' => 'kboo_asi_perm',
+		),
 		'kboo/asi/proc_filequeue' => array(
 			'page callback' => 'kboo_asi_proc_filequeue',
 			'access callback' => 'kboo_asi_perm',
@@ -40,25 +48,21 @@ $j = kboo_asi_get_files(15715);
 	return $out;
 }
 
-function kboo_asi_test_wrapper()
+function kboo_asi_import_nonode()
 {
 	$out = '';
 	//make sure db up to date and imported
 	if(!kboo_asi_db_uptodate(TRUE, FALSE))
 	{
 		$out .= kboo_asi_get_as_db() ? "Got db" : "failed download";
-dpm('to that');
 		$out .= kboo_asi_import_as_db() ? "<br>Imported db" : "<BR>Failed import";
-dpm('to this');
 	}
 
 $j = variable_get('kboo_asi_edit_max_ref', 0);
 dpm($j);
-
 	//make sure updates to nodes logged in drupal db in kboo_asi_resource table
 
 	//this runs about 7-8 times before timeout.  not difficult to initially populate w/o messing with drupal batch
-dpm('foobar');
 	$count = 1;
 	while(kboo_asi_populate_res_log())
 	{
@@ -66,33 +70,19 @@ dpm('foobar');
 		$count++;
 	}
 
-dpm('baz');
 	//compare values in kboo_asi_resource table to determine which nodes need created or updated
 	//first handle creation.
 	$count = 1;
 
 	$foo = kboo_asi_no_nodes_batch();
-/*
-	while(kboo_asi_check_no_nodes())
-	{
-		$out .= "<br>Ran populate new node script $count times.";
-		$count++;
-break;
-	}
-*/
-
-/*
-	//second handle updates
-	//kboo_asi_check_updated_nodes();
-	$count = 1;
-	while(kboo_asi_check_updated_nodes())
-	{
-		$out .= "<br>Ran populate new node script $count times.";
-		$count++;
-	}
-*/
-
 	return $out;
+}
+
+function kboo_asi_import_updates()
+{
+	//handle updates
+	$foo = kboo_asi_update_nodes_batch();
+	return '';
 }
  
 function kboo_asi_working()
@@ -101,7 +91,8 @@ function kboo_asi_working()
 	$resources = array();
 	$fkeys = kboo_asi_get_keys();
 	db_set_active('archive');
-	$q = db_query('select * from resource where resource_type = 4 order by ref asc limit 20');
+$testres = 15596;
+	$q = db_query('select * from resource where resource_type = 4 and ref=:r order by ref asc limit 20', array(':r'=>$testres));
 	while($r = $q->fetchObject())
 	{
 		$resource = array();
@@ -121,14 +112,21 @@ function kboo_asi_working()
 		$resources[$r->ref] = $resource;
 	}
 	db_set_active('default');
-dpm($resources[15715], 'resource 15715');
-$j = kboo_asi_get_keywords(15715);
+dpm($resources[$testres], 'resource ' . $testres);
+$j = kboo_asi_get_keywords($testres);
 $out = 'keywords: <br>' . print_r($j, TRUE);
 dpm($j, 'keywords on it');
-$j = kboo_asi_get_rdata(15715);
+$j = kboo_asi_get_rdata($testres);
 $out .= 'resource data:<br>' . print_r($j, TRUE);
 dpm($j, 'resource data on it');
-$j = kboo_asi_get_files(15715);
+
+
+			$airdate = DateTime::createFromFormat('Y-m-d G:i', $j['Date'] . ' 12:00');
+dpm($airdate);
+			$n = $airdate->format('U');
+dpm($n);
+
+$j = kboo_asi_get_files($testres);
 $out .= 'files: <br>' . print_r($j, TRUE);
 dpm($j, 'files on it');
 return '<pre>' . $out . '</pre>';
