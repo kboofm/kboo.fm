@@ -90,9 +90,9 @@ function kboo_asi_working()
 	//all audio resources have type 4
 	$resources = array();
 	$fkeys = kboo_asi_get_keys();
-#dpm($fkeys, 'fkeys');
+dpm($fkeys, 'fkeys');
 	db_set_active('archive');
-$testres = 21179;
+$testres = 17559;
 	$q = db_query('select * from resource where resource_type = 4 and ref=:r order by ref asc limit 20', array(':r'=>$testres));
 	while($r = $q->fetchObject())
 	{
@@ -117,16 +117,16 @@ $testres = 21179;
 $j = kboo_asi_get_keywords($testres);
 $out = 'keywords: <br>' . print_r($j, TRUE);
 dpm($j, 'keywords on it');
-$j = kboo_asi_get_rdata($testres);
-$out .= 'resource data:<br>' . print_r($j, TRUE);
-dpm($j, 'resource data on it');
+$rdata = kboo_asi_get_rdata($testres);
+$out .= 'resource data:<br>' . print_r($rdata, TRUE);
+dpm($rdata, 'resource data on it');
 
-$airdate = kboo_asi_grab_airdate($j['Date'], $res);
+$airdate = kboo_asi_grab_airdate($j['Date'], $testres);
 dpm($airdate, 'airdate');
-#			$n = $airdate->format('U');
+$n = $airdate->format('U');
 dpm($n, 'formatted');
 
-$j = kboo_asi_get_files($testres);
+$j = kboo_asi_get_files($testres, $rdata);
 $out .= 'files: <br>' . print_r($j, TRUE);
 dpm($j, 'files on it');
 return '<pre>' . $out . '</pre>';

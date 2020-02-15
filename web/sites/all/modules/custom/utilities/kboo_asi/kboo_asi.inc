@@ -87,7 +87,10 @@ function kboo_asi_import_resource($res, $update = FALSE)
 	$n->body['und'][0]['value'] = $title . $body;
 	$n->body['en'][0]['value'] = $title . $body;
 
-	$airdate = kboo_asi_grab_airdate($res_rdata['Date'], $res);
+	if(isset($res_rdata['Date']))
+	{
+		$airdate = kboo_asi_grab_airdate($res_rdata['Date'], $res);
+	}
 
 	if(!empty($airdate))
 	{
@@ -145,7 +148,7 @@ function kboo_asi_import_resource($res, $update = FALSE)
 	node_save($n);
 
 
-	$files = kboo_asi_get_files($res);
+	$files = kboo_asi_get_files($res, $res_rdata);
 	//this will only queue the files, not actually attach them.
 
 	//first flush queue for this node & resource
@@ -586,46 +589,38 @@ function kboo_asi_get_rdata($ref)
 	return $data;
 }
 
-function kboo_asi_get_files($ref)
+function kboo_asi_get_files($ref, $data)
 {
 	//grabs files referenced by resource
 	db_set_active('archive');
 	$files = array();
+/*
+	$q = db_query('select * from resource as r inner join resource_data as rd on rd.resource=r.ref and r.file_extension=:ext and r.ref=:r and rd.resource_type_field in (101, 102)', array(':r' => $ref, ':ext' => 'mp3'));
+	while($r = $q->fetchObject())
+	{
+	}
+*/
+	if(isset($data['Proxy Filename']))// && isset($data['Preservation File Location']))
+	{
+		/*
+		$path = explode('/', $data['Preservation File Location']);
+		array_pop($path);
+		array_shift($path);
+		$path = '/' . implode('/', $path);
+		*/
+		//^^^ those paths are unreliable.  we derive from filename
+		$path = kboo_asi_get_filepath($data['Proxy Filename']);
+		$files[] = array('name' => $data['Proxy Filename'], 'path' => $path);
+	}
 	$q = db_query('select * from resource_alt_files where resource=:r and file_extension=:ext', array(':r' => $ref, ':ext' => 'mp3'));
 	while($r = $q->fetchObject())
 	{
-		$pref = substr($r->file_name, 0, 7);
-		#build path
-		if(substr($pref, 0, 5) != 'kboo_')
+		$path = kboo_asi_get_filepath($r->file_name);
+#dpm($r, 'file info inside file info grab');
+		if($path === FALSE)
 		{
-			#then not a known path; skip the file
 			continue;
 		}
-		else
-		{
-			$path = '/_final/';
-			if(substr($pref, 5, 2) == 'CS')
-			{
-				$path .= 'cassette';
-			}
-			else if(substr($pref, 5, 2) == 'CD')
-			{
-				$path .= 'cd';
-			}
-			else if(substr($pref, 5, 1) == 'D')
-			{
-				$path .= 'dat';
-			}
-			else if(substr($pref, 5, 1) == 'M')
-			{
-				$path .= 'minidisc';
-			}
-			else if(is_numeric(substr($pref, 5, 1)))
-			{
-				$path .= 'openreel';
-			}
-		}
-dpm($r, 'file info inside file info grab');
 		$files[] = array('name' => $r->file_name, 'path' => $path, 'size' => $r->file_size);
 	}
 	db_set_active('default');
@@ -639,6 +634,40 @@ dpm($r, 'file info inside file info grab');
 	# 	if filename is of type kboo_<number> then file in openreel directory
 	#	
 	#	all are subdirs of __final
+}
+
+function kboo_asi_get_filepath($fname)
+{
+	$pref = substr($fname, 0, 7);
+	#build path
+	if(substr($pref, 0, 5) == 'kboo_')
+	{
+		#then strip prefix
+		$pref = substr($pref, 5, 2);
+	}
+	$path = '/_final/';
+	if(substr($pref, 0, 2) == 'CS')
+	{
+		$path .= 'cassette';
+	}
+	else if(substr($pref, 0, 2) == 'CD')
+	{
+		$path .= 'cd';
+	}
+	else if(substr($pref, 0, 1) == 'D')
+	{
+		$path .= 'dat';
+	}
+	else if(substr($pref, 0, 1) == 'M')
+	{
+		$path .= 'minidisc';
+	}
+	else if(is_numeric(substr($pref, 0, 1)))
+	{
+		$path .= 'openreel';
+	}
+#dpm($r, 'file info inside file info grab');
+	return $path;
 }
 
 function kboo_asi_get_keywords($ref)
@@ -666,9 +695,6 @@ function kboo_asi_get_keywords($ref)
 function kboo_asi_get_keys()
 {
 	//grab field keys
-$j = fopen('/tmp/foobar', 'a');
-fwrite($j, "got into get keys\n");
-fclose($j);
 	$keys = variable_get('kboo_as_field_keys', array());
 	if(TRUE)//if(!isset($keys['stamp']) || $keys['stamp'] + 24*60*60 < time())
 	{
@@ -681,9 +707,6 @@ fclose($j);
 			$fkeys[$r->ref] = array('name' => $r->name, 'title' => $r->title);
 		}
 		$keys = array('stamp' => time(), 'keys' => $fkeys);
-$j = fopen('/tmp/foobar', 'a');
-fwrite($j, "keys are: " . print_r($keys, TRUE) . "\n");
-fclose($j);
 		db_set_active('default');
 		variable_set('kboo_as_field_keys', $keys);
 	}
