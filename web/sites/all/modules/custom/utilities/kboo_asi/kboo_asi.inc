@@ -21,7 +21,6 @@ function kboo_asi_import_resource($res, $update = FALSE)
 	//	'Written notes on casing' to body/episode description
 	//	'Item Title' to title, presumably
 
-#dpm($res_rdata, 'rdata');
 	if($update)
 	{
 		$nid = db_query("select nid from kboo_asi_resource where res=:r", array(':r' => $res))->fetchObject()->nid;
@@ -288,45 +287,52 @@ function kboo_asi_proc_filequeue()
 
 
 	//find a group associated with one res
-	$q = db_query("select max(filename),res,nid from kboo_asi_res_files group by res");
+	//in practice there are few with multiple files
+	$q = db_query("select max(filename),max(res) as res, min(status) as status from kboo_asi_res_files where status < 1 or status is null group by res");
+	#$q = db_query("select * from kboo_asi_res_files where res=:r", array(':r' => 11850));
 	while($r = $q->fetchObject())
 	{
+		//in other words we have a problem... skip it.
+		if($r->status > 3)
+		{
+			continue;
+		}
 		//process for that group
-		kboo_asi_proc_filegroup($r->res, $r->nid);
+		kboo_asi_proc_filegroup($r->res);
 	}
 	
-	return;
+	return 'Completed';
 }
 
-function kboo_asi_proc_filegroup($res, $nid=NULL)
+function kboo_asi_proc_filegroup($res)
 {
-	if(empty($nid))
+	//grab nid from resource table
+	$q=db_query("select * from kboo_asi_resource where res=:r", array(':r' => $res));
+	if($r=$q->fetchObject())
 	{
-		//then grab nid from resource table
-		$q=db_query("select * from kboo_asi_resource where res=:r", array(':r' => $res));
-		if($r=$q->fetchObject())
-		{
-			$nid=$r->nid;
-		}
-		else
-		{
-			return FALSE;
-		}
+		$nid=$r->nid;
+	}
+	else
+	{
+		return FALSE;
 	}
 
 	//out with the old
 	$n = node_load($nid);
 	$dels = array();
-	foreach($n->field_audio_files['und'] as $key=>$file)
+	if(isset($n->field_audio_files['und']))
 	{
-		$f = file_load($file['fid']);
-		$dels[] = $f;
-		$n->field_audio_files['und'][$key] = array();
-	}
-	node_save($n);
-	foreach($dels as $del)
-	{
-		file_delete($del);
+		foreach($n->field_audio_files['und'] as $key=>$file)
+		{
+			$f = file_load($file['fid']);
+			$dels[] = $f;
+			$n->field_audio_files['und'][$key] = array();
+		}
+		node_save($n);
+		foreach($dels as $del)
+		{
+			file_delete($del);
+		}
 	}
 
 	//in with the new
@@ -334,9 +340,14 @@ function kboo_asi_proc_filegroup($res, $nid=NULL)
 	$q = db_query("select * from kboo_asi_res_files where res=:r", array(':r' => $res));
 	while($r=$q->fetchObject())
 	{
-		$ops[] = array('kboo_asi_fetch_file', array($r->res, $r->filename, $r->filepath, $nid, $r->rowCount()));
+		$ops[] = array('kboo_asi_fetch_file', array($r->res, $r->filename, $r->filepath, $nid, $q->rowCount()));
+		//update status on this file in batch '1' = 'batch set'
+		if(kboo_asi_checkstat($res, $r->filename) < 1)
+		{
+			kboo_asi_checkstat($res, $r->filename, 1);
+		}
 	}
-	
+
 	$batch = array(
 		'operations' => $ops,
 		'finished' => 'kboo_asi_proc_filequeue_batch_finish',
@@ -346,10 +357,20 @@ function kboo_asi_proc_filegroup($res, $nid=NULL)
 	batch_set($batch);
 	//return to filequeue until all processed
 	batch_process('/kboo/asi/proc_filequeue');
-	return;
+	return TRUE;
 }
 
-function kboo_asi_fetch_file(&$context, $res, $name, $path, $nid, $count)
+function kboo_asi_checkstat($res, $name, $update=NULL)
+{
+	if(isset($update))
+	{
+		$q=db_query('update kboo_asi_res_files set status=:stat where res=:r and filename=:fn', array(':stat'=>$update, ':r'=>$res, ':fn'=>$name));
+	}
+	$status = db_query("select status from kboo_asi_res_files where res=:r and filename=:fn", array(':r'=>$res, ':fn'=>$name))->fetchObject()->status;
+	return $status;
+}
+
+function kboo_asi_fetch_file($res, $name, $path, $nid, $count, &$context)
 {
 	if(!isset($context['sandbox']['progress']))
 	{
@@ -358,22 +379,54 @@ function kboo_asi_fetch_file(&$context, $res, $name, $path, $nid, $count)
 		$context['sandbox']['max'] = $count;
 	}
 
-
-	//kboo_asi_get_as_file($path, $file)
-	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
-	if(kboo_asi_get_as_file($path, $name))
+	//check file status
+	$status = kboo_asi_checkstat($res, $name);
+	if($status < 3)
 	{
+		//update file status to '2' == 'fetching'
+		kboo_asi_checkstat($res, $name, 2);
+	}
+
+	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	//unless status = 3 (already downloaded)
+	if($status == 3 || $gf = kboo_asi_get_as_file($path, $name))
+	{
+		if(isset($gf) && $gf == 550)
+		{
+			//status 10 is 'file not found'
+			kboo_asi_checkstat($res, $name, 10);
+			return FALSE;
+		}
+
+		//otherwise file exists by return status, see kboo_asi_get_as_file
+		//so update db, status 3='have the file locally in work dir'
+		kboo_asi_checkstat($res, $name, 3);
+
 		//drupalize it
 		$source = DRUPAL_ROOT . '/../rs_dls/' . $name;
-		$target = 'public://audio/station_content/';
-		$file = file_save_upload($source, array(), $target, FILE_EXISTS_RENAME);
+		$target = 'public://audio/station_content/' . $name;
+		$file = file_save_data(file_get_contents($source), $target, FILE_EXISTS_RENAME);
 		if($file)
 		{
 			$file->status = FILE_STATUS_PERMANENT;
-			file_save($file);
+			$file = file_save($file);
+			//15 is "exists, managed, and located at correct URI"
+			kboo_asi_checkstat($res, $name, 15);
 			$n = node_load($nid);
-			$n->field_audio_files['und'][] = (array) $file;
+			$file->display = 1;
+			if(substr($file->filemime, 0, 5) == 'audio')
+			{
+				$n->field_audio_files['und'][] = (array) $file;
+			}
+			else if(substr($file->filemime) == 'image')
+			{
+				$n->field_more_images['und'][] = (array) $file;
+			}
 			node_save($n);
+			//20 is "exists, managed, and attached to it's node"
+			kboo_asi_checkstat($res, $name, 20);
+
+			//delete work copy
 			if(file_exists(DRUPAL_ROOT . '/../rs_dls/' . $name))
 			{
 				unlink(DRUPAL_ROOT . '/../rs_dls/' . $name);
@@ -385,6 +438,10 @@ function kboo_asi_fetch_file(&$context, $res, $name, $path, $nid, $count)
 		$context['sandbox']['current_resource'] = $res;
 		$context['message'] = "Completed file " . $name;
 	}
+	else
+	{
+		return FALSE;
+	}
 
 
 	if($context['sandbox']['progress'] != $context['sandbox']['max'])
@@ -395,28 +452,7 @@ function kboo_asi_fetch_file(&$context, $res, $name, $path, $nid, $count)
 }
 
 /*
-$file = file_save_upload('document', array(
-    'file_validate_extensions' => array('txt doc'), // Validate extensions.
-));
-if ($file) {
-// Move the file, into the Drupal file system
-if ($file = file_move($file, 'public://')) {
-  $file->status = FILE_STATUS_PERMANENT;
- // $file->file_display = 1;
-  $file = file_save($file);
-  //set the extra values needed to make node_save work
-  $file->display = 1;
-  $file->description = "";
-} else {
-  $output = t('Failed to write the uploaded file the site\'s file folder.');
-}       
- } else {
-$output = t('No file was uploaded.');
- }
-$node->field...[und][0] = (array)$file;
-
 //file will go in field_audio_files
-
 $file_temp = file_get_contents('public://someimage.jpg');
 
 // Saves a file to the specified destination and creates a database entry.
@@ -439,8 +475,6 @@ $node->field_page_image = array(
 
 */
 
-#dpm($n);
-#dpm($n, 'saved node');
 /*
 //kboo_asi_get_keywords($res);
 $out = 'keywords: <br>' . print_r($j, TRUE);
@@ -500,7 +534,6 @@ function kboo_asi_program_lookup($progname)
 		);
 		#?$n->title_original = $progname;
 		node_submit($n);
-#dpm($n, 'submitted program node');
 		node_save($n);
 		return $n->nid;
 	}
@@ -517,7 +550,6 @@ function kboo_asi_host_lookup($hostname)
 	}
 	else
 	{
-#dpm($hostname, 'hostname');
 		//create it.
 		$n = new stdClass();
 		$n->type = 'person_profile';
@@ -549,7 +581,6 @@ function kboo_asi_host_lookup($hostname)
 		);
 		#?$n->title_original = $hostname_trunc;
 		node_submit($n);
-#dpm($n, 'submitted person node');
 		node_save($n);
 		return $n->nid;
 	}
@@ -580,7 +611,6 @@ function kboo_asi_get_rdata($ref)
 		}
 	}
 	db_set_active('default');
-#dpm($ref, 'ref in get rdata');
 #dpm($data, 'in get rdata');
 	if(empty($data))
 	{

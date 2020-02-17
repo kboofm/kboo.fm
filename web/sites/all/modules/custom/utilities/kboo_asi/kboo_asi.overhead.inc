@@ -322,10 +322,35 @@ function kboo_asi_get_as_file($path, $file)
 	$filegrab = str_replace('$USER', $ftp_user, $filegrab);
 	$filegrab = str_replace('$PASSWORD', $ftp_pass, $filegrab);
 	$filegrab = str_replace('<DIR>', $path, $filegrab);
-	$filegrab = str_replace('<file>', $file, $filegrab);
+	$filegrab = str_replace('<FILE>', $file, $filegrab);
 	$output = array();
 	$result = 0;
 	exec($filegrab, $output, $result);
+	if(substr($output[11], 0, 3) == '550')
+	{
+		//retry with filename as dir
+		$filegrab = file_get_contents(DRUPAL_ROOT . '/../ftp_getter_template');
+		$filegrab = str_replace('$HOST', $ftp_host, $filegrab);
+		$filegrab = str_replace('$USER', $ftp_user, $filegrab);
+		$filegrab = str_replace('$PASSWORD', $ftp_pass, $filegrab);
+
+		$nfile = explode('.', $file);
+		$npath = $path . '/' . $nfile[0];
+		$filegrab = str_replace('<DIR>', $npath, $filegrab);
+		$filegrab = str_replace('<FILE>', $file, $filegrab);
+		$output = array();
+		$result = 0;
+		exec($filegrab, $output, $result);
+
+		if(substr($output[11], 0, 3) == '550')
+		{
+			//also write a file to record missing ones
+			$f = fopen(DRUPAL_ROOT . '/../rs_dls/missing_files', 'a');
+			fwrite($f, "Missing file: " . $path . "/" . $file . " and " . $npath . "/" . $file . "\n");
+			fclose($f);
+			return 550;
+		}
+	}
 	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
 	if(file_exists(DRUPAL_ROOT . '/../rs_dls/' . $file))
 	{

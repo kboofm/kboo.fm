@@ -66,6 +66,12 @@ function kboo_asi_schema()
 				'type' => 'varchar',
 				'not null' => TRUE,
 			),
+			'status' => array(
+				'description' => 'Whether file downloaded or not',
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => FALSE,
+			),
 		),
 		'primary key' => array(
 			'res',
@@ -106,6 +112,12 @@ function kboo_asi_update_7101()
 				'type' => 'varchar',
 				'length' => 300,
 				'not null' => TRUE,
+			),
+			'status' => array(
+				'description' => 'Whether file downloaded or not',
+				'type' => 'int',
+				'unsigned' => TRUE,
+				'not null' => FALSE,
 			),
 		),
 		'primary key' => array(
