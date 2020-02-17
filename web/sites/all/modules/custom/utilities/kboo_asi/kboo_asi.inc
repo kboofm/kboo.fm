@@ -288,7 +288,7 @@ function kboo_asi_proc_filequeue()
 
 	//find a group associated with one res
 	//in practice there are few with multiple files
-	$q = db_query("select max(filename),max(res) as res, min(status) as status from kboo_asi_res_files where status < 1 or status is null group by res");
+	$q = db_query("select max(filename),max(res) as res, min(status) as status from kboo_asi_res_files where status < 4 or status is null group by res");
 	#$q = db_query("select * from kboo_asi_res_files where res=:r", array(':r' => 11850));
 	while($r = $q->fetchObject())
 	{
