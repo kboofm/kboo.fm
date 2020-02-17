@@ -391,7 +391,7 @@ function kboo_asi_fetch_file($res, $name, $path, $nid, $count, &$context)
 	//unless status = 3 (already downloaded)
 	if($status == 3 || $gf = kboo_asi_get_as_file($path, $name))
 	{
-		if(isset($gf) && $gf == 550)
+		if(isset($gf) && $gf === 550)
 		{
 			//status 10 is 'file not found'
 			kboo_asi_checkstat($res, $name, 10);
