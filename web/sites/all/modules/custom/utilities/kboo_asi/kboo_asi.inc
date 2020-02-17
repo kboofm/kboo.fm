@@ -340,12 +340,25 @@ function kboo_asi_proc_filegroup($res)
 	$q = db_query("select * from kboo_asi_res_files where res=:r", array(':r' => $res));
 	while($r=$q->fetchObject())
 	{
+		if(empty(trim($r->filename)))
+		{
+			//status 10 is 'file not found'
+			kboo_asi_checkstat($res, $r->filename, 10);
+			continue;
+		}
+
 		$ops[] = array('kboo_asi_fetch_file', array($r->res, $r->filename, $r->filepath, $nid, $q->rowCount()));
 		//update status on this file in batch '1' = 'batch set'
 		if(kboo_asi_checkstat($res, $r->filename) < 1)
 		{
 			kboo_asi_checkstat($res, $r->filename, 1);
 		}
+	}
+
+	if(empty($ops))
+	{
+		//ie if our files have empty string names
+		return TRUE;
 	}
 
 	$batch = array(
