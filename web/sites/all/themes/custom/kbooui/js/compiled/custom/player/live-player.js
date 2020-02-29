@@ -125,7 +125,7 @@
           datatype: "json",
           success: (function(_this) {
             return function(response) {
-              return _this.processProgramsResponse(response, key);
+              return _this.processProgramsResponse(response, stream);
             };
           })(this)
         };
