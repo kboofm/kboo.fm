@@ -235,6 +235,38 @@ function kboo_asi_populate_res_log()
 	return TRUE;
 }
 
+function kboo_asi_latest_db($pp = FALSE)
+{
+	//date of latest db
+	$path = '/var/www/vhosts/test.kboo.fm/rs_dls';
+	$files = scandir($path);
+	$hits = array();
+	foreach($files as $file)
+	{
+		if(substr($file, 0, 21) == 'bitnami_resourcespace')
+		{
+			$hits[] = $file;
+		}
+	}
+	$latest = 0;
+	foreach($hits as $hit)
+	{
+		$datestr = substr($hit, 21, 8);
+		if($datestr > $latest)
+		{
+			$latest = $datestr;
+		}
+	}
+	if($pp)
+	{
+		$y = substr($latest, 0, 4);
+		$m = substr($latest, 4, 2);
+		$d = substr($latest, 6, 2);
+		return $m . '/' . $d . '/' . $y;
+	}
+	return $latest;
+}
+
 function kboo_asi_db_uptodate($del=FALSE, $verbose = TRUE)
 {
 	//parameters:
@@ -375,11 +407,11 @@ function kboo_asi_get_as_db($drush = FALSE)
 	$mysql_grab = str_replace('YYYYMMDD', $datestr, $mysql_grab);
 	$output = array();
 	$result = 0;
-	exec($mysql_grab, $output, $result);
+	$ex = exec($mysql_grab, $output, $result);
 	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
 	if($drush)
 	{
-print_r($result);
+print_r($result, TRUE);
 		return 'Downloaded';
 	}
 	else
@@ -388,15 +420,41 @@ print_r($result);
 	}
 }
 
-function kboo_asi_import_as_db($drush = FALSE)
+function kboo_asi_import_as_db($drush = FALSE, $retdate = FALSE)
 {
 	//this imports the db dated yesterday (assuming it exists!) to the archivespace working db
 	$mysql_login = file_get_contents(DRUPAL_ROOT . '/../mysql_login');
 	list($mysql_db, $mysql_user, $mysql_pass) = explode("\n", $mysql_login);
 
 	$mysql_file = 'bitnami_resourcespaceYYYYMMDD2325.zip';
-	$datestr = date('Ymd', time() - 24*60*60); //yesterday's backup
-	$mysql_file = str_replace('YYYYMMDD', $datestr, $mysql_file);
+	if($retdate)
+	{
+		$path = DRUPAL_ROOT . '/../rs_dls/';
+		$files = scandir($path);
+		$hits = array();
+		$maxdate = '';
+		foreach($files as $file)
+		{
+			if(substr($file, 0, 21) == 'bitnami_resourcespace')
+			{
+				$d = substr($file, 21, 8);
+				if($d > $maxdate)
+				{
+					$maxdate = $d;
+				}
+			}
+		}
+
+		$datestr = $maxdate;
+		$mysql_file = str_replace('YYYYMMDD', $datestr, $mysql_file);
+		$mysql_fileret = $mysql_file;
+	}
+	else
+	{
+		$datestr = date('Ymd', time() - 24*60*60); //yesterday's backup
+		$mysql_file = str_replace('YYYYMMDD', $datestr, $mysql_file);
+		$mysql_fileret = $mysql_file;
+	}
 	$mysql_file = DRUPAL_ROOT . '/../rs_dls/' . $mysql_file;
 
 	$mysql_clean_file = __DIR__ . '/mysql_clean';
@@ -411,12 +469,21 @@ function kboo_asi_import_as_db($drush = FALSE)
 	exec($mysql_command, $output, $res);
 	if($drush)
 	{
-print_r($cl_res);
-print_r($res);
+print_r($cl_res, TRUE);
+print_r($res, TRUE);
 		return 'Success';
+	}
+	else if($retdate)
+	{
+		return $mysql_fileret;
 	}
 	else
 	{
 		return TRUE;
 	}
+}
+
+function _kboo_asi_gen_list($list, $header, $caption, $el)
+{
+	return theme_table(array('header' => $header, 'rows' => $list, 'footer' => array(), 'attributes' => array('class' => 'kboo-asi-admin-table'), 'caption' => $caption, 'colgroups' => array())) . theme('pager', array('tags' => array(), 'element' => $el));
 }

@@ -10,6 +10,10 @@ function kboo_asi_menu()
 			'page callback' => 'kboo_asi_working',
 			'access callback' => 'kboo_asi_perm',
 		),
+		'kboo/asi/admin' => array(
+			'page callback' => 'kboo_asi_admin',
+			'access callback' => 'kboo_asi_perm',
+		),
 		'kboo/asi/test' => array(
 			'page callback' => 'kboo_asi_test_wrapper',
 			'access callback' => 'kboo_asi_perm',
@@ -38,6 +42,133 @@ function ___kboo_asi_cron()
 {
 	return;
 }
+
+function kboo_asi_admin()
+{
+	return drupal_get_form('kboo_asi_admin_form');
+}
+
+function kboo_asi_admin_form($form, &$form_state)
+{
+	$form['latest_db'] = array(
+		'#type' => 'markup',
+		'#markup' => "Current DB is dated " . kboo_asi_latest_db(TRUE),
+		'#prefix' => '<div id="kboo-asi-db-wrap">',
+		'#suffix' => '</div>',
+	);
+
+	$form['get_db'] = array(
+		'#type' => 'button',
+		'#value' => 'Get and import newest ArchiveSpace database',
+		'#attributes' => array('class' => array()),
+		'#ajax' => array(
+			'callback' => 'kboo_asi_get_db_ajax',
+			'wrapper' => 'kboo-asi-db-download',
+		),
+		'#suffix' => '<div id="kboo-asi-db-download"></div>',
+	);
+	$form['asset_list'] = array(
+		'#type' => 'markup',
+		'#markup' => kboo_asi_asset_table(),
+	);
+	$form['files_list'] = array(
+		'#type' => 'markup',
+		'#markup' => kboo_asi_files_table(),
+	);
+	$form['files_bad_list'] = array(
+		'#type' => 'markup',
+		'#markup' => kboo_asi_files_table(2),
+	);
+/*
+	$form['import_db'] = array(
+		'#type' => 'button',
+		'#value' => 'Import Newest Database',
+		'#ajax' => array(
+			'callback' => 'kboo_asi_import_db_ajax',
+			'wrapper' => 'kboo-asi-db-import',
+		),
+		'#suffix' => '<div id="kboo-asi-db-import"></div>',
+	);
+*/
+
+	//button to download latest db by calling kboo_asi_get_as_db($drush = FALSE)
+
+	return $form;
+}
+
+function kboo_asi_files_table($picks = 0)
+{
+	drupal_add_css(drupal_get_path('module', 'kboo_asi') . '/kboo_asi.css');
+	$q = db_select('kboo_asi_res_files', 'k')->extend('PagerDefault')->extend('TableSort')
+		->fields('k')
+		->orderBy('res', 'asc')
+		->limit(20);
+	if($picks == 2)
+	{
+		$q->condition('status', 20, '<>');
+	}
+	$vals = $q->execute();
+	$list = array();
+	$stats = array(
+		1 => 'Queued for download attempt',
+		2 => 'Fetching now',
+		3 => 'On webserver not Drupal',
+		10 => 'Not found on AS',
+		15 => 'Exists in Drupal',
+		20 => 'All good',
+	);
+	foreach($vals as $val)
+	{
+		$list[] = array($val->res, '<a href="/node/' . $val->nid . '">' . $val->nid . '</a>', $val->filename, $val->filepath, $stats[$val->status]);
+	}
+	$header = array("Resource ID", "NID", "Filename", "Path on Archive Server", "Status");
+	$caption = "Current Archive Space Files";
+	if($picks == 2)
+	{
+		$caption = "Current Spurious Files";
+	}
+	return _kboo_asi_gen_list($list, $header, $caption, $picks);
+}
+
+function kboo_asi_asset_table()
+{
+	drupal_add_css(drupal_get_path('module', 'kboo_asi') . '/kboo_asi.css');
+	$q = db_select('kboo_asi_resource', 'k')->extend('PagerDefault')->extend('TableSort')
+		->fields('k')
+		->orderBy('res', 'asc')
+		->limit(20);
+	$vals = $q->execute();
+	$list = array();
+	foreach($vals as $val)
+	{
+		$list[] = array($val->res, $val->asdate, $val->drdate, '<a href="/node/' . $val->nid . '">' . $val->nid . '</a>');
+	}
+	$header = array("Resource ID", "Archive Space edit date", "Drupal import date", "NID");
+	$caption = "Current Archive Space Resources";
+	return _kboo_asi_gen_list($list, $header, $caption, 1);
+}
+
+function kboo_asi_get_db_ajax($form, $form_state)
+{
+	$ret = kboo_asi_get_as_db();
+	if($ret)
+	{
+		$ret = kboo_asi_import_as_db(FALSE, TRUE);
+		return "Grabbed and imported " . $ret;
+	}
+	else
+	{
+		return "Error.";
+	}
+}
+
+/*
+function kboo_asi_import_db_ajax($form, $form_state)
+{
+	$ret = kboo_asi_import_as_db(FALSE, TRUE);
+	return '<div id="kboo-asi-db-import">Successfully imported ' . $ret . '</div>';
+}
+*/
 
 function kboo_asi_test_wrapper_foo()
 {

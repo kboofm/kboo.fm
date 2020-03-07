@@ -423,7 +423,7 @@ function kboo_asi_fetch_file($res, $name, $path, $nid, $count, &$context)
 		{
 			$file->status = FILE_STATUS_PERMANENT;
 			$file = file_save($file);
-			//15 is "exists, managed, and located at correct URI"
+			//status 15 is "exists, managed, and located at correct URI"
 			kboo_asi_checkstat($res, $name, 15);
 			$n = node_load($nid);
 			$file->display = 1;
@@ -436,7 +436,7 @@ function kboo_asi_fetch_file($res, $name, $path, $nid, $count, &$context)
 				$n->field_more_images['und'][] = (array) $file;
 			}
 			node_save($n);
-			//20 is "exists, managed, and attached to it's node"
+			//status 20 is "exists, managed, and attached to its node"
 			kboo_asi_checkstat($res, $name, 20);
 
 			//delete work copy
