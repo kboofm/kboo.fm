@@ -71,14 +71,49 @@ function kboo_asi_admin_form($form, &$form_state)
 		'#type' => 'markup',
 		'#markup' => kboo_asi_asset_table(),
 	);
+	$form['asset_list_queued'] = array(
+		'#type' => 'markup',
+		'#markup' => kboo_asi_asset_table(1),
+	);
+	$form['pop_res_log'] = array(
+		'#type' => 'button',
+		'#value' => 'Re-populate Resource Log from ArchiveSpace',
+		'#attributes' => array('class' => array()),
+		'#ajax' => array(
+			'callback' => 'kboo_asi_pop_rlog',
+			'wrapper' => 'kboo-asi-pop-rlog',
+		),
+		'#suffix' => '<div id="kboo-asi-pop-rlog"></div>',
+	);
+	$form['get_qd_assets'] = array(
+		'#type' => 'button',
+		'#value' => 'Import Queued Assets',
+		'#attributes' => array('class' => array()),
+		'#ajax' => array(
+			'callback' => 'kboo_asi_get_qd_assets_ajax',
+			'wrapper' => 'kboo-asi-qd-asset-import',
+		),
+		'#suffix' => '<div id="kboo-asi-qd-asset-import"></div>',
+	);
 	$form['files_list'] = array(
 		'#type' => 'markup',
 		'#markup' => kboo_asi_files_table(),
 	);
 	$form['files_bad_list'] = array(
 		'#type' => 'markup',
-		'#markup' => kboo_asi_files_table(2),
+		'#markup' => kboo_asi_files_table(3),
 	);
+	$form['get_files'] = array(
+		'#type' => 'button',
+		'#value' => 'Get and import newest ArchiveSpace database',
+		'#attributes' => array('class' => array()),
+		'#ajax' => array(
+			'callback' => 'kboo_asi_get_db_ajax',
+			'wrapper' => 'kboo-asi-db-download',
+		),
+		'#suffix' => '<div id="kboo-asi-db-download"></div>',
+	);
+
 /*
 	$form['import_db'] = array(
 		'#type' => 'button',
@@ -96,14 +131,14 @@ function kboo_asi_admin_form($form, &$form_state)
 	return $form;
 }
 
-function kboo_asi_files_table($picks = 0)
+function kboo_asi_files_table($picks = 2)
 {
 	drupal_add_css(drupal_get_path('module', 'kboo_asi') . '/kboo_asi.css');
 	$q = db_select('kboo_asi_res_files', 'k')->extend('PagerDefault')->extend('TableSort')
 		->fields('k')
 		->orderBy('res', 'asc')
 		->limit(20);
-	if($picks == 2)
+	if($picks == 3)
 	{
 		$q->condition('status', 20, '<>');
 	}
@@ -123,20 +158,25 @@ function kboo_asi_files_table($picks = 0)
 	}
 	$header = array("Resource ID", "NID", "Filename", "Path on Archive Server", "Status");
 	$caption = "Current Archive Space Files";
-	if($picks == 2)
+	if($picks == 3)
 	{
 		$caption = "Current Spurious Files";
 	}
+	//$picks evidently have to be consecutive.  drupal behaves wonky passing scattered ints as $el to pager
 	return _kboo_asi_gen_list($list, $header, $caption, $picks);
 }
 
-function kboo_asi_asset_table()
+function kboo_asi_asset_table($qd = 0)
 {
 	drupal_add_css(drupal_get_path('module', 'kboo_asi') . '/kboo_asi.css');
 	$q = db_select('kboo_asi_resource', 'k')->extend('PagerDefault')->extend('TableSort')
 		->fields('k')
 		->orderBy('res', 'asc')
 		->limit(20);
+	if($qd == 1)
+	{
+		$q->condition('asdate', 'drdate', '>');
+	}
 	$vals = $q->execute();
 	$list = array();
 	foreach($vals as $val)
@@ -145,7 +185,11 @@ function kboo_asi_asset_table()
 	}
 	$header = array("Resource ID", "Archive Space edit date", "Drupal import date", "NID");
 	$caption = "Current Archive Space Resources";
-	return _kboo_asi_gen_list($list, $header, $caption, 1);
+	if($qd == 1)
+	{
+		$caption = "Current Resources Queued for Import";
+	}
+	return _kboo_asi_gen_list($list, $header, $caption, $qd);
 }
 
 function kboo_asi_get_db_ajax($form, $form_state)
