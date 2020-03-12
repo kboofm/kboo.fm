@@ -34,7 +34,8 @@
 
       Live.prototype.streams = {
         one: {
-          route: "http://live.kboo.fm:8000/high",
+          route: "https://live.kboo.fm:8443/high",
+          //route: "https://kboo.fm/fwd.php",
           title: "KBOO",
           programLabel: "",
           programDefault: "",
