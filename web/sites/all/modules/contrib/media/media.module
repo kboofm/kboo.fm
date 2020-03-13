@@ -362,10 +362,7 @@ function media_form_field_ui_field_edit_form_alter(&$form, &$form_state) {
     $form['instance']['settings']['file_extensions']['#required'] = FALSE;
   }
 
-  // On image fields using the media widget we remove the alt/title fields.
   if ($form['#field']['type'] == 'image' && $form['instance']['widget']['type']['#value'] == 'media_generic') {
-    $form['instance']['settings']['alt_field']['#access'] = FALSE;
-    $form['instance']['settings']['title_field']['#access'] = FALSE;
     $form['instance']['settings']['file_extensions']['#title'] = t('Allowed file extensions for uploaded files');
     // Do not increase maxlength of file extensions for image fields, since
     // presumably they will not need a long list of extensions.

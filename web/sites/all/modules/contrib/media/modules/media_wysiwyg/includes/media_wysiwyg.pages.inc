@@ -236,3 +236,212 @@ function media_wysiwyg_format_form_view_mode(&$form, $form_state, $file) {
 function media_wysiwyg_format_form_preview($form, $form_state) {
   return $form['preview']['thumbnail'];
 }
+
+/**
+ * Upgrade a single media token to latest version.
+ *
+ * @param array $tag_info
+ *   The media token as a json-decoded array.
+ */
+function media_wysiwyg_upgrade_token(array &$tag_info) {
+  $version = variable_get('media_wysiwyg_token_version', '');
+  if (version_compare($version, '3.0', '<')) {
+    media_wysiwyg_aggregate_alignment($tag_info);
+  }
+  // Successive upgrades follows here.
+}
+
+/**
+ * Upgrade media tokens in filtered text fields for a given entity.
+ *
+ * Only upgraded text fields will be updated in storage, omitting the costly
+ * entity_save(). I.e. no new entity revisions.
+ *
+ * @param string $entity_type
+ *   The entity type.
+ * @param int $id
+ *   The entity ID to scan for media tokens in.
+ *
+ * @return array
+ *   The number of found and upgraded tokens in entity, keyed by 'found' and
+ *   'upgraded'.
+ */
+function media_wysiwyg_upgrade_entity_tokens($entity_type, $id) {
+  $report = array(
+    'found' => 0,
+    'upgraded' => 0,
+  );
+
+  // Assert that the entity type has a valid controller class to avoid getting
+  // php parse errors during token upgrades. See issue #2950150.
+  $type_info = entity_get_info($entity_type);
+  if (empty($type_info['controller class'])) {
+    return $report;
+  }
+  if (!($entity = entity_load($entity_type, array($id)))) {
+    return $report;
+  };
+  $entity = reset($entity);
+
+  list(,, $bundle) = entity_extract_ids($entity_type, $entity);
+
+  // Map between storage engines and the fields for it that will be updated.
+  $storages = array();
+  foreach (media_wysiwyg_filter_fields_with_text_filtering($entity_type, $entity) as $field_name) {
+    $langcode = field_language($entity_type, $entity, $field_name);
+    if (!isset($entity->{$field_name}[$langcode])) {
+      continue;
+    }
+    $field = field_info_instance($entity_type, $field_name, $bundle);
+    $field = field_info_field_by_id($field['field_id']);
+    $field_id = $field['id'];
+    foreach ($entity->{$field_name}[$langcode] as &$field_item) {
+      if (empty($field_item['value'])) {
+        continue;
+      }
+      preg_match_all(MEDIA_WYSIWYG_TOKEN_REGEX, $field_item['value'], $matches);
+      foreach ($matches[0] as $tag_orig) {
+        $tag_orig = str_replace(array('[[', ']]'), '', $tag_orig);
+        $tag_info = drupal_json_decode($tag_orig);
+        if (!isset($tag_info['type']) || $tag_info['type'] != 'media') {
+          continue;
+        }
+        $report['found']++;
+        // Perform the actual upgrade.
+        media_wysiwyg_upgrade_token($tag_info);
+        $tag_new = drupal_json_encode($tag_info);
+        if (strcmp($tag_orig, $tag_new) == 0) {
+          // No changes. Don't bother saving this.
+          continue;
+        }
+        $report['upgraded']++;
+        $tag_orig = '[[' . $tag_orig . ']]';
+        $tag_new = '[[' . $tag_new . ']]';
+        // The field_item is available by reference, so it will updated in the
+        // entity directly. If several identical tokens exists within this text
+        // value they will all be replaced here, and the next match iteration
+        // will not perform any replacement as it the search string will not be
+        // found. No big deal and no need to add a special case for this.
+        $field_item['value'] = str_replace($tag_orig, $tag_new, $field_item['value']);
+        $storages[$field['storage']['type']][$field_id] = $field_id;
+      }
+    }
+  }
+  // Write updated tokens to storage.
+  foreach ($storages as $storage => $fields) {
+    $storage_info = field_info_storage_types($storage);
+    module_invoke($storage_info['module'], 'field_storage_write', $entity_type, $entity, FIELD_STORAGE_UPDATE, $fields);
+  }
+  return $report;
+}
+
+/**
+ * Upgrade media tokens in content.
+ *
+ * Over time the format of media tokens will change and this function will
+ * assert that existing tokens in content will remain up to date with todays
+ * standard.
+ *
+ * It examines the {file_usage} table and searches all entities for filtered
+ * text fields with macros. All found media tokens will be upgraded to the
+ * latest token format version and the individual text fields will be updated in
+ * db directly, omitting all hooks otherwise run during entity update.
+ *
+ */
+function media_wysiwyg_upgrade_content_tokens() {
+  $batch = array(
+    'title' => t("Upgrading media tokens"),
+    'operations' => array(
+      array(
+        'media_wysiwyg_upgrade_content_tokens_batch',
+        array(),
+      ),
+    ),
+    'finished' => 'media_wysiwyg_upgrade_content_tokens_finish',
+    'file' => drupal_get_path('module', 'media_wysiwyg') . '/includes/media_wysiwyg.pages.inc',
+  );
+  batch_set($batch);
+  batch_process('admin/reports/status');
+}
+
+/**
+ * Batch API callback.
+ *
+ * @see media_wysiwyg_upgrade_content_tokens()
+ */
+function media_wysiwyg_upgrade_content_tokens_batch(&$context) {
+  $items_per_run = 20;
+
+  $query = db_select('file_managed', 'fm');
+  $query->innerJoin('file_usage', 'fu', 'fm.fid = fu.fid');
+  $query->fields('fu', array('type', 'id'))
+    ->distinct();
+  if (empty($context['results']['!entities_total'])) {
+    // The countQuery() returns a cloned SelectQuery object, so we can happily
+    // execute it without disturbing the original query. Also, the keys in the
+    // 'results' entry are prefixed with '!' so the $results variable can be
+    // sendt directly to t() in the batch finished callback.
+    $context['results']['!entities_total'] = $query->countQuery()->execute()->fetchField();
+    $context['results']['!entities_upgraded'] = 0;
+    $context['results']['!tokens_total'] = 0;
+    $context['results']['!tokens_upgraded'] = 0;
+
+    $context['sandbox']['progress'] = 0;
+    $context['sandbox']['current_type'] = '';
+    $context['sandbox']['current_id'] = 0;
+    $context['sandbox']['run'] = 0;
+  }
+  $query->orderBy('fu.type')
+    ->orderBy('fu.id')
+    ->range($context['sandbox']['run'] * $items_per_run, $items_per_run);
+  foreach ($query->execute() as $usage) {
+    $context['sandbox']['progress']++;
+    $context['sandbox']['current_id'] = $usage->id;
+    $context['sandbox']['current_type'] = $usage->type;
+    $context['message'] = t("Upgrading tokens: Processing entity # !progress/!total. Last examined: !entity_type/!entity_id", array(
+      '!progress' => $context['sandbox']['progress'],
+      '!total' => $context['results']['!entities_total'],
+      '!entity_type' => $usage->type,
+      '!entity_id' => $usage->id,
+    ));
+    try {
+      $report = media_wysiwyg_upgrade_entity_tokens($usage->type, $usage->id);
+    }
+    catch (Exception $e) {
+      watchdog('media', "Failed to upgrade tokens in entity %entity_id with id %entity_id", array('%entity_type' => $usage->type, '%entity_id' => $usage->id), WATCHDOG_WARNING);
+    }
+    $context['results']['!tokens_total'] += $report['found'];
+    $context['results']['!tokens_upgraded'] += $report['upgraded'];
+    if ($report['upgraded']) {
+      $context['results']['!entities_upgraded']++;
+    }
+  }
+  if ($context['sandbox']['progress'] < $context['results']['!entities_total']) {
+    $context['finished'] = $context['sandbox']['progress'] / $context['results']['!entities_total'];
+  }
+  $context['sandbox']['run']++;
+}
+
+/**
+ * Batch API finish callback.
+ *
+ * @see media_wysiwyg_upgrade_content_tokens()
+ */
+function media_wysiwyg_upgrade_content_tokens_finish($success, $results, $operations) {
+  if ($success) {
+    $results['!version'] = MEDIA_WYSIWYG_TOKEN_VERSION;
+    drupal_set_message(t("Media token version !version upgrade summary: <ul><li>Entities inspected: !entities_total</li> <li>Media tokens found: !tokens_total.</li> <li>Tokens upgraded: !tokens_upgraded</li> <li>Entities affected: !entities_upgraded</li></ul>", $results));
+    variable_set('media_wysiwyg_token_version', MEDIA_WYSIWYG_TOKEN_VERSION);
+    // Instead of using the costly drupal_flush_all_caches() we flush relevant
+    // core caches and invoke hook_flush_caches() to allow content cache modules
+    // (entitycache) to flush whatever needed.
+    $core = array('cache', 'cache_filter', 'cache_page', 'cache_block');
+    $cache_tables = array_merge(module_invoke_all('flush_caches'), $core);
+    foreach ($cache_tables as $table) {
+      cache_clear_all('*', $table, TRUE);
+    }
+  }
+  else {
+    drupal_set_message(t('Media token upgrade failed. See system log'), 'warning');
+  }
+}
