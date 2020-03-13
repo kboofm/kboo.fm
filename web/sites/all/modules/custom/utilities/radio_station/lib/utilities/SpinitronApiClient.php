@@ -97,7 +97,20 @@ class SpinitronApiClient
         if (!file_exists(dirname($cacheFile))) {
             mkdir(dirname($cacheFile), 0755, true);
         }
-        file_put_contents($cacheFile, $response);
+	chmod($cacheFile, 0664);
+	file_put_contents($cacheFile, $response);
+	chmod($cacheFile, 0664); #not sure whether this necessary.  No docs on whether f_p_c sets perms
+/*
+        if(file_put_contents($cacheFile, $response) === FALSE)
+	{
+		#log the value of response
+		$err_path = '/var/www/vhosts/kboo.fm/web/sites/default/files/err_cache_response';
+		$err_fh = fopen($err_path, 'a');
+		fwrite($err_fh, print_r($cacheFile, TRUE) . "\n");
+		fwrite($err_fh, print_r($response, TRUE) . "\n\n");
+		fclose($err_fh);
+	}
+*/
 
         return $response;
     }

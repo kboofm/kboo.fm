@@ -3,9 +3,8 @@ description = "Add responsive favicons to your site based on the code from http:
 core = 7.x
 configure = admin/config/user-interface/responsive_favicons
 
-; Information added by Drupal.org packaging script on 2015-09-22
-version = "7.x-1.2"
+; Information added by Drupal.org packaging script on 2019-05-01
+version = "7.x-1.3"
 core = "7.x"
 project = "responsive_favicons"
-datestamp = "1442890144"
-
+datestamp = "1556679793"

@@ -212,7 +212,7 @@ print_r('</pre>');
     $connection = RadioSpinitron2::getConnection();
     $date = date(DATE_ISO8601, $field_air_time['value']);
     $playlists = $connection->getPlaylistsByDate($date, 10);
-dpm($playlists, 'pl');
+#dpm($playlists, 'pl');
 
     if (!$playlists) {
       return [];

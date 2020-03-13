@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class StationContentResponse extends Response {
 
   public function getAudio() {

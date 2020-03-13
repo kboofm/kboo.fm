@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class ProgramsResponse extends Response {
 
   public function getContent($program_alias) {

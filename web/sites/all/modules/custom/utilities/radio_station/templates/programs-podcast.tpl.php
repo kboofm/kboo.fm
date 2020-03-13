@@ -23,7 +23,8 @@
     <itunes:owner><itunes:email><?php print $station_email; ?></itunes:email></itunes:owner>
     <itunes:author>KBOO Radio</itunes:author>
     <itunes:category text="News &amp; Politics"></itunes:category>
-    <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+    <?php /*<itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" /> */ ?>
+    <itunes:image href="<?php print $items[0]['program_image']; ?>" />
     <itunes:explicit><?php print ($channel_explicit ? 'yes' : 'no'); ?></itunes:explicit>
 
     <?php foreach ($items as $item): ?>
@@ -38,7 +39,8 @@
 
         <itunes:summary><?php print $item['summary']; ?></itunes:summary>
 
-        <itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />
+        <?php /*<itunes:image href="https://kboo.fm/sites/default/files/kboo_radio_tower.jpg" />*/ ?>
+        <itunes:image href="<?php print $item['image']; ?>" />
 
 	<itunes:explicit><?php print $item['explicit']; ?></itunes:explicit>
 

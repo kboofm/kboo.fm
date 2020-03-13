@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class OrganizationResponse extends Response {
 
   public function getSponsors() {

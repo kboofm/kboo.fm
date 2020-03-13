@@ -141,7 +141,11 @@ class Spinitron2 {
     }
 
 
-    $message = 'SpinPapi error respose: ' . implode('. ', $response['errors']);
+	$message = '';
+	if(isset($response['errors']))
+	{
+		$message = 'SpinPapi error respose: ' . implode('. ', $response['errors']);
+	}
     if ($this->onError === 'notice') {
       trigger_error($message, E_USER_NOTICE);
     } elseif ($this->onError === 'throw') {

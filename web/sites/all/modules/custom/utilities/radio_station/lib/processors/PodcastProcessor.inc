@@ -61,8 +61,20 @@ class PodcastProcessor extends TemplateProcessor {
       }
 */
       $program = $this->processProgram($entity);
+	//this working?  it would seem to be calling processProgram on an episode
 
       $image = $this->getTeaserImage($entity);
+
+	$program_image = $this->getProgramTeaserImage($entity);
+	if($program_image)
+	{
+		$program_image = $this->getSizedImage($program_image, "teaser_150w", true);
+	}
+	else
+	{
+		$program_image = '/sites/default/files/kboo_radio_tower.jpg';
+	}
+
       if ($image) {
         $image = $this->getSizedImage($image, "teaser_150w", true);
       }
@@ -123,6 +135,7 @@ class PodcastProcessor extends TemplateProcessor {
         'summary' => $summary,
         'description' => $description,
         'explicit' => $explicit,
+	'program_image' => $program_image,
       ];
     }
 

@@ -47,6 +47,12 @@ class RadioRoutes {
 
 
   private function apiRoutes() {
+    $this->items['api2/playlists'] = [
+      'title' => 'Get playlists',
+      'page callback' => 'radio_station_get_playlists2',
+      'access arguments' => ['access content'],
+      'type' => MENU_CALLBACK,
+    ];
     $this->items['api/playlists'] = [
       'title' => 'Get playlists',
       'page callback' => 'radio_station_get_playlists',

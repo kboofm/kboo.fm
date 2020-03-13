@@ -19,8 +19,10 @@ files[] = lib/utilities/RadioPaginator.inc
 files[] = lib/utilities/RadioRoles.inc
 files[] = lib/utilities/RadioRoutes.inc
 files[] = lib/utilities/RadioSpinitron.inc
+files[] = lib/utilities/RadioSpinitron2.inc
 files[] = lib/utilities/RadioTemplates.inc
 files[] = lib/utilities/Spinitron.inc
+files[] = lib/utilities/Spinitron2.inc
 files[] = lib/utilities/SpinitronClient.inc
 
 

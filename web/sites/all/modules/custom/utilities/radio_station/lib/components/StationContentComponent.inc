@@ -256,7 +256,7 @@ class StationContentComponent extends BaseComponent {
 
 
   private function getPodcastForProgram($target_nid) {
-    $count = 10;
+    $count = 20;
     $query = new StationContentQuery();
     $query = $query->getPodcastByProgram($target_nid, $count);
     $result = $query->execute();
@@ -621,9 +621,10 @@ class StationContentComponent extends BaseComponent {
     $sub .= "rm {$ripdir}/{$filename}.cue";
     $command = "echo \"{$sub}\" | at {$atd_time}";
 #dpm($command, 'command');
-#$command .= ' 2>&1';
-#$j =    shell_exec($command);
-#dpm($j, 'shell exec');
+/*$command .= ' 2>&1';
+$j =    shell_exec($command);
+dpm($j, 'shell exec');
+*/
     shell_exec($command);
 
     watchdog(
