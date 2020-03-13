@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class ApiResponse extends Response {
 
   public function getEpisode($stream, $direction, $timestamp) {

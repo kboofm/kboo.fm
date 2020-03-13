@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class EventsResponse extends Response {
 
   public function getUpcomingCommunity() {

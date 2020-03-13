@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class RobotsResponse extends Response {
   public function get() {
     $env = RadioConfig::environment();

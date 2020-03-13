@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class ProfilesResponse extends Response {
   public function getContributors() {
     $this->template_name = 'radio_template_about_contributors';

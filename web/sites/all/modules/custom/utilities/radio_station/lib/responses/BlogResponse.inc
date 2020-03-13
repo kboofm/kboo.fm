@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class BlogResponse extends Response {
   public function get() {
     $this->template_name = 'radio_template_blog';

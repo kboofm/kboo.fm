@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class ProgramsPlaylistResponse extends Response {
 
   public function get() {

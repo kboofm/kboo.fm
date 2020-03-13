@@ -1,5 +1,6 @@
 <?php
 
+include_once('Response.inc');
 class ScheduleResponse extends Response {
 
   private function getNextShow($stream) {
