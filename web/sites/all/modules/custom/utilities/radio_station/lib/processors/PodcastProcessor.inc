@@ -68,7 +68,7 @@ class PodcastProcessor extends TemplateProcessor {
 	$program_image = $this->getProgramTeaserImage($entity);
 	if($program_image)
 	{
-		$program_image = $this->getSizedImage($program_image, "teaser_150w", true);
+		$program_image = $this->getSizedImage($program_image, "podcast", true);
 	}
 	else
 	{
