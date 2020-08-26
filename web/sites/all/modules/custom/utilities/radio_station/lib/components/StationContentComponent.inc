@@ -410,7 +410,8 @@ class StationContentComponent extends BaseComponent {
 
       $destination = variable_get(
         'radio_station_rip_destination',
-        'episode_audio'
+        //'episode_audio' original location, now on new unmirrored big drive
+        'episode_audio_b' //current location on older mirrored drive
       );
 
       if (!Helpers::endsWith($destination, '/')) {

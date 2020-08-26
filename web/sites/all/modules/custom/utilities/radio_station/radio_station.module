@@ -1,6 +1,7 @@
 <?php
 require_once __DIR__ . '/lib/utilities/RadioEnums.inc';
 require_once __DIR__ . '/lib/utilities/Helpers.inc';
+require_once __DIR__ . '/lib/responses/Response.inc';
 
 function printif($array, $key) {
   if (isset($array[$key])) {
