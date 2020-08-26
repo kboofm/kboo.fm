@@ -38,9 +38,13 @@ function ___kboo_utils_cron()
 
 			$prog = $episode->field_produced_for->value();
 			$prog = entity_metadata_wrapper('node', current($prog)->nid);
-dpm($prog->getIdentifier(), 'prog');
 			$numprefix = $prog->field_episode_record->value();
+if($numprefix != 0)
+{
+dpm($episode->getIdentifier(), 'episode');
+dpm($prog->getIdentifier(), 'prog');
 dpm($numprefix, 'numprefix');
+}
 			$fname = 'kboo_episode.' . $numprefix . '.' . $airdate . '.' . $airtime . '.';
 #		dpm($episode->nid->value());
 
@@ -75,7 +79,7 @@ dpm($numprefix, 'numprefix');
 function kboo_utils_eafixer()
 {
 	$path = variable_get('file_public_path', conf_path() . '/files');
-	$path = DRUPAL_ROOT . '/' . $path . '/episode_audio';
+	$path = DRUPAL_ROOT . '/' . $path . '/episode_audio_b';
 	$files = array();
 	if ($handle = opendir($path))
 	{
@@ -108,7 +112,7 @@ function kboo_utils_eafixer()
 			{
 				continue;
 			}
-			$dest_uri = 'public://episode_audio/' . $file;
+			$dest_uri = 'public://episode_audio_b/' . $file;
 			$sfile = file_save((object)array(
 				'filename' => $file,
 				'uri' => $dest_uri,
