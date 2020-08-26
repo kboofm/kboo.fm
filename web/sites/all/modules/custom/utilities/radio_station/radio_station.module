@@ -263,14 +263,16 @@ function radio_station_get_home() {
     return MENU_NOT_FOUND;
   }
 
+	global $language;
+	$lang = $language->language;
   $response = new HomeResponse();
-  return $response->get();
+  return $response->get($lang);
 }
 
 
 function radio_station_get_home_feed() {
   $response = new HomeResponse();
-  return $response->getFeed();
+  return $response->getFeed($lang);
 }
 
 

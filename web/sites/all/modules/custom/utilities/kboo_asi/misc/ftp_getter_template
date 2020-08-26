@@ -1,0 +1,10 @@
+#!/bin/bash
+cd ../rs_dls
+ftp -inv $HOST <<EOT
+user $USER $PASSWORD
+bin
+cd <DIR>
+pwd
+get <FILE>
+bye
+EOT

@@ -44,6 +44,8 @@ class StationContentComponent extends BaseComponent {
   public function latestAudio($count) {
     $cache_key = "radio_station_latest_audio";
     $cache_table = "cache_radio_station";
+	global $language;
+	$lang = $language->language;
 
     $loaded = false;
     if ($cache = cache_get($cache_key, $cache_table)) {
@@ -57,7 +59,7 @@ class StationContentComponent extends BaseComponent {
 
     if (!$loaded) {
       $query = new StationContentQuery();
-      $query->getAudio($count);
+      $query->getAudio($count, FALSE, $lang);
       $query->getContentInRange(strtotime('-2 years'), strtotime('now'));
       $result = $query->execute();
 

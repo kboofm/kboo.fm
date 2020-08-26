@@ -50,6 +50,9 @@ class NodeQuery extends EntityFieldQuery {
     $this->propertyCondition('promote', 1, '=');
   }
 
+  public function setLanguage($lang) {
+    $this->propertyCondition('language', $lang, '=');
+  }
 
   protected function hasLeadImage() {
     $this->fieldCondition('field_lead_image', 'fid', 'NULL', '!=');

@@ -1,0 +1,12 @@
+name = KBOO ArchiveSpace Importer
+description = KBOO Archive Importer
+package = KBOO - Utilities
+core = 7.x
+version = 7.x-1.1
+
+files[] = kboo_asi.inc
+;	has the actual import code that handles the atomic level
+files[] = kboo_asi.overhead.inc
+;	has the code that manages checking db status, checking
+;	whether archivespace resources have corresponding nodes &
+;	update dates

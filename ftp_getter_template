@@ -1,0 +1,12 @@
+#!/bin/bash
+HOST=<HOST>
+USER=<USER>
+PASSWORD=<PASSWORD>
+
+#mp3 files in _final/<mediatype>/
+ftp -inv $HOST <<EOT
+user $USER $PASSWORD
+cd <DIR>
+get <FILE>
+bye
+EOT

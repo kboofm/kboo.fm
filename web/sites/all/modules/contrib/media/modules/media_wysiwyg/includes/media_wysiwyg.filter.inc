@@ -120,6 +120,22 @@ function media_wysiwyg_parse_css_declarations($declarations) {
 }
 
 /**
+ * Turn an array of css property => value pairs to a string.
+ *
+ * @param array $properties
+ *   A keyed array with css property => value pairs.
+ *
+ * @see media_wysiwyg_parse_css_declarations()
+ */
+function media_wysiwyg_stringify_css_declarations(array $properties) {
+  $declarations = array();
+  foreach ($properties as $property => $value) {
+    $declarations[] = $property . ':' . $value;
+  }
+  return implode(';', $declarations);
+}
+
+/**
  * Replace callback to convert a media file tag into HTML markup.
  *
  * @param string $match
@@ -204,31 +220,30 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE, $langcode = NUL
 
     $tag_info['file'] = $file;
 
-    // The class attributes is a string, but drupal requires it to be
-    // an array, so we fix it here.
-    if (!empty($tag_info['attributes']['class'])) {
-      $tag_info['attributes']['class'] = explode(" ", $tag_info['attributes']['class']);
-    }
-
     // Grab the potentially overridden fields from the file.
     $fields = media_wysiwyg_filter_field_parser($tag_info);
     foreach ($fields as $key => $value) {
       $file->{$key} = $value;
     }
 
-    if (array_key_exists('attributes', $tag_info) && is_array($tag_info['attributes'])) {
-      $attributes = $tag_info['attributes'];
-    }
-    else {
-      $attributes = array();
-    }
-    $attribute_whitelist = media_wysiwyg_allowed_attributes();
-    $settings['attributes'] = array_intersect_key($attributes, array_flip($attribute_whitelist));
     $settings['fields'] = $fields;
     if (isset($tag_info['fields']['external_url'])) {
       $settings['fields']['external_url'] = $tag_info['fields']['external_url'];
     }
+
+    // Aggregate alignment info early in the process, prior to allowed
+    // attributes filtering.
+    $alignment = media_wysiwyg_aggregate_alignment($tag_info);
+
+    // Analyze and filter attributes from token.
+    $settings['attributes'] = array();
     if (!empty($tag_info['attributes']) && is_array($tag_info['attributes'])) {
+      // The class attributes is a string, but drupal requires it to be an
+      // array, so we fix it here.
+      if (!empty($tag_info['attributes']['class'])) {
+        $tag_info['attributes']['class'] = explode(' ', $tag_info['attributes']['class']);
+      }
+      $attribute_whitelist = media_wysiwyg_allowed_attributes();
       $settings['attributes'] = array_intersect_key($tag_info['attributes'], array_flip($attribute_whitelist));
 
       // Many media formatters will want to apply width and height independently
@@ -248,11 +263,6 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE, $langcode = NUL
             $settings[$dimension] = $settings['attributes'][$dimension];
           }
         }
-        // If the element is floated via WYSIWYG editor functionality, delegate
-        // that information to the outer element.
-        if (!empty($css_properties['float'])) {
-          $settings['float'] = $css_properties['float'];
-        }
       }
       foreach (array('title', 'alt') as $field_type) {
         if (isset($settings['attributes'][$field_type])) {
@@ -270,18 +280,6 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE, $langcode = NUL
   catch (Exception $e) {
     watchdog('media', 'Unable to render media from %tag. Error: %error', array('%tag' => $tag, '%error' => $e->getMessage()));
     return '';
-  }
-
-  // Remove any alignment classes from $settings, because it will be added later
-  // in this function to the media's wrapper, and we don't want to confuse CSS
-  // by having it on both the wrapper and the element.
-  if (isset($settings['attributes']['class'])) {
-    $alignment_classes = array(
-      'media-wysiwyg-align-left',
-      'media-wysiwyg-align-right',
-      'media-wysiwyg-align-center',
-    );
-    $settings['attributes']['class'] = array_diff($settings['attributes']['class'], $alignment_classes);
   }
 
   // If the tag has link text stored with it, override the filename with it for
@@ -307,25 +305,15 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE, $langcode = NUL
       $view_mode = $tag_info['view_mode'];
     }
 
-    // If sending markup to a WYSIWYG, we need to pass the file information so
-    // that an inline macro can be generated when the WYSIWYG is detached.
-    // The WYSIWYG plugin is expecting this information in the
-    // Drupal.settings.mediaDataMap variable.
     $element = media_wysiwyg_get_file_without_label($file, $view_mode, $settings, $langcode);
-    $data = array(
-      'type' => 'media',
-      'fid'  => $file->fid,
-      'view_mode' => $tag_info['view_mode'],
-      'link_text' => $tag_info['link_text'],
-    );
-    drupal_add_js(array('mediaDataMap' => array($file->fid => $data)), 'setting');
     $element['#attributes']['data-fid'] = $file->fid;
     $element['#attributes']['data-media-element'] = '1';
-    if (is_array($element['#attributes']['class'])) {
-      $element['#attributes']['class'][] = 'media-element';
+    if (!is_array($element['#attributes']['class'])) {
+      $element['#attributes']['class'] = explode(' ', $element['#attributes']['class']);
     }
-    else {
-      $element['#attributes']['class'] .= 'media-element';
+    $element['#attributes']['class'][] = 'media-element';
+    if ($alignment) {
+      $element['#attributes']['class'][] = 'media-wysiwyg-align-' . $alignment;
     }
   }
   else {
@@ -351,11 +339,6 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE, $langcode = NUL
       field_attach_prepare_view('file', array($file->fid => $file), $tag_info['view_mode'], $langcode);
       entity_prepare_view('file', array($file->fid => $file), $langcode);
       $element['content'] += field_attach_view('file', $file, $tag_info['view_mode'], $langcode);
-
-      // Add any float information via an extra class
-      if (!empty($settings['float'])) {
-        $element['content']['file']['#attributes']['class'][] = drupal_html_class('media-float-' . $settings['float']);
-      }
     }
     if (count(element_children($element['content'])) > 1) {
       // Add surrounding divs to group them together.
@@ -367,28 +350,19 @@ function media_wysiwyg_token_to_markup($match, $wysiwyg = FALSE, $langcode = NUL
         'media-element-container',
         'media-' . $element['content']['file']['#view_mode'],
       );
-      // Add the float information to the outer element.
-      if (!empty($settings['float'])) {
-        $element['content']['#attributes']['class'][] = drupal_html_class('media-float-' . $settings['float']);
-      }
       if (variable_get('media_wysiwyg_remove_media_class', FALSE)) {
         $classes = $element['content']['#attributes']['class'];
         $element['content']['#attributes']['class'] = array_diff($classes, array('media'));
       }
     }
 
+    if ($alignment && !empty($element['content'])) {
+      $element['content']['#attributes']['class'][] = 'media-wysiwyg-align-' . $alignment;
+    }
     // Conditionally add a pre-render if the media filter output is be cached.
     $filters = filter_get_filters();
     if (!isset($filters['media_filter']['cache']) || $filters['media_filter']['cache']) {
       $element['#pre_render'][] = 'media_wysiwyg_pre_render_cached_filter';
-    }
-  }
-  if (!empty($element['content']) && !empty($tag_info['fields']['alignment'])) {
-    // Set a CSS class if an alignment has been specified and is correct.
-    $alignment = $tag_info['fields']['alignment'];
-    if (in_array($alignment, array('left', 'right', 'center'))) {
-      $alignment_class = 'media-wysiwyg-align-' . $alignment;
-      $element['content']['#attributes']['class'][] = $alignment_class;
     }
   }
   drupal_alter('media_wysiwyg_token_to_markup', $element, $tag_info, $settings, $langcode);
@@ -487,6 +461,81 @@ function media_wysiwyg_filter_field_parser(array $tag_info) {
     }
   }
   return $fields;
+}
+
+/**
+ * Find and aggregate alignment in media tag.
+ *
+ * Aggregate and uniform various methods for aligning media to one setting. In
+ * the process it removes all 'old' methods, like inline style floats and the
+ * align attribute. The final alignment is stored in
+ * $tag_info['fields']['alignment'] and is returned.
+ *
+ * @param array $tag_info
+ *   JSON-decoded media macro.
+ *
+ * @return string
+ *   The alignment of the media, either 'left', 'center', 'right' or '' if
+ *   unset.
+ */
+function media_wysiwyg_aggregate_alignment(array &$tag_info) {
+  $alignment = '';
+  if (!isset($tag_info['attributes']) || !is_array($tag_info['attributes'])) {
+    return $alignment;
+  }
+  $attributes = &$tag_info['attributes'];
+  // Media alignment handling: Transform alignment using either the 'align' or
+  // 'style' attributes to configuration. Inline style has higher priority over
+  // the align attribute, so we check the 'align' attribute first.
+  if (isset($attributes['align'])) {
+    $alignment = $attributes['align'];
+    unset($attributes['align']);
+  }
+
+  // Extract from inline style (float).
+  if (!empty($attributes['style'])) {
+    $css_properties = media_wysiwyg_parse_css_declarations($attributes['style']);
+    if (isset($css_properties['float'])) {
+      $alignment = $css_properties['float'];
+      unset($css_properties['float']);
+      $attributes['style'] = media_wysiwyg_stringify_css_declarations($css_properties);
+
+      if (!$attributes['style']) {
+        unset($attributes['style']);
+      }
+    }
+  }
+
+  // Check for alignment in media alignment classes.
+  $alignment_options = array('left', 'center', 'right');
+  if (!empty($attributes['class'])) {
+    $class_was_exploded = FALSE;
+    if (!is_array($attributes['class'])) {
+      $attributes['class'] = explode(' ', $attributes['class']);
+      $class_was_exploded = TRUE;
+    }
+    $alignment_classes = array_map(function ($item) {
+      return 'media-wysiwyg-align-' . $item;
+    }, $alignment_options);
+
+    $alignments = array_intersect($attributes['class'], $alignment_classes);
+    if ($alignments) {
+      sscanf(end($alignments), 'media-wysiwyg-align-%s', $alignment);
+      $attributes['class'] = array_diff($attributes['class'], $alignment_classes);
+    }
+    if ($class_was_exploded) {
+      $attributes['class'] = implode(' ', $attributes['class']);
+    }
+  }
+
+  // The actual setting, if it exists, should triumph all of the above.
+  if (!empty($tag_info['fields']['alignment'])) {
+    $alignment = $tag_info['fields']['alignment'];
+  }
+
+  // The one place to rule them all:
+  $tag_info['fields']['alignment'] = in_array($alignment, $alignment_options) ? $alignment : '';
+  return $tag_info['fields']['alignment'];
 }
 
 /**

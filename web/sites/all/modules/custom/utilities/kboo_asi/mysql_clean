@@ -1,0 +1,2 @@
+drop database <DBASE>;
+create database <DBASE>;
