@@ -15,6 +15,12 @@ function kbooui_preprocess_search_result(&$variables) {
   $variables['info'] = '';
 }
 
+function kbooui_preprocess_html(&$variables)
+{
+#dpm('in pp html');
+#dpm($variables, 'vars');
+#dpm($variables['head'], 'vhead');
+}
 /*
 function kbooui_preprocess_html(&$variables)
 {
