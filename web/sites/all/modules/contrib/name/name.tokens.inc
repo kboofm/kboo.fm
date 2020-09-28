@@ -102,7 +102,13 @@ function name_tokens($type, $tokens, array $data = array(), array $options = arr
         // Ensure that this is actually a real field token before replacing.
         // This will mimimise the chances of false matches like 'name-raw'.
         if (field_info_field($field_name)) {
-          $items = field_get_items($type, $data[$type], $field_name);
+          $entity_type = str_replace('-', '_', $type);
+          // Fix for only known token type to entity type mismatched keys.
+          if (in_array($entity_type, array('term', 'vocabulary'))) {
+            $entity_type = 'taxonomy_' . $entity_type;
+          }
+
+          $items = field_get_items($entity_type, $data[$type], $field_name);
           if (empty($items)) {
             $replacements[$original] = '';
             continue;
@@ -256,7 +262,7 @@ function name_token_types_chained($type = NULL, $reset = FALSE) {
 
     if (!$types) {
       $types = array();
-      foreach (field_info_fields() as $field_name => $info) {
+      foreach (field_info_field_map() as $field_name => $info) {
         if ($info['type'] == 'name') {
           foreach ($info['bundles'] as $entity_type => $bundles) {
             // Name field. Also known as Client.

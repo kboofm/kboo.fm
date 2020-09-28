@@ -18,7 +18,7 @@ class NameTestHelper extends DrupalWebTestCase {
 
     // Base set up is done, we can call drupalCreateUser.
     $this->web_user = $this->drupalCreateUser();
-    $this->admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer content types', 'access content', 'access administration pages'));
+    $this->admin_user = $this->drupalCreateUser(array('administer site configuration', 'administer content types', 'access content', 'access administration pages', 'administer fields'));
 
     variable_set('clean_url', 0);
   }
@@ -65,10 +65,16 @@ class NameUnitTestCase extends NameTestHelper {
           't' => '', // Title
           'g' => 'John', // Given name
           '\g' => 'g', // Escaped letter
+          'p' => 'John', // Preferred name
+          'q' => '', // Preferred name without fallback.
           'm' => '', // Middle name(s)
           'f' => '', // Family name
           'c' => '', // Credentials
           's' => '', // Generational suffix
+          // First letter of the preferred or given.
+          'w' => 'J',
+          // First letter of the preferred without fallback.
+          'v' => '',
           'x' => 'J', // First letter given
           'y' => '', // First letter middle
           'z' => '', // First letter family
@@ -121,16 +127,25 @@ class NameUnitTestCase extends NameTestHelper {
           'family' => 'dOE',
           'generational' => 'sR',
           'credentials' => 'b.Sc, pHd',
+          'preferred' => 'peTe',
         ),
         //MR. JoHn pEter dOE sR b.Sc, pHd
         'tests' => array(
           // Test that only the given name creates a entry
           't' => 'MR.', // Title
           'g' => 'JoHn', // Given name
+          // Preferred name.
+          'p' => 'peTe',
+          // Preferred name without fallback.
+          'q' => 'peTe',
           'm' => 'pEter', // Middle name(s)
           'f' => 'dOE', // Family name
           'c' => 'b.Sc, pHd', // Credentials
           's' => 'sR', // Generational suffix
+          // First letter of the preferred or given.
+          'w' => 'p',
+          // First letter of the preferred without fallback.
+          'v' => 'p',
           'x' => 'J', // First letter given
           'y' => 'p', // First letter middle
           'z' => 'd', // First letter family
@@ -168,23 +183,12 @@ class NameUnitTestCase extends NameTestHelper {
           // Real world examples
           'L(t= g= m= f= s=,(= c))' => 'mr. john peter doe sr, b.sc, phd', // Full name with a comma-space before credentials
           'TS(LG(t= g= m= f= s)=,LG(= c))' => 'Mr. John Peter Doe Sr, B.sc, Phd', // Full name with a comma-space before credentials
+          // Full name including preferred name (nickname).
+          // Note G only works on a space boundary.
+          'TS(LG(((t+ig+i(=\(q-\)))+im)+if)+iLG(s))' => 'Mr. John (pete) Peter Doe Sr',
         ),
       ),
     );
-    /*
-
-     // Placeholders for token support insertion on the [object / key | entity / bundle].
-     '1' => t('Token placeholder 1'),
-     '2' => t('Token placeholder 2'),
-     '3' => t('Token placeholder 3'),
-     '4' => t('Token placeholder 4'),
-     '5' => t('Token placeholder 5'),
-     '6' => t('Token placeholder 6'),
-     '7' => t('Token placeholder 7'),
-     '8' => t('Token placeholder 8'),
-     '9' => t('Token placeholder 9'),
-
-     */
 
     foreach ($names as $title => $info) {
       $this->assertNameFormats($info['components'], NULL, NULL, $info['tests']);
@@ -469,7 +473,7 @@ class Name_FieldTestCase extends NameTestHelper {
     );
   }
 
-    /**
+  /**
    * The most basic test. This should only fail if there is a change to the
    * Drupal API.
    */

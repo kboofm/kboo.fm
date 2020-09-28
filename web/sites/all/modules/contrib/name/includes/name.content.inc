@@ -40,15 +40,15 @@ function _name_field_settings_form($field, $instance, $has_data) {
   );
   $form['labels'] = array();
   $form['max_length'] = array();
-  $form['autocomplete_sources'] = array();
+
+  $autocomplete_sources = module_invoke_all('name_data_sources');
+
   $autocomplete_sources_options = array();
-  if (module_exists('namedb')) {
-    $autocomplete_sources_options['namedb'] = t('Names DB');
+  foreach ($autocomplete_sources as $ac_source => $ac_settings) {
+    if (!empty($ac_settings['autocomplete callback'])) {
+      $autocomplete_sources_options[$ac_source] = $ac_settings['name'];
+    }
   }
-  $autocomplete_sources_options['title'] = t('Title options');
-  $autocomplete_sources_options['generational'] = t('Generational options');
-  // TODO: Placing in the to hard basket for the time being!
-  //$autocomplete_sources_options['data'] = t('Data');
 
   $has_data = field_has_data($field);
   foreach ($components as $key => $title) {
@@ -92,18 +92,21 @@ function _name_field_settings_form($field, $instance, $has_data) {
       '#description' => t("This defines what autocomplete sources are available to the field."),
       '#options' => $autocomplete_sources_options,
     );
-    if ($key != 'title') {
-      unset($form['autocomplete_source'][$key]['#options']['title']);
+    foreach ($autocomplete_sources as $ac_source => $ac_settings) {
+      if (!empty($ac_settings['components']) && !in_array($key, $ac_settings['components'])) {
+        unset($form['autocomplete_source'][$key]['#options'][$ac_source]);
+      }
     }
-    if ($key != 'generational') {
-      unset($form['autocomplete_source'][$key]['#options']['generational']);
-    }
+    $has_ac_options = count($form['autocomplete_source'][$key]['#options']);
     $form['autocomplete_separator'][$key] = array(
       '#type' => 'textfield',
       '#title' => t('Autocomplete separator for !title', array('!title' => $title)),
-      '#default_value' => $settings['autocomplete_separator'][$key],
+      '#default_value' => $has_ac_options ? $settings['autocomplete_separator'][$key] : '',
       '#size' => 10,
     );
+    if (!$has_ac_options) {
+      $form['autocomplete_separator'][$key]['#disabled'] = TRUE;
+    }
   }
 
   $form['allow_family_or_given'] = array(
@@ -275,18 +278,27 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
   $settings = $instance['settings'];
   _name_defaults($settings, 'instance_settings');
   $components = _name_translations();
+  $autocomplete_sources = module_invoke_all('name_data_sources');
+
   $form = array(
     'size' => array(),
     'title_display' => array(),
   );
-  $field_options = array(
-    'select' => t('Drop-down'),
-    'text' => t('Text field'),
-    'autocomplete' => t('Autocomplete'));
 
   foreach ($components as $key => $title) {
-    $default_field_type = ($key == 'title' || $key == 'generational')
-      ? 'select' : 'text';
+    $options = array('text' => t('Text field'));
+    $default_field_type = 'text';
+    foreach ($autocomplete_sources as $ac_source => $ac_settings) {
+      if (empty($ac_settings['components']) || in_array($key, $ac_settings['components'])) {
+        if (!empty($ac_settings['list callback'])) {
+          $options['select'] = t('Drop-down');
+          $default_field_type = 'select';
+        }
+        if (!empty($ac_settings['autocomplete callback'])) {
+          $options['autocomplete'] = t('Autocomplete');
+        }
+      }
+    }
     $form['field_type'][$key] = array(
       '#type' => 'radios',
       '#title' => t('!title field type', array('!title' => $components['title'])),
@@ -295,11 +307,8 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
           // Provides backwards compatibility with Drupal 6 modules.
           : (isset($settings[$key . '_field']) ? $settings[$key . '_field'] : $default_field_type),
       '#required' => TRUE,
-      '#options' => $field_options,
+      '#options' => $options,
     );
-    if (!($key == 'title' || $key == 'generational')) {
-      unset($form['field_type'][$key]['#options']['select']);
-    }
 
     $form['size'][$key] = array(
       '#type' => 'textfield',
@@ -318,6 +327,7 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
       '#options' => array(
         'title' => t('above'),
         'description' => t('below'),
+        'placeholder' => t('placeholder'),
         'none' => t('hidden'),
       ),
       '#description' => t('This controls how the label of the component is displayed in the form.'),
@@ -412,6 +422,16 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
     );
   }
 
+  $form['preferred_field_reference'] = array(
+    '#type' => 'select',
+    '#title' => t('Preferred component source'),
+    '#empty_option' => t('-- none --'),
+    '#options' => name_get_additional_sources($instance),
+    '#default_value' => empty($settings['preferred_field_reference']) ? '' : $settings['preferred_field_reference'],
+    '#description' => t('A data source to use as the preferred given name within the name formats. A common use-case would be for a users nickname.')
+      . '<br>' . t('i.e. used in the name format options "q" and "v", plus the conditional "p", "x", "d" and "D".'),
+  );
+
   return $form;
 
 }
@@ -431,14 +451,10 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
     'components' => array(),
     'minimum_components' => array(),
   );
-
   // Use populated overrides if present.
-  if (array_filter($ws['components'])) {
-    $fs['components'] = $ws['components'];
-  }
-  if (array_filter($ws['minimum_components'])) {
-    $fs['minimum_components'] = $ws['minimum_components'];
-  }
+  $fs['components'] = name_get_instance_components($fs['components'], $ws['minimum_components']);
+  $fs['minimum_components'] = name_get_instance_components($fs['minimum_components'], $ws['minimum_components']);
+
   $element += array(
     '#type' => 'name_element',
     '#title' => check_plain($instance['label']),
@@ -453,6 +469,14 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
     '#component_layout' => empty($ws['component_layout']) ? 'default' : $ws['component_layout'],
     '#show_component_required_marker' => !empty($ws['show_component_required_marker']),
   );
+
+  // Ensure that we have a title for any validation.
+  if (empty($element['#title'])) {
+    $element['#title'] = check_plain($instance['label']);
+    $element['#title_display'] = 'invisible';
+  }
+
+  $autocomplete_sources = module_invoke_all('name_data_sources');
 
   $components = array_filter($fs['components']);
   foreach (_name_translations() as $key => $title) {
@@ -469,9 +493,15 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
       $element['#components'][$key]['size'] = $size;
       $element['#components'][$key]['maxlength'] = !empty($fs['max_length'][$key]) ? $fs['max_length'][$key] : 255;
 
-
+      $field_type = 'text';
+      foreach ($autocomplete_sources as $ac_source => $ac_settings) {
+        if (empty($ac_settings['components']) || in_array($key, $ac_settings['components'])) {
+          if (!empty($ac_settings['list callback'])) {
+            $field_type = 'select';
+          }
+        }
+      }
       // Provides backwards compatibility with Drupal 6 modules.
-      $field_type = ($key == 'title' || $key == 'generational') ? 'select' : 'text';
       $field_type = isset($ws['field_type'][$key])
           ? $ws['field_type'][$key]
           // Provides .
@@ -481,7 +511,24 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
       if ($field_type == 'select') {
         $element['#components'][$key]['type'] = 'select';
         $element['#components'][$key]['size'] = 1;
-        $element['#components'][$key]['options'] = _name_field_get_options($field, $key);
+
+        // This is a bit bung, we can only use one, but more than one
+        // source could be avialable. Pick the first one that returns
+        // any data.
+        $options = array();
+        foreach ($autocomplete_sources as $ac_source => $ac_settings) {
+          if (empty($ac_settings['components']) || in_array($key, $ac_settings['components'])) {
+            if (!empty($ac_settings['list callback']) && function_exists($ac_settings['list callback'])) {
+              $func = $ac_settings['list callback'];
+              $arguments = empty($ac_settings['list arguments']) ? array() : $ac_settings['list arguments'];
+              if ($_options = $func($field, $key, $arguments)) {
+                $options = $_options;
+                break;
+              }
+            }
+          }
+        }
+        $element['#components'][$key]['options'] = $options;
       }
       elseif ($field_type == 'autocomplete') {
         if ($sources = $field['settings']['autocomplete_source'][$key]) {
@@ -555,9 +602,16 @@ function _name_field_get_options($field, $key) {
  * Helper function to set the defaults for a name field / widget.
  */
 function _name_defaults(&$settings, $key) {
-  $name_info = name_field_info();
+
+  if ($key == 'settings') {
+    $defaults = field_info_field_settings('name');
+  }
+  else {
+    $defaults = field_info_instance_settings('name');
+  }
+
   $settings = isset($settings) ? (array) $settings : array();
-  foreach ($name_info['name'][$key] as $index => $defaults) {
+  foreach ($defaults as $index => $defaults) {
     if (!isset($settings[$index])) {
       if (is_array($defaults)) {
         if (!array_key_exists($index, $settings)) {

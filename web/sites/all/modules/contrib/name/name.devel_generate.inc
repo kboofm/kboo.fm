@@ -24,21 +24,14 @@ function name_devel_generate($object, $field, $instance, $bundle) {
  * You can specify another function here to generate your own list.
  */
 function _name_devel_generate($object, $field, $instance, $bundle) {
-  $object_field = array();
-
   $func = variable_get('name_devel_generate_names', '_name_devel_generate_name');
   $names = $func($field);
-  if (!isset($instance['setting'])) {
-    $instance['setting'] = array();
+  if (!isset($instance['setting']['components'])) {
+    $instance['setting']['components'] = array();
   }
-  $instance['setting'] += array(
-    'components' => array(),
-  );
-  $components = array_filter($instance['setting']['components']);
-  if (!$components) {
-    $components = array_filter($field['settings']['components']);
-  }
-  return array_intersect_key($names[array_rand($names)], $components);
+  $components = name_get_instance_components($field['settings']['components'], $instance['setting']['components']);
+
+  return array_intersect_key($names[array_rand($names)], array_filter($components));
 }
 
 /**

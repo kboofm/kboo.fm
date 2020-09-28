@@ -134,6 +134,7 @@ function _webform_edit_name($name) {
       '#options' => array(
         'title' => t('above'),
         'description' => t('below'),
+        'placeholder' => t('placeholder'),
         'none' => t('hidden'),
       ),
     );

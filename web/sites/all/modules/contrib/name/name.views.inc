@@ -7,9 +7,9 @@
  */
 function name_views_data_alter(&$data) {
   $name_fields = array();
-  foreach (field_info_fields() as $field_name => $field) {
-    if ($field['module'] == 'name') {
-      $name_fields[$field_name] = $field;
+  foreach (field_info_field_map() as $field_name => $field) {
+    if ($field['type'] == 'name') {
+      $name_fields[$field_name] = field_info_field($field_name);
     }
   }
 

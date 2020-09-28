@@ -17,12 +17,28 @@
 function name_autocomplete($field_name, $target, $string = '') {
   $matches = array();
   $limit = 10;
-
-  $all_components = array('given', 'middle', 'family', 'title', 'credentials', 'generational');
   if ($string) {
+    $all_components = array_keys(_name_translations());
+
+    $autocomplete_sources = module_invoke_all('name_data_sources');
+    $autocomplete_map = array();
+    $autocomplete_fallback = array();
+    foreach ($autocomplete_sources as $ac_source => $ac_settings) {
+      foreach ($all_components as $key) {
+        if (empty($ac_settings['components']) || in_array($key, $ac_settings['components'])) {
+          if (!empty($ac_settings['autocomplete callback'])) {
+            $autocomplete_map[$key][$ac_source] = $ac_settings['name'];
+            if (!empty($ac_settings['autonomous'])) {
+              $autocomplete_fallback[$ac_source] = $ac_settings['name'];
+            }
+          }
+        }
+      }
+    }
+
     $field_name = str_replace('-', '_', $field_name);
-    $namedb_exists = module_exists('namedb');
-    if ($field = field_info_field($field_name)) {
+    $field = field_info_field($field_name);
+    if ($field) {
       $settings = $field['settings'];
       foreach ($all_components as $component) {
         if (!isset($settings['autocomplete_source'][$component])) {
@@ -32,24 +48,13 @@ function name_autocomplete($field_name, $target, $string = '') {
       }
     }
     else {
-      $src = $namedb_exists ? array('namedb' => 'namedb') : array();
       $settings = array(
-        'autocomplete_source' => array(
-          'title' => $src,
-          'given' => $src,
-          'middle' => $src,
-          'family' => $src,
-          'generational' => $src,
-          'credentials' => $src,
-        ),
+        'autocomplete_source' => array_combine($all_components, array_fill(0, count($all_components), $autocomplete_fallback)),
         'autocomplete_separator' => array(
-          'title' => ' ',
           'given' => ' -',
           'middle' => ' -',
           'family' => ' -',
-          'generational' => ' ',
-          'credentials' => ', ',
-        ),
+        ) + array_combine($all_components, array_fill(0, count($all_components), ' ')),
       );
     }
 
@@ -63,19 +68,10 @@ function name_autocomplete($field_name, $target, $string = '') {
         $action['components'] = drupal_map_assoc($all_components);
         break;
 
-      case 'title':
-      case 'given':
-      case 'middle':
-      case 'family':
-      case 'credentials':
-      case 'generational':
-        $action['components'] = array($target => $target);
-        break;
-
       default:
         $action['components'] = array();
         foreach (explode('-', $target) as $component) {
-          if (in_array($component, array('title', 'given', 'middle', 'family', 'credentials', 'generational'))) {
+          if (in_array($component, $all_components)) {
             $action['components'][$component] = $component;
           }
         }
@@ -83,53 +79,30 @@ function name_autocomplete($field_name, $target, $string = '') {
 
     }
 
-    $action['source'] = array(
-      // 'vocab-123' => array(), etc
-      'namedb' => array(),
-      'title' => array(),
-      'generational' => array(),
-//      'data' => array(),
-    );
-
+    $action['source'] = array();
     $action['separater'] = '';
 
+    $separator_characters = '';
     foreach ($action['components'] as $component) {
-      if (empty($settings['autocomplete_source'][$component])) {
+      if (empty($settings['autocomplete_source'][$component]) || empty($autocomplete_map[$component])) {
         unset($action['components'][$component]);
       }
       else {
         $sep = (string)$settings['autocomplete_separator'][$component];
-        if (empty($sep)) {
-          $sep = ' ';
-        }
-        for ($i = 0; $i <= count($sep); $i++) {
-          if (strpos($action['separater'], $sep{$i}) === FALSE) {
-            $action['separater'] .= $sep{$i};
+        $separator_characters .= strlen($sep) ? $sep : ' ';
+        $settings['autocomplete_source'][$component] = array_intersect_key($settings['autocomplete_source'][$component], $autocomplete_map[$component]);
+        if ($settings['autocomplete_source'][$component]) {
+          foreach ($settings['autocomplete_source'][$component] as $src) {
+            $action['source'][$src][] = $component;
           }
         }
-        $found_source = FALSE;
-
-        foreach ((array)$settings['autocomplete_source'][$component] as $src) {
-          if ($src == 'namedb' && !$namedb_exists) {
-            continue;
-          }
-          if ($src == 'data' && !$field) {
-            continue;
-          }
-          if ($src == 'title' || $src == 'generational') {
-            if (!$field || $component != $src) {
-              continue;
-            }
-          }
-          $found_source = TRUE;
-          $action['source'][$src][] = $component;
-        }
-
-        if (!$found_source) {
+        else {
           unset($action['components'][$component]);
         }
       }
     }
+
+    $action['separater'] = count_chars($separator_characters, 3);
 
     $pieces = preg_split('/[' . preg_quote($action['separater']) . ']+/', $string);
 
@@ -138,41 +111,18 @@ function name_autocomplete($field_name, $target, $string = '') {
       $test_string = drupal_strtolower(array_pop($pieces));
       $base_string = drupal_substr($string, 0, drupal_strlen($string) - drupal_strlen($test_string));
 
-      // Query order is: vocab, namedb, title, generational, data
-      if (count($action['source']['namedb'])) {
-        $attributes = array(
-          'status' => 1,
-          'banned' => 0,
-          'limit' => $limit,
-        );
-        $results = namedb_query_names($test_string, $action['source']['namedb'], $attributes);
-        foreach ($results as $name => $safe_name) {
-          $matches[$base_string . $name] = $safe_name;
-          $limit--;
-        }
-      }
-
-      if ($limit > 0 && count($action['source']['title'])) {
-        $options = name_field_get_options($field, 'title');
-        foreach ($options as $key => $option) {
-          if (strpos(drupal_strtolower($key), $test_string) === 0 || strpos(drupal_strtolower($option), $test_string) === 0) {
-            $matches[$base_string . $key] = $key;
-            $limit--;
+      foreach ($action['source'] as $ac_action => $components) {
+        if ($field || !empty($autocomplete_sources[$ac_action]['autonomous'])) {
+          $func = $autocomplete_sources[$ac_action]['autocomplete callback'];
+          $arguments = empty($autocomplete_sources[$ac_action]['autocomplete arguments']) ? array() : $autocomplete_sources[$ac_action]['autocomplete arguments'];
+          if (function_exists($func)) {
+            $results = $func($action['source'][$ac_action], $base_string, $test_string, $field, $limit, $arguments);
+            foreach ($results as $name => $safe_name) {
+              $matches[$base_string . $name] = $safe_name;
+              $limit--;
+            }
           }
         }
-      }
-
-      if ($limit > 0 && count($action['source']['generational'])) {
-        $options = name_field_get_options($field, 'generational');
-        foreach ($options as $key => $option) {
-          if (strpos(drupal_strtolower($key), $test_string) === 0 || strpos(drupal_strtolower($option), $test_string) === 0) {
-            $matches[$base_string . $key] = $key;
-            $limit--;
-          }
-        }
-      }
-
-      if ($limit > 0 && isset($action['source']['data']) && count($action['source']['data'])) {
       }
     }
   }
@@ -459,6 +409,9 @@ function name_custom_formats_form_submit($form, &$form_state) {
   }
   drupal_set_message(t($message, array('%name' => $values['name'])));
 
+  // Reset the static so the next load will pickup any name changes.
+  drupal_static_reset('name_get_format_by_machine_name');
+
   $form_state['redirect'] = 'admin/config/content/name';
 }
 
@@ -577,8 +530,8 @@ function _name_field_instance_settings_pre_render($form) {
     ),
     'tfoot' => array(
       '#markup' => '<tfoot><tr><td colspan="7"><ol>'
-        . '<li>' . t('The title display controls how the label of the name component is displayed in the form. "%above" is the standard title; "%below" is the standard description; "%hidden" removes the label.',
-                      array('%above' => t('above'), '%below' => t('below'), '%hidden' => t('hidden'))) . '</li>'
+        . '<li>' . t('The title display controls how the label of the name component is displayed in the form:<br>"%above" is the standard title;<br>"%below" is the standard description;<br>%placeholder" uses the placeholder attribute, select lists do not support this option;<br>"%hidden" removes the label.',
+                      array('%above' => t('above'), '%below' => t('below'), '%placeholder' => t('placeholder'), '%hidden' => t('hidden'))) . '</li>'
         . '<li>' . t('The Field type controls how the field is rendered. Autocomplete is a text field with autocomplete, and the behaviour of this is controlled by the field settings.') . '</li>'
         . '<li>' . t('The HTML size property tells the browser what the width of the field should be when it is rendered. This gets overriden by the themes CSS properties. This must be between 1 and 255.') . '</li>'
         . '<li>' . t('Additional inline styles for the input element. For example, "width: 45px; background-color: #f3f3f3"') . '</li>'

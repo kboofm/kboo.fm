@@ -28,14 +28,20 @@ function theme_name_format_parameter_help() {
 function name_replacement_tokens() {
   $tokens = array(
     't' => t('Title'),
+    'p' => t('Preferred name, use given name if not set.'),
+    'q' => t('Preferred name.'),
     'g' => t('Given name'),
     'm' => t('Middle name(s)'),
     'f' => t('Family name'),
     'c' => t('Credentials'),
     's' => t('Generational suffix'),
+    'v' => t('First letter preferred name.'),
+    'w' => t('First letter preferred or given name.'),
     'x' => t('First letter given'),
     'y' => t('First letter middle'),
     'z' => t('First letter family'),
+    'd' => t('Conditional: Either the preferred given or family name. Preferred name is given preference over given or family names.'),
+    'D' => t('Conditional: Either the preferred given or family name. Family name is given preference over preferred or given names.'),
     'e' => t('Conditional: Either the given or family name. Given name is given preference.'),
     'E' => t('Conditional: Either the given or family name. Family name is given preference.'),
     'i' => t('Separator 1'),
@@ -56,20 +62,6 @@ function name_replacement_tokens() {
     '|' => t('Conditional: Uses the previous token unless empty, otherwise it uses this token.'),
     '(' => t('Group: Start of token grouping.'),
     ')' => t('Group: End of token grouping.'),
-    /*
-
- // Placeholders for token support insertion on the [object / key | entity / bundle].
- '1' => t('Token placeholder 1'),
- '2' => t('Token placeholder 2'),
- '3' => t('Token placeholder 3'),
- '4' => t('Token placeholder 4'),
- '5' => t('Token placeholder 5'),
- '6' => t('Token placeholder 6'),
- '7' => t('Token placeholder 7'),
- '8' => t('Token placeholder 8'),
- '9' => t('Token placeholder 9'),
-
- */
   );
 
   return $tokens;
@@ -85,15 +77,18 @@ function _name_generate_tokens($name_components, $settings = array()) {
     'family' => '',
     'credentials' => '',
     'generational' => '',
+    'preferred' => '',
   );
   $settings = name_settings();
   $tokens = array(
     't' => name_render_component($name_components['title'], 'title', $markup),
     'g' => name_render_component($name_components['given'], 'given', $markup),
+    'q' => name_render_component($name_components['preferred'], 'preferred', $markup),
     'm' => name_render_component($name_components['middle'], 'middle', $markup),
     'f' => name_render_component($name_components['family'], 'family', $markup),
     'c' => name_render_component($name_components['credentials'], 'credentials', $markup),
     's' => name_render_component($name_components['generational'], 'generational', $markup),
+    'v' => name_render_component($name_components['preferred'], 'preferred', $markup, 'initial'),
     'x' => name_render_component($name_components['given'], 'given', $markup, 'initial'),
     'y' => name_render_component($name_components['middle'], 'middle', $markup, 'initial'),
     'z' => name_render_component($name_components['family'], 'family', $markup, 'initial'),
@@ -102,7 +97,25 @@ function _name_generate_tokens($name_components, $settings = array()) {
     'k' => $settings['sep3'],
   );
   $given = $tokens['g'];
+  $preferred = $tokens['q'];
   $family = $tokens['f'];
+  $tokens += array(
+    'p' => $preferred ? $preferred : $given,
+    'w' => $tokens['v'] ? $tokens['v'] : $tokens['x'],
+  );
+  $preferred_first = $preferred ? $preferred : $given;
+  if ($preferred_first || $family) {
+    $tokens += array(
+      'd' => $preferred_first ? $preferred_first : $family,
+      'D' => $family ? $family : $preferred_first,
+    );
+  }
+  else {
+    $tokens += array(
+      'd' => NULL,
+      'D' => NULL,
+    );
+  }
   if ($given || $family) {
     $tokens += array(
       'e' => $given ? $given : $family,

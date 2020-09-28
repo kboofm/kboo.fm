@@ -20,25 +20,22 @@ You will require the Field UI module to add fields to content.
 
 -- RELATED MODULES --
 
-* Fullname field for CCK
-  A similar module for Drupal 5 CCK, but with support for two concurrent name
-  field sets for each entry. A legal and preferred set of:
-  
-  prefix, firstname, middlename, lastname, and suffix
-   
+* Fullname field for CCK (Drupal 5)
   http://drupal.org/project/cck_fullname
-  
-  The Drupal 6 version is a very light-weight version of this module.
-  
-* Namefield
-  An "experiment" Drupal 5 development module.
 
+* Namefield (Drupal 5)
   http://drupal.org/project/namefield
 
 -- CONFIGURATION --
 
 * There are lots of configurable options. If anything is not clear, submit a
 support request.
+
+-- Views --
+
+* For global combined filter, add each component individually.
+
+Each is named 'Name Components: COMPONENT' where the COMPONENT is one of title, given, family, etc.
 
 -- REFERENCES --
 
@@ -47,7 +44,7 @@ For details about Drupal 7 Fields API:
 For details about Drupal 7 FAPI:
   http://api.drupal.org/api/drupal/developer--topics--forms_api.html/7
   http://api.drupal.org/api/drupal/developer--topics--forms_api_reference.html/7
-  
+
 -- CONTACT --
 
 Current maintainers:

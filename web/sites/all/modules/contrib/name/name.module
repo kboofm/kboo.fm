@@ -54,6 +54,13 @@ function name_settings($key = NULL) {
 }
 
 /**
+ * Helper function to find the components used.
+ */
+function name_get_instance_components($field_components, $instance_components) {
+  return array_filter($instance_components) ? $instance_components : $field_components;
+}
+
+/**
  * Implements hook_menu().
  */
 function name_menu() {
@@ -278,6 +285,7 @@ function name_user_load(array $accounts) {
       else {
         if ($items = field_get_items('user', $acccount, $instance['field_name'])) {
           // We still have raw user input here.
+          $items[0] += name_field_parse_additional_components('user', $acccount, $instance);
           $accounts[$uid]->realname = name_format($items[0], $format, array('object' => $acccount, 'type' => 'user'));
           $names[$uid] = $accounts[$uid]->realname;
         }
@@ -315,13 +323,29 @@ function name_get_custom_format_options() {
 
 /**
  * Loads a format based on the machine name.
+ *
+ * @param string $machine_name
+ *
+ * @return string
+ *   The name format.
  */
 function name_get_format_by_machine_name($machine_name) {
-  if ($machine_name == 'default') {
-    return name_settings('default_format');
+  static $drupal_static_fast;
+  if (!isset($drupal_static_fast)) {
+    $drupal_static_fast['formats'] = &drupal_static(__FUNCTION__);
   }
-  $sql = "SELECT format FROM {name_custom_format} WHERE machine_name = '%s'";
-  return (string) db_query("SELECT format FROM {name_custom_format} WHERE machine_name = :machine_name", array(':machine_name' => $machine_name))->fetchField();
+
+  $formats = &$drupal_static_fast['formats'];
+  if (!isset($formats[$machine_name])) {
+    if ($machine_name == 'default') {
+      $formats[$machine_name] = name_settings('default_format');
+    }
+    else {
+      $formats[$machine_name] = (string) db_query("SELECT format FROM {name_custom_format} WHERE machine_name = :machine_name", array(':machine_name' => $machine_name))->fetchField();
+    }
+  }
+
+  return $formats[$machine_name];
 }
 
 /**
@@ -333,14 +357,17 @@ function name_get_format_by_machine_name($machine_name) {
 function _name_translations($intersect = NULL) {
   static $nt = NULL;
   if (!isset($nt)) {
-    $nt = array(
-      'title' => t('!name_title', array('!name_title' => t('Title'))),
-      'given' => t('!name_given', array('!name_given' => t('Given'))),
-      'middle' => t('!name_middle', array('!name_middle' => t('Middle name(s)'))),
-      'family' => t('!name_family', array('!name_family' => t('Family'))),
-      'generational' => t('!name_generational', array('!name_generational' => t('Generational'))),
-      'credentials' => t('!name_credentials', array('!name_credentials' => t('Credentials'))),
-    );
+    $nt = variable_get('name_field_part_overrides', 0);
+    if (!$nt) {
+      $nt = array(
+        'title' => t('!name_title', array('!name_title' => t('Title'))),
+        'given' => t('!name_given', array('!name_given' => t('Given'))),
+        'middle' => t('!name_middle', array('!name_middle' => t('Middle name(s)'))),
+        'family' => t('!name_family', array('!name_family' => t('Family'))),
+        'generational' => t('!name_generational', array('!name_generational' => t('Generational'))),
+        'credentials' => t('!name_credentials', array('!name_credentials' => t('Credentials'))),
+      );
+    }
   }
   return empty($intersect) ? $nt : array_intersect_key($nt, $intersect);
 }
@@ -533,7 +560,7 @@ function theme_name_item_list($variables) {
     '!delimiter' => $delimiter,
     '!etal' => $etal,
   );
-  if ($original_count > $settings['multiple_el_al_min']) {
+  if ($settings['multiple_el_al_min'] && ($original_count > $settings['multiple_el_al_min'])) {
     $limit = min(array($settings['multiple_el_al_min'], $settings['multiple_el_al_first']));
     $items = array_slice($items, 0, $limit);
     if (count($items) == 1) {
@@ -546,6 +573,9 @@ function theme_name_item_list($variables) {
     }
   }
   else {
+    if ($settings['multiple_and'] == 'inherit') {
+      return implode($delimiter . ' ', $items);
+    }
     $t_args['!lastname'] = array_pop($items);
     $t_args['!names'] = implode($delimiter . ' ', $items);
     if ($settings['multiple_and'] == 'text') {
@@ -703,14 +733,23 @@ function _name_render_component($components, $component_key, $base_element, $cor
   switch ($title_display) {
     case 'title':
       break;
+
+    case 'placeholder':
+      $element['#attributes']['placeholder'] = t($element['#title']);
+      $element['#title_display'] = 'invisible';
+      break;
+      break;
+
     case 'none':
       $element['#title_display'] = 'invisible';
       break;
+
     case 'description':
     default:
       $element['#title_display'] = 'invisible';
-      $element['#description'] = $element['#title'];
+      $element['#description'] = t($element['#title']);
       break;
+
   }
 
   return $element;
@@ -916,6 +955,7 @@ function name_field_info() {
         'labels' => array_combine($keys, array_fill(0, $count, '')),
         // New settings to override the user name. Only applies to user entities.
         'override_format' => 'default',
+        'preferred_field_reference' => '',
         // Prevents the default break between the name components and credentials
         'credentials_inline' => 0,
         'component_css' => '',
@@ -982,10 +1022,8 @@ function name_field_load($entity_type, $entities, $field, $instances, $langcode,
   foreach ($entities as $id => $entity) {
     // Use populated overrides if present.
     $instances[$id]['settings'] += array('components' => array());
-    $components = array_filter($instances[$id]['settings']['components']);
-    if (!$components) {
-      $components = $field['settings']['components'];
-    }
+
+    $components = name_get_instance_components($field['settings']['components'], $instances[$id]['settings']['components']);
     foreach ($items[$id] as $delta => $item) {
       foreach (_name_translations() as $key => $title) {
         if (empty($components[$key])) {
@@ -1090,14 +1128,70 @@ function name_field_instance_settings_form($field, $instance) {
   return _name_field_instance_settings_form($field, $instance);
 }
 
+
 /**
- * Implements hook_field_instance_settings_form().
+ * Name autocomplete data sources callback.
+ *
+ * Generates a full listing for title and generational options.
+ *
+ * @param array $field
+ *   The field requesting the data.
+ *
+ * @param array $component
+ *   The key that the data has been requested for.
+ *
+ * @param mixed $arguments
+ *   Additional arguments defined in hook_name_data_sources().
+ *
+ * @return array
+ *   The matches ready to use directly in the autocomplete response.
  */
-function name_field_get_options($field, $key = 'title') {
+function name_field_get_options($field, $component = 'title', $arguments = array()) {
   module_load_include('inc', 'name', 'includes/name.content');
-  return _name_field_get_options($field, $key);
+  return _name_field_get_options($field, $component, $arguments);
 }
 
+/**
+ * Name autocomplete sources query callback.
+ *
+ * Handles the autocomplete for title and generational options.
+ *
+ * @param array $components
+ *   The keys that the autocomplete is active on.
+ *
+ * @param string $base_string
+ *   Autocomplete strings are split and individual pieces are parsed
+ *   sequentially. The base string is the concatanated results of
+ *   previous segment lookups.
+ *
+ * @param string $string
+ *   Current segment of the search string.
+ *
+ * @param array|NULL $field
+ *   If run in the context of the Field API, the field is supplied.
+ *
+ * @param integer $limit
+ *
+ * @param mixed $arguments
+ *   Additional arguments defined in hook_name_data_sources().
+ *
+ * @return array
+ *   The matches ready to use directly in the autocomplete response.
+ */
+function name_field_autocomplete_query($components, $base_string, $string, $field, $limit, $arguments) {
+  $component_key = $arguments;
+  $matches = array();
+  foreach (name_field_get_options($field, $component_key) as $key => $option) {
+    if (strpos(drupal_strtolower($key), $string) === 0 || strpos(drupal_strtolower($option), $string) === 0) {
+      $matches[$base_string . $key] = $key;
+      $limit--;
+    }
+    if (!$limit) {
+      break;
+    }
+  }
+  return $matches;
+}
 
 /* ---------------------------- Formatter Code ------------------------------ */
 
@@ -1218,6 +1312,7 @@ function name_field_formatter_settings_form($field, $instance, $view_mode, $form
     '#options' => array(
       'text' => t('Textual (and)'),
       'symbol' => t('Ampersand (&amp;)'),
+      'inherit' => t('Inherit'),
     ),
     '#default_value' => $settings['multiple_and'],
     '#description' => t('This specifies the delimiter between the second to last and the last name.'),
@@ -1279,6 +1374,7 @@ function name_field_formatter_settings_summary($field, $instance, $view_mode) {
       $machine_name = 'default';
     }
   }
+
   // Provide an example of the selected format.
   module_load_include('admin.inc', 'name');
   $used_components = array_filter($field['settings']['components']);
@@ -1321,6 +1417,7 @@ function name_field_formatter_view($entity_type, $entity, $field, $instance, $la
     $format = name_get_format_by_machine_name('default');
   }
   foreach ($items as $delta => $item) {
+    $item += name_field_parse_additional_components($entity_type, $entity, $instance);
     // We still have raw user input here unless the markup flag has been used.
     $value = name_format($item, $format, array(
       'object' => $entity,
@@ -1352,6 +1449,80 @@ function name_field_formatter_view($entity_type, $entity, $field, $instance, $la
   }
 
   return $element;
+}
+
+/**
+ * Helper function to get alternative name component sources.
+ */
+function name_get_additional_sources($instance) {
+  $sources = array();
+  $info = entity_get_info();
+  $sources['_self'] = t('@label label', array(
+    '@label' => $info[$instance['entity_type']]['label'],
+  ));
+  if ($instance['entity_type'] == 'user') {
+    $sources['_self_property_name'] = t('@label login name', array(
+      '@label' => $info[$instance['entity_type']]['label'],
+    ));
+  }
+  foreach (field_info_instances($instance['entity_type'], $instance['bundle']) as $_field_name => $_instance) {
+    if ($_field_name != $instance['field_name']) {
+      $sources[$_field_name] = $_instance['label'];
+    }
+  }
+  return $sources;
+}
+
+/**
+ * Helper function to discover alternative name component sources.
+ */
+function name_field_parse_additional_components($entity_type, $entity, $instance) {
+  $settings = $instance['settings'];
+
+  $extra = array();
+  $map = array(
+    'preferred' => 'preferred_field_reference',
+  );
+  list(,,$bundle) = entity_extract_ids($entity_type, $entity);
+  foreach ($map as $component => $key) {
+    if (!empty($settings[$key])) {
+      if ($settings[$key] == '_self') {
+        if ($label = entity_label($entity_type, $entity)) {
+          $extra[$component] = $label;
+        }
+      }
+      elseif (strpos($settings[$key], '_self_property') === 0) {
+        $property = str_replace('_self_property_', '', $settings[$key]);
+        if (!empty($entity->{$property}) && is_scalar($entity->{$property})) {
+          $extra[$component] = $entity->{$property};
+        }
+      }
+      elseif ($_instance = field_info_instance($entity_type, $settings[$key], $bundle)) {
+        $_field = field_info_field($settings[$key]);
+        $_values = array();
+        if (field_access('view', $_field, $entity_type) || field_access('edit', $_field, $entity_type)) {
+          $clone = clone $entity;
+
+          $_langcode = field_language($entity_type, $entity, $settings[$key]);
+          // @todo
+          $_view_mode = 'default';
+          $_display = field_get_display($_instance, $_view_mode, $clone);
+          if ($_display['type'] == 'hidden') {
+            $cache = _field_info_field_cache();
+            $_display = array();
+            $_display = $cache->prepareInstanceDisplay($_display, $_field["type"]);
+          }
+          $_display['label'] = 'hidden';
+          $_element = field_view_field($entity_type, $clone, $settings[$key], $_display, $_langcode);
+          if ($output = trim(strip_tags(drupal_render($_element)))) {
+            $extra[$component] = decode_entities($output);
+          }
+        }
+      }
+    }
+  }
+
+  return $extra;
 }
 
 /**
@@ -1472,36 +1643,28 @@ function name_field_delete_instance($instance) {
 /**
  * Implements hook_field_insert().
  *
- * This listens to name field insertions and updates the namedb according.
+ * Triggers a custom hook for name field inserts. Field API only calls the
+ * module that defines the field.
  */
 function name_field_insert($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if (module_exists('namedb')) {
-    $components = array_filter($field['settings']['components']);
-    foreach ($items as $item) {
-      foreach ($components as $component) {
-        if (!empty($item[$component])) {
-          namedb_update_database($component, $item[$component]);
-        }
-      }
-    }
+  // Ensure that $items are passed by reference.
+  foreach (module_implements('name_field_insert_notification') as $module) {
+    $function = $module . '_name_field_insert_notification';
+    $function($entity_type, $entity, $field, $instance, $langcode, $items);
   }
 }
 
 /**
  * Implements hook_field_update().
  *
- * This listens to name field updates and updates the namedb according.
+ * Triggers a custom hook for name field updates. Field API only calls the
+ * module that defines the field.
  */
 function name_field_update($entity_type, $entity, $field, $instance, $langcode, &$items) {
-  if (module_exists('namedb')) {
-    $components = array_filter($field['settings']['components']);
-    foreach ($items as $item) {
-      foreach ($components as $component) {
-        if (!empty($item[$component])) {
-          namedb_update_database($component, $item[$component]);
-        }
-      }
-    }
+  // Ensure that $items are passed by reference.
+  foreach (module_implements('name_field_update_notification') as $module) {
+    $function = $module . '_name_field_insert_notification';
+    $function($entity_type, $entity, $field, $instance, $langcode, $items);
   }
 }
 
@@ -1698,10 +1861,12 @@ function name_field_item_property_info() {
  * Implements hook_migrate_api().
  */
 function name_migrate_api() {
-  $api = array(
+  return array(
     'api' => 2,
+    'field handlers' => array(
+      'MigrateNameHandler',
+    ),
   );
-  return $api;
 }
 
 /**
@@ -1714,6 +1879,31 @@ function name_features_api() {
       'default_hook' => 'name_default_formats',
       'feature_source' => TRUE,
       'file' => drupal_get_path('module', 'name') . '/includes/name.features.inc',
+    ),
+  );
+}
+
+/**
+ * Implements hook_name_data_sources().
+ *
+ * @todo
+ * Consider using field data as a source.
+ */
+function name_name_data_sources() {
+  return array(
+    'title' => array(
+      'name' => t('Title options'),
+      'components' => array('title'),
+      'autocomplete callback' => 'name_field_autocomplete_query',
+      'autocomplete arguments' => array('title'),
+      'list callback' => 'name_field_get_options',
+    ),
+    'generational' => array(
+      'name' => t('Generational options'),
+      'components' => array('generational'),
+      'autocomplete callback' => 'name_field_autocomplete_query',
+      'autocomplete arguments' => array('generational'),
+      'list callback' => 'name_field_get_options',
     ),
   );
 }
