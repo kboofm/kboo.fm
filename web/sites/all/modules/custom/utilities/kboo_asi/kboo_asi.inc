@@ -400,7 +400,7 @@ function kboo_asi_fetch_file($res, $name, $path, $nid, $count, &$context)
 		kboo_asi_checkstat($res, $name, 2);
 	}
 
-	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	//downloads to /var/www/vhosts/kboo.fm/rs_dls
 	//unless status = 3 (already downloaded)
 	if($status == 3 || $gf = kboo_asi_get_as_file($path, $name))
 	{

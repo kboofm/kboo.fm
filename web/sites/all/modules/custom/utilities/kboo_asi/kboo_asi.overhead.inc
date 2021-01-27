@@ -238,7 +238,7 @@ function kboo_asi_populate_res_log()
 function kboo_asi_latest_db($pp = FALSE)
 {
 	//date of latest db
-	$path = '/var/www/vhosts/test.kboo.fm/rs_dls';
+	$path = '/var/www/vhosts/kboo.fm/rs_dls';
 	$files = scandir($path);
 	$hits = array();
 	foreach($files as $file)
@@ -274,12 +274,12 @@ function kboo_asi_db_uptodate($del=FALSE, $verbose = TRUE)
 	//	$verbose for text output; else will return TRUE/FALSE for db check; T/F return
 	//		has no relation to deletion of old files
 
-	//downloader downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	//downloader downloads to /var/www/vhosts/kboo.fm/rs_dls
 	//filename convention is: bitnami_resourcespace201911242325.zip
 	//ie: bitnami_resourcespaceYYYYMMDD2325.zip ...  2325 must be the time the archive runs
 
 	//this is where we download the archive zip from the archive server
-	$path = '/var/www/vhosts/test.kboo.fm/rs_dls';
+	$path = '/var/www/vhosts/kboo.fm/rs_dls';
 	$files = scandir($path);
 	$hits = array();
 	foreach($files as $file)
@@ -383,7 +383,7 @@ function kboo_asi_get_as_file($path, $file)
 			return 550;
 		}
 	}
-	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	//downloads to /var/www/vhosts/kboo.fm/rs_dls
 	if(file_exists(DRUPAL_ROOT . '/../rs_dls/' . $file))
 	{
 		return TRUE;
@@ -408,7 +408,7 @@ function kboo_asi_get_as_db($drush = FALSE)
 	$output = array();
 	$result = 0;
 	$ex = exec($mysql_grab, $output, $result);
-	//downloads to /var/www/vhosts/test.kboo.fm/rs_dls
+	//downloads to /var/www/vhosts/kboo.fm/rs_dls
 	if($drush)
 	{
 print_r($result, TRUE);
@@ -438,7 +438,7 @@ function kboo_asi_import_as_db($drush = FALSE, $retdate = FALSE)
 			if(substr($file, 0, 21) == 'bitnami_resourcespace')
 			{
 				$d = substr($file, 21, 8);
-				if($d > $maxdate)
+				if($d > $maxdate || $maxdate == '')
 				{
 					$maxdate = $d;
 				}
@@ -455,6 +455,12 @@ function kboo_asi_import_as_db($drush = FALSE, $retdate = FALSE)
 		$mysql_file = str_replace('YYYYMMDD', $datestr, $mysql_file);
 		$mysql_fileret = $mysql_file;
 	}
+	if($drush)
+	{
+		print "date is: " . $datestr . "\n";
+		print "filname is: " . $mysql_fileret . "\n";
+	}
+
 	$mysql_file = DRUPAL_ROOT . '/../rs_dls/' . $mysql_file;
 
 	$mysql_clean_file = __DIR__ . '/mysql_clean';

@@ -57,13 +57,15 @@ function kboo_asi_schema()
 				'not null' => FALSE,
 			),
 			'filename' => array(
-				'description' => 'Name of file to be attached to node/resource',
+				'description' => 'Name of file to be attached to node or resource',
 				'type' => 'varchar',
+				'length' => 300,
 				'not null' => TRUE,
 			),
 			'filepath' => array(
-				'description' => 'Path on remote machine of file to be attached to node/resource',
+				'description' => 'Path on remote machine of file to be attached to node or resource',
 				'type' => 'varchar',
+				'length' => 300,
 				'not null' => TRUE,
 			),
 			'status' => array(
@@ -79,51 +81,4 @@ function kboo_asi_schema()
 		),
 	);
 	return $schema;
-}
-
-/**
- * create db table kboo_asi_res_files for queueing file attachments
- */
-function kboo_asi_update_7101()
-{
-	$schema['kboo_asi_res_files'] = array(
-		'description' => 'Table containing file queue for imported resources.',
-		'fields' => array(
-			'res' => array(
-				'description' => 'Primary identifier from the ArchiveSpace DB.',
-				'type' => 'int',
-				'unsigned' => TRUE,
-				'not null' => TRUE,
-			),
-			'nid' => array(
-				'description' => 'Drupal node id of node mapped from the ArchiveSpace resource.',
-				'type' => 'int',
-				'unsigned' => TRUE,
-				'not null' => FALSE,
-			),
-			'filename' => array(
-				'description' => 'Name of file to be attached to node/resource',
-				'type' => 'varchar',
-				'length' => 300,
-				'not null' => TRUE,
-			),
-			'filepath' => array(
-				'description' => 'Path on remote machine of file to be attached to node/resource',
-				'type' => 'varchar',
-				'length' => 300,
-				'not null' => TRUE,
-			),
-			'status' => array(
-				'description' => 'Whether file downloaded or not',
-				'type' => 'int',
-				'unsigned' => TRUE,
-				'not null' => FALSE,
-			),
-		),
-		'primary key' => array(
-			'res',
-			'filename',
-		),
-	);
-	db_create_table('kboo_asi_res_files', $schema['kboo_asi_res_files']);
 }

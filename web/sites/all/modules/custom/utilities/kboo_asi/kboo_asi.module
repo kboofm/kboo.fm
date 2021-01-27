@@ -105,13 +105,13 @@ function kboo_asi_admin_form($form, &$form_state)
 	);
 	$form['get_files'] = array(
 		'#type' => 'button',
-		'#value' => 'Get and import newest ArchiveSpace database',
+		'#value' => 'doesn\t work yet...',
 		'#attributes' => array('class' => array()),
 		'#ajax' => array(
-			'callback' => 'kboo_asi_get_db_ajax',
-			'wrapper' => 'kboo-asi-db-download',
+#			'callback' => 'kboo_asi_get_db_ajax',
+#			'wrapper' => 'kboo-asi-db-download',
 		),
-		'#suffix' => '<div id="kboo-asi-db-download"></div>',
+		'#suffix' => '<div id="kboo-asi-files-download"></div>',
 	);
 
 /*
@@ -239,6 +239,12 @@ dpm($j);
 
 	//this runs about 7-8 times before timeout.  not difficult to initially populate w/o messing with drupal batch
 	$count = 1;
+
+
+	//this moves records from resource_log in archivespace db to the drupal db.  it only records resource id and date of last edit.  we store
+	//ref (= id of most recent edit) in a drupal var above -- 'kboo_asi_edit_max_ref'
+	//actual imports will come later from a comparison between the two date fields in the kboo_asi_resource table
+	//that happens below in kboo_asi_no_nodes_batch which imports resources not having an existing drupal node
 	while(kboo_asi_populate_res_log())
 	{
 		$out .= "<br>Ran populate log script $count times.";
@@ -247,7 +253,7 @@ dpm($j);
 
 	//compare values in kboo_asi_resource table to determine which nodes need created or updated
 	//first handle creation.
-	$count = 1;
+	#$count = 1;
 
 	$foo = kboo_asi_no_nodes_batch();
 	return $out;
