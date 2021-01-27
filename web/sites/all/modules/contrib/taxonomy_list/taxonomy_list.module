@@ -1,0 +1,997 @@
+<?php
+
+/**
+ * @file
+ *   List all terms in a vocabulary.
+ */
+
+/**
+ * Implementation of hook_help().
+ */
+function taxonomy_list_help($path, $args = NULL) {
+  switch ($path) {
+    case 'admin/help#taxonomy_list':
+      return '<p>'. t('The Taxonomy List module adds pages that list all terms in a vocabulary (category). In addition, when the Taxonomy Image module is installed, these lists can include an image for each term. ') . '</p>';
+  }
+}
+
+/**
+ * Implementation of hook_perm().
+ */
+function taxonomy_list_permission() {
+  return array(
+    'access taxonomy_list' => array(
+      'title' => t('View Taxonomy Lists'),
+      'description' => t('Perform administration tasks for Taxonomy List. '),
+      ),
+    'administer taxonomy_list' => array(
+      'title' => t('Administer Taxonomy List'),
+      'description' => t('Perform administration tasks for Taxonomy List. '),
+      ),
+    );
+  return array('access taxonomy_list', 'administer taxonomy_list');
+}
+
+/**
+ * Implementation of hook_menu().
+ */
+function taxonomy_list_menu() {
+  $items = array();
+
+  $items['admin/config/content/taxonomy_list'] = array(
+    'title' => 'Taxonomy List Settings',
+    'description' => 'Customize how Taxonomy List displays terms on vocabulary pages. ',
+    'page callback' => 'drupal_get_form',
+    'page arguments' => array('taxonomy_list_admin_settings'),
+    'access arguments' => array('administer taxonomy_list'),
+    'type' => MENU_NORMAL_ITEM,
+    'file' => 'taxonomy_list.admin.inc',
+    );
+
+//  $items['taxonomy/vocabulary/%'] = array(
+  $items['taxonomy/vocabulary'] = array(
+    'title' => 'Taxonomy List',
+    'page callback' => 'taxonomy_list_show',
+    'page arguments' => array(2),
+    'access arguments' => array('access taxonomy_list'),
+    'type' => MENU_CALLBACK,
+    );
+
+  return $items;
+}
+
+/**
+ * Implementation of hook_init().
+ */
+function _taxonomy_list_init() {
+  drupal_add_css(drupal_get_path('module', 'taxonomy_list') . '/taxonomy_list.css');
+}
+
+/**
+ * Implementation of hook_theme().
+ */
+function taxonomy_list_theme() {
+  return array(
+    'taxonomy_list_admin_links' => array(
+      'arguments' => array('vids'),
+      ),
+    'taxonomy_list_vocabulary' => array(
+      'arguments' => array('vocabulary'),
+      ),
+    'taxonomy_list_term' => array(
+      'arguments' => array('term'),
+      ),
+    'taxonomy_list_term_block' => array(
+      'arguments' => array('term'),
+      ),
+    'taxonomy_list_block' => array(
+      'arguments' => array('terms'),
+      ),
+    'taxonomy_list_' => array(
+      'arguments' => array('terms', 'cells_per_row' => 1, 'list_mode' => 0),
+      ),
+    'taxonomy_list_table' => array(
+      'arguments' => array('terms', 'cells_per_row' => 1, 'list_mode' => 0),
+      ),
+    'taxonomy_list_list' => array(
+      'arguments' => array('terms', 'cells_per_row' => 1, 'list_mode' => 0),
+      ),
+    'taxonomy_list_nancy' => array(
+      'arguments' => array('terms', 'cells_per_row' => 1, 'list_mode' => 0),
+      'template' => 'taxonomy_list_nancy',
+      ),
+    'taxonomy_list_directory' => array(
+      'arguments' => array('terms', 'cells_per_row' => 1, 'list_mode' => 0),
+      ),
+    'taxonomy_list_directory_node' => array(
+      'arguments' => array('node', 'term'),
+      ),
+    );
+}
+
+/**
+ * Returns tree of terms.
+ * Enhancement for taxonomy_get_tree.
+ *
+ * @param $parent
+ *   the parent term to restrict the tree to. (optional)
+ * @param $overview
+ *   whether we are doing the overview page (bool)
+ *
+ * @return an array of term objects.
+ */
+function taxonomy_list_get_tree($vocid, $parent = 0, $op = '', $max_depth = 2147483647) {
+//  drupal_set_message("taxonomy_list_get_tree($vocid, $parent, $op, $max_depth)");
+  $taxo_img = module_exists('taxonomy_image');
+  $show_image = variable_get('taxonomy_list_show_image', 1);
+  $count_type = variable_get('taxonomy_list_count', 'none');
+  $no_show = variable_get('taxonomy_list_noshow', FALSE);
+  $edit_link = ($op == 'block' ? FALSE : variable_get('taxonomy_list_edit_link', FALSE));
+  $search_link = ($op == 'block' ? FALSE : variable_get('taxonomy_list_search_link', FALSE));
+  $rss_link = variable_get('taxonomy_list_rss_link', FALSE);
+  $show_desc = variable_get('taxonomy_list_show_description', 1);
+  $show_parents = variable_get('taxonomy_list_show_parents', FALSE);
+  $show_children = variable_get('taxonomy_list_show_children', FALSE) ? '/all' : NULL;
+  $ntf_avail = module_exists('node_type_filter');
+  $destination = drupal_get_destination();
+  $node_types = node_type_get_names();
+  $format = variable_get('taxonomy_list_filter', variable_get('filter_default_format', 1));
+
+  $tree = taxonomy_get_tree($vocid, $parent);
+  $vocabulary = taxonomy_vocabulary_load($vocid);
+
+  // Is this a top level request?
+  if ($parent) {
+    // The existing elements have depths one too low.
+    foreach ($tree as $term) {
+      ++$term->depth;
+    }
+    // Not top level, so we need to get the requested term
+    // and stick it on the front of the tree.
+    $parent_term = taxonomy_term_load($parent);
+    array_unshift($tree, $parent_term);
+    $tree[0]->depth = 0;
+  }
+
+  $new_tree = array();
+  foreach ($tree as $term) {
+    $tid = $term->tid;
+    // If we are too deep already, skip the whole term.
+    if ($term->depth > $max_depth) {
+      continue;
+    }
+    // If we are suppressing empty terms and there are no links in this group, skip it.
+    $count = taxonomy_list_count_nodes($tid);
+    if ($no_show && $count == 0) {
+      continue;
+    }
+
+    $new_tree[$tid] = $term;
+    $path = taxonomy_term_uri($term);
+    $term_path = $path['path'] . $show_children;
+
+    $new_tree[$tid]->children = array();
+    if ($term->parents[0] != 0) {
+      foreach ($term->parents as $parent) {
+        if (isset($new_tree[$parent])) {
+          $new_tree[$parent]->children[] = $tid;
+        }
+      }
+    }
+
+    if ($show_image) {
+	    $new_tree[$tid]->image = $taxo_img ? '<div class="taxonomy-list-image">'. l(taxonomy_image_display($term->tid, NULL, NULL, array('wrapper' => FALSE)), $term_path, $options = array('html' => TRUE)) . '</div>' : NULL;
+    }
+    else {
+      $new_tree[$tid]->image = NULL;
+    }
+
+    $new_tree[$tid]->title = '<div class="taxonomy-list-title">'. l($term->name, $term_path,
+      array('attributes' => array('id' => 'term-' . $term->tid))) . '</div>';
+    $new_tree[$tid]->desc = ($term->description && $show_desc) ? '<div class="taxonomy-list-desc">'. check_markup($term->description, $format) . '</div>' : NULL;
+
+  $links = array();
+  // Do we want edit link?
+  if (user_access('administer taxonomy') && $edit_link) {
+    $links['taxonomy-list-edit-link'] = array(
+      'title' => t('edit term'),
+      'href' => 'taxonomy/term/'. $term->tid . '/edit',
+      'attributes' => array('title' => t('make changes to this term')),
+      'query' => $destination,
+      );
+    }
+
+  // Do we want search link?
+  if (user_access('search content') && $search_link) {
+    $links['taxonomy-list-search-term'] = array(
+      'title' => t('search for term'),
+      'href' => 'search/node/"'. $term->name . '"',
+      'attributes' => array('title' => t('search for content using this term')),
+      );
+  }
+
+  // Do we want RSS link?
+  if ($rss_link) {
+    $links['taxonomy-list-rss'] = array(
+      'title' => '<img src="'. base_path() . 'misc/feed.png" alt="rss feed for '. check_plain($term->name) . '" />',
+      // Max depth not supported in 7.x.
+      'href' => 'taxonomy/term/' . $term->tid . '/feed',
+      'attributes' => array('title' => t('create feed for "@name"', array('@name' => $term->name))),
+      'html' => TRUE,
+      );
+  }
+
+  if (count($links) > 0) {
+    $new_tree[$tid]->links = theme('links',
+      array('links' => $links, 'attributes' => array('class' => array('links inline'))));
+  }
+  else {
+    $new_tree[$tid]->links = '';
+  }
+
+    $new_tree[$tid]->counter = '';
+
+    switch ($count_type) {
+      case 'none':
+        $counter = 0;
+        break;
+
+      case 'all':
+        $counter = taxonomy_list_count_nodes($term->tid);
+        if ($counter == 0 && $no_show) {
+          $new_tree[$tid]->counter = '';
+        }
+        else {
+          $new_tree[$tid]->counter = '<div class="taxonomy-list-term-count">'
+            . '<span class="taxonomy-list-term-count-label">' . t('Used by') . '</span>' . ' '
+            . '<span class="taxonomy-list-term-count-value">' . $counter . '</span>'
+            . '</div>';
+        }
+        break;
+
+      case 'not_zero':
+      case 'by_type':
+        $count_list = array();
+        $counter = 0;
+
+        foreach (node_type_get_names() as $type => $type_name) {
+          $this_count = taxonomy_list_count_nodes($term->tid, $type);
+          if ($this_count > 0 || $count_type == 'by_type') {
+            // Is Node Type Filter available?
+            if ($ntf_avail && $this_count > 0) {
+              $count_list[] = l($node_types[$type] . ': '. $this_count, $term_path, array('query' => 'type='. $type));
+            }
+            else {
+              $count_list[] = $node_types[$type] . ': '. $this_count;
+            }
+          }
+          $counter += $this_count;
+        }
+        /* */
+        if ($counter == 0 && $no_show) {
+          $new_tree[$tid]->counter = NULL;
+        }
+        if ($count_list) {
+//          $new_tree[$tid]->counter = '<div class="taxonomy-list-term-count">('. implode(', ', $count_list) . ')</div>';
+          $new_tree[$tid]->counter = '<div class="taxonomy-list-term-count">'
+            . '<span class="taxonomy-list-term-count-label">' . t('Used by') . '</span>' . ': '
+            . '<span class="taxonomy-list-term-count-value">' . implode(', ', $count_list) . '</span>'
+            . '</div>';
+        }
+        break;
+    }
+    $new_tree[$tid]->node_count = $counter;
+
+    if ($show_parents && $new_tree[$tid]->parents[0] != 0) {
+      $parent_list = array();
+      foreach ($new_tree[$tid]->parents as $parent_tid) {
+        $parent = $new_tree[$parent_tid];
+        $parent_list[] = l($parent->name, drupal_get_path_alias('taxonomy/vocabulary/'. $vocabulary->vid), array('fragment' => $parent->tid));
+      }
+      $new_tree[$tid]->parent_list = '<div class="taxonomy-list-parents">[&laquo; '
+        . implode(' &laquo; ', $parent_list)
+        . ']</div>';
+    }
+    else {
+      $new_tree[$tid]->parent_list = NULL;
+    }
+  }
+  return $new_tree;
+}
+
+/**
+ * Helper function to replace taxonomy_list_count_nodes().
+ */
+function taxonomy_list_count_nodes($tid, $type = NULL) {
+  $query = db_select('taxonomy_index', 'ti')
+    ->condition('ti.tid', $tid);
+
+  if ($type) {
+    $query->innerJoin('node', 'n', 'n.nid = ti.nid');
+    $query->condition('n.type', $type);
+
+    // Allow access functions to grab this.
+    $query->addTag('node_access');
+  }
+
+  return $query->countQuery()->execute()->fetchField();
+}
+
+/**
+ * Show the category list
+ */
+function taxonomy_list_show($str_vids, $max_depth = 'all', $op = NULL, $columns = NULL, $type = NULL) {
+  drupal_add_css(drupal_get_path('module', 'taxonomy_list') . '/taxonomy_list.css');
+
+  if (empty($str_vids)) {
+    $str_vids = 'all';
+  }
+
+  $params = array(
+    'max_depth' => 'all',
+    'op' => NULL,
+    'type' => NULL,
+    'columns' => variable_get('taxonomy_list_cell_per_row', 2),
+    'format' => variable_get('taxonomy_list_format', 'table'),
+    'list_mode' => variable_get('taxonomy_list_list_mode', 0),
+    );
+  $params = array_merge($params, $_GET);
+  unset($params['q']);
+
+  if (isset($params['cols'])) {
+    $params['columns'] = $params['cols'];
+    unset($params['cols']);
+  }
+
+  if (isset($params['depth'])) {
+    $params['max_depth'] = $params['depth'];
+    unset($params['depth']);
+  }
+
+  if (isset($params['mode'])) {
+    $params['list_mode'] = $params['mode'];
+    unset($params['mode']);
+  }
+
+  array_walk($params, 'check_plain');
+
+  if ($params['max_depth'] == 'all') {
+    $params['max_depth'] = 9999999;
+  }
+
+  $vids = array();
+  if ($str_vids == 'all') {
+    $vocs = taxonomy_get_vocabularies();
+    foreach ($vocs as $vid => $vocab) {
+      $vids[] = $vid;
+    }
+  }
+  else {
+    $vocs = explode(' ', $str_vids);
+    foreach ($vocs as $name) {
+      $vocab = taxonomy_vocabulary_machine_name_load($name);
+      if ($vocab) {
+        $vids[] = $vocab->vid;
+      }
+      else {
+        drupal_set_message(t('I do not recognize "@name". ', array('@name' => $name)));
+      }
+    }
+    /*
+    if (preg_match('/^([0-9]+[+ ])+[0-9]+$/', $str_vids)) {
+      // The '+' character in a query string may be parsed as ' '.
+      $vids = preg_split('/[+ ]/', $str_vids);
+    }
+    else {
+      if (preg_match('/^[0-9]+$/', $str_vids) ) {
+        $vids = array($str_vids);
+      }
+    }
+    /* */
+  }
+
+  if (count($vids) <= 0) {
+    drupal_set_message(t('There were no vaild vocabularies requested. '));
+    return;
+  }
+
+  // Do we want to list the nodes?
+  if ($params['op'] == 'list') {
+//    return 'taxonomy_list_nodes_render';
+    return taxonomy_list_nodes_render($vids, $params['max_depth'], $params['type']);
+  }
+
+  $vocab_titles = array();
+  $total_terms  = 0;
+
+  $output = '<div id="taxonomy-list">';
+
+  foreach ($vids as $vid) {
+    $vocab = taxonomy_vocabulary_load($vid);
+    if ($vocab == FALSE) {
+      continue;
+    }
+    $vocab_titles[] = $vocab->name;
+
+    $terms = taxonomy_list_get_tree($vid, 0, $params['max_depth']);
+
+    $c = count($terms);
+    if ($c <= 0) {
+      // This vocab has no term, skip.
+      continue;
+    }
+    $total_terms += $c;
+
+    $output .= '<div id="taxonomy-list-' . drupal_html_class($vocab->machine_name) . '">';
+    $output .= theme('taxonomy_list_vocabulary', array(
+      'vocabulary' => $vocab,
+      'title' => (count($vids) > 1)));
+
+//    $output .= theme(array('taxonomy_list_'. $params['format'], 'taxonomy_list_table'),
+    $output .= theme('taxonomy_list_'. $params['format'],
+      array(
+        'terms' => $terms,
+        'cells' => $params['columns'],
+        'title' => $params['list_mode'],
+        ));
+    $output .= '</div>';
+  }
+
+  $output .= '</div>'; // class="taxonomy-list"
+
+  if ($total_terms == 0) {
+    return t('Could not handle @what. ', array('@what' => $str_vids));
+    drupal_not_found();
+    return;
+  }
+
+//  drupal_set_title(filter_xss_admin(implode(variable_get('taxonomy_list_title_separator', ' & '), $vocab_titles)));
+  drupal_set_title(implode(variable_get('taxonomy_list_title_separator', ' & '), $vocab_titles));
+  $output = theme('taxonomy_list_admin_links', array('vids' => $vids)) . $output;
+
+  return $output;
+}
+
+/**
+ * Theme a table of the term tree.
+ *
+ * @param $terms
+ *   the enhanced term tree.
+ * @param $cells_per_row
+ *   the number of cells per row to display.
+ * @param $list_mode
+ *   indicates how to show the hierarchy.
+ * @return
+ *   the themed list to be displayed.
+ */
+function theme_taxonomy_list_table($variables) {
+  $terms = $variables['terms'];
+  $cells_per_row = $variables['cells'];
+  $list_mode = $variables['title'];
+
+  $cells = array();
+  $table = array(
+    'rows' => array(),
+    'header' => array(),
+    );
+  $curr_col = -1;
+  $curr_depth = 0;
+  foreach ($terms as $tid => $term) {
+    if (!isset($vid)) {
+      // If recursive, watch out for this.
+      $vid = $term->vid;
+    }
+    $class = 'taxonomy-list-depth-'. $term->depth;
+    $table['attributes'] = array('id' => 'taxonomy-list-table-'. $vid);
+
+    // List_mode = 0 is hierarchical; = 1 is flat.
+    if ($curr_depth != $term->depth && $list_mode == 0) {
+      $table['rows'][] = $cells;
+      $cells = array();
+      $curr_col = -1;
+      $curr_depth = $term->depth;
+    }
+
+    if ($term->children) {
+      $class .= ' taxonomy-list-parent';
+      $colspan = $cells_per_row;
+    }
+    else {
+      $colspan = 1;
+    }
+
+    $cells[] = array(
+      'data' => '<div class="' . $class . '">'. theme('taxonomy_list_term', array('term' => $term)) . '</div>',
+      'colspan' => $colspan,
+      );
+    $curr_col = ($curr_col + 1) % $cells_per_row;
+    if ($curr_col == $cells_per_row - 1) {
+      $table['rows'][] = $cells;
+      $cells = array();
+    }
+  }
+
+  if ($cells) {
+    $table['rows'][] = $cells;
+  }
+
+  return theme('table', $table);
+}
+
+/**
+ * Theme a list of the term tree.
+ *
+ * @param $terms
+ *   the enhanced term tree.
+ * @param $cells_per_row
+ *   the number of cells per row to display. -- not used for list.
+ * @param $list_mode
+ *   indicates how to show the hierarchy.
+ * @return
+ *   the themed list to be displayed.
+ */
+function theme_taxonomy_list_list($variables) {
+  $terms = $variables['terms'];
+  $cells_per_row = $variables['cells'];
+  $list_mode = $variables['title'];
+  $items = array();
+  $odd_even = array('even', 'odd');
+  $i = 0;
+  foreach ($terms as $tid => $term) {
+    ++$i;
+    switch ($list_mode) {
+      case 0: // Hierarchical.
+        if ($term->depth) {
+          continue;
+        }
+        $variables = array('term' => $term);
+        $item = array(
+          'data' => theme('taxonomy_list_term', $variables),
+          'class' => array($odd_even[$i & 1]),
+          );
+        if ($term->children) {
+          $item['children'] = _taxonomy_list_list_children($term->children, $terms);
+        }
+        $items[] = $item;
+        break;
+      case 1: // Flat.
+        $items[] = array(
+          'data' => theme('taxonomy_list_term', $variables),
+          'class' => array($odd_even[$i & 1]),
+          );
+        break;
+    }
+  }
+  return theme('item_list', array(
+    'items' => $items,
+    'type' => 'ul',
+    'attributes' => array('class' => array('taxonomy-list-list')),
+    ));
+}
+
+/**
+ * Theme a directory list.
+ *
+ * @param $terms
+ *   the enhanced term tree.
+ * @param $cells_per_row
+ *   the number of cells per row to display. -- not used for directory.
+ * @param $list_mode
+ *   indicates how to show the hierarchy.
+ * @return
+ *   the themed list to be displayed.
+ */
+function theme_taxonomy_list_directory($variables) {
+  // Allow collapsible form elements.
+  drupal_add_library('system', 'drupal.collapse');
+
+  $terms = $variables['terms'];
+  $cells_per_row = $variables['cells'];
+  $list_mode = $variables['title'];
+  $hide_empty = variable_get('taxonomy_list_noshow', FALSE);
+
+  $view_mode = 'teaser';
+
+  $output = '<div class="taxonomy-list-directory">';
+  foreach ($terms as $tid => $term) {
+    if (!$term->depth) { // Only do top level terms here.
+      $data = '<div class="taxonomy-list-directory-description">' . $term->desc . '</div>';
+      $nodes = taxonomy_list_select_nodes(array($tid));
+
+      foreach ($nodes as $node_found) {
+        // @TODO: Option for unpublished?
+        if ($node_found->status == 1) {
+          $node = node_load($node_found->nid);
+          $data .= theme('taxonomy_list_directory_node', array('node' => $node, 'term' => $term));
+        }
+      }
+
+      // If there were no nodes, skip the whole thing.
+      if ($term->node_count == 0 && $hide_empty) {
+        continue;
+      }
+      if ($term->children) {
+        $data .= _taxonomy_list_directory_children($term->children, $terms);
+      }
+
+      $fieldset = array(
+        'element' => array(
+          '#title' => check_plain($term->name),
+          '#collapsible' => TRUE,
+          '#collapsed' => TRUE,
+          '#value' => $data,
+          '#children' => '<div>',
+          '#attributes' => array('class' => array('collapsible', 'collapsed'))
+          ),
+        );
+      $output .= theme('fieldset', $fieldset);
+    }
+  }
+  return $output . '</div>';
+}
+
+/**
+ * Theme child terms for the directory list.
+ *
+ * @param $tids
+ *   an array of term ids..
+ * @param $tree
+ *   the enhanced term tree.
+ * @return
+ *   the themed list to be displayed.
+ */
+function _taxonomy_list_directory_children($tids, $tree) {
+  static $show_desc;
+  if (!isset($show_desc)) {
+    $show_desc = variable_get('taxonomy_list_term_description', TRUE);
+  }
+  $output = NULL;
+  foreach ($tids as $tid) {
+    $term = $tree[$tid];
+    $data = $term->image . $term->title . ($show_desc ? $term->desc : NULL);
+    $nodes = taxonomy_list_select_nodes(array($tid));
+
+    foreach ($nodes as $nid) {
+      $node = node_load($nid);
+      $data .= theme('taxonomy_list_directory_node', array('node' => $node, 'term' => $term));
+    }
+    if ($term->children) {
+      $data .= _taxonomy_list_directory_children($term->children, $tree);
+    }
+
+    $fieldset = array(
+      'element' => array(
+        '#title' => check_plain($term->name),
+        '#collapsible' => TRUE,
+        '#collapsed' => TRUE,
+        '#value' => $data,
+        '#children' => '<div>',
+        '#attributes' => array('class' => array('collapsible', 'collapsed'))
+        ),
+      );
+    $output .= theme('fieldset', $fieldset);
+  }
+
+  return $output;
+}
+
+/**
+ * Theme a node selected for the directory list.
+ *
+ * @param $node
+ *   the full node object.
+ * @param $term
+ *   the enhanced term object.
+ * @return
+ *   the themed node to be displayed.
+ */
+function theme_taxonomy_list_directory_node($variables) {
+  $node = $variables['node'];
+  $term = $variables['term'];
+  $output = '<div class="taxonomy_list_directory_node node-'. $node->nid . '">';
+  $output .= '<div class="taxonomy-list-directory-node">';
+  $output .= '<div class="taxonomy-list-title">'
+    . l($node->title, drupal_get_path_alias('node/'. $node->nid))
+    . '</div>';
+  $output .= '</div>';
+
+  return $output . '</div>';
+}
+
+function _taxonomy_list_list_children($kids, $tree) {
+  $items = array();
+  $odd_even = array('even', 'odd');
+  $i = 0;
+  foreach ($kids as $tid) {
+    $term = $tree[$tid];
+    ++$i;
+    $item = array('data' => theme('taxonomy_list_term', array('term' => $term)), 'class' => array($odd_even[$i & 1]));
+    if ($term->children) {
+      $item['children'] = _taxonomy_list_list_children($term->children, $tree);
+    }
+    $items[] = $item;
+  }
+  return $items;
+}
+
+/**
+ * Finds all nodes that match selected taxonomy conditions.
+ * Copied from taxonomy.module.
+ *
+ * @param $tids
+ *   An array of term IDs to match.
+ * @param $operator
+ *   How to interpret multiple IDs in the array. Can be "or" or "and".
+ * @param $depth
+ *   How many levels deep to traverse the taxonomy tree. Can be a nonnegative
+ *   integer or "all".
+ * @param $pager
+ *   Whether the nodes are to be used with a pager (the case on most Drupal
+ *   pages) or not (in an XML feed, for example).
+ *
+ * @return
+ *   A resource identifier pointing to the query results.
+ */
+function taxonomy_list_select_nodes($tids = array(), $operator = 'or', $depth = 0, $pager = TRUE) {
+  $result = FALSE;
+  if (count($tids) > 0) {
+    // For each term ID, generate an array of descendant term IDs to the right depth.
+    $descendant_tids = array();
+    if ($depth === 'all') {
+      $depth = NULL;
+    }
+    foreach ($tids as $index => $tid) {
+      $term = taxonomy_term_load($tid);
+      $tree = taxonomy_get_tree($term->vid, $tid, -1, $depth);
+      if ($tree) {
+        $descendant_tids[] = array_merge(array($tid), array_map('_taxonomy_get_tid_from_term', $tree));
+      }
+      else {
+        $descendant_tids[] = $tid;
+      }
+    }
+
+    $query = db_select('node', 'n')
+      ->distinct()
+      ->fields('n', array('nid', 'sticky', 'title', 'created', 'status'))
+      ->condition('n.status', 1);
+    $query->innerJoin('taxonomy_index', 'tn', 'n.nid = tn.nid');
+    $query->orderBy('n.sticky', 'DESC')
+      ->orderBy('n.created', 'DESC');
+    $query->addTag('node_access');
+
+    if ($operator == 'or') {
+      $query->condition('tn.tid', $descendant_tids, 'IN');     // <<<--- Okay for "or";
+    }
+    else {
+      // @TODO: how could we get here?
+      foreach ($descendant_tids as $index => $tids) {
+        $query->innerJoin('taxonomy_index', 'tn' . $index, 'n.nid = tn'. $index . '.nid');
+        $query->condition('tn' . $index . '.tid', $tids, 'IN');
+      }
+    }
+
+//    dpq($query);
+    $query->range(0, 10);  // <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+    $result = $query->execute()->fetchAll();
+  }
+  else {
+    drupal_set_message(t("You didn't tell me what to look for."));
+  }
+
+  return $result;
+}
+
+/**
+ * Select and render the nodes in the chosen vocabularies.
+ */
+function taxonomy_list_nodes_render($vids, $max_depth) {
+  $output = '<div id="taxonomy-list">';
+  $terms = array();
+  // Get vocabulary names and list of tids.
+  foreach ($vids as $vid) {
+    $vocab = taxonomy_vocabulary_load($vid);
+    $vocab_titles[] = $vocab->name;
+     // Taxonomy_select_nodes will do the depth part for us, so we just get the top terms.
+    $terms = array_merge($terms, array_map('_taxonomy_get_tid_from_term', taxonomy_get_tree($vid, 0, -1, 1)));
+  }
+
+  drupal_set_title(implode(variable_get('taxonomy_list_title_separator', ' & '), $vocab_titles));
+  sort($terms);
+
+  // Render all nodes in a pager using taxonomy function.
+  $selected_nodes = taxonomy_list_select_nodes($terms, 'or', $max_depth);
+
+  $output .= '</div>'; // id="taxonomy-list"
+  return $output;
+}
+
+/**
+ * Our version of a function that used to be in Taxonomy.
+ */
+function taxonomy_list_render_nodes($result) {
+  $output = '';
+  $has_rows = FALSE;
+  foreach ($result as $node) {
+    $output .= node_view(node_load($node->nid));
+    $has_rows = TRUE;
+  }
+  if ($has_rows) {
+    $output .= theme('pager', NULL, variable_get('default_nodes_main', 10), 0);
+  }
+  else {
+    $output .= '<p>' . t('There are currently no posts in this category. ') . '</p>';
+  }
+  return $output;
+}
+
+/**
+ * Theme the admin links.
+ */
+function theme_taxonomy_list_admin_links($variables) {
+  $vids = $variables['vids'];
+  $destination = drupal_get_destination();
+  $output = '<div class="taxonomy-list-admin-links">';
+  $links = array();
+
+  if (user_access('administer taxonomy')) {
+    foreach ($vids as $vid) {
+      $vocabulary = taxonomy_vocabulary_load($vid);
+      $links['taxonomy_list_add_'. $vid] = array(
+        'title' => t('Add to "!name"', array('!name' => $vocabulary->name)),
+        'href' => 'admin/content/taxonomy/'. $vocabulary->vid . '/add/term',
+        );
+      $links['taxonomy_list_edit_'. $vid] = array(
+        'title' => t('Edit "!name"', array('!name' => $vocabulary->name)),
+        'href' => 'admin/content/taxonomy/edit/vocabulary/'. $vocabulary->vid,
+        'query' => $destination,
+        );
+    }
+  }
+  if (user_access('administer taxonomy_list')) {
+    $links['taxonomy_list_admin'] = array(
+      'title' => t('Taxonomy list settings'),
+      'href' => 'admin/settings/taxonomy_list',
+      'query' => $destination,
+      );
+  }
+
+  $output .= theme('links', $links);
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Theme the vocabulary.
+ */
+function theme_taxonomy_list_vocabulary($variables) {
+  $vocabulary = $variables['vocabulary'];
+  $title = $variables['title'];
+  $format = variable_get('taxonomy_list_filter', variable_get('filter_default_format', 1));
+  $output = '<div class="taxonomy-list-vocabulary">';
+  if ($title) {
+    $output .= '<div class="name">'. check_plain($vocabulary->name) . '</div>';
+  }
+  $output .= '<div class="description">'. decode_entities(check_markup($vocabulary->description, $format)) . '</div>';
+
+  $output .= '</div>';
+  return $output;
+}
+
+/**
+ * Theme the term.
+ */
+function theme_taxonomy_list_term($variables) {
+  $term = $variables['term'];
+  $output = '<div class="taxonomy-list-item taxonomy-list-term-'. $term->tid . '">'
+    . $term->title
+    . $term->parent_list
+    . $term->counter
+    . $term->links
+    . $term->desc
+    . '</div>';
+  return $output;
+}
+
+/**
+ * Theme tree for a block.
+ *
+ * @param $terms
+ *   the enhanced term tree.
+ * @return
+ *   the themed list to be displayed.
+ */
+function theme_taxonomy_list_block($variables) {
+  $terms = $variables['terms'];
+
+  $items = array(
+    'items' => array(),
+    'attributes' => array('class' => array('taxonomy-list-block')),
+    );
+  $odd_even = array('even', 'odd');
+  $i = 0;
+  foreach ($terms as $tid => $term) {
+    ++$i;
+    $items['items'][] = array(
+      'data' => theme('taxonomy_list_term_block', array('term' => $term)),
+      'class' => array($odd_even[$i & 1]),
+      );
+  }
+  return theme('item_list', $items);
+}
+
+/**
+ * Theme the term for a block.
+ */
+function theme_taxonomy_list_term_block($variables) {
+//  drupal_set_message(__FUNCTION__);
+  $term = $variables['term'];
+  $path = taxonomy_term_uri($term);
+  $output = '<div class="taxonomy-list-item taxonomy-list-term-'. $term->tid . '">'
+    . str_repeat("&ndash;", $term->depth)
+    . ' '
+    . $term->image
+    . l($term->name, $path['path'])    /* Use ID as above in term->title ? */
+    . $term->desc
+    . '</div>';
+  return $output;
+}
+
+/**
+ * Implementation of hook_block_info().
+ */
+function taxonomy_list_block_info() {
+  $vocabularies = taxonomy_get_vocabularies();
+  foreach ($vocabularies as $vocabulary) {
+    $blocks[$vocabulary->vid]['info'] = t('Taxonomy List for !name', array('!name' => $vocabulary->name));
+  }
+
+  return $blocks;
+}
+
+/**
+ * Implementation of hook_block_view().
+ */
+function taxonomy_list_block_view($delta = '') {
+  // $delta is the vocabulary id.
+  $voc = taxonomy_vocabulary_load($delta);
+  $block['subject'] = t('Terms in @name', array('@name' => $voc->name));
+
+  $max_depth = variable_get('taxonomy_list_block_max_depth_' . $delta, 2);
+  $tree = taxonomy_list_get_tree($delta, 0, 'block', $max_depth);
+  $block['content'] = theme('taxonomy_list_block', array('terms' => $tree));
+  return $block;
+}
+
+/**
+ * Implementation of hook_block_configure().
+ */
+function taxonomy_list_block_configure($delta = '') {
+  // $delta is the vocabulary id.
+  $form = array();
+  $depths = array(
+    '0' => '1',
+    '1' => '2',
+    '2' => '3',
+    '3' => '4',
+    '4' => '5',
+    'all' => t('All levels'),
+    );
+
+  $form['taxonomy_list_block_max_depth'] = array(
+    '#type' => 'radios',
+    '#options' => $depths,
+    '#title' => t('Show terms to this depth'),
+    '#default_value' => variable_get('taxonomy_list_block_max_depth_' . $delta, 2),
+    );
+
+  return $form;
+}
+
+/**
+ * Implementation of hook_block_save().
+ */
+function taxonomy_list_block_save($delta = '', $edit = array()) {
+  // $delta is the vocabulary id.
+  variable_set('taxonomy_list_block_max_depth_' . $delta, $edit['taxonomy_list_block_max_depth']);
+}

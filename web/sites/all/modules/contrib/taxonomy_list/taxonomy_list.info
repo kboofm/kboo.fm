@@ -1,0 +1,11 @@
+name = Taxonomy List
+description = List terms under a specific vocabulary
+dependencies[] = taxonomy
+core = 7.x
+package = Taxonomy
+
+; Information added by Drupal.org packaging script on 2018-07-10
+version = "7.x-1.x-dev"
+core = "7.x"
+project = "taxonomy_list"
+datestamp = "1531233524"

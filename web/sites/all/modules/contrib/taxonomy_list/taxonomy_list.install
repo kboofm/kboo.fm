@@ -1,0 +1,27 @@
+<?php
+
+/**
+ * @file
+ * List the category, specify in the URL
+ */
+
+/**
+ * Implementation of hook_uninstall().
+ */
+function taxonomy_list_uninstall() {
+  variable_del('taxonomy_list_cell_per_row');
+  variable_del('taxonomy_list_count');
+  variable_del('taxonomy_list_edit_link');
+  variable_del('taxonomy_list_filter');
+  variable_del('taxonomy_list_format');
+  variable_del('taxonomy_list_list_mode');
+  variable_del('taxonomy_list_noshow');
+  variable_del('taxonomy_list_related');
+  variable_del('taxonomy_list_rss_link');
+  variable_del('taxonomy_list_search_link');
+  variable_del('taxonomy_list_show_children');
+  variable_del('taxonomy_list_show_image');
+  variable_del('taxonomy_list_show_parents');
+  variable_del('taxonomy_list_synonyms');
+  variable_del('taxonomy_list_title_separator');
+}
