@@ -210,7 +210,7 @@ class StationContentComponent extends BaseComponent {
 	{
 		#then no episodes created, so we need to search timeslots
 		$q = new ScheduledTimeslotQuery();
-		$q->getUpcomingByProgram($program_nid, 1);
+		$q->getUpcomingByProgram($program_nid, 2);
 		$result = $q->execute();
 		$processor = new StationContentProcessor();
 		$ret = $processor->processUpcomingSlot($this->getNids($result));
