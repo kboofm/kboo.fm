@@ -25,7 +25,7 @@ endif;
         <?php print $schedule_item['title']; ?>
       </a>
 
-      <?php if ($schedule_item['showhost']['name']): ?>
+      <?php /*if ($schedule_item['showhost']['name']): ?>
         with
 
         <a href="<?php print $schedule_item['showhost']['url']; ?>"
@@ -33,7 +33,7 @@ endif;
            data-bind="showhost-link">
           <?php print $schedule_item['showhost']['name']; ?>
         </a>
-      <?php endif; ?>
+      <?php endif;*/ ?>
     </span>
   <?php endif; ?>
 </p>
