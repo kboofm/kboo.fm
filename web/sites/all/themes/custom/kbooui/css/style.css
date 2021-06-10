@@ -6977,7 +6977,8 @@ img {
 }
 .navbar .on-air a {
   /*color: #ffb600;*/
-  color: #971930;
+  /*color: #971930;*/
+  color: #FFFFFF;
 }
 .navbar .listen-now-btn {
   position: absolute;
