@@ -11,8 +11,8 @@ files[] = tests/name.test
 files[] = includes/name_handler_filter_name_fulltext.inc
 files[] = name.migrate.inc
 
-; Information added by Drupal.org packaging script on 2019-08-02
-version = "7.x-1.11"
+; Information added by Drupal.org packaging script on 2021-04-20
+version = "7.x-1.12"
 core = "7.x"
 project = "name"
-datestamp = "1564727287"
+datestamp = "1618926735"

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * API documentation for the Name field module.
@@ -47,7 +48,7 @@ function hook_name_data_sources() {
  * Triggers a custom hook for name field inserts. Field API only calls the
  * module that defines the field.
  *
- * @see hook_field_insert().
+ * @see hook_field_insert()
  */
 function hook_name_field_insert_notification($entity_type, $entity, $field, $instance, $langcode, &$items) {
 }
@@ -58,7 +59,7 @@ function hook_name_field_insert_notification($entity_type, $entity, $field, $ins
  * Triggers a custom hook for name field updates. Field API only calls the
  * module that defines the field.
  *
- * @see hook_field_update().
+ * @see hook_field_update()
  */
 function hook_name_field_update_notification($entity_type, $entity, $field, $instance, $langcode, &$items) {
 }

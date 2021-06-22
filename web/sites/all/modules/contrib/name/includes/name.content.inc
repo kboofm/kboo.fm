@@ -58,8 +58,7 @@ function _name_field_settings_form($field, $instance, $has_data) {
       if ($field['storage']['type'] == 'field_sql_storage') {
         try {
           $table = 'field_data_' . $field['field_name'];
-          $column = $field['storage']['details']['sql'][FIELD_LOAD_CURRENT]
-            [$table][$key];
+          $column = $field['storage']['details']['sql'][FIELD_LOAD_CURRENT][$table][$key];
           $min_length = db_query("SELECT MAX(CHAR_LENGTH({$column})) AS len FROM {$table}")->fetchField();
           if ($min_length < 1) {
             $min_length = 1;
@@ -115,8 +114,8 @@ function _name_field_settings_form($field, $instance, $has_data) {
     '#default_value' => !empty($settings['allow_family_or_given']),
   );
 
-  // TODO - Grouping & grouping sort
-  // TODO - Allow reverse free tagging back into the vocabulary.
+  // @todo Grouping & grouping sort.
+  // @todo Allow reverse free tagging back into the vocabulary.
   $title_options = implode("\n", array_filter(explode("\n", $settings['title_options'])));
   $form['title_options'] = array(
     '#type' => 'textarea',
@@ -134,7 +133,7 @@ function _name_field_settings_form($field, $instance, $has_data) {
     '#description' => t("Enter one !generational suffix option per line. Prefix a line using '--' to specify a blank value text. For example: '----'.", array('!generational' => $components['generational'])),
   );
   if (module_exists('taxonomy')) {
-    // TODO - Make the labels more generic.
+    // @todo Make the labels more generic.
     // Generational suffixes may be also imported from one or more vocabularies
     // using the tag '[vocabulary:xxx]', where xxx is the vocabulary id. Terms
     // that exceed the maximum length of the generational suffix are not added
@@ -165,8 +164,8 @@ function _name_field_settings_form($field, $instance, $has_data) {
  *
  * This is an #element_validate callback.
  *
- * TODO - Ensure that the #parent path is correct in all instances. This avoids
- *        the need to pull out individual values from the $elements[xx][#value].
+ * @todo Ensure that the #parent path is correct in all instances. This avoids
+ * the need to pull out individual values from the $elements[xx][#value].
  */
 function _name_field_settings_form_validate($elements, &$form_state, $form) {
   $values = $form_state['values']['field']['settings'];
@@ -201,7 +200,7 @@ function _name_field_settings_form_validate($elements, &$form_state, $form) {
   }
 }
 
-// TODO - hook_field_views_data() if required
+// @todo hook_field_views_data() if required.
 
 /**
  * Checks that individual values in the defined options list do not exceed the
@@ -259,18 +258,27 @@ function _name_options_validate($options, $max, $label, $error_element) {
   }
 }
 
+/**
+ *
+ */
 function _name_field_components_validate($components, $minimum, $error_element) {
   $diff = array_diff_key(array_filter($minimum), array_filter($components));
   if (count($diff)) {
     $components = array_intersect_key(_name_translations(), $diff);
     form_set_error($error_element . '][' . key($diff),
-        t('%components can not be selected for %label when they are not selected for %label2.',
-        array('%label' => t('Minimum components'), '%label2' => t('Components'),
-        '%components' => implode(', ', $components))));
+      t('%components can not be selected for %label when they are not selected for %label2.',
+        array(
+          '%label' => t('Minimum components'),
+          '%label2' => t('Components'),
+          '%components' => implode(', ', $components),
+        )
+      )
+    );
   }
 }
 
 /* ----------------------------- Widget Code -------------------------------- */
+
 /**
  * Implements hook_field_instance_settings_form().
  */
@@ -302,10 +310,8 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
     $form['field_type'][$key] = array(
       '#type' => 'radios',
       '#title' => t('!title field type', array('!title' => $components['title'])),
-      '#default_value' => isset($settings['field_type'][$key])
-          ? $settings['field_type'][$key]
-          // Provides backwards compatibility with Drupal 6 modules.
-          : (isset($settings[$key . '_field']) ? $settings[$key . '_field'] : $default_field_type),
+      // Provides backwards compatibility with Drupal 6 modules.
+      '#default_value' => isset($settings['field_type'][$key]) ? $settings['field_type'][$key] : (isset($settings[$key . '_field']) ? $settings[$key . '_field'] : $default_field_type),
       '#required' => TRUE,
       '#options' => $options,
     );
@@ -322,8 +328,7 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
     $form['title_display'][$key] = array(
       '#type' => 'radios',
       '#title' => t('Label display for !title', array('!title' => $title)),
-      '#default_value' => isset($settings['title_display'])
-          ? $settings['title_display'][$key] : 'description',
+      '#default_value' => isset($settings['title_display']) ? $settings['title_display'][$key] : 'description',
       '#options' => array(
         'title' => t('above'),
         'description' => t('below'),
@@ -428,8 +433,7 @@ function _name_field_instance_settings_form($field, $instance = NULL) {
     '#empty_option' => t('-- none --'),
     '#options' => name_get_additional_sources($instance),
     '#default_value' => empty($settings['preferred_field_reference']) ? '' : $settings['preferred_field_reference'],
-    '#description' => t('A data source to use as the preferred given name within the name formats. A common use-case would be for a users nickname.')
-      . '<br>' . t('i.e. used in the name format options "q" and "v", plus the conditional "p", "x", "d" and "D".'),
+    '#description' => t('A data source to use as the preferred given name within the name formats. A common use-case would be for a users nickname.') . '<br>' . t('i.e. used in the name format options "q" and "v", plus the conditional "p", "x", "d" and "D".'),
   );
 
   return $form;
@@ -452,7 +456,7 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
     'minimum_components' => array(),
   );
   // Use populated overrides if present.
-  $fs['components'] = name_get_instance_components($fs['components'], $ws['minimum_components']);
+  $fs['components'] = name_get_instance_components($fs['components'], $ws['components']);
   $fs['minimum_components'] = name_get_instance_components($fs['minimum_components'], $ws['minimum_components']);
 
   $element += array(
@@ -507,7 +511,6 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
           // Provides .
           : (isset($ws[$key . '_field']) ? $ws[$key . '_field'] : $field_type);
 
-
       if ($field_type == 'select') {
         $element['#components'][$key]['type'] = 'select';
         $element['#components'][$key]['size'] = 1;
@@ -555,6 +558,9 @@ function _name_field_widget_form(&$form, &$form_state, $field, $instance, $langc
   return $element;
 }
 
+/**
+ *
+ */
 function _name_field_get_options($field, $key) {
   _name_defaults($field['settings'], 'settings');
   $fs = $field['settings'];
@@ -594,6 +600,7 @@ function _name_field_get_options($field, $key) {
   }
   return $options;
 }
+
 /* ---------------------------- Formatter Code ------------------------------ */
 
 /* --------------------------- Helper Functions ----------------------------- */

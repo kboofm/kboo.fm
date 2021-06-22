@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_features_export_options().
  */
 function namefield_features_export_options() {
@@ -40,9 +44,9 @@ function namefield_features_export_render($module_name, $data, $export = NULL) {
     }
     else {
       $format = db_select('name_custom_format', 'ncf')
-          ->fields('ncf')
-          ->condition('machine_name', $name)
-          ->execute()->fetch();
+        ->fields('ncf')
+        ->condition('machine_name', $name)
+        ->execute()->fetch();
       unset($format->ncfid);
     }
     if ($format) {

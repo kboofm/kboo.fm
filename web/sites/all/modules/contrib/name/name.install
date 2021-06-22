@@ -137,7 +137,7 @@ function name_update_6000() {
   cache_clear_all('*', 'cache', TRUE);
   cache_clear_all('*', 'cache_content', TRUE);
   if (module_exists('views')) {
-    // Needed because this can be called from .install files
+    // Needed because this can be called from .install files.
     module_load_include('module', 'views');
     views_invalidate_cache();
   }
@@ -191,8 +191,10 @@ function name_update_7002() {
                       'markup' => 0,
                       'multiple' => 'default',
                       'multiple_delimiter' => ', ',
-                      'multiple_and' => 'text', // and or symbol
-                      'multiple_delimiter_precedes_last' => 'never', // contextual, always, never
+                      // And or symbol.
+                      'multiple_and' => 'text',
+                      // contextual, always, never.
+                      'multiple_delimiter_precedes_last' => 'never',
                       'multiple_el_al_min' => 3,
                       'multiple_el_al_first' => 1,
                     );
@@ -258,10 +260,10 @@ function name_install_default_formats() {
   foreach ($formats as $format) {
     db_insert('name_custom_format')
       ->fields(array(
-          'name' => $format['name'],
-          'machine_name' => $format['machine_name'],
-          'format' => $format['format'],
-        ))
+        'name' => $format['name'],
+        'machine_name' => $format['machine_name'],
+        'format' => $format['format'],
+      ))
       ->execute();
   }
 }

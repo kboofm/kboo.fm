@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Devel Generate module integration.

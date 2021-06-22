@@ -4,9 +4,12 @@
  * Field handler to provide simple renderer that allows linking to a entity.
  */
 class name_handler_filter_name_fulltext extends views_handler_filter {
-  var $always_multiple = TRUE;
+  public $always_multiple = TRUE;
 
-  function option_definition() {
+  /**
+   *
+   */
+  public function option_definition() {
     $options = parent::option_definition();
 
     $options['operator']['default'] = 'contains';
@@ -19,9 +22,9 @@ class name_handler_filter_name_fulltext extends views_handler_filter {
    * to add or remove functionality by overriding this function and
    * adding/removing items from this array.
    */
-  function operators() {
+  public function operators() {
     return array(
-       'contains' => array(
+      'contains' => array(
         'title' => t('Contains'),
         'short' => t('contains'),
         'method' => 'op_contains',
@@ -42,11 +45,10 @@ class name_handler_filter_name_fulltext extends views_handler_filter {
     );
   }
 
-
   /**
    * Build strings from the operators() for 'select' options.
    */
-  function operator_options($which = 'title') {
+  public function operator_options($which = 'title') {
     $options = array();
     foreach ($this->operators() as $id => $info) {
       $options[$id] = $info[$which];
@@ -58,7 +60,7 @@ class name_handler_filter_name_fulltext extends views_handler_filter {
   /**
    * Provide a simple textfield for equality.
    */
-  function value_form(&$form, &$form_state) {
+  public function value_form(&$form, &$form_state) {
     $form['value'] = array(
       '#type' => 'textfield',
       '#size' => 15,
@@ -75,7 +77,7 @@ class name_handler_filter_name_fulltext extends views_handler_filter {
    * level of indirection. You will find them in $this->operator
    * and $this->value respectively.
    */
-  function query() {
+  public function query() {
     $name_table = $this->ensure_my_table();
     $field = "$this->table_alias.$this->real_field";
     $fulltext_field = "LOWER(CONCAT(' ', COALESCE({$field}_title, ''), ' ', COALESCE({$field}_given, ''), ' ', COALESCE({$field}_middle, ''), ' ', COALESCE({$field}_family, ''), ' ', COALESCE({$field}_generational, ''), ' ', COALESCE({$field}_credentials, '')))";
@@ -86,13 +88,19 @@ class name_handler_filter_name_fulltext extends views_handler_filter {
     }
   }
 
-  function op_contains($fulltext_field) {
+  /**
+   *
+   */
+  public function op_contains($fulltext_field) {
     $value = drupal_strtolower($this->value);
     $placeholder = $this->placeholder();
     $this->query->add_where_expression($this->options['group'], "$fulltext_field LIKE $placeholder", array($placeholder => '% ' . db_like($value) . '%'));
   }
 
-  function op_word($fulltext_field) {
+  /**
+   *
+   */
+  public function op_word($fulltext_field) {
     $where = $this->operator == 'word' ? db_or() : db_and();
 
     // Don't filter on empty strings.
@@ -103,11 +111,12 @@ class name_handler_filter_name_fulltext extends views_handler_filter {
     $value = drupal_strtolower($this->value);
 
     $words = preg_split('/ /', $value, -1, PREG_SPLIT_NO_EMPTY);
-    foreach($words as $word) {
-      $placeholder =  $this->placeholder();
+    foreach ($words as $word) {
+      $placeholder = $this->placeholder();
       $where->where("$fulltext_field LIKE $placeholder", array($placeholder => '% ' . db_like($word) . '%'));
     }
 
     $this->query->add_where($this->options['group'], $where);
   }
+
 }

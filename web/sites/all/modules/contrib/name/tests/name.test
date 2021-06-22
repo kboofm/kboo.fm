@@ -9,7 +9,11 @@
  * Helper test class with some added functions for testing.
  */
 class NameTestHelper extends DrupalWebTestCase {
-  function setUp() {
+
+  /**
+   *
+   */
+  public function setUp() {
     // Call parent::setUp() allowing test cases to pass further modules.
     $modules = func_get_args();
     $modules = array_merge(array('field', 'field_ui', 'name'), $modules);
@@ -22,19 +26,34 @@ class NameTestHelper extends DrupalWebTestCase {
 
     variable_set('clean_url', 0);
   }
+
+  /**
+   *
+   */
   protected function assertNoFieldCheckedByName($name, $message = '') {
     $elements = $this->xpath('//input[@name=:name]', array(':name' => $name));
     return $this->assertTrue(isset($elements[0]) && empty($elements[0]['checked']), $message ? $message : t('Checkbox field @name is not checked.', array('@name' => $name)), t('Browser'));
   }
+
+  /**
+   *
+   */
   protected function assertFieldCheckedByName($name, $message = '') {
     $elements = $this->xpath('//input[@name=:name]', array(':name' => $name));
     return $this->assertTrue(isset($elements[0]) && !empty($elements[0]['checked']), $message ? $message : t('Checkbox field @name is checked.', array('@name' => $name)), t('Browser'));
   }
-  function assertNameFormat($name_components, $type, $object, $format, $expected, array $options = array()) {
+
+  /**
+   *
+   */
+  public function assertNameFormat($name_components, $type, $object, $format, $expected, array $options = array()) {
     $this->assertNameFormats($name_components, $type, $object, array($format => $expected), $options);
   }
 
-  function assertNameFormats($name_components, $type, $object, array $names, array $options = array()) {
+  /**
+   *
+   */
+  public function assertNameFormats($name_components, $type, $object, array $names, array $options = array()) {
     foreach ($names as $format => $expected) {
       $value = name_format($name_components, $format, array('object' => $object, 'type' => $type));
       $this->assertIdentical($value, $expected,
@@ -42,9 +61,17 @@ class NameTestHelper extends DrupalWebTestCase {
         array('@name' => $format, '@actual' => $value, '@expected' => $expected, '%components' => implode(' ', $name_components))));
     }
   }
+
 }
 
+/**
+ *
+ */
 class NameUnitTestCase extends NameTestHelper {
+
+  /**
+   *
+   */
   public static function getInfo() {
     return array(
       'name' => 'Name unit tests',
@@ -61,30 +88,48 @@ class NameUnitTestCase extends NameTestHelper {
       'given' => array(
         'components' => array('given' => 'John'),
         'tests' => array(
-          // Test that only the given name creates a entry
-          't' => '', // Title
-          'g' => 'John', // Given name
-          '\g' => 'g', // Escaped letter
-          'p' => 'John', // Preferred name
-          'q' => '', // Preferred name without fallback.
-          'm' => '', // Middle name(s)
-          'f' => '', // Family name
-          'c' => '', // Credentials
-          's' => '', // Generational suffix
+          // Test that only the given name creates a entry.
+          // Title.
+          't' => '',
+          // Given name.
+          'g' => 'John',
+          // Escaped letter.
+          '\g' => 'g',
+          // Preferred name.
+          'p' => 'John',
+          // Preferred name without fallback.
+          'q' => '',
+          // Middle name(s)
+          'm' => '',
+          // Family name.
+          'f' => '',
+          // Credentials.
+          'c' => '',
+          // Generational suffix.
+          's' => '',
           // First letter of the preferred or given.
           'w' => 'J',
           // First letter of the preferred without fallback.
           'v' => '',
-          'x' => 'J', // First letter given
-          'y' => '', // First letter middle
-          'z' => '', // First letter family
-          'e' => 'John', // Either the given or family name. Given name is given preference
-          'E' => 'John', // Either the given or family name. Family name is given preference
-          // Combination test
-          'g f' => 'John ', // Using a single space
-          'gif' => 'John ', // Separator 1
-          'gjf' => 'John, ', // Separator 2
-          'gkf' => 'John', // Separator 3
+          // First letter given.
+          'x' => 'J',
+          // First letter middle.
+          'y' => '',
+          // First letter family.
+          'z' => '',
+          // Either the given or family name. Given name is given preference.
+          'e' => 'John',
+          // Either the given or family name. Family name is given preference.
+          'E' => 'John',
+          // Combination test.
+          // Using a single space.
+          'g f' => 'John ',
+          // Separator 1.
+          'gif' => 'John ',
+          // Separator 2.
+          'gjf' => 'John, ',
+          // Separator 3.
+          'gkf' => 'John',
           'f g' => ' John',
           'fig' => ' John',
           'fjg' => ', John',
@@ -93,30 +138,51 @@ class NameUnitTestCase extends NameTestHelper {
           'tigit' => ' John ',
           'tjgjt' => ', John, ',
           'tkgkt' => 'John',
-          // Modifier entries
-          'Lg' => 'john', // lowercase
-          'Ug' => 'JOHN', // uppercase
-          'Fg' => 'John', // first letter to uppercase
-          'Gg' => 'John', // first letter of all words to uppercase
-          'LF(g)' => 'John', // lowercase, first letter to uppercase
-          'LG(g)' => 'John', // lowercase, first letter of all words to uppercase
-          'LFg' => 'John', // lowercase, first letter to uppercase
-          'LGg' => 'John', // lowercase, first letter of all words to uppercase
-          'Tg' => 'John', // Trims whitespace around the next token
-          'Sg' => 'John', // check_plain
-          // Conditional entries
-          '(((g)))' => 'John', // brackets
-          '(g))()(' => 'John)(', // brackets - mismatched
-          'g+ f' => 'John', // Insert the token if both the surrounding tokens are not empty
-          'g= f' => 'John', // Insert the token, if and only if the next token after it is not empty
-          'g^ f' => 'John ', // Skip the token, if and only if the next token after it is not empty
-          's|c|g|m|f|t' => 'John', // Uses only the first one.
-          'g|f' => 'John', // Uses the previous token unless empty, otherwise it uses this token
-          // Real world examples
-          'L(t= g= m= f= s=,(= c))' => ' john', // Full name with a comma-space before credentials
-          'TS(LF(t= g= m= f= s)=,(= c))' => 'john', // Full name with a comma-space before credentials. ucfirst does not work on a whitespace
-          'L(t+ g+ m+ f+ s+,(= c))' => 'john', // Full name with a comma-space before credentials
-          'TS(LF(t+ g+ m+ f+ s)+,(= c))' => 'John', // Full name with a comma-space before credentials
+          // Modifier entries.
+          // Lowercase.
+          'Lg' => 'john',
+          // Uppercase.
+          'Ug' => 'JOHN',
+          // First letter to uppercase.
+          'Fg' => 'John',
+          // First letter of all words to uppercase.
+          'Gg' => 'John',
+          // lowercase, first letter to uppercase.
+          'LF(g)' => 'John',
+          // lowercase, first letter of all words to uppercase.
+          'LG(g)' => 'John',
+          // lowercase, first letter to uppercase.
+          'LFg' => 'John',
+          // lowercase, first letter of all words to uppercase.
+          'LGg' => 'John',
+          // Trims whitespace around the next token.
+          'Tg' => 'John',
+          // check_plain.
+          'Sg' => 'John',
+          // Conditional entries.
+          // Brackets.
+          '(((g)))' => 'John',
+          // Brackets - mismatched.
+          '(g))()(' => 'John)(',
+          // Insert the token if both the surrounding tokens are not empty.
+          'g+ f' => 'John',
+          // Insert the token, if and only if the next token after it is not empty.
+          'g= f' => 'John',
+          // Skip the token, if and only if the next token after it is not empty.
+          'g^ f' => 'John ',
+          // Uses only the first one.
+          's|c|g|m|f|t' => 'John',
+          // Uses the previous token unless empty, otherwise it uses this token.
+          'g|f' => 'John',
+          // Real world examples.
+          // Full name with a comma-space before credentials.
+          'L(t= g= m= f= s=,(= c))' => ' john',
+          // Full name with a comma-space before credentials. ucfirst does not work on a whitespace.
+          'TS(LF(t= g= m= f= s)=,(= c))' => 'john',
+          // Full name with a comma-space before credentials.
+          'L(t+ g+ m+ f+ s+,(= c))' => 'john',
+          // Full name with a comma-space before credentials.
+          'TS(LF(t+ g+ m+ f+ s)+,(= c))' => 'John',
         ),
       ),
       'full' => array(
@@ -129,33 +195,48 @@ class NameUnitTestCase extends NameTestHelper {
           'credentials' => 'b.Sc, pHd',
           'preferred' => 'peTe',
         ),
-        //MR. JoHn pEter dOE sR b.Sc, pHd
+        // MR. JoHn pEter dOE sR b.Sc, pHd.
         'tests' => array(
-          // Test that only the given name creates a entry
-          't' => 'MR.', // Title
-          'g' => 'JoHn', // Given name
+          // Test that only the given name creates a entry.
+          // Title.
+          't' => 'MR.',
+          // Given name.
+          'g' => 'JoHn',
           // Preferred name.
           'p' => 'peTe',
           // Preferred name without fallback.
           'q' => 'peTe',
-          'm' => 'pEter', // Middle name(s)
-          'f' => 'dOE', // Family name
-          'c' => 'b.Sc, pHd', // Credentials
-          's' => 'sR', // Generational suffix
+          // Middle name(s)
+          'm' => 'pEter',
+          // Family name.
+          'f' => 'dOE',
+          // Credentials.
+          'c' => 'b.Sc, pHd',
+          // Generational suffix.
+          's' => 'sR',
           // First letter of the preferred or given.
           'w' => 'p',
           // First letter of the preferred without fallback.
           'v' => 'p',
-          'x' => 'J', // First letter given
-          'y' => 'p', // First letter middle
-          'z' => 'd', // First letter family
-          'e' => 'JoHn', // Either the given or family name. Given name is given preference
-          'E' => 'dOE', // Either the given or family name. Family name is given preference
-          // Combination test
-          'g f' => 'JoHn dOE', // Using a single space
-          'gif' => 'JoHn dOE', // Separator 1
-          'gjf' => 'JoHn, dOE', // Separator 2
-          'gkf' => 'JoHndOE', // Separator 3
+          // First letter given.
+          'x' => 'J',
+          // First letter middle.
+          'y' => 'p',
+          // First letter family.
+          'z' => 'd',
+          // Either the given or family name. Given name is given preference.
+          'e' => 'JoHn',
+          // Either the given or family name. Family name is given preference.
+          'E' => 'dOE',
+          // Combination test.
+          // Using a single space.
+          'g f' => 'JoHn dOE',
+          // Separator 1.
+          'gif' => 'JoHn dOE',
+          // Separator 2.
+          'gjf' => 'JoHn, dOE',
+          // Separator 3.
+          'gkf' => 'JoHndOE',
           'f g' => 'dOE JoHn',
           'fig' => 'dOE JoHn',
           'fjg' => 'dOE, JoHn',
@@ -164,25 +245,41 @@ class NameUnitTestCase extends NameTestHelper {
           'tigit' => 'MR. JoHn MR.',
           'tjgjt' => 'MR., JoHn, MR.',
           'tkgkt' => 'MR.JoHnMR.',
-          // Modifier entries
-          'L(t g m f s c)' => 'mr. john peter doe sr b.sc, phd', // lowercase
-          'U(t g m f s c)' => 'MR. JOHN PETER DOE SR B.SC, PHD', // uppercase
-          'F(t g m f s c)' => 'MR. JoHn pEter dOE sR b.Sc, pHd', // first letter to uppercase
-          'G(t g m f s c)' => 'MR. JoHn PEter DOE SR B.Sc, PHd', // first letter of all words to uppercase
-          'LF(t g m f s c)' => 'Mr. john peter doe sr b.sc, phd', // first letter to uppercase
-          'LG(t g m f s c)' => 'Mr. John Peter Doe Sr B.sc, Phd', // first letter of all words to uppercase
-          'T(t g m f s c)' => 'MR. JoHn pEter dOE sR b.Sc, pHd', // Trims whitespace around the next token
-          'S(t g m f s c)' => 'MR. JoHn pEter dOE sR b.Sc, pHd', // check_plain
-          // Conditional entries
-          '(((t g m f s c)))' => 'MR. JoHn pEter dOE sR b.Sc, pHd', // brackets
-          '(t g m f s c))()(' => 'MR. JoHn pEter dOE sR b.Sc, pHd)(', // brackets - mismatched
-          't= g= m= f= s= c' => 'MR. JoHn pEter dOE sR b.Sc, pHd', // Insert the token, if and only if the next token after it is not empty
-          'g|m|f' => 'JoHn', // Uses the previous token unless empty, otherwise it uses this token
-          'm|f|g' => 'pEter', // Uses the previous token unless empty, otherwise it uses this token
-          's|c|g|m|f|t' => 'sR', // Uses only the first one.
-          // Real world examples
-          'L(t= g= m= f= s=,(= c))' => 'mr. john peter doe sr, b.sc, phd', // Full name with a comma-space before credentials
-          'TS(LG(t= g= m= f= s)=,LG(= c))' => 'Mr. John Peter Doe Sr, B.sc, Phd', // Full name with a comma-space before credentials
+          // Modifier entries.
+          // Lowercase.
+          'L(t g m f s c)' => 'mr. john peter doe sr b.sc, phd',
+          // Uppercase.
+          'U(t g m f s c)' => 'MR. JOHN PETER DOE SR B.SC, PHD',
+          // First letter to uppercase.
+          'F(t g m f s c)' => 'MR. JoHn pEter dOE sR b.Sc, pHd',
+          // First letter of all words to uppercase.
+          'G(t g m f s c)' => 'MR. JoHn PEter DOE SR B.Sc, PHd',
+          // First letter to uppercase.
+          'LF(t g m f s c)' => 'Mr. john peter doe sr b.sc, phd',
+          // First letter of all words to uppercase.
+          'LG(t g m f s c)' => 'Mr. John Peter Doe Sr B.sc, Phd',
+          // Trims whitespace around the next token.
+          'T(t g m f s c)' => 'MR. JoHn pEter dOE sR b.Sc, pHd',
+          // check_plain.
+          'S(t g m f s c)' => 'MR. JoHn pEter dOE sR b.Sc, pHd',
+          // Conditional entries.
+          // Brackets.
+          '(((t g m f s c)))' => 'MR. JoHn pEter dOE sR b.Sc, pHd',
+          // Brackets - mismatched.
+          '(t g m f s c))()(' => 'MR. JoHn pEter dOE sR b.Sc, pHd)(',
+          // Insert the token, if and only if the next token after it is not empty.
+          't= g= m= f= s= c' => 'MR. JoHn pEter dOE sR b.Sc, pHd',
+          // Uses the previous token unless empty, otherwise it uses this token.
+          'g|m|f' => 'JoHn',
+          // Uses the previous token unless empty, otherwise it uses this token.
+          'm|f|g' => 'pEter',
+          // Uses only the first one.
+          's|c|g|m|f|t' => 'sR',
+          // Real world examples.
+          // Full name with a comma-space before credentials.
+          'L(t= g= m= f= s=,(= c))' => 'mr. john peter doe sr, b.sc, phd',
+          // Full name with a comma-space before credentials.
+          'TS(LG(t= g= m= f= s)=,LG(= c))' => 'Mr. John Peter Doe Sr, B.sc, Phd',
           // Full name including preferred name (nickname).
           // Note G only works on a space boundary.
           'TS(LG(((t+ig+i(=\(q-\)))+im)+if)+iLG(s))' => 'Mr. John (pete) Peter Doe Sr',
@@ -194,6 +291,7 @@ class NameUnitTestCase extends NameTestHelper {
       $this->assertNameFormats($info['components'], NULL, NULL, $info['tests']);
     }
   }
+
 }
 
 /**
@@ -201,10 +299,13 @@ class NameUnitTestCase extends NameTestHelper {
  */
 class Name_AdminTestCase extends NameTestHelper {
 
+  /**
+   *
+   */
   public static function getInfo() {
     return array(
       'name' => 'Admin Setting Pages',
-      'description' => 'Various tests on the admin area settings.' ,
+      'description' => 'Various tests on the admin area settings.',
       'group' => 'Name',
     );
   }
@@ -213,7 +314,7 @@ class Name_AdminTestCase extends NameTestHelper {
    * The most basic test. This should only fail if there is a change to the
    * Drupal API.
    */
-  function testAdminSettings() {
+  public function testAdminSettings() {
     global $base_path;
 
     // Default settings and system settings.
@@ -294,7 +395,7 @@ class Name_AdminTestCase extends NameTestHelper {
 
     foreach ($all_values as $id => $row) {
       foreach ($row as $cell_code => $value) {
-        $xpath = str_replace('name-id', 'name-'. $id, $row_template[$cell_code]);
+        $xpath = str_replace('name-id', 'name-' . $id, $row_template[$cell_code]);
         $raw_xpath = $this->xpath($xpath);
         if (!is_array($raw_xpath)) {
           $results = '__MISSING__';
@@ -305,7 +406,7 @@ class Name_AdminTestCase extends NameTestHelper {
         else {
           $results = current($raw_xpath);
         }
-        $this->assertEqual($results, $value, "Testing {$cell_code} on row {$id} using '{$xpath}' and expecting '". check_plain($value) ."', got '". check_plain($results) ."'.");
+        $this->assertEqual($results, $value, "Testing {$cell_code} on row {$id} using '{$xpath}' and expecting '" . check_plain($value) . "', got '" . check_plain($results) . "'.");
       }
     }
 
@@ -317,10 +418,9 @@ class Name_AdminTestCase extends NameTestHelper {
 
     $this->assertEqual($results, $base_path . '?q=admin/config/content/name/settings', "Testing edit link on row 0 using '//tr[@id=\"name-id\"]/td[1]/a/@href' and expecting $base_path . '?q=admin/config/content/name/settings', got '{$results}'.");
 
-
     $this->drupalGet('admin/config/content/name/settings');
 
-    // Fieldset rendering check
+    // Fieldset rendering check.
     $this->assertRaw('<legend><span class="fieldset-legend">Format string help</span></legend><div class="fieldset-wrapper">', 'Testing the help fieldgroup');
 
     $default_values = array(
@@ -332,7 +432,7 @@ class Name_AdminTestCase extends NameTestHelper {
     foreach ($default_values as $name => $value) {
       $this->assertField($name, $value);
     }
-    // ID example
+    // ID example.
     $this->assertFieldById('edit-name-settings-sep1', ' ', t('Sep 3 default value.'));
     $post_values = $default_values;
     $post_values['name_settings[default_format]'] = '';
@@ -405,7 +505,7 @@ class Name_AdminTestCase extends NameTestHelper {
 
     foreach ($new_rows as $id => $row) {
       foreach ($row as $cell_code => $value) {
-        $xpath = str_replace('name-id', 'name-'. $id, $row_template[$cell_code]);
+        $xpath = str_replace('name-id', 'name-' . $id, $row_template[$cell_code]);
         $raw_xpath = $this->xpath($xpath);
         if (!is_array($raw_xpath)) {
           $results = '__MISSING__';
@@ -431,7 +531,7 @@ class Name_AdminTestCase extends NameTestHelper {
     );
     foreach ($new_rows as $id => $row) {
       foreach ($row as $cell_code => $value) {
-        $xpath = str_replace('name-id', 'name-'. $id, $row_template[$cell_code]);
+        $xpath = str_replace('name-id', 'name-' . $id, $row_template[$cell_code]);
         $raw_xpath = $this->xpath($xpath);
         if (!is_array($raw_xpath)) {
           $results = '__MISSING__';
@@ -458,6 +558,7 @@ class Name_AdminTestCase extends NameTestHelper {
     $this->assertText(t('The custom name format !title was deleted.', array('!title' => check_plain('Title Family'))));
 
   }
+
 }
 
 /**
@@ -465,10 +566,13 @@ class Name_AdminTestCase extends NameTestHelper {
  */
 class Name_FieldTestCase extends NameTestHelper {
 
+  /**
+   *
+   */
   public static function getInfo() {
     return array(
       'name' => 'Node Name Field',
-      'description' => 'Various tests on creating a name field on a node.' ,
+      'description' => 'Various tests on creating a name field on a node.',
       'group' => 'Name',
     );
   }
@@ -477,7 +581,7 @@ class Name_FieldTestCase extends NameTestHelper {
    * The most basic test. This should only fail if there is a change to the
    * Drupal API.
    */
-  function testFieldEntry() {
+  public function testFieldEntry() {
     $this->drupalLogin($this->admin_user);
 
     $new_name_field = array(
@@ -523,7 +627,7 @@ class Name_FieldTestCase extends NameTestHelper {
       t('!field field is required.', array('!field' => t('Components'))),
       t('!field field is required.', array('!field' => t('Minimum components'))),
       // t('!field must have one of the following components: !components', array('!field' => t('Components'), '!components' => check_plain(implode(', ', array($n['given'], $n['family']))))),
-      // t('!field must have one of the following components: !components', array('!field' => t('Minimum components'), '!components' => check_plain(implode(', ', array($n['given'], $n['family']))))),
+      // t('!field must have one of the following components: !components', array('!field' => t('Minimum components'), '!components' => check_plain(implode(', ', array($n['given'], $n['family']))))),.
     );
     foreach ($required_messages as $message) {
       $this->assertText($message);
@@ -559,8 +663,11 @@ class Name_FieldTestCase extends NameTestHelper {
 
     $required_messages = array(
       t('!components can not be selected for !label when they are not selected for !label2.',
-              array('!label' => t('Minimum components'), '!label2' => t('Components'),
-              '!components' => check_plain(implode(', ', array($n['title'], $n['generational'], $n['credentials']))))),
+              array(
+                '!label' => t('Minimum components'),
+                '!label2' => t('Components'),
+                '!components' => check_plain(implode(', ', array($n['title'], $n['generational'], $n['credentials']))),
+              )),
 
       t('!field must be a positive integer between 1 and 255.', array('!field' => $n['title'])),
       t('!field must be a positive integer between 1 and 255.', array('!field' => $n['given'])),
@@ -578,7 +685,7 @@ class Name_FieldTestCase extends NameTestHelper {
       $this->assertText($message);
     }
 
-    // Make sure option lengths do not exceed the title lengths
+    // Make sure option lengths do not exceed the title lengths.
     $field_settings = array(
       'field[settings][max_length][title]' => 5,
       'field[settings][max_length][generational]' => 3,
@@ -630,14 +737,14 @@ class Name_FieldTestCase extends NameTestHelper {
       $this->assertText($message);
     }
 
-    // Save the field again with the default values
+    // Save the field again with the default values.
     $this->drupalPost('admin/structure/types/manage/page/fields/field_name_test/field-settings',
       $this->name_getFieldSettings(), t('Save field settings'));
 
     $this->assertText(t('Updated field Test name field settings.'));
 
     // Now the widget settings...
-    // First, check that field validation is working... cut n paste from above test
+    // First, check that field validation is working... cut n paste from above test.
     $field_settings = array(
       'field[settings][components][title]' => FALSE,
       'field[settings][components][given]' => TRUE,
@@ -669,8 +776,11 @@ class Name_FieldTestCase extends NameTestHelper {
 
     $required_messages = array(
       t('!components can not be selected for !label when they are not selected for !label2.',
-              array('!label' => t('Minimum components'), '!label2' => t('Components'),
-              '!components' => check_plain(implode(', ', array($n['title'], $n['generational'], $n['credentials']))))),
+              array(
+                '!label' => t('Minimum components'),
+                '!label2' => t('Components'),
+                '!components' => check_plain(implode(', ', array($n['title'], $n['generational'], $n['credentials']))),
+              )),
 
       t('!field must be a positive integer between 1 and 255.', array('!field' => $n['title'])),
       t('!field must be a positive integer between 1 and 255.', array('!field' => $n['given'])),
@@ -689,7 +799,8 @@ class Name_FieldTestCase extends NameTestHelper {
     }
 
     $widget_settings = array(
-      'instance[settings][title_display][title]' => 'description', // title, description, none
+      // title, description, none.
+      'instance[settings][title_display][title]' => 'description',
       'instance[settings][title_display][given]' => 'description',
       'instance[settings][title_display][middle]' => 'description',
       'instance[settings][title_display][family]' => 'description',
@@ -717,10 +828,161 @@ class Name_FieldTestCase extends NameTestHelper {
       $this->assertFieldByName($name, $value);
     }
 
-
   }
 
-  function name_getFieldSettings() {
+  /**
+   * Tests that enabled components are shown on the field widget.
+   */
+  public function testNameWidget() {
+    // Create a field for the user entity type. Enable all components.
+    // For minimum components, only enable 'family'.
+    field_create_field(array(
+      'field_name' => 'name_test',
+      'type' => 'name',
+      'settings' => array(
+        'allow_family_or_given' => 0,
+        'autocomplete_separator' => array(
+          'credentials' => ', ',
+          'family' => ' -',
+          'generational' => ' ',
+          'given' => ' -',
+          'middle' => ' -',
+          'title' => ' ',
+        ),
+        'autocomplete_source' => array(
+          'credentials' => array(),
+          'family' => array(),
+          'generational' => array(
+            'generational' => 0,
+          ),
+          'given' => array(),
+          'middle' => array(),
+          'title' => array(
+            'title' => 0,
+          ),
+        ),
+        'components' => array(
+          'credentials' => 'credentials',
+          'family' => 'family',
+          'generational' => 'generational',
+          'given' => 'given',
+          'middle' => 'middle',
+          'title' => 'title',
+        ),
+        'max_length' => array(
+          'credentials' => 255,
+          'family' => 63,
+          'generational' => 15,
+          'given' => 63,
+          'middle' => 20,
+          'title' => 31,
+        ),
+        'minimum_components' => array(
+          'credentials' => 0,
+          'family' => 'family',
+          'generational' => 0,
+          'given' => 0,
+          'middle' => 0,
+          'title' => 0,
+        ),
+        'sort_options' => array(
+          'generational' => 'generational',
+          'title' => 'title',
+        ),
+      ),
+    ));
+    // Create a field instance. Don't override component settings.
+    field_create_instance(array(
+      'field_name' => 'name_test',
+      'entity_type' => 'user',
+      'bundle' => 'user',
+      'settings' => array(
+        'component_css' => '',
+        'component_layout' => 'default',
+        'components' => array(
+          'credentials' => 0,
+          'family' => 0,
+          'generational' => 0,
+          'given' => 0,
+          'middle' => 0,
+          'title' => 0,
+        ),
+        'credentials_inline' => 0,
+        'generational_field' => 'select',
+        'field_type' => array(
+          'credentials' => 'text',
+          'family' => 'text',
+          'generational' => 'select',
+          'given' => 'text',
+          'middle' => 'text',
+          'title' => 'select',
+        ),
+        'minimum_components' => array(
+          'credentials' => 0,
+          'family' => 'family',
+          'generational' => 0,
+          'given' => 0,
+          'middle' => 0,
+          'title' => 0,
+        ),
+        'name_user_preferred' => 0,
+        'override_format' => 'default',
+        'preferred_field_reference' => '',
+        'show_component_required_marker' => 1,
+        'size' => array(
+          'credentials' => 35,
+          'family' => 20,
+          'generational' => 5,
+          'given' => 20,
+          'middle' => 20,
+          'title' => 6,
+        ),
+        'title_display' => array(
+          'credentials' => 'title',
+          'family' => 'title',
+          'generational' => 'title',
+          'given' => 'title',
+          'middle' => 'title',
+          'title' => 'title',
+        ),
+        'title_field' => 'select',
+        'user_register_form' => 1,
+      ),
+      'widget' => array(
+        'type' => 'name_widget',
+      ),
+      'display' => array(
+        'default' => array(
+          'type' => 'name_formatter',
+        ),
+      ),
+    ));
+
+    // Login as webuser.
+    $web_user = $this->drupalCreateUser(array('access content'));
+    $this->drupalLogin($web_user);
+
+    // Go to own edit account page.
+    $this->drupalGet('user/' . $web_user->uid . '/edit');
+
+    // Assert expected fields.
+    $expected_fields = array(
+      'name_test[und][0][credentials]',
+      'name_test[und][0][family]',
+      'name_test[und][0][generational]',
+      'name_test[und][0][given]',
+      'name_test[und][0][middle]',
+      'name_test[und][0][title]',
+    );
+    foreach ($expected_fields as $name) {
+      $this->assertFieldByName($name);
+    }
+  }
+
+  /**
+   *
+   */
+  public function name_getFieldSettings() {
     $field_settings = array(
       'field[settings][components][title]' => TRUE,
       'field[settings][components][given]' => TRUE,
@@ -760,7 +1022,10 @@ class Name_FieldTestCase extends NameTestHelper {
     return $field_settings;
   }
 
-  function name_getFieldSettingsCheckboxes() {
+  /**
+   *
+   */
+  public function name_getFieldSettingsCheckboxes() {
     $field_settings = array(
       'field[settings][components][title]' => TRUE,
       'field[settings][components][given]' => TRUE,
@@ -781,5 +1046,5 @@ class Name_FieldTestCase extends NameTestHelper {
     );
     return $field_settings;
   }
-}
 
+}

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @file
  * Support for migration into Name fields.
@@ -99,4 +100,5 @@ class MigrateNameHandler extends MigrateFieldHandler {
 
     return isset($return[$language]) ? $return : NULL;
   }
+
 }

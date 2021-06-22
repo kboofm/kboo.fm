@@ -106,7 +106,7 @@ function _webform_edit_name($name) {
       '#type' => 'fieldset',
       '#title' => t('@label component seettings', array('@label' => $label)),
     );
-    // TODO
+    // @todo .
     $type = ($key == 'title' || $key == 'generational') ? 'select' : 'textfield';
     $form['extra']['components'][$key]['type'] = array(
       '#type' => 'value',
@@ -170,7 +170,7 @@ function _webform_edit_name($name) {
         '#description' => t("Enter one !title per line. Prefix a line using '--' to specify a blank value text. For example: '--Please select a !label'.", array('!label' => $label)),
       );
       if (module_exists('taxonomy')) {
-        // TODO - Make the labels more generic.
+        // @todo Make the labels more generic.
         // Generational suffixes may be also imported from one or more vocabularies
         // using the tag '[vocabulary:xxx]', where xxx is the vocabulary id. Terms
         // that exceed the maximum length of the generational suffix are not added
@@ -299,7 +299,7 @@ function _webform_display_name($name, $value, $format = 'html') {
 }
 
 /**
- * TODO: Implement _webform_analysis_component()?
+ * @todo Implement _webform_analysis_component()?
  */
 
 /**

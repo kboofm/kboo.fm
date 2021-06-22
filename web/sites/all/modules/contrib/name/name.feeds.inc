@@ -2,7 +2,7 @@
 
 /**
  * @file
- * Implements Feeds mapping API
+ * Implements Feeds mapping API.
  */
 
 /**

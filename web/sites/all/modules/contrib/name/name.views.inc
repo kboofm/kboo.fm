@@ -1,6 +1,10 @@
 <?php
 
 /**
+ * @file
+ */
+
+/**
  * Implements hook_views_data_alter().
  *
  * Adds new fulltext name filter handler for every name field.
@@ -41,7 +45,7 @@ function name_views_data_alter(&$data) {
                 'handler' => 'views_handler_field',
                 'click sortable' => TRUE,
                 'link_to_node default' => TRUE,
-               ),
+              ),
               'sort' => array(
                 'group' => t('Name Components'),
                 'handler' => 'views_handler_sort',

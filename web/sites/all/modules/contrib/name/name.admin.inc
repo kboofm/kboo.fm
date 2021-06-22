@@ -88,7 +88,7 @@ function name_autocomplete($field_name, $target, $string = '') {
         unset($action['components'][$component]);
       }
       else {
-        $sep = (string)$settings['autocomplete_separator'][$component];
+        $sep = (string) $settings['autocomplete_separator'][$component];
         $separator_characters .= strlen($sep) ? $sep : ' ';
         $settings['autocomplete_source'][$component] = array_intersect_key($settings['autocomplete_source'][$component], $autocomplete_map[$component]);
         if ($settings['autocomplete_source'][$component]) {
@@ -166,6 +166,9 @@ function name_admin_settings_form($form, &$form_state) {
   return system_settings_form($form);
 }
 
+/**
+ *
+ */
 function name_admin_settings_form_validate($form, &$form_state) {
   $default_format = trim($form_state['values']['name_settings']['default_format']);
   if (empty($default_format) && !strlen($default_format)) {
@@ -266,7 +269,7 @@ function name_list_custom_formats() {
   $help = '<p><strong>' . t('The three examples are for the following users:') . '</strong><p>';
   $help_items = array();
   foreach ($example_names as $example_name) {
-    // TODO make the labels generic
+    // @todo make the labels generic.
     $help_items[] = t('The example %user has the following components; title is "%title", given is "%given", middle is "%middle", family is "%family", generational is "%generational", credentials is "%credentials"',
     array(
       '%user' => name_format($example_name, 't+ g+ m+ f+ s+ c'),
@@ -287,7 +290,7 @@ function name_list_custom_formats() {
 
   return array(
     'table' => array(
-       '#markup' => theme('table', array('header' => $header, 'rows' => $rows)) . $help . theme('item_list', array('items' => $help_items, 'type' => 'ol')),
+      '#markup' => theme('table', array('header' => $header, 'rows' => $rows)) . $help . theme('item_list', array('items' => $help_items, 'type' => 'ol')),
     ),
     'name_format_help' => $fieldset,
   );
@@ -365,13 +368,12 @@ function name_custom_formats_form($form, $form_state, $edit = array()) {
   return $form;
 }
 
-
 /**
  * Custom validation for name_custom_formats_form().
  */
 function name_custom_formats_form_validate($form, &$form_state) {
   $values = $form_state['values'];
-  // Ensure that the name is unique
+  // Ensure that the name is unique.
   if (empty($values['ncfid'])) {
     $count = db_query("SELECT 1 FROM {name_custom_format} WHERE name = :name", array(':name' => $values['name']))->fetchField();
     $mcount = db_query("SELECT 1 FROM {name_custom_format} WHERE machine_name = :machine_name", array(':machine_name' => $values['machine_name']))->fetchField();
@@ -453,7 +455,7 @@ function name_custom_format_delete_form($form, $form_state, $ncfid) {
     ),
     'admin/config/content/name',
     t('This action cannot be undone.'),
-    t('Delete'),   t('Cancel')
+    t('Delete'), t('Cancel')
   );
 }
 
@@ -462,8 +464,8 @@ function name_custom_format_delete_form($form, $form_state, $ncfid) {
  */
 function name_custom_format_delete_form_submit($form, &$form_state) {
   db_delete('name_custom_format')
-      ->condition('ncfid', $form_state['values']['ncfid'])
-      ->execute();
+    ->condition('ncfid', $form_state['values']['ncfid'])
+    ->execute();
   drupal_set_message(t('The custom name format %name was deleted.',
       array('%name' => $form['#name']['name'])));
   $form_state['redirect'] = 'admin/config/content/name';
@@ -530,15 +532,14 @@ function _name_field_instance_settings_pre_render($form) {
     ),
     'tfoot' => array(
       '#markup' => '<tfoot><tr><td colspan="7"><ol>'
-        . '<li>' . t('The title display controls how the label of the name component is displayed in the form:<br>"%above" is the standard title;<br>"%below" is the standard description;<br>%placeholder" uses the placeholder attribute, select lists do not support this option;<br>"%hidden" removes the label.',
-                      array('%above' => t('above'), '%below' => t('below'), '%placeholder' => t('placeholder'), '%hidden' => t('hidden'))) . '</li>'
-        . '<li>' . t('The Field type controls how the field is rendered. Autocomplete is a text field with autocomplete, and the behaviour of this is controlled by the field settings.') . '</li>'
-        . '<li>' . t('The HTML size property tells the browser what the width of the field should be when it is rendered. This gets overriden by the themes CSS properties. This must be between 1 and 255.') . '</li>'
-        . '<li>' . t('Additional inline styles for the input element. For example, "width: 45px; background-color: #f3f3f3"') . '</li>'
-        . '<li>' . t('Optional overrides for <em>Components</em> used. Leave all unchecked to use the field settings.') . '</li>'
-        . '<li>' . t('Optional overrides for <em>Minimum components</em> used. Leave all unchecked to use the field settings.') . '</li>'
-        . '<li>' . t('Optional overrides for field labels.') . '</li>'
-        . '</ol></td></tr></tfoot>',
+      . '<li>' . t('The title display controls how the label of the name component is displayed in the form:<br>"%above" is the standard title;<br>"%below" is the standard description;<br>%placeholder" uses the placeholder attribute, select lists do not support this option;<br>"%hidden" removes the label.', array('%above' => t('above'), '%below' => t('below'), '%placeholder' => t('placeholder'), '%hidden' => t('hidden'))) . '</li>'
+      . '<li>' . t('The Field type controls how the field is rendered. Autocomplete is a text field with autocomplete, and the behaviour of this is controlled by the field settings.') . '</li>'
+      . '<li>' . t('The HTML size property tells the browser what the width of the field should be when it is rendered. This gets overriden by the themes CSS properties. This must be between 1 and 255.') . '</li>'
+      . '<li>' . t('Additional inline styles for the input element. For example, "width: 45px; background-color: #f3f3f3"') . '</li>'
+      . '<li>' . t('Optional overrides for <em>Components</em> used. Leave all unchecked to use the field settings.') . '</li>'
+      . '<li>' . t('Optional overrides for <em>Minimum components</em> used. Leave all unchecked to use the field settings.') . '</li>'
+      . '<li>' . t('Optional overrides for field labels.') . '</li>'
+      . '</ol></td></tr></tfoot>',
       '#weight' => 2,
     ),
     'extra_fields' => array(
@@ -638,12 +639,13 @@ function _name_field_instance_settings_pre_render($form) {
 function _name_field_settings_pre_render($form) {
 
   // $warning = t('<strong>Warning! Changing this setting after data has been created could result in the loss of data!</strong>');
-
   $extra_max_info = '<div>' . t('This can not be less than the longest value in the database. The minimum values are:') . '</div>';
   $extra_max_items = array();
   foreach (_name_translations() as $key => $title) {
-    $extra_max_items[] = t('!title is !size', array('!title' => $title,
-        '!size' => $form['max_length'][$key]['#min_size']));
+    $extra_max_items[] = t('!title is !size', array(
+      '!title' => $title,
+      '!size' => $form['max_length'][$key]['#min_size'],
+    ));
   }
   $extra_max_info .= theme('item_list', array('items' => $extra_max_items));
   $form['field_properties'] = array(
@@ -702,15 +704,14 @@ function _name_field_settings_pre_render($form) {
     ),
     'tfoot' => array(
       '#markup' => '<tfoot><tr><td colspan="7"><ol>'
-        . '<li>' . t('Only selected components will be activated on this field. All non-selected components / component settings will be ignored.') . '</li>'
-        . '<li>' . t('The minimal set of components required before the field is considered completed enough to save.') . '</li>'
-        . '<li>' . t('The maximum length of the field in characters. This must be between 1 and 255.')
-        . $extra_max_info . '</li>'
-        . '<li>' . t('The labels are used to distinguish the fields.') . '</li>'
-        . '<li>' . t('This enables sorting on the options after the vocabulary terms are added and duplicate values are removed.') . '</li>'
-        . '<li>' . t('At least one value must be selected before you can enable the autocomplete option on the input textfields.')
-        . '<li>' . t('This allows you to override the default handling that the autocomplete uses to handle separations between components. If empty, this defaults to a single space.')
-        . '</ol></td></tr></tfoot>',
+      . '<li>' . t('Only selected components will be activated on this field. All non-selected components / component settings will be ignored.') . '</li>'
+      . '<li>' . t('The minimal set of components required before the field is considered completed enough to save.') . '</li>'
+      . '<li>' . t('The maximum length of the field in characters. This must be between 1 and 255.') . $extra_max_info . '</li>'
+      . '<li>' . t('The labels are used to distinguish the fields.') . '</li>'
+      . '<li>' . t('This enables sorting on the options after the vocabulary terms are added and duplicate values are removed.') . '</li>'
+      . '<li>' . t('At least one value must be selected before you can enable the autocomplete option on the input textfields.')
+      . '<li>' . t('This allows you to override the default handling that the autocomplete uses to handle separations between components. If empty, this defaults to a single space.')
+      . '</ol></td></tr></tfoot>',
       '#weight' => 2,
     ),
   );

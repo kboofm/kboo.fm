@@ -32,7 +32,7 @@ function name_token_info() {
     );
   }
   // End depreciated tokens.
-
+  //
   // The basic generic user real name token.
   $user_tokens['realname'] = array(
     'name' => t('Real name'),
@@ -222,13 +222,13 @@ function name_tokens($type, $tokens, array $data = array(), array $options = arr
         $replacements[$original] = $sanitize ? check_plain($default) : $default;
       }
       elseif (strpos($key, 'formatter-') === 0) {
-        list(,$machine_name) = explode('-', $key, 2);
+        list(, $machine_name) = explode('-', $key, 2);
         $format = name_get_format_by_machine_name($machine_name);
         $formated_name = name_format($name_components, $format);
         $replacements[$original] = $sanitize ? check_plain($formated_name) : $formated_name;
       }
       elseif (strpos($key, 'component-') === 0) {
-        list(,$component) = explode('-', $key, 2);
+        list(, $component) = explode('-', $key, 2);
         $replacements[$original] = $sanitize ? check_plain($name_components[$component]) : $name_components[$component];
       }
     }

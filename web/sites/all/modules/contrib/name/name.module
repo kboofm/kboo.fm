@@ -4,31 +4,31 @@
  * @file
  * Defines an API for displaying and inputing names.
  *
- * TODO: Make sure that all labels are based on the _name_translations()
+ * @todo Make sure that all labels are based on the _name_translations()
  * function and use a name:: prefix. This can be parsed out here to allow
  * string overrides to work and to integrate with i18n too.
  * t('!name_given', array('!name_given' => t('Given')))
  */
 
-// To be removed after fixing Feeds issue 1224836, 1139676
+// To be removed after fixing Feeds issue 1224836, 1139676.
 include_once 'name.feeds.inc';
 
 /**
  * This is the main function that formats a name from an array of components.
  *
  * @param array $name_components
- *        A keyed array of name components.
+ *   A keyed array of name components.
  *        These are: title, given, middle, family, generational and credentials.
  * @param string $format
- *        The string specifying what format to use.
+ *   The string specifying what format to use.
  * @param array $settings
- *        A keyed array of additional parameters to pass into the function.
+ *   A keyed array of additional parameters to pass into the function.
  *        Includes:
  *          'object' - An object or array.
  *            This entity is used for Token module subsitutions.
  *            Currently not used.
  *          'type' - A string.
- *            The entity identifier: node, user, etc
+ *            The entity identifier: node, user, etc.
  */
 function name_format($name_components, $format, $settings = array()) {
   module_load_include('inc', 'name', 'includes/name.parser');
@@ -76,7 +76,7 @@ function name_menu() {
     'file' => 'name.admin.inc',
   );
 
-  // Admin menu items
+  // Admin menu items.
   $items['admin/config/content/name'] = array(
     'title' => 'Name field',
     'page callback' => 'name_list_custom_formats',
@@ -198,14 +198,14 @@ function name_render_component($value, $component_key, $markup, $modifier = NULL
 }
 
 /**
-* Returns HTML for a marker for required name components.
-*
-* @param $variables
-*   An associative array containing:
-*   - element: An associative array containing the properties of the component.
-*
-* @ingroup themeable
-*/
+ * Returns HTML for a marker for required name components.
+ *
+ * @param $variables
+ *   An associative array containing:
+ *   - element: An associative array containing the properties of the component.
+ *
+ * @ingroup themeable
+ */
 function theme_name_component_required_marker($variables) {
   $base_element = $variables['base_element'];
   $components = $variables['components'];
@@ -214,9 +214,10 @@ function theme_name_component_required_marker($variables) {
   $title = empty($base_element['#title']) ? t('Name') : $base_element['#title'];
   if (!empty($base_element['#allow_family_or_given']) && ($component_key == 'given' || $component_key == 'family')) {
     $title_attribute = t('!given_title or !family_title is required when entering a !title.', array(
-        '!given_title' => empty($components['given']['title']) ? $name_translations['given'] : $components['given']['title'],
-        '!family_title' => empty($components['family']['title']) ? $name_translations['family'] : $components['family']['title'],
-        '!title' => $title));
+      '!given_title' => empty($components['given']['title']) ? $name_translations['given'] : $components['given']['title'],
+      '!family_title' => empty($components['family']['title']) ? $name_translations['family'] : $components['family']['title'],
+      '!title' => $title,
+    ));
   }
   else {
     $component_title = empty($components[$component_key]['title']) ? $name_translations[$component_key] : $components[$component_key]['title'];
@@ -400,9 +401,9 @@ function name_webform_component_info() {
       'description' => t('Defines a multi-value field for a persons name.'),
       'features' => array(
         'email_name' => TRUE,
-        // TODO: Maybe allow?
+        // @todo Maybe allow?
         'conditional' => FALSE,
-        // TODO: More likely to trigger false hits?
+        // @todo More likely to trigger false hits?
         'spam_analysis' => FALSE,
       ),
       'file' => 'includes/webform.components.inc',
@@ -425,7 +426,7 @@ function name_element_info() {
     'name_element' => array(
       '#input' => TRUE,
       '#process' => array('name_element_expand'),
-      '#pre_render' =>  array('name_element_pre_render'),
+      '#pre_render' => array('name_element_pre_render'),
       '#element_validate' => array('name_element_validate'),
       '#theme_wrappers' => array('form_element'),
       '#theme' => 'name_element',
@@ -445,10 +446,8 @@ function name_element_info() {
           'type' => $instance_settings['title_field'],
           'title' => $parts['title'],
           'title_display' => 'description',
-          'inline_css' => isset($instance_settings['inline_css']['title'])
-              ? $instance_settings['inline_css']['title'] : NULL,
-          'size' => isset($instance_settings['size']['title'])
-              ? $instance_settings['size']['title'] : NULL,
+          'inline_css' => isset($instance_settings['inline_css']['title']) ? $instance_settings['inline_css']['title'] : NULL,
+          'size' => isset($instance_settings['size']['title']) ? $instance_settings['size']['title'] : NULL,
           'maxlength' => $field_settings['max_length']['title'],
           'options' => $field_settings['title_options'],
           'autocomplete' => FALSE,
@@ -457,10 +456,8 @@ function name_element_info() {
           'type' => 'textfield',
           'title' => $parts['given'],
           'title_display' => 'description',
-          'inline_css' => isset($instance_settings['inline_css']['given'])
-              ? $instance_settings['inline_css']['given'] : NULL,
-          'size' => isset($instance_settings['size']['given'])
-              ? $instance_settings['size']['given'] : NULL,
+          'inline_css' => isset($instance_settings['inline_css']['given']) ? $instance_settings['inline_css']['given'] : NULL,
+          'size' => isset($instance_settings['size']['given']) ? $instance_settings['size']['given'] : NULL,
           'maxlength' => $field_settings['max_length']['given'],
           'autocomplete' => FALSE,
         ),
@@ -468,10 +465,8 @@ function name_element_info() {
           'type' => 'textfield',
           'title' => $parts['middle'],
           'title_display' => 'description',
-          'inline_css' => isset($instance_settings['inline_css']['middle'])
-              ? $instance_settings['inline_css']['middle'] : NULL,
-          'size' => isset($instance_settings['size']['middle'])
-              ? $instance_settings['size']['middle'] : NULL,
+          'inline_css' => isset($instance_settings['inline_css']['middle']) ? $instance_settings['inline_css']['middle'] : NULL,
+          'size' => isset($instance_settings['size']['middle']) ? $instance_settings['size']['middle'] : NULL,
           'maxlength' => $field_settings['max_length']['middle'],
           'autocomplete' => FALSE,
         ),
@@ -479,10 +474,8 @@ function name_element_info() {
           'type' => 'textfield',
           'title' => $parts['family'],
           'title_display' => 'description',
-          'inline_css' => isset($instance_settings['inline_css']['family'])
-              ? $instance_settings['inline_css']['family'] : NULL,
-          'size' => isset($instance_settings['size']['family'])
-              ? $instance_settings['size']['family'] : NULL,
+          'inline_css' => isset($instance_settings['inline_css']['family']) ? $instance_settings['inline_css']['family'] : NULL,
+          'size' => isset($instance_settings['size']['family']) ? $instance_settings['size']['family'] : NULL,
           'maxlength' => $field_settings['max_length']['family'],
           'autocomplete' => FALSE,
         ),
@@ -490,10 +483,8 @@ function name_element_info() {
           'type' => $instance_settings['generational_field'],
           'title' => $parts['generational'],
           'title_display' => 'description',
-          'inline_css' => isset($instance_settings['inline_css']['generational'])
-              ? $instance_settings['inline_css']['generational'] : NULL,
-          'size' => isset($instance_settings['size']['generational'])
-              ? $instance_settings['size']['generational'] : NULL,
+          'inline_css' => isset($instance_settings['inline_css']['generational']) ? $instance_settings['inline_css']['generational'] : NULL,
+          'size' => isset($instance_settings['size']['generational']) ? $instance_settings['size']['generational'] : NULL,
           'maxlength' => $field_settings['max_length']['generational'],
           'options' => $field_settings['generational_options'],
           'autocomplete' => FALSE,
@@ -502,10 +493,8 @@ function name_element_info() {
           'type' => 'textfield',
           'title' => $parts['credentials'],
           'title_display' => 'description',
-          'inline_css' => isset($instance_settings['inline_css']['credentials'])
-              ? $instance_settings['inline_css']['credentials'] : NULL,
-          'size' => isset($instance_settings['size']['credentials'])
-              ? $instance_settings['size']['credentials'] : NULL,
+          'inline_css' => isset($instance_settings['inline_css']['credentials']) ? $instance_settings['inline_css']['credentials'] : NULL,
+          'size' => isset($instance_settings['size']['credentials']) ? $instance_settings['size']['credentials'] : NULL,
           'maxlength' => $field_settings['max_length']['credentials'],
           'autocomplete' => FALSE,
         ),
@@ -538,10 +527,13 @@ function theme_name_item_list($variables) {
   }
   $settings = $variables['settings'];
   $settings += array(
-    'output' => 'default', // default, plain, or raw
+    // default, plain, or raw.
+    'output' => 'default',
     'multiple_delimiter' => ', ',
-    'multiple_and' => 'text', // and or symbol
-    'multiple_delimiter_precedes_last' => 'never', // contextual, always, never
+    // And or symbol.
+    'multiple_and' => 'text',
+    // contextual, always, never.
+    'multiple_delimiter_precedes_last' => 'never',
     'multiple_el_al_min' => 3,
     'multiple_el_al_first' => 1,
   );
@@ -551,7 +543,7 @@ function theme_name_item_list($variables) {
     $delimiter = check_plain($delimiter);
   }
   else {
-    $etal =t('et al', array(), array('context' => 'name'));
+    $etal = t('et al', array(), array('context' => 'name'));
     if ($settings['output'] == 'plain') {
       $delimiter = strip_tags($delimiter);
     }
@@ -673,6 +665,7 @@ function name_element_expand($element, &$form_state, $complete_form) {
  * @param bool $core
  *   Flag that indicates that the component is required as part of a valid
  *   name.
+ *
  * @return array
  *   The constructed component FAPI structure for a name element.
  */
@@ -722,9 +715,9 @@ function _name_render_component($components, $component_key, $base_element, $cor
 
   if ($core && !empty($base_element['#show_component_required_marker'])) {
     $element['#title'] .= theme('name_component_required_marker', array(
-        'components' => $components,
-        'component_key' => $component_key,
-        'base_element' => $base_element,
+      'components' => $components,
+      'component_key' => $component_key,
+      'base_element' => $base_element,
     ));
   }
 
@@ -737,7 +730,6 @@ function _name_render_component($components, $component_key, $base_element, $cor
     case 'placeholder':
       $element['#attributes']['placeholder'] = t($element['#title']);
       $element['#title_display'] = 'invisible';
-      break;
       break;
 
     case 'none':
@@ -895,7 +887,7 @@ function name_field_info() {
       'settings' => array(
         // Components used. At least given or family name is required.
         'components' => drupal_map_assoc($keys),
-        // Minimal set of components before considered incomplete
+        // Minimal set of components before considered incomplete.
         'minimum_components' => array(
           'given' => 'given',
           'family' => 'family',
@@ -956,7 +948,7 @@ function name_field_info() {
         // New settings to override the user name. Only applies to user entities.
         'override_format' => 'default',
         'preferred_field_reference' => '',
-        // Prevents the default break between the name components and credentials
+        // Prevents the default break between the name components and credentials.
         'credentials_inline' => 0,
         'component_css' => '',
         'component_layout' => 'default',
@@ -989,11 +981,12 @@ function name_field_settings_form_validate($form, &$form_state) {
 /**
  * Implements hook_field_validate().
  *
- * @TODO
+ * @todo
  * Look at reintroducing this at some stage. Currently, this is problematic as
  * Drupal appears to loss track of what fields are shown on the form and this
  * results in validation errors.
  */
+// @code
 //function name_field_validate($entity_type, $entity, $field, $instance, $langcode, $items, &$errors) {
 //  // Hack to test the default settings form.
 //  if (empty($entity) && empty($entity_type)) {
@@ -1014,6 +1007,7 @@ function name_field_settings_form_validate($form, &$form_state) {
 //    );
 //  }
 //}
+// @endcode
 
 /**
  * Implements hook_field_load().
@@ -1099,6 +1093,7 @@ function name_field_widget_info() {
  * @todo
  * Re-add this with name_field_validate().
  */
+// @code
 //function name_field_widget_error($element, $error, $form, &$form_state) {
 //  $error_element = NULL;
 //  switch ($error['error']) {
@@ -1111,6 +1106,7 @@ function name_field_widget_info() {
 //    form_error($error_element, $error['message']);
 //  }
 //}
+// @endcode
 
 /**
  * Implements hook_field_widget_form().
@@ -1127,7 +1123,6 @@ function name_field_instance_settings_form($field, $instance) {
   module_load_include('inc', 'name', 'includes/name.content');
   return _name_field_instance_settings_form($field, $instance);
 }
-
 
 /**
  * Name autocomplete data sources callback.
@@ -1167,10 +1162,10 @@ function name_field_get_options($field, $component = 'title', $arguments = array
  * @param string $string
  *   Current segment of the search string.
  *
- * @param array|NULL $field
+ * @param array|null $field
  *   If run in the context of the Field API, the field is supplied.
  *
- * @param integer $limit
+ * @param int $limit
  *
  * @param mixed $arguments
  *   Additional arguments defined in hook_name_data_sources().
@@ -1206,13 +1201,16 @@ function name_field_formatter_info() {
     'field types' => array('name'),
     'settings' => array(
       'markup' => 0,
-      'output' => 'default', // default, plain, or raw
+      // default, plain, or raw.
+      'output' => 'default',
       'format' => 'default',
       'multiple' => 'default',
       // These define how the multiple list option is configured.
       'multiple_delimiter' => ', ',
-      'multiple_and' => 'text', // text or symbol
-      'multiple_delimiter_precedes_last' => 'never', // contextual, always, never
+      // Text or symbol.
+      'multiple_and' => 'text',
+      // contextual, always, never.
+      'multiple_delimiter_precedes_last' => 'never',
       'multiple_el_al_min' => 3,
       'multiple_el_al_first' => 1,
     ),
@@ -1284,8 +1282,10 @@ function name_field_formatter_settings_form($field, $instance, $view_mode, $form
 
   $settings += array(
     'multiple_delimiter' => ', ',
-    'multiple_and' => 'text', // and or symbol
-    'multiple_delimiter_precedes_last' => 'never', // contextual, always, never
+    // And or symbol.
+    'multiple_and' => 'text',
+    // contextual, always, never.
+    'multiple_delimiter_precedes_last' => 'never',
     'multiple_el_al_min' => 3,
     'multiple_el_al_first' => 1,
   );
@@ -1366,7 +1366,7 @@ function name_field_formatter_settings_summary($field, $instance, $view_mode) {
     if ($info) {
       $summary[] = t('Format: %format (@machine_name)', array(
         '%format' => $info->name,
-        '@machine_name' => $info->machine_name
+        '@machine_name' => $info->machine_name,
       ));
     }
     else {
@@ -1387,12 +1387,12 @@ function name_field_formatter_settings_summary($field, $instance, $view_mode) {
       $formatted = '<em>&lt;&lt;empty&gt;&gt;</em>';
     }
     $summary[] = t('Example: !example', array(
-      '!example' =>$formatted
+      '!example' => $formatted,
     ));
   }
 
   $summary[] = t('Markup: @yesno', array(
-    '@yesno' => empty($settings['markup']) ? t('no') : t('yes')
+    '@yesno' => empty($settings['markup']) ? t('no') : t('yes'),
   ));
   $output_options = _name_formatter_output_options();
   $output = empty($settings['output']) ? 'default' : $settings['output'];
@@ -1422,11 +1422,11 @@ function name_field_formatter_view($entity_type, $entity, $field, $instance, $la
     $value = name_format($item, $format, array(
       'object' => $entity,
       'type' => $entity_type,
-      'markup' => !empty($display['settings']['markup']
-    )));
+      'markup' => !empty($display['settings']['markup']),
+    ));
     if (empty($display['settings']['markup'])) {
       $element[$delta] = array(
-        '#markup' => _name_value_sanitize($value, NULL, $type)
+        '#markup' => _name_value_sanitize($value, NULL, $type),
       );
     }
     else {
@@ -1483,7 +1483,7 @@ function name_field_parse_additional_components($entity_type, $entity, $instance
   $map = array(
     'preferred' => 'preferred_field_reference',
   );
-  list(,,$bundle) = entity_extract_ids($entity_type, $entity);
+  list(,, $bundle) = entity_extract_ids($entity_type, $entity);
   foreach ($map as $component => $key) {
     if (!empty($settings[$key])) {
       if ($settings[$key] == '_self') {
@@ -1537,7 +1537,7 @@ function name_field_parse_additional_components($entity_type, $entity, $instance
  *   Tells the function how to handle the text processing:
  *     'default' runs through check_plain()
  *     'plain' runs through strip_tags()
- *     'raw' has no processing applied to it
+ *     'raw' has no processing applied to it.
  */
 function _name_value_sanitize($item, $column = NULL, $type = 'default') {
   $safe_key = 'safe' . ($type == 'default' ? '' : '_' . $type);
@@ -1549,8 +1549,10 @@ function _name_value_sanitize($item, $column = NULL, $type = 'default') {
   switch ($type) {
     case 'plain':
       return strip_tags($value);
+
     case 'raw':
       return $value;
+
     default:
       return check_plain($value);
   }
@@ -1580,6 +1582,9 @@ function name_form_field_ui_field_edit_form_alter(&$form, &$form_state, $form_id
   }
 }
 
+/**
+ *
+ */
 function name_form_field_ui_field_settings_form_alter(&$form) {
   if ($form['field']['module']['#value'] != 'name') {
     return;
@@ -1670,7 +1675,8 @@ function name_field_update($entity_type, $entity, $field, $instance, $langcode, 
 
 /**
  * Helper function to normalise the word for sorting.
- * TODO: Better functions in PHP?
+ *
+ * @todo Better functions in PHP?
  *
  * All credit goes to the PathAuto module for this!
  */
@@ -1774,6 +1780,7 @@ function name_clean_name_component($name, $data_key = 'user_data', $letters = 'a
   }
   return FALSE;
 }
+
 /**
  * Implements hook_views_api().
  */
@@ -1783,7 +1790,8 @@ function name_views_api() {
 
 /**
  * Additional callback to adapt the property info of name fields.
- * @see entity_metadata_field_entity_property_info().
+ *
+ * @see entity_metadata_field_entity_property_info()
  */
 function name_field_property_info_callback(&$info, $entity_type, $field, $instance, $field_type) {
   $property = &$info[$entity_type]['bundles'][$instance['bundle']]['properties'][$field['field_name']];
