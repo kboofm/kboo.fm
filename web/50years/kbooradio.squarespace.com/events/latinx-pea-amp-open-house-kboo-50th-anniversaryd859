@@ -1,0 +1,12 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Squarespace Inc/Squarespace 6//v6//EN
+BEGIN:VEVENT
+UID:5bff883f4ae23717f2e9cb9c@squarespace.com
+DTSTAMP:20181129T070202Z
+DTSTART:20181201T030000Z
+DTEND:20181201T075900Z
+SUMMARY:Latinx Peña &amp\; Open House - KBOO 50th Anniversary! / Peña Latin
+ x y Celebración de Puertas Abiertas por el 50avo. Aniversario de KBOO
+END:VEVENT
+END:VCALENDAR

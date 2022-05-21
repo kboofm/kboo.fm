@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title>Error — Icecast Streaming Media Server</title>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  </head>
+  <body>
+    <h1 id="header">Icecast Error</h1>
+    <div id="menu">
+      <ul>
+        <li>
+          <a href="admin/">Administration</a>
+        </li>
+        <li>
+          <a href="status.xsl">Server Status</a>
+        </li>
+        <li>
+          <a href="server_version.xsl">Version</a>
+        </li>
+      </ul>
+    </div>
+    <div class="roundbox">
+      <div class="article">
+        <h3>Response</h3>
+        <h4>Message</h4>
+        <p>The file you requested could not be found</p>
+        <p>Error code: 18c32b43-0d8e-469d-b434-10133cdd06ad</p>
+      </div>
+    </div>
+    <div id="footer">
+			    	Support icecast development at <a href="http://www.icecast.org">www.icecast.org</a></div>
+  </body>
+</html>

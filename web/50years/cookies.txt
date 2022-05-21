@@ -1,0 +1,5 @@
+# HTTrack Website Copier Cookie File
+# This file format is compatible with Netscape cookies
+kbooradio.squarespace.com	TRUE	/	FALSE	1999999999	crumb	BfYsRQq+mlfmN2UwZDYyZmViODg0MTQwMWQ3ZjYwYTIzODU3MDk2
+www.50yearsofkboo.fm	TRUE	/	FALSE	1999999999	crumb	BUYewDprZEmhNjFmODhjZGQwMWM4YTNkZjA3MTViNTFiYzE1MGVh
+
